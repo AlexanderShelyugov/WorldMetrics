@@ -4,7 +4,9 @@ import android.opengl.GLES20
 import ru.alexander.worldmetrics.R
 import ru.alexander.worldmetrics.global.AssetsContainer.Companion.openRawResource
 import ru.alexander.worldmetrics.views.opengl.GLESHelper.Companion.BYTES_PER_VERTEX
-import ru.alexander.worldmetrics.views.opengl.GLESHelper.Companion.COORDS_PER_VERTEX
+import ru.alexander.worldmetrics.views.opengl.GLESHelper.Companion.COORDS_PER_VERTEX_2D
+import ru.alexander.worldmetrics.views.opengl.GLESHelper.Companion.VARIABLE_COLOR
+import ru.alexander.worldmetrics.views.opengl.GLESHelper.Companion.VARIABLE_POSITION
 import ru.alexander.worldmetrics.views.opengl.GLESHelper.Companion.coordsToByteBuffer
 import ru.alexander.worldmetrics.views.opengl.GLESHelper.Companion.createProgram
 import java.nio.FloatBuffer
@@ -12,10 +14,11 @@ import java.nio.FloatBuffer
 class Triangle {
 
     // number of coordinates per vertex in this array
-    private val triangleCoords = floatArrayOf(     // in counterclockwise order:
-        0.0f, 0.622008459f, 0.0f,      // top
-        -0.5f, -0.311004243f, 0.0f,    // bottom left
-        0.5f, -0.311004243f, 0.0f      // bottom right
+    private val triangleCoords = floatArrayOf(
+        // in counterclockwise order:
+        0.0f, 0.622008459f,      // top
+        -0.5f, -0.311004243f,    // bottom left
+        0.5f, -0.311004243f,      // bottom right
     )
 
     // Set color with red, green, blue and alpha (opacity) values
@@ -28,8 +31,8 @@ class Triangle {
     private var positionHandle: Int = 0
     private var mColorHandle: Int = 0
 
-    private val vertexCount: Int = triangleCoords.size / COORDS_PER_VERTEX
-    private val vertexStride: Int = COORDS_PER_VERTEX * BYTES_PER_VERTEX // 4 bytes per vertex
+    private val vertexCount: Int = triangleCoords.size / COORDS_PER_VERTEX_2D
+    private val vertexStride: Int = COORDS_PER_VERTEX_2D * BYTES_PER_VERTEX // 4 bytes per vertex
 
     init {
         mProgram = createProgram(
@@ -43,7 +46,7 @@ class Triangle {
         GLES20.glUseProgram(mProgram)
 
         // get handle to vertex shader's vPosition member
-        positionHandle = GLES20.glGetAttribLocation(mProgram, "vPosition").also {
+        positionHandle = GLES20.glGetAttribLocation(mProgram, VARIABLE_POSITION).also {
 
             // Enable a handle to the triangle vertices
             GLES20.glEnableVertexAttribArray(it)
@@ -51,7 +54,7 @@ class Triangle {
             // Prepare the triangle coordinate data
             GLES20.glVertexAttribPointer(
                 it,
-                COORDS_PER_VERTEX,
+                COORDS_PER_VERTEX_2D,
                 GLES20.GL_FLOAT,
                 false,
                 vertexStride,
@@ -59,7 +62,7 @@ class Triangle {
             )
 
             // get handle to fragment shader's vColor member
-            mColorHandle = GLES20.glGetUniformLocation(mProgram, "vColor").also { colorHandle ->
+            mColorHandle = GLES20.glGetUniformLocation(mProgram, VARIABLE_COLOR).also { colorHandle ->
 
                 // Set color for drawing the triangle
                 GLES20.glUniform4fv(colorHandle, 1, color, 0)

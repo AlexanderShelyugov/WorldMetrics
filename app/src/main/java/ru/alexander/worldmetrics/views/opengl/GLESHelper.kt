@@ -9,7 +9,11 @@ import java.nio.FloatBuffer
 class GLESHelper {
     companion object {
         const val BYTES_PER_VERTEX = 4
-        const val COORDS_PER_VERTEX = 3
+        const val COORDS_PER_VERTEX_2D = 2
+
+
+        const val VARIABLE_POSITION = "vPosition"
+        const val VARIABLE_COLOR = "vColor"
 
         fun loadShader(type: Int, shaderCode: String): Int {
             // create a vertex shader type (GLES20.GL_VERTEX_SHADER)

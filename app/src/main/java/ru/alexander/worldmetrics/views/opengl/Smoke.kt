@@ -4,17 +4,17 @@ import android.opengl.GLES20
 import ru.alexander.worldmetrics.R
 import ru.alexander.worldmetrics.global.AssetsContainer.Companion.openRawResource
 import ru.alexander.worldmetrics.views.opengl.GLESHelper.Companion.BYTES_PER_VERTEX
+import ru.alexander.worldmetrics.views.opengl.GLESHelper.Companion.COORDS_PER_VERTEX_2D
+import ru.alexander.worldmetrics.views.opengl.GLESHelper.Companion.VARIABLE_POSITION
 import ru.alexander.worldmetrics.views.opengl.GLESHelper.Companion.coordsToByteBuffer
+import ru.alexander.worldmetrics.views.opengl.ShaderToyHelper.Companion.VARIABLE_RESOLUTION
+import ru.alexander.worldmetrics.views.opengl.ShaderToyHelper.Companion.VARIABLE_TIME
+import ru.alexander.worldmetrics.views.opengl.ShaderToyHelper.Companion.createOpenGLESProgram
 import java.util.*
 import java.util.concurrent.TimeUnit.MILLISECONDS
 
 class Smoke {
     private companion object {
-        const val TIME_VARIABLE = "iTime"
-        const val RESOLUTION_VARIABLE = "iResolution"
-        const val POSITION_VARIABLE = "vPosition"
-
-        const val COORDS_PER_VERTEX = 2
 
         val POSITION = floatArrayOf(
             -1.0f, -1.0f,
@@ -25,17 +25,12 @@ class Smoke {
 
         val POSITION_BUFFER = coordsToByteBuffer(POSITION, BYTES_PER_VERTEX)
 
-        val VERTEX_COUNT: Int = POSITION.size / COORDS_PER_VERTEX
-        val VERTEX_STRIDE: Int = COORDS_PER_VERTEX * BYTES_PER_VERTEX
-
-        val OPTIMIZATION_METHOD: Int = GLES20.GL_STATIC_DRAW
+        val VERTEX_COUNT: Int = POSITION.size / COORDS_PER_VERTEX_2D
+        const val VERTEX_STRIDE: Int = COORDS_PER_VERTEX_2D * BYTES_PER_VERTEX
+        const val OPTIMIZATION_METHOD: Int = GLES20.GL_STATIC_DRAW
     }
 
-
-    private val mProgram: Int = GLESHelper.createProgram(
-        openRawResource(R.raw.simple_vertex_shader),
-        openRawResource(R.raw.smoke_with_lights)
-    )
+    private val mProgram: Int = createOpenGLESProgram(openRawResource(R.raw.smoke_with_lights))
 
     //    private var positionBuffer:
     private var beginTime: Date? = null
@@ -53,34 +48,34 @@ class Smoke {
         val diff = Date().time - beginTime!!.time
         val playbackTime: Float = MILLISECONDS.toSeconds(diff).toFloat()
 
-        GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, buffer[0]);
+        GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, buffer[0])
         GLES20.glBufferData(
             GLES20.GL_ARRAY_BUFFER,
             POSITION_BUFFER.capacity() * BYTES_PER_VERTEX,
             POSITION_BUFFER,
             OPTIMIZATION_METHOD
-        );
+        )
 
         // Add program to OpenGL ES environment
         GLES20.glUseProgram(mProgram)
-        GLES20.glGetAttribLocation(mProgram, POSITION_VARIABLE).also {
+        GLES20.glGetAttribLocation(mProgram, VARIABLE_POSITION).also {
             // Enable a handle to the triangle vertices
             GLES20.glEnableVertexAttribArray(it)
 
             GLES20.glVertexAttribPointer(
                 it,
-                COORDS_PER_VERTEX,
+                COORDS_PER_VERTEX_2D,
                 GLES20.GL_FLOAT,
                 false,
                 VERTEX_STRIDE,
                 0
             )
 
-            GLES20.glGetUniformLocation(mProgram, TIME_VARIABLE).also { handle ->
+            GLES20.glGetUniformLocation(mProgram, VARIABLE_TIME).also { handle ->
                 GLES20.glUniform1f(handle, playbackTime)
             }
 
-            GLES20.glGetUniformLocation(mProgram, RESOLUTION_VARIABLE).also { handle ->
+            GLES20.glGetUniformLocation(mProgram, VARIABLE_RESOLUTION).also { handle ->
                 GLES20.glUniform3f(handle, width.toFloat(), height.toFloat(), 0f)
             }
 

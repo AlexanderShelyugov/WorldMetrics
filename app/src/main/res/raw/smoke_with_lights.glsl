@@ -1,7 +1,3 @@
-precision highp float;
-uniform vec3      iResolution;// viewport resolution (in pixels)
-uniform float     iTime;// shader playback time (in seconds)
-
 vec3 mod289(vec3 x) {
     return x - floor(x * (1.0 / 289.0)) * 289.0;
 }
@@ -124,6 +120,7 @@ float clouds(vec2 uv) {
 
 void mainImage(out vec4 fragColor, in vec2 fragCoord)
 {
+
     vec2 uv =  fragCoord.xy/iResolution.x;
 
     vec2 center = vec2(0.5, 0.5*(iResolution.y/iResolution.x));
@@ -152,8 +149,4 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord)
     vec3(cloudIntensity2*clouds(uv))*lightColor2 + lighIntensity2*lightColor2 +
     vec3(cloudIntensity3*clouds(uv))*lightColor3 + lighIntensity3*lightColor3
     , 1.0);
-}
-
-void main() {
-    mainImage(gl_FragColor, gl_FragCoord.xy);
 }
