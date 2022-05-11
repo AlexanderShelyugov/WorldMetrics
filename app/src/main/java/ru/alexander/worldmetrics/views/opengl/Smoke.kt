@@ -30,7 +30,7 @@ class Smoke {
         const val OPTIMIZATION_METHOD: Int = GLES20.GL_STATIC_DRAW
     }
 
-    private val mProgram: Int = createOpenGLESProgram(openRawResource(R.raw.smoke_with_lights))
+    private val mProgram: Int = createOpenGLESProgram(openRawResource(R.raw.awesome_smoke))
 
     //    private var positionBuffer:
     private var beginTime: Date? = null
