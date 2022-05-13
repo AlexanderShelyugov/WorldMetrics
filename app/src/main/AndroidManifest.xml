@@ -12,7 +12,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.WorldMetrics">
+        android:theme="@style/Theme.WorldMetrics"
+        >
         <activity
             android:name=".activity.MainActivity"
             android:exported="true">

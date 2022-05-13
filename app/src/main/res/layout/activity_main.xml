@@ -27,6 +27,12 @@
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             tools:text="Some\nDebug\nInformation" />
+        <TextView
+            android:id="@+id/tv_redraw_count"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            tools:text="Redraw count: 0" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

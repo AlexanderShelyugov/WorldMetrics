@@ -3,6 +3,7 @@ package ru.alexander.worldmetrics.views.opengl
 import android.opengl.GLES20
 import ru.alexander.worldmetrics.R
 import ru.alexander.worldmetrics.global.AssetsContainer.Companion.openRawResource
+import ru.alexander.worldmetrics.model.PlaybackTimer
 import ru.alexander.worldmetrics.views.opengl.GLESHelper.Companion.BYTES_PER_VERTEX
 import ru.alexander.worldmetrics.views.opengl.GLESHelper.Companion.COORDS_PER_VERTEX_2D
 import ru.alexander.worldmetrics.views.opengl.GLESHelper.Companion.VARIABLE_POSITION
@@ -10,12 +11,9 @@ import ru.alexander.worldmetrics.views.opengl.GLESHelper.Companion.coordsToByteB
 import ru.alexander.worldmetrics.views.opengl.ShaderToyHelper.Companion.VARIABLE_RESOLUTION
 import ru.alexander.worldmetrics.views.opengl.ShaderToyHelper.Companion.VARIABLE_TIME
 import ru.alexander.worldmetrics.views.opengl.ShaderToyHelper.Companion.createOpenGLESProgram
-import java.util.*
-import java.util.concurrent.TimeUnit.MILLISECONDS
 
 class Smoke {
     private companion object {
-
         val POSITION = floatArrayOf(
             -1.0f, -1.0f,
             1.0f, -1.0f,
@@ -24,30 +22,17 @@ class Smoke {
         )
 
         val POSITION_BUFFER = coordsToByteBuffer(POSITION, BYTES_PER_VERTEX)
-
-        val VERTEX_COUNT: Int = POSITION.size / COORDS_PER_VERTEX_2D
-        const val VERTEX_STRIDE: Int = COORDS_PER_VERTEX_2D * BYTES_PER_VERTEX
-        const val OPTIMIZATION_METHOD: Int = GLES20.GL_STATIC_DRAW
+        val VERTEX_COUNT = POSITION.size / COORDS_PER_VERTEX_2D
+        const val VERTEX_STRIDE = COORDS_PER_VERTEX_2D * BYTES_PER_VERTEX
+        const val OPTIMIZATION_METHOD = GLES20.GL_STATIC_DRAW
     }
 
     private val mProgram: Int = createOpenGLESProgram(openRawResource(R.raw.awesome_smoke))
-
-    //    private var positionBuffer:
-    private var beginTime: Date? = null
     private val buffer = IntArray(1)
+    private val playbackTimer = PlaybackTimer()
 
     init {
         GLES20.glGenBuffers(1, buffer, 0)
-    }
-
-    fun draw(width: Int, height: Int) {
-        if (beginTime == null) {
-            beginTime = Date()
-        }
-
-        val diff = Date().time - beginTime!!.time
-        val playbackTime: Float = MILLISECONDS.toSeconds(diff).toFloat()
-
         GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, buffer[0])
         GLES20.glBufferData(
             GLES20.GL_ARRAY_BUFFER,
@@ -55,6 +40,10 @@ class Smoke {
             POSITION_BUFFER,
             OPTIMIZATION_METHOD
         )
+    }
+
+    fun draw(width: Int, height: Int) {
+        val playbackTime = playbackTimer.check()
 
         // Add program to OpenGL ES environment
         GLES20.glUseProgram(mProgram)
@@ -83,5 +72,6 @@ class Smoke {
 
             GLES20.glDisableVertexAttribArray(it)
         }
+        RedrawCountHelper.triggerRedraw()
     }
 }
