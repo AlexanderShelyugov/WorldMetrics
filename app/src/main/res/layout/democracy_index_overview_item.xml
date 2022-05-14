@@ -2,23 +2,26 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="50dp"
+    android:background="@drawable/neon_border"
+    android:gravity="center"
     android:orientation="horizontal"
-    >
+    android:padding="5dp">
+
     <TextView
         android:id="@+id/tv_di_country_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        tools:text="Some country"
-        android:textColor="@android:color/white"
-        />
+        android:textColor="@color/orange"
+        android:textSize="20sp"
+        tools:text="Some country" />
 
     <TextView
         android:id="@+id/tv_di_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="Value"
-        android:textColor="@android:color/white"
-        />
+        android:textColor="@color/orange"
+        android:textSize="20sp"
+        tools:text="Value" />
 </LinearLayout>

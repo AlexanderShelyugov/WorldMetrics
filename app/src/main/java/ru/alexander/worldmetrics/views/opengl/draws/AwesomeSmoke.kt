@@ -1,4 +1,4 @@
-package ru.alexander.worldmetrics.views.opengl
+package ru.alexander.worldmetrics.views.opengl.draws
 
 import android.opengl.GLES20
 import ru.alexander.worldmetrics.R
@@ -8,11 +8,12 @@ import ru.alexander.worldmetrics.views.opengl.GLESHelper.Companion.BYTES_PER_VER
 import ru.alexander.worldmetrics.views.opengl.GLESHelper.Companion.COORDS_PER_VERTEX_2D
 import ru.alexander.worldmetrics.views.opengl.GLESHelper.Companion.VARIABLE_POSITION
 import ru.alexander.worldmetrics.views.opengl.GLESHelper.Companion.coordsToByteBuffer
+import ru.alexander.worldmetrics.views.opengl.RedrawCountHelper
 import ru.alexander.worldmetrics.views.opengl.ShaderToyHelper.Companion.VARIABLE_RESOLUTION
 import ru.alexander.worldmetrics.views.opengl.ShaderToyHelper.Companion.VARIABLE_TIME
 import ru.alexander.worldmetrics.views.opengl.ShaderToyHelper.Companion.createOpenGLESProgram
 
-class Smoke {
+class AwesomeSmoke {
     private companion object {
         val POSITION = floatArrayOf(
             -1.0f, -1.0f,

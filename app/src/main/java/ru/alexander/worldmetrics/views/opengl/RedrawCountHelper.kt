@@ -26,7 +26,7 @@ class RedrawCountHelper {
             }
 
             prevDrawTime = Date()
-
+            /*
             Handler(Looper.getMainLooper()).post {
                 var textView: TextView = activity?.findViewById(R.id.tv_debug_information)!!
                 textView?.text = "RAM size: ${getRamSize()}\n" +
@@ -38,6 +38,7 @@ class RedrawCountHelper {
                 textView?.text = "Redraw count: $redrawCount\n" +
                         "Redraw took: $duration ms"
             }
+             */
         }
 
         private fun getRamSize(): Long {
