@@ -11,21 +11,22 @@ import ru.alexander.worldmetrics.navigation.NavigationHelper.Companion.bindNavig
 
 class AllIndexesOverviewFragment : Fragment(R.layout.all_indexes) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val view = requireView()
-        bindNavigation(
-            view,
-            R.id.btn_goto_democracy_index,
-            actionAllIndexesOverviewFragmentToDemocracyIndexOverviewFragment()
-        )
-        bindNavigation(
-            view,
-            R.id.btn_goto_corruption_perceptions,
-            actionAllIndexesOverviewFragmentToCorruptionPerceptionsOverviewFragment()
-        )
-        bindNavigation(
-            view,
-            R.id.btn_goto_press_freedom,
-            actionAllIndexesOverviewFragmentToPressFreedomOverviewFragment()
-        )
+        requireView().let {
+            bindNavigation(
+                it,
+                R.id.btn_goto_democracy_index,
+                actionAllIndexesOverviewFragmentToDemocracyIndexOverviewFragment()
+            )
+            bindNavigation(
+                it,
+                R.id.btn_goto_corruption_perceptions,
+                actionAllIndexesOverviewFragmentToCorruptionPerceptionsOverviewFragment()
+            )
+            bindNavigation(
+                it,
+                R.id.btn_goto_press_freedom,
+                actionAllIndexesOverviewFragmentToPressFreedomOverviewFragment()
+            )
+        }
     }
 }
