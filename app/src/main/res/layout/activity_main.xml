@@ -6,12 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".activity.MainActivity">
 
-    <ru.alexander.worldmetrics.views.OpenGLView
-        android:id="@+id/smokeView"
+    <ru.alexander.worldmetrics.opengl.shadertoy.view.OpenGLView
+        android:id="@+id/opengl_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:shader="@raw/awesome_smoke" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fcv_nav_host_container"

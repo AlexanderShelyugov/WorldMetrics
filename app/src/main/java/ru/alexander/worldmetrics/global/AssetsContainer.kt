@@ -1,37 +1,17 @@
 package ru.alexander.worldmetrics.global
 
-import android.annotation.SuppressLint
-import android.content.Context
-import ru.alexander.worldmetrics.App.Companion.getContext
+import ru.alexander.worldmetrics.global.ContextAccess.Companion.context
 import java.io.InputStream
 
-class AssetsContainer constructor(private val ctx: Context) {
-    fun openAsset(filePath: String): InputStream {
-        return ctx.assets.open(filePath)
-    }
-
-    fun openRawResource(id: Int): String {
-        val input = ctx.resources.openRawResource(id)
-        return inputStreamToString(input)
-    }
-
+class AssetsContainer private constructor() {
     companion object {
-        @SuppressLint("StaticFieldLeak")
-        private var instance: AssetsContainer? = null
-
-        fun getInstance(): AssetsContainer {
-            if (instance == null) {
-                instance = AssetsContainer(getContext())
-            }
-            return instance!!
-        }
-
         fun openAsset(filePath: String): InputStream {
-            return getInstance().openAsset(filePath)
+            return context.assets.open(filePath)
         }
 
         fun openRawResource(id: Int): String {
-            return getInstance().openRawResource(id)
+            val input = context.resources.openRawResource(id)
+            return inputStreamToString(input)
         }
 
         private fun inputStreamToString(input: InputStream): String {

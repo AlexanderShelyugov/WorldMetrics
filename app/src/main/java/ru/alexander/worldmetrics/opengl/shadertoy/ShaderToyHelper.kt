@@ -1,10 +1,12 @@
-package ru.alexander.worldmetrics.views.opengl
+package ru.alexander.worldmetrics.opengl.shadertoy
 
 import ru.alexander.worldmetrics.R
 import ru.alexander.worldmetrics.global.AssetsContainer.Companion.openRawResource
-import ru.alexander.worldmetrics.views.opengl.GLESHelper.Companion.createProgram
+import ru.alexander.worldmetrics.opengl.GLESHelper.Companion.createProgram
+import ru.alexander.worldmetrics.opengl.shadertoy.renderer.ShaderToyRenderer
+import ru.alexander.worldmetrics.opengl.shadertoy.view.OpenGLView
 
-class ShaderToyHelper {
+class ShaderToyHelper private constructor() {
     companion object {
         const val VARIABLE_TIME = "iTime"
         const val VARIABLE_RESOLUTION = "iResolution"
@@ -25,6 +27,11 @@ class ShaderToyHelper {
                 "void main() {\n" +
                 "    mainImage(gl_FragColor, gl_FragCoord.xy);\n" +
                 "}"
+
+        fun bindToShader(view: OpenGLView, shaderId: Int) {
+            val renderer = ShaderToyRenderer(shaderId)
+            view.setRenderer(renderer)
+        }
 
         fun createOpenGLESProgram(shaderToy: String): Int {
             return createProgram(

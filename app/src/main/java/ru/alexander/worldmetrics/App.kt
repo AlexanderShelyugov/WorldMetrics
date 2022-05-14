@@ -1,22 +1,28 @@
 package ru.alexander.worldmetrics
 
-import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
+import ru.alexander.worldmetrics.global.ContextAccess
+import java.lang.ref.WeakReference
 
 class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        ctx = this
+        ctx = WeakReference(this)
+        ContextAccess.contextSupplier = App.Companion::getContext
+    }
+
+    override fun onTerminate() {
+        super.onTerminate()
+        ctx.clear()
     }
 
     companion object {
-        @SuppressLint("StaticFieldLeak")
-        private var ctx: Context? = null
+        private var ctx: WeakReference<Context> = WeakReference(null)
 
         fun getContext(): Context {
-            return ctx!!
+            return ctx.get()!!
         }
     }
 }

@@ -1,19 +1,18 @@
-package ru.alexander.worldmetrics.views.opengl.draws
+package ru.alexander.worldmetrics.opengl.shadertoy.draws
 
 import android.opengl.GLES20
-import ru.alexander.worldmetrics.R
 import ru.alexander.worldmetrics.global.AssetsContainer.Companion.openRawResource
 import ru.alexander.worldmetrics.model.PlaybackTimer
-import ru.alexander.worldmetrics.views.opengl.GLESHelper.Companion.BYTES_PER_VERTEX
-import ru.alexander.worldmetrics.views.opengl.GLESHelper.Companion.COORDS_PER_VERTEX_2D
-import ru.alexander.worldmetrics.views.opengl.GLESHelper.Companion.VARIABLE_POSITION
-import ru.alexander.worldmetrics.views.opengl.GLESHelper.Companion.coordsToByteBuffer
-import ru.alexander.worldmetrics.views.opengl.RedrawCountHelper
-import ru.alexander.worldmetrics.views.opengl.ShaderToyHelper.Companion.VARIABLE_RESOLUTION
-import ru.alexander.worldmetrics.views.opengl.ShaderToyHelper.Companion.VARIABLE_TIME
-import ru.alexander.worldmetrics.views.opengl.ShaderToyHelper.Companion.createOpenGLESProgram
+import ru.alexander.worldmetrics.opengl.GLESHelper.Companion.BYTES_PER_VERTEX
+import ru.alexander.worldmetrics.opengl.GLESHelper.Companion.COORDS_PER_VERTEX_2D
+import ru.alexander.worldmetrics.opengl.GLESHelper.Companion.VARIABLE_POSITION
+import ru.alexander.worldmetrics.opengl.GLESHelper.Companion.coordsToByteBuffer
+import ru.alexander.worldmetrics.opengl.RedrawCountHelper
+import ru.alexander.worldmetrics.opengl.shadertoy.ShaderToyHelper.Companion.VARIABLE_RESOLUTION
+import ru.alexander.worldmetrics.opengl.shadertoy.ShaderToyHelper.Companion.VARIABLE_TIME
+import ru.alexander.worldmetrics.opengl.shadertoy.ShaderToyHelper.Companion.createOpenGLESProgram
 
-class AwesomeSmoke {
+class ShaderToyDraw(shaderId: Int) {
     private companion object {
         val POSITION = floatArrayOf(
             -1.0f, -1.0f,
@@ -28,7 +27,7 @@ class AwesomeSmoke {
         const val OPTIMIZATION_METHOD = GLES20.GL_STATIC_DRAW
     }
 
-    private val mProgram: Int = createOpenGLESProgram(openRawResource(R.raw.awesome_smoke))
+    private val mProgram: Int = createOpenGLESProgram(openRawResource(shaderId))
     private val buffer = IntArray(1)
     private val playbackTimer = PlaybackTimer()
 

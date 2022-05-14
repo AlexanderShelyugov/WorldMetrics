@@ -1,19 +1,19 @@
-package ru.alexander.worldmetrics.views.renderers
+package ru.alexander.worldmetrics.opengl.shadertoy.renderer
 
 import android.opengl.GLES20
 import android.opengl.GLSurfaceView
-import ru.alexander.worldmetrics.views.opengl.draws.AwesomeSmoke
+import ru.alexander.worldmetrics.opengl.shadertoy.draws.ShaderToyDraw
 import javax.microedition.khronos.egl.EGLConfig
 import javax.microedition.khronos.opengles.GL10
 
-class SmokeRenderer : GLSurfaceView.Renderer {
-    private lateinit var mAwesomeSmoke: AwesomeSmoke
+class ShaderToyRenderer(private val shaderId: Int) : GLSurfaceView.Renderer {
+    private lateinit var draw: ShaderToyDraw
     private var width: Int = 0
     private var height: Int = 0
 
     override fun onSurfaceCreated(unused: GL10, config: EGLConfig) {
         GLES20.glClearColor(0.0f, 0.0f, 0.5f, 1.0f)
-        mAwesomeSmoke = AwesomeSmoke()
+        draw = ShaderToyDraw(shaderId)
         GLES20.glEnable(GLES20.GL_CULL_FACE)
         GLES20.glCullFace(GLES20.GL_BACK)
     }
@@ -26,6 +26,6 @@ class SmokeRenderer : GLSurfaceView.Renderer {
 
     override fun onDrawFrame(unused: GL10) {
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT)
-        mAwesomeSmoke.draw(width, height)
+        draw.draw(width, height)
     }
 }

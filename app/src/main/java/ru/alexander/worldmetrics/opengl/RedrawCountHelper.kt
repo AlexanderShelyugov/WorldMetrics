@@ -1,16 +1,11 @@
-package ru.alexander.worldmetrics.views.opengl
+package ru.alexander.worldmetrics.opengl
 
 import android.app.Activity
 import android.app.ActivityManager
 import android.content.Context
-import android.os.Handler
-import android.os.Looper
-import android.widget.TextView
-import androidx.core.content.ContextCompat.getSystemService
-import ru.alexander.worldmetrics.R
 import java.util.*
 
-class RedrawCountHelper {
+class RedrawCountHelper private constructor() {
     companion object {
         var activity: Activity? = null
         private var redrawCount: Int = 0

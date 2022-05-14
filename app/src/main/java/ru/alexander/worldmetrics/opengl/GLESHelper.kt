@@ -1,4 +1,4 @@
-package ru.alexander.worldmetrics.views.opengl
+package ru.alexander.worldmetrics.opengl
 
 import android.opengl.GLES20
 import android.util.Log
@@ -6,7 +6,7 @@ import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import java.nio.FloatBuffer
 
-class GLESHelper {
+class GLESHelper private constructor() {
     companion object {
         const val BYTES_PER_VERTEX = 4
         const val COORDS_PER_VERTEX_2D = 2

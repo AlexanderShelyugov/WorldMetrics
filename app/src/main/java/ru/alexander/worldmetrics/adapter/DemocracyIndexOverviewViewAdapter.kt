@@ -1,4 +1,4 @@
-package ru.alexander.worldmetrics.adapters
+package ru.alexander.worldmetrics.adapter
 
 import android.view.LayoutInflater
 import android.view.View
