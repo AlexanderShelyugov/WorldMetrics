@@ -1,15 +1,17 @@
 package ru.alexander.worldmetrics.opengl
 
-import android.app.Activity
 import android.app.ActivityManager
 import android.content.Context
+import ru.alexander.worldmetrics.global.ContextAccess.Companion.context
+import java.lang.Runtime.getRuntime
 import java.util.*
 
 class RedrawCountHelper private constructor() {
     companion object {
-        var activity: Activity? = null
         private var redrawCount: Int = 0
         private var prevDrawTime: Date? = null
+
+        private val activityManager get() = context.getSystemService(Context.ACTIVITY_SERVICE)!! as ActivityManager
 
         fun triggerRedraw() {
             redrawCount++
@@ -37,26 +39,22 @@ class RedrawCountHelper private constructor() {
         }
 
         private fun getRamSize(): Long {
-            val actManager: ActivityManager =
-                activity?.getSystemService(Context.ACTIVITY_SERVICE)!! as ActivityManager
             val memInfo = ActivityManager.MemoryInfo()
-            actManager.getMemoryInfo(memInfo)
+            activityManager.getMemoryInfo(memInfo)
             return memInfo.totalMem
         }
 
         private fun getHeapSize(): Long {
-            val runtime = Runtime.getRuntime()
+            val runtime = getRuntime()
             return runtime.maxMemory()
         }
 
         private fun getUsedHeapSize(): Long {
-            return getHeapSize() - Runtime.getRuntime().freeMemory()
+            return getHeapSize() - getRuntime().freeMemory()
         }
 
         private fun getOpenGLVersion(): String {
-            val actManager: ActivityManager =
-                activity?.getSystemService(Context.ACTIVITY_SERVICE)!! as ActivityManager
-            val configurationInfo = actManager.deviceConfigurationInfo
+            val configurationInfo = activityManager.deviceConfigurationInfo
             return configurationInfo.glEsVersion
         }
 
