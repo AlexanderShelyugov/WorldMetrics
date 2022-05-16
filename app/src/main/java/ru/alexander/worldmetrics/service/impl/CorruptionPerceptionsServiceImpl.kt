@@ -12,7 +12,7 @@ class CorruptionPerceptionsServiceImpl @Inject constructor(
     private companion object {
         const val MAX_YEAR = 2015
         const val COLUMN_COUNTRY_NAME = 0
-        const val COLUMN_INDEX_VALUE = 17
+        const val COLUMN_INDEX_VALUE = 18
     }
 
     lateinit var filePath: String
