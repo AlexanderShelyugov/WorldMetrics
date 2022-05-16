@@ -1,4 +1,4 @@
-package ru.alexander.worldmetrics.viewmodel
+package ru.alexander.worldmetrics.viewmodel.democracy_index
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

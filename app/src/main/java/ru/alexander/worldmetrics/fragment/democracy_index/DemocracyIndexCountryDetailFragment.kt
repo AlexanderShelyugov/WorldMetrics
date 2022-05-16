@@ -7,7 +7,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import ru.alexander.worldmetrics.R
 import ru.alexander.worldmetrics.fragment.InjectableFragment
-import ru.alexander.worldmetrics.viewmodel.DemocracyIndexCountryDetailViewModel
+import ru.alexander.worldmetrics.viewmodel.democracy_index.DemocracyIndexCountryDetailViewModel
 
 class DemocracyIndexCountryDetailFragment :
     InjectableFragment(R.layout.democracy_index_country_detail) {
