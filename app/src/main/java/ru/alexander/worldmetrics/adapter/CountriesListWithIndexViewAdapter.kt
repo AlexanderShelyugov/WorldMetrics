@@ -4,14 +4,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil.calculateDiff
 import androidx.recyclerview.widget.RecyclerView
 import ru.alexander.worldmetrics.R
 import ru.alexander.worldmetrics.model.KeyValueList
 import ru.alexander.worldmetrics.model.KeyValueListDiffCallback
 
-class DemocracyIndexOverviewViewAdapter() :
-    RecyclerView.Adapter<DemocracyIndexOverviewViewAdapter.ViewHolder>() {
+class CountriesListWithIndexViewAdapter(private val onClick: (String) -> Unit) :
+    RecyclerView.Adapter<CountriesListWithIndexViewAdapter.ViewHolder>() {
     private var data: KeyValueList<String> = KeyValueList()
 
     fun setData(newData: KeyValueList<String>) {
@@ -51,10 +52,13 @@ class DemocracyIndexOverviewViewAdapter() :
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
         viewHolder.run {
-            countryName.text = data.keys[position]
+            val country = data.keys[position]
+            countryName.text = country
             value.text = data[position]
+            this.itemView.setOnClickListener {
+                onClick.invoke(country)
+            }
         }
-
     }
 
     // Return the size of your dataset (invoked by the layout manager)

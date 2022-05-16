@@ -1,4 +1,4 @@
-package ru.alexander.worldmetrics.viewmodels
+package ru.alexander.worldmetrics.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
