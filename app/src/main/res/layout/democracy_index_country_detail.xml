@@ -12,85 +12,71 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Country name"
-            android:textColor="@color/white" />
+            android:text="Country name" />
 
         <TextView
             android:id="@+id/tv_di_cn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white" />
+            android:layout_height="wrap_content" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Democracy index"
-            android:textColor="@color/white" />
+            android:text="Democracy index" />
 
         <TextView
             android:id="@+id/tv_di_di"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white" />
+            android:layout_height="wrap_content" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Electoral process and pluralism"
-            android:textColor="@color/white" />
+            android:text="Electoral process and pluralism" />
 
         <TextView
             android:id="@+id/tv_di_epap"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white" />
+            android:layout_height="wrap_content" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Functioning of government"
-            android:textColor="@color/white" />
+            android:text="Functioning of government" />
 
         <TextView
             android:id="@+id/tv_di_fog"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white" />
+            android:layout_height="wrap_content" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Political participation"
-            android:textColor="@color/white" />
+            android:text="Political participation" />
 
         <TextView
             android:id="@+id/tv_di_pp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white" />
+            android:layout_height="wrap_content" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Political culture"
-            android:textColor="@color/white" />
+            android:text="Political culture" />
 
         <TextView
             android:id="@+id/tv_di_pc"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white" />
+            android:layout_height="wrap_content" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Civil liberties"
-            android:textColor="@color/white" />
+            android:text="Civil liberties" />
 
         <TextView
             android:id="@+id/tv_di_cl"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white" />
+            android:layout_height="wrap_content" />
     </LinearLayout>
 </ScrollView>
