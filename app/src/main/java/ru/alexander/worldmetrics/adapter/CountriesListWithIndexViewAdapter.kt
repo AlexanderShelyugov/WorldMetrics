@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil.calculateDiff
 import androidx.recyclerview.widget.RecyclerView
 import ru.alexander.worldmetrics.R
@@ -30,20 +29,15 @@ class CountriesListWithIndexViewAdapter(private val onClick: (String) -> Unit) :
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val countryName: TextView
-        val value: TextView
-
-        init {
-            countryName = view.findViewById(R.id.tv_di_country_name)
-            value = view.findViewById(R.id.tv_di_value)
-        }
+        val countryName: TextView = view.findViewById(R.id.tv_country_name)
+        val value: TextView = view.findViewById(R.id.tv_value)
     }
 
     // Create new views (invoked by the layout manager)
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         // Create a new view, which defines the UI of the list item
         val view = LayoutInflater.from(viewGroup.context)
-            .inflate(R.layout.democracy_index_overview_item, viewGroup, false)
+            .inflate(R.layout.country_name_with_value_item, viewGroup, false)
         return ViewHolder(view)
     }
 
@@ -54,7 +48,7 @@ class CountriesListWithIndexViewAdapter(private val onClick: (String) -> Unit) :
         viewHolder.run {
             val country = data.keys[position]
             countryName.text = country
-            value.text = data[position]
+            value.text = data[country]
             this.itemView.setOnClickListener {
                 onClick.invoke(country)
             }

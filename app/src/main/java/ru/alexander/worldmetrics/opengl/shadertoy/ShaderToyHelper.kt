@@ -4,7 +4,7 @@ import ru.alexander.worldmetrics.R
 import ru.alexander.worldmetrics.global.AssetsContainer.Companion.openRawResource
 import ru.alexander.worldmetrics.opengl.GLESHelper.Companion.createProgram
 import ru.alexander.worldmetrics.opengl.shadertoy.renderer.ShaderToyRenderer
-import ru.alexander.worldmetrics.opengl.shadertoy.view.OpenGLView
+import ru.alexander.worldmetrics.opengl.OpenGLView
 
 class ShaderToyHelper private constructor() {
     companion object {

@@ -1,4 +1,4 @@
-package ru.alexander.worldmetrics.opengl.shadertoy.view
+package ru.alexander.worldmetrics.opengl
 
 import android.content.Context
 import android.opengl.GLSurfaceView

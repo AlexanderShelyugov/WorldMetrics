@@ -1,7 +1,7 @@
 package ru.alexander.worldmetrics.opengl
 
 import android.app.ActivityManager
-import android.content.Context
+import android.content.Context.ACTIVITY_SERVICE
 import ru.alexander.worldmetrics.global.ContextAccess.Companion.context
 import java.lang.Runtime.getRuntime
 import java.util.*
@@ -11,7 +11,7 @@ class RedrawCountHelper private constructor() {
         private var redrawCount: Int = 0
         private var prevDrawTime: Date? = null
 
-        private val activityManager get() = context.getSystemService(Context.ACTIVITY_SERVICE)!! as ActivityManager
+        private val activityManager get() = context.getSystemService(ACTIVITY_SERVICE)!! as ActivityManager
 
         fun triggerRedraw() {
             redrawCount++

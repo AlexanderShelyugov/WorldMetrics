@@ -7,7 +7,7 @@ import ru.alexander.worldmetrics.R
 import ru.alexander.worldmetrics.fragment.AllIndexesOverviewFragmentDirections.Companion.actionAllIndexesOverviewFragmentToCorruptionPerceptionsOverviewFragment
 import ru.alexander.worldmetrics.fragment.AllIndexesOverviewFragmentDirections.Companion.actionAllIndexesOverviewFragmentToDemocracyIndexOverviewFragment
 import ru.alexander.worldmetrics.fragment.AllIndexesOverviewFragmentDirections.Companion.actionAllIndexesOverviewFragmentToPressFreedomOverviewFragment
-import ru.alexander.worldmetrics.navigation.NavigationHelper.Companion.bindNavigation
+import ru.alexander.worldmetrics.global.NavigationHelper.Companion.bindNavigation
 
 class AllIndexesOverviewFragment : Fragment(R.layout.all_indexes) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

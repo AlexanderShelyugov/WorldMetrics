@@ -1,4 +1,4 @@
-package ru.alexander.worldmetrics.navigation
+package ru.alexander.worldmetrics.global
 
 import android.view.View
 import androidx.navigation.NavController

@@ -11,7 +11,7 @@ import ru.alexander.worldmetrics.adapter.CountriesListWithIndexViewAdapter
 import ru.alexander.worldmetrics.fragment.InjectableFragment
 import ru.alexander.worldmetrics.fragment.democracy_index.DemocracyIndexOverviewFragmentDirections.Companion.actionDemocracyIndexOverviewFragmentToDemocracyIndexCountryDetailFragment
 import ru.alexander.worldmetrics.model.KeyValueList
-import ru.alexander.worldmetrics.navigation.NavigationHelper.Companion.navigateTo
+import ru.alexander.worldmetrics.global.NavigationHelper.Companion.navigateTo
 import ru.alexander.worldmetrics.viewmodel.DemocracyIndexOverviewViewModel
 
 class DemocracyIndexOverviewFragment : InjectableFragment(R.layout.countries_list_democracy_index) {

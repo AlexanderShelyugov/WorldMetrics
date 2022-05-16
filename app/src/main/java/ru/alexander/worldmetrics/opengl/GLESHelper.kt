@@ -11,7 +11,6 @@ class GLESHelper private constructor() {
         const val BYTES_PER_VERTEX = 4
         const val COORDS_PER_VERTEX_2D = 2
 
-
         const val VARIABLE_POSITION = "vPosition"
         const val VARIABLE_COLOR = "vColor"
 
