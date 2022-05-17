@@ -2,12 +2,12 @@ package ru.alexander.worldmetrics.model
 
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SortedListAdapterCallback
+import ru.alexander.worldmetrics.adapter.CountriesListWithIndexViewAdapter
 
 typealias T = KeyValueItem
 
-class CustomSortedListPairCallback<H> constructor(
-    adapter: RecyclerView.Adapter<H>
-) : SortedListAdapterCallback<T>(adapter) where H : RecyclerView.ViewHolder {
+class CustomSortedListPairCallback<H>(adapter: CountriesListWithIndexViewAdapter) :
+    SortedListAdapterCallback<T>(adapter) where H : RecyclerView.ViewHolder {
     var comparator: Comparator<T> = compareBy { it.toString() }
 
     override fun compare(o1: T, o2: T): Int = comparator.compare(o1, o2)

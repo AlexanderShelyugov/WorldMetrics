@@ -1,6 +1,5 @@
 package ru.alexander.worldmetrics.adapter
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import androidx.recyclerview.widget.SortedList
 import ru.alexander.worldmetrics.R
-import ru.alexander.worldmetrics.model.CustomSortedListPairCallback
 import ru.alexander.worldmetrics.model.KeyValueItem
 
 typealias Item = KeyValueItem
@@ -22,12 +20,44 @@ class CountriesListWithIndexViewAdapter(private val onClick: (String) -> Unit) :
         private val COMPARATOR_BY_VALUE: Comparator<Item> = compareBy { it.v }
     }
 
-    private val callback = CustomSortedListPairCallback(this)
-        .also { it.comparator = comparator }
-    private val data: SortedList<KeyValueItem> = SortedList(Item::class.java, callback)
+    //    private val callback = CustomSortedListPairCallback<ViewHolder>(this)
+//        .also { it.comparator = calculateComparator() }
+    private var data: SortedList<Item> = createData()
+    private var comparator = calculateComparator()
 
-    private val comparator
-        get() = if (sortByCountry) {
+    private fun createData(): SortedList<Item> = SortedList(Item::class.java,
+        object : SortedList.Callback<Item>() {
+            override fun compare(item1: Item, item2: Item): Int {
+                return comparator.compare(item1, item2)
+            }
+
+            override fun areContentsTheSame(i1: Item, i2: Item): Boolean {
+                return i1.v == i2.v
+            }
+
+            override fun areItemsTheSame(i1: Item, i2: Item): Boolean {
+                return i1.k == i2.k
+            }
+
+            override fun onChanged(pos: Int, count: Int) {
+                notifyItemRangeChanged(pos, count)
+            }
+
+            override fun onInserted(pos: Int, count: Int) {
+                notifyItemRangeInserted(pos, count)
+            }
+
+            override fun onRemoved(pos: Int, count: Int) {
+                notifyItemRangeRemoved(pos, count)
+            }
+
+            override fun onMoved(pos: Int, count: Int) {
+                notifyItemMoved(pos, count)
+            }
+        })
+
+    private fun calculateComparator(): Comparator<Item> {
+        return if (sortByCountry) {
             COMPORATOR_BY_NAME.let {
                 if (naturalOrder) it else it.reversed()
             }
@@ -36,28 +66,25 @@ class CountriesListWithIndexViewAdapter(private val onClick: (String) -> Unit) :
                 if (naturalOrder) it else it.reversed()
             }
         }
+    }
 
     var sortByCountry = true
-        set(value) {
-            field = value
-            updateComparator()
-        }
     var naturalOrder = true
-        set(value) {
-            field = value
-            updateComparator()
-        }
 
-    @SuppressLint("NotifyDataSetChanged")
-    private fun updateComparator() {
-        callback.comparator = comparator
-        notifyDataSetChanged()
+    fun reSort() {
+        val prevData = mutableListOf<Item>()
+        for (i in 0 until data.size()) {
+            val item = data.get(i)
+            prevData.add(item)
+        }
+//        callback.comparator = calculateComparator()
+        comparator = calculateComparator()
+        data = createData().also {
+            it.addAll(prevData)
+        }
     }
 
     fun setData(newData: Map<String, String>) {
-        if (itemCount == 0 && newData.isEmpty()) {
-            return
-        }
         val newItems = newData.asSequence()
             .map { Item(it.key, it.value) }
             .toMutableList()
@@ -93,4 +120,6 @@ class CountriesListWithIndexViewAdapter(private val onClick: (String) -> Unit) :
 
     // Return the size of your dataset (invoked by the layout manager)
     override fun getItemCount() = data.size()
+
+
 }
