@@ -10,5 +10,4 @@ data class PressFreedomValue constructor(
     val socialContext: Float,
     val safety: Float,
     val year: Int,
-) {
-}
+)

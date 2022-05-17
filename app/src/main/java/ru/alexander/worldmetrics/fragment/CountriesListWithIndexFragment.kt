@@ -6,7 +6,6 @@ import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import ru.alexander.worldmetrics.R
 import ru.alexander.worldmetrics.adapter.CountriesListWithIndexViewAdapter
-import ru.alexander.worldmetrics.model.KeyValueList
 
 abstract class CountriesListWithIndexFragment :
     InjectableFragment(R.layout.countries_list_with_index) {
@@ -18,7 +17,7 @@ abstract class CountriesListWithIndexFragment :
             adapter = countriesAdapter
         }
         getData().observe(viewLifecycleOwner) { countries ->
-            countriesAdapter.setData(KeyValueList(countries))
+            countriesAdapter.setData(countries)
         }
     }
 

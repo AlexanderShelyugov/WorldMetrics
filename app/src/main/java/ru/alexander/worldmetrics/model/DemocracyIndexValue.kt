@@ -10,5 +10,4 @@ data class DemocracyIndexValue(
     val politicalParticipation: Float,
     val politicalCulture: Float,
     val civilLiberties: Float,
-) {
-}
+)
