@@ -1,6 +1,6 @@
 package ru.alexander.worldmetrics.model
 
-class DemocracyIndexValue(
+data class DemocracyIndexValue(
     val countryCode: String,
     val country: String,
     val year: Int,
@@ -9,6 +9,6 @@ class DemocracyIndexValue(
     val functioningOfGovernment: Float,
     val politicalParticipation: Float,
     val politicalCulture: Float,
-    val civilLiberties: Float
+    val civilLiberties: Float,
 ) {
 }

@@ -1,4 +1,4 @@
-package ru.alexander.worldmetrics.model
+package ru.alexander.worldmetrics.opengl
 
 import java.util.*
 

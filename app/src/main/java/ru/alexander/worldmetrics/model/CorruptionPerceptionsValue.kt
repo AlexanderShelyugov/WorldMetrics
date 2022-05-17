@@ -1,6 +1,6 @@
 package ru.alexander.worldmetrics.model
 
-class CorruptionPerceptionsValue(
+data class CorruptionPerceptionsValue(
     val country: String,
     val year: Int,
     val value: Float

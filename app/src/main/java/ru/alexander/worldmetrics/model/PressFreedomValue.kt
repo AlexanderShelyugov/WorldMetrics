@@ -1,6 +1,6 @@
 package ru.alexander.worldmetrics.model
 
-class PressFreedomValue constructor(
+data class PressFreedomValue constructor(
     val countryCode: String,
     val countryName: String,
     val score: Float,
