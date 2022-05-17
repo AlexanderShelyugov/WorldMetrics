@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import androidx.recyclerview.widget.SortedList
+import androidx.recyclerview.widget.SortedListAdapterCallback
 import ru.alexander.worldmetrics.R
 import ru.alexander.worldmetrics.model.KeyValueItem
 
@@ -20,13 +21,14 @@ class CountriesListWithIndexViewAdapter(private val onClick: (String) -> Unit) :
         private val COMPARATOR_BY_VALUE: Comparator<Item> = compareBy { it.v }
     }
 
-    //    private val callback = CustomSortedListPairCallback<ViewHolder>(this)
-//        .also { it.comparator = calculateComparator() }
+    var sortByCountry = true
+    var naturalOrder = true
+
     private var data: SortedList<Item> = createData()
     private var comparator = calculateComparator()
 
     private fun createData(): SortedList<Item> = SortedList(Item::class.java,
-        object : SortedList.Callback<Item>() {
+        object : SortedListAdapterCallback<Item>(this) {
             override fun compare(item1: Item, item2: Item): Int {
                 return comparator.compare(item1, item2)
             }
@@ -37,22 +39,6 @@ class CountriesListWithIndexViewAdapter(private val onClick: (String) -> Unit) :
 
             override fun areItemsTheSame(i1: Item, i2: Item): Boolean {
                 return i1.k == i2.k
-            }
-
-            override fun onChanged(pos: Int, count: Int) {
-                notifyItemRangeChanged(pos, count)
-            }
-
-            override fun onInserted(pos: Int, count: Int) {
-                notifyItemRangeInserted(pos, count)
-            }
-
-            override fun onRemoved(pos: Int, count: Int) {
-                notifyItemRangeRemoved(pos, count)
-            }
-
-            override fun onMoved(pos: Int, count: Int) {
-                notifyItemMoved(pos, count)
             }
         })
 
@@ -68,27 +54,25 @@ class CountriesListWithIndexViewAdapter(private val onClick: (String) -> Unit) :
         }
     }
 
-    var sortByCountry = true
-    var naturalOrder = true
-
     fun reSort() {
-        val prevData = mutableListOf<Item>()
-        for (i in 0 until data.size()) {
-            val item = data.get(i)
-            prevData.add(item)
-        }
-//        callback.comparator = calculateComparator()
+        val prevData = (0 until data.size())
+            .map { i -> data.get(i) }
+            .toMutableList()
         comparator = calculateComparator()
-        data = createData().also {
-            it.addAll(prevData)
-        }
+        setData(prevData)
     }
 
     fun setData(newData: Map<String, String>) {
         val newItems = newData.asSequence()
             .map { Item(it.key, it.value) }
             .toMutableList()
-        data.replaceAll(newItems)
+        setData(newItems)
+    }
+
+    private fun setData(newData: List<Item>) {
+        data = createData().also {
+            it.addAll(newData)
+        }
     }
 
     class CountryIndexViewHolder(view: View) : ViewHolder(view) {
