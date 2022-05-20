@@ -19,6 +19,7 @@ abstract class CountriesListWithIndexFragment :
         super.onViewCreated(view, savedInstanceState)
         listView = view.findViewById<RecyclerView>(R.id.rv_countries_list).also {
             it.adapter = countriesAdapter
+            it.itemAnimator = null
         }
         countriesAdapter.sortByCountry = true
         countriesAdapter.naturalOrder = true
