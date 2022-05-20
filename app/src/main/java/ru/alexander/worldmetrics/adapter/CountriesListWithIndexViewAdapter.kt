@@ -3,6 +3,8 @@ package ru.alexander.worldmetrics.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
@@ -14,7 +16,7 @@ import ru.alexander.worldmetrics.model.KeyValueItem
 typealias Item = KeyValueItem
 
 class CountriesListWithIndexViewAdapter(private val onClick: (String) -> Unit) :
-    RecyclerView.Adapter<ViewHolder>() {
+    RecyclerView.Adapter<ViewHolder>(), Filterable {
 
     companion object {
         private val COMPORATOR_BY_NAME: Comparator<Item> = compareBy { it.k }
@@ -25,6 +27,7 @@ class CountriesListWithIndexViewAdapter(private val onClick: (String) -> Unit) :
     var naturalOrder = true
 
     private var data: SortedList<Item> = createData()
+    private var fullData: List<Item> = listOf()
     private var comparator = calculateComparator()
 
     private fun createData(): SortedList<Item> = SortedList(Item::class.java,
@@ -70,6 +73,7 @@ class CountriesListWithIndexViewAdapter(private val onClick: (String) -> Unit) :
     }
 
     private fun setData(newData: List<Item>) {
+        fullData = newData.toList()
         data = createData().also {
             it.addAll(newData)
         }
@@ -104,6 +108,29 @@ class CountriesListWithIndexViewAdapter(private val onClick: (String) -> Unit) :
 
     // Return the size of your dataset (invoked by the layout manager)
     override fun getItemCount() = data.size()
+    override fun getFilter(): Filter {
+        return object : Filter() {
+            override fun performFiltering(constraint: CharSequence?): FilterResults {
+                val search = constraint?.toString() ?: ""
+                var filteredData: List<Item>
+                if (search.isEmpty()) {
+                    filteredData = fullData
+                } else {
+                    filteredData = fullData.asSequence()
+                        .filter { it.k.contains(search) }
+                        .toList()
+                }
+                return FilterResults().apply { values = filteredData }
+            }
+
+            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+                data = createData().also {
+                    it.addAll(results?.values as List<Item> ?: emptyList())
+                }
+                notifyItemRangeChanged(0, data.size())
+            }
+        }
+    }
 
 
 }

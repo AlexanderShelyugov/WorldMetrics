@@ -3,13 +3,14 @@ package ru.alexander.worldmetrics.fragment
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageButton
+import android.widget.SearchView
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import ru.alexander.worldmetrics.R
 import ru.alexander.worldmetrics.adapter.CountriesListWithIndexViewAdapter
 
 abstract class CountriesListWithIndexFragment :
-    InjectableFragment(R.layout.countries_list_with_index) {
+    InjectableFragment(R.layout.countries_list_with_index), SearchView.OnQueryTextListener {
     private val countriesAdapter = CountriesListWithIndexViewAdapter(this::onCountryClick)
     private lateinit var sortTypeButton: ImageButton
     private lateinit var sortOrderButton: ImageButton
@@ -24,6 +25,8 @@ abstract class CountriesListWithIndexFragment :
         countriesAdapter.sortByCountry = true
         countriesAdapter.naturalOrder = true
         countriesAdapter.reSort()
+        view.findViewById<SearchView>(R.id.sv_search)
+            .setOnQueryTextListener(this)
         sortTypeButton = view.findViewById<ImageButton>(R.id.ib_sort_type).also {
             it.setOnClickListener { switchSortType() }
         }
@@ -57,6 +60,16 @@ abstract class CountriesListWithIndexFragment :
         countriesAdapter.naturalOrder = weWillSortByNaturalOrder
         countriesAdapter.reSort()
         sortOrderButton.setImageResource(nextIcon)
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        countriesAdapter.filter.filter(query)
+        return false
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        countriesAdapter.filter.filter(newText)
+        return false
     }
 
     protected abstract fun getData(): LiveData<Map<String, String>>
