@@ -1,8 +1,10 @@
 package ru.alexander.worldmetrics.fragment
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
-import android.widget.ImageButton
 import android.widget.SearchView
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
@@ -12,9 +14,14 @@ import ru.alexander.worldmetrics.adapter.CountriesListWithIndexViewAdapter
 abstract class CountriesListWithIndexFragment :
     InjectableFragment(R.layout.countries_list_with_index), SearchView.OnQueryTextListener {
     private val countriesAdapter = CountriesListWithIndexViewAdapter(this::onCountryClick)
-    private lateinit var sortTypeButton: ImageButton
-    private lateinit var sortOrderButton: ImageButton
+    private lateinit var sortTypeItem: MenuItem
+    private lateinit var sortOrderItem: MenuItem
     private lateinit var listView: RecyclerView
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -25,16 +32,30 @@ abstract class CountriesListWithIndexFragment :
         countriesAdapter.sortByCountry = true
         countriesAdapter.naturalOrder = true
         countriesAdapter.reSort()
-        view.findViewById<SearchView>(R.id.sv_search)
-            .setOnQueryTextListener(this)
-        sortTypeButton = view.findViewById<ImageButton>(R.id.ib_sort_type).also {
-            it.setOnClickListener { switchSortType() }
-        }
-        sortOrderButton = view.findViewById<ImageButton>(R.id.ib_sort_order).also {
-            it.setOnClickListener { switchSortOrder() }
-        }
         getData().observe(viewLifecycleOwner) { countries ->
             countriesAdapter.setData(countries)
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.action_bar_country_list, menu)
+        (menu.findItem(R.id.action_search).actionView as SearchView)
+            .setOnQueryTextListener(this)
+        sortTypeItem = menu.findItem(R.id.action_sort_type)
+        sortOrderItem = menu.findItem(R.id.action_sort_order)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.action_sort_type -> {
+            switchSortType()
+            true
+        }
+        R.id.action_sort_order -> {
+            switchSortOrder()
+            true
+        }
+        else -> {
+            super.onOptionsItemSelected(item)
         }
     }
 
@@ -47,7 +68,7 @@ abstract class CountriesListWithIndexFragment :
         }
         countriesAdapter.sortByCountry = weWillSortByCountry
         countriesAdapter.reSort()
-        sortTypeButton.setImageResource(nextIcon)
+        sortTypeItem.setIcon(nextIcon)
     }
 
     private fun switchSortOrder() {
@@ -59,7 +80,7 @@ abstract class CountriesListWithIndexFragment :
         }
         countriesAdapter.naturalOrder = weWillSortByNaturalOrder
         countriesAdapter.reSort()
-        sortOrderButton.setImageResource(nextIcon)
+        sortOrderItem.setIcon(nextIcon)
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {

@@ -111,13 +111,12 @@ class CountriesListWithIndexViewAdapter(private val onClick: (String) -> Unit) :
     override fun getFilter(): Filter {
         return object : Filter() {
             override fun performFiltering(constraint: CharSequence?): FilterResults {
-                val search = constraint?.toString() ?: ""
-                var filteredData: List<Item>
-                if (search.isEmpty()) {
-                    filteredData = fullData
+                val search = constraint?.toString()?.lowercase() ?: ""
+                val filteredData: List<Item> = if (search.isEmpty()) {
+                    fullData
                 } else {
-                    filteredData = fullData.asSequence()
-                        .filter { it.k.contains(search) }
+                    fullData.asSequence()
+                        .filter { it.k.lowercase().contains(search) }
                         .toList()
                 }
                 return FilterResults().apply { values = filteredData }
