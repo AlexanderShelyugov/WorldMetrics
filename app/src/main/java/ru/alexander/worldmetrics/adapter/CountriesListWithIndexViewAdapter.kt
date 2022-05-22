@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.SortedList
 import androidx.recyclerview.widget.SortedListAdapterCallback
 import ru.alexander.worldmetrics.R
 import ru.alexander.worldmetrics.model.KeyValueItem
+import ru.alexander.worldmetrics.search.SearchCriteria
+import ru.alexander.worldmetrics.search.TextSearchCriteria
 
 typealias Item = KeyValueItem
 
@@ -25,6 +27,7 @@ class CountriesListWithIndexViewAdapter(private val onClick: (String) -> Unit) :
 
     var sortByCountry = true
     var naturalOrder = true
+    val searchCriteria: SearchCriteria<Item> = TextSearchCriteria()
 
     private var data: SortedList<Item> = createData()
     private var fullData: List<Item> = listOf()
@@ -112,13 +115,7 @@ class CountriesListWithIndexViewAdapter(private val onClick: (String) -> Unit) :
         return object : Filter() {
             override fun performFiltering(constraint: CharSequence?): FilterResults {
                 val search = constraint?.toString()?.lowercase() ?: ""
-                val filteredData: List<Item> = if (search.isEmpty()) {
-                    fullData
-                } else {
-                    fullData.asSequence()
-                        .filter { it.k.lowercase().contains(search) }
-                        .toList()
-                }
+                val filteredData: List<Item> = searchCriteria.search(fullData, Item::k, search)
                 return FilterResults().apply { values = filteredData }
             }
 

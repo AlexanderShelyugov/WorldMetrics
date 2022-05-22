@@ -39,8 +39,10 @@ abstract class CountriesListWithIndexFragment :
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.action_bar_country_list, menu)
-        (menu.findItem(R.id.action_search).actionView as SearchView)
-            .setOnQueryTextListener(this)
+        (menu.findItem(R.id.action_search).actionView as SearchView).let {
+            it.setOnQueryTextListener(this)
+        }
+
         sortTypeItem = menu.findItem(R.id.action_sort_type)
         sortOrderItem = menu.findItem(R.id.action_sort_order)
     }
