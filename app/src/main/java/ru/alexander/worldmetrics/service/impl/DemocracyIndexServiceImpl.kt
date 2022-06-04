@@ -41,6 +41,25 @@ class DemocracyIndexServiceImpl @Inject constructor(
         return rowToIndexValue(row!!)
     }
 
+    override fun getAllYearData(): Map<String, List<DemocracyIndexValue>> {
+        lateinit var result: Map<String, List<DemocracyIndexValue>>
+        csvService.process(filePath) { rows ->
+            result = rows.asSequence()
+                .map { rowToIndexValue(it) }
+                .groupBy { it.country }
+                .toMap()
+        }
+        return result
+    }
+
+    /**
+     * Возвращает весь набор данных для отдельной страны
+     */
+    override fun getAllYearData(country: String): List<DemocracyIndexValue> =
+        getDataForCountry(country).asSequence()
+            .map { rowToIndexValue(it) }
+            .toList()
+
     private fun rowToIndexValue(row: List<String>): DemocracyIndexValue = DemocracyIndexValue(
         row[0],
         row[1],

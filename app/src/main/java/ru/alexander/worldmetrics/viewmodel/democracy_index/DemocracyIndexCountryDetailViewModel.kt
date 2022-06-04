@@ -22,7 +22,12 @@ class DemocracyIndexCountryDetailViewModel @Inject constructor(
         MutableLiveData<DemocracyIndexValue>()
     }
 
+    val allData: MutableLiveData<List<DemocracyIndexValue>> by lazy {
+        MutableLiveData<List<DemocracyIndexValue>>()
+    }
+
     private fun loadData() {
         lastYearData.value = service.getLastYearData(country)
+        allData.value = service.getAllYearData(country)
     }
 }

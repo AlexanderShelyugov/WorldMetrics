@@ -19,6 +19,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
+        <ru.alexander.worldmetrics.view.LabelValueChartView
+            android:id="@+id/lvcv_di"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <!--
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -28,6 +34,12 @@
             android:id="@+id/tv_di_di"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/lc_di_chart"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/index_value_chart_height" />
+            -->
 
         <TextView
             android:layout_width="wrap_content"

@@ -14,4 +14,14 @@ interface DemocracyIndexService {
      * @param country - страна
      */
     fun getLastYearData(country: String): DemocracyIndexValue
+
+    /**
+     * Возвращает весь набор данных
+     */
+    fun getAllYearData(): Map<String, List<DemocracyIndexValue>>
+
+    /**
+     * Возвращает весь набор данных для отдельной страны
+     */
+    fun getAllYearData(country: String): List<DemocracyIndexValue>
 }
