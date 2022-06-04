@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="corruption_perceptions_index_name">Corruption Perceptions</string>
+    <string name="democracy_index_name">Democracy Index</string>
+    <string name="electoral_process_and_pluralism">Electoral process and pluralism</string>
+    <string name="functioning_of_government">Functioning of government</string>
+    <string name="political_participation">Political participation</string>
+    <string name="political_culture">Political culture</string>
+    <string name="civil_liberties">Civil liberties</string>
+
+    <string name="press_freedom_index_name">Press Freedom</string>
+</resources>

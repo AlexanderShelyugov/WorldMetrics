@@ -47,8 +47,8 @@ class LabelValueChartView(context: Context, attrs: AttributeSet) :
         chart.setPinchZoom(false)
     }
 
-    fun setLabelText(text: String) {
-        labelText = text
+    fun setLabelText(strId: Int) {
+        labelText = context.getString(strId)
     }
 
     fun setExtractors(f: (Item) -> Float) {
