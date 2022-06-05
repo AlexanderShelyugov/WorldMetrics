@@ -10,29 +10,26 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import ru.alexander.worldmetrics.R
-import ru.alexander.worldmetrics.model.DemocracyIndexValue
-import ru.alexander.worldmetrics.model.DemocracyIndexValue.Companion.emptyValue
 import java.lang.Float.NaN
 
-typealias Item = DemocracyIndexValue
+typealias FeatureExtractor<T> = (T) -> Float
 
-class LabelValueChartView(context: Context, attrs: AttributeSet) :
+class LabelValueChartView<T>(context: Context, attrs: AttributeSet) :
     FrameLayout(context, attrs) {
 
     private val label: TextView
     private val value: TextView
     private val chart: LineChart
 
-    private var allData: List<Item> = emptyList()
-    private var topDataItem: Item = emptyValue()
+    private var allData: List<T> = emptyList()
 
     private var labelText: String = ""
-    private var keyExtractor: (Item) -> Float = { NaN }
-    private var valueExtractor: (Item) -> Float = { NaN }
     private var chartLabel: String = ""
+    private var keyExtractor: FeatureExtractor<T> = { NaN }
+    private var valueExtractor: FeatureExtractor<T> = { NaN }
 
     init {
-        inflate(getContext(), R.layout.label_value_chart_view, this)
+        inflate(getContext(), R.layout.label_value_chart_view_content, this)
         label = findViewById(R.id.tv_label)
         value = findViewById(R.id.tv_value)
         chart = findViewById(R.id.lc_chart)
@@ -51,21 +48,21 @@ class LabelValueChartView(context: Context, attrs: AttributeSet) :
         labelText = context.getString(strId)
     }
 
-    fun setExtractors(f: (Item) -> Float) {
-        keyExtractor = f
+    fun setExtractors(k: FeatureExtractor<T>, v: FeatureExtractor<T>) {
+        keyExtractor = k
+        valueExtractor = v
     }
 
-    fun setValueExtractor(f: (Item) -> Float) {
-        valueExtractor = f
-    }
-
-    fun setData(items: List<Item>) {
+    fun setData(items: List<T>) {
         allData = items
-        topDataItem = if (items.isEmpty()) emptyValue() else items.sortedBy(keyExtractor)[0]
+        label.text = labelText
 
-        topDataItem.run {
-            label.text = labelText
-            value.text = valueExtractor(this).toString()
+
+        val topDataItem = if (items.isEmpty()) null else items.sortedBy(keyExtractor)[0]
+        topDataItem?.let {
+            value.text = valueExtractor(it).toString()
+        } ?: run {
+            value.text = ""
         }
 
         val entries = items.asSequence()
