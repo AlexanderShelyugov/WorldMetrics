@@ -32,7 +32,7 @@
     </fragment>
     <fragment
         android:id="@+id/democracyIndexOverviewFragment"
-        android:name="ru.alexander.worldmetrics.fragment.democracy_index.DemocracyIndexOverviewFragment"
+        android:name="ru.alexander.worldmetrics.fragment.democracy_index.DemocracyIndexCountryListFragment"
         android:label="Democracy index overview fragment">
         <action
             android:id="@+id/action_democracyIndexOverviewFragment_to_democracyIndexCountryDetailFragment"
@@ -44,7 +44,7 @@
     </fragment>
     <fragment
         android:id="@+id/corruptionPerceptionsOverviewFragment"
-        android:name="ru.alexander.worldmetrics.fragment.corruption_perceptions.CorruptionPerceptionsOverviewFragment"
+        android:name="ru.alexander.worldmetrics.fragment.corruption_perceptions.CorruptionPerceptionsCountryListFragment"
         android:label="Corruption perceptions overview fragment">
         <action
             android:id="@+id/action_corruptionPerceptionsOverviewFragment_to_corruptionPerceptionsCountryDetailFragment"
@@ -56,7 +56,7 @@
     </fragment>
     <fragment
         android:id="@+id/pressFreedomOverviewFragment"
-        android:name="ru.alexander.worldmetrics.fragment.press_freedom.PressFreedomOverviewFragment"
+        android:name="ru.alexander.worldmetrics.fragment.press_freedom.PressFreedomCountryListFragment"
         android:label="Press freedom overview fragment">
         <action
             android:id="@+id/action_pressFreedomOverviewFragment_to_pressFreedomCountryDetailFragment"

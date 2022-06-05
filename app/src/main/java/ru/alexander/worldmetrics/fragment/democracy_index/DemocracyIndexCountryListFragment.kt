@@ -8,7 +8,7 @@ import ru.alexander.worldmetrics.fragment.democracy_index.DemocracyIndexOverview
 import ru.alexander.worldmetrics.global.NavigationHelper.Companion.navigateTo
 import ru.alexander.worldmetrics.viewmodel.democracy_index.DemocracyIndexOverviewViewModel
 
-class DemocracyIndexOverviewFragment : CountriesListWithIndexFragment() {
+class DemocracyIndexCountryListFragment : CountriesListWithIndexFragment() {
     override fun getData(): LiveData<Map<String, String>> {
         val model: DemocracyIndexOverviewViewModel by activityViewModels()
         return model.lastYearData

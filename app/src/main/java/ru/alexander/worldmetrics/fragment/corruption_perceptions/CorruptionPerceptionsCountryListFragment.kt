@@ -8,7 +8,7 @@ import ru.alexander.worldmetrics.fragment.corruption_perceptions.CorruptionPerce
 import ru.alexander.worldmetrics.global.NavigationHelper.Companion.navigateTo
 import ru.alexander.worldmetrics.viewmodel.corruption_perceptions.CorruptionPerceptionsOverviewViewModel
 
-class CorruptionPerceptionsOverviewFragment :
+class CorruptionPerceptionsCountryListFragment :
     CountriesListWithIndexFragment() {
     override fun getData(): LiveData<Map<String, String>> {
         val model: CorruptionPerceptionsOverviewViewModel by activityViewModels()

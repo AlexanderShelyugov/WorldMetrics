@@ -8,7 +8,7 @@ import ru.alexander.worldmetrics.fragment.press_freedom.PressFreedomOverviewFrag
 import ru.alexander.worldmetrics.global.NavigationHelper
 import ru.alexander.worldmetrics.viewmodel.press_freedom.PressFreedomOverviewViewModel
 
-class PressFreedomOverviewFragment : CountriesListWithIndexFragment() {
+class PressFreedomCountryListFragment : CountriesListWithIndexFragment() {
     override fun getData(): LiveData<Map<String, String>> {
         val model: PressFreedomOverviewViewModel by activityViewModels()
         return model.lastYearData
