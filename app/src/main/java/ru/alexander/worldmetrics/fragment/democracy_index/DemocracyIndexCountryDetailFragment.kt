@@ -16,7 +16,7 @@ private typealias Index = DemocracyIndexValue
 private typealias ValueFunction = (Index) -> Float
 
 class DemocracyIndexCountryDetailFragment :
-    InjectableFragment(R.layout.democracy_index_country_detail) {
+    InjectableFragment(R.layout.country_detail_indexes) {
 
     private var allIndexes: Collection<LabelValueChartView<Index>> = listOf()
 
@@ -51,7 +51,7 @@ class DemocracyIndexCountryDetailFragment :
             layoutInflater.inflate(
                 R.layout.label_value_chart_view,
                 null
-            ) as LabelValueChartView<DemocracyIndexValue>
+            ) as LabelValueChartView<Index>
         view.setLabelText(labelText)
         view.setExtractors(YEAR_FUNCTION, valueExtractor)
         return view

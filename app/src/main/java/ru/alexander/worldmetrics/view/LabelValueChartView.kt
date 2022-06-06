@@ -23,8 +23,7 @@ class LabelValueChartView<T>(context: Context, attrs: AttributeSet) :
 
     private var allData: List<T> = emptyList()
 
-    private var labelText: String = ""
-    private var chartLabel: String = ""
+    private var chartLabel: String = "What is this?"
     private var keyExtractor: FeatureExtractor<T> = { NaN }
     private var valueExtractor: FeatureExtractor<T> = { NaN }
 
@@ -45,7 +44,7 @@ class LabelValueChartView<T>(context: Context, attrs: AttributeSet) :
     }
 
     fun setLabelText(strId: Int) {
-        labelText = context.getString(strId)
+        label.text = context.getString(strId)
     }
 
     fun setExtractors(k: FeatureExtractor<T>, v: FeatureExtractor<T>) {
@@ -55,14 +54,10 @@ class LabelValueChartView<T>(context: Context, attrs: AttributeSet) :
 
     fun setData(items: List<T>) {
         allData = items
-        label.text = labelText
 
-
-        val topDataItem = if (items.isEmpty()) null else items.sortedBy(keyExtractor)[0]
-        topDataItem?.let {
-            value.text = valueExtractor(it).toString()
-        } ?: run {
-            value.text = ""
+        val topDataItem = if (items.isEmpty()) null else items.sortedBy(keyExtractor).reversed()[0]
+        topDataItem.let {
+            value.text = if (it != null) valueExtractor(it).toString() else ""
         }
 
         val entries = items.asSequence()

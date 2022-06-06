@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="corruption_perceptions_index_name">Corruption Perceptions</string>
+
     <string name="democracy_index_name">Democracy Index</string>
     <string name="electoral_process_and_pluralism">Electoral process and pluralism</string>
     <string name="functioning_of_government">Functioning of government</string>

@@ -14,4 +14,10 @@ interface CorruptionPerceptionsService {
      * @param country - страна
      */
     fun getLastYearData(country: String): CorruptionPerceptionsValue
+
+    /**
+     * Returns all data for specific country
+     * @param country
+     */
+    fun getAllData(country: String): List<CorruptionPerceptionsValue>
 }
