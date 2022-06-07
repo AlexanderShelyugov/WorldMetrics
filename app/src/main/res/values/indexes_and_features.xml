@@ -9,5 +9,10 @@
     <string name="political_culture">Political culture</string>
     <string name="civil_liberties">Civil liberties</string>
 
-    <string name="press_freedom_index_name">Press Freedom</string>
+    <string name="press_freedom_index_name">Press freedom</string>
+    <string name="press_freedom_political_context">Political context</string>
+    <string name="press_freedom_economic_context">Economic context</string>
+    <string name="press_freedom_legal_context">Legal context</string>
+    <string name="press_freedom_social_context">Social context</string>
+    <string name="press_freedom_safety">Safety</string>
 </resources>
