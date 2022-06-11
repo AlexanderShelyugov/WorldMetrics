@@ -11,6 +11,8 @@ import ru.alexander.worldmetrics.viewmodel.democracy_index.DemocracyIndexOvervie
 class DemocracyIndexCountryListFragment : CountriesListWithIndexFragment() {
     override fun getData(): LiveData<Map<String, String>> {
         val model: DemocracyIndexOverviewViewModel by activityViewModels()
+
+
         return model.lastYearData
     }
 

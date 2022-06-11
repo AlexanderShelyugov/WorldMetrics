@@ -10,6 +10,7 @@ class DemocracyIndexServiceImpl @Inject constructor(
 ) : DemocracyIndexService {
     private companion object {
         const val MAX_YEAR = 2020
+        const val COLUMN_COUNTRY_CODE = 0
         const val COLUMN_COUNTRY_NAME = 1
         const val COLUMN_YEAR = 2
         const val COLUMN_INDEX_VALUE = 3
@@ -23,7 +24,7 @@ class DemocracyIndexServiceImpl @Inject constructor(
             rows
                 .filter { MAX_YEAR == it[COLUMN_YEAR].toInt() }
                 .forEach { row: List<String> ->
-                    val country = row[COLUMN_COUNTRY_NAME]
+                    val country = row[COLUMN_COUNTRY_CODE]
                     val indexValue = row[COLUMN_INDEX_VALUE]
                     result[country] = indexValue
                 }
