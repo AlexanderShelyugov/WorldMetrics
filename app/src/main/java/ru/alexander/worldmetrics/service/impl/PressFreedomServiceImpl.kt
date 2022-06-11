@@ -38,7 +38,7 @@ class PressFreedomServiceImpl @Inject constructor(private val csvService: CsvSer
         val result = mutableListOf<PressFreedomValue>()
         val processor: (Sequence<List<String>>) -> Unit = { rows ->
             rows
-                .filter { it[COLUMN_COUNTRY_NAME] == country }
+                .filter { it[COLUMN_COUNTRY_CODE] == country }
                 .map { rowToIndexValue(it) }
                 .toList()
                 .run(result::addAll)

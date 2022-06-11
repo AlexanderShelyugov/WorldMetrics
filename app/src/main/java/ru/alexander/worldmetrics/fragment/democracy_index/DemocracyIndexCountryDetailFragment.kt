@@ -8,6 +8,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import ru.alexander.worldmetrics.R
 import ru.alexander.worldmetrics.fragment.InjectableFragment
+import ru.alexander.worldmetrics.model.CountriesData.Companion.getNameByCode
 import ru.alexander.worldmetrics.model.DemocracyIndexValue
 import ru.alexander.worldmetrics.view.LabelValueChartView
 import ru.alexander.worldmetrics.viewmodel.democracy_index.DemocracyIndexCountryDetailViewModel
@@ -24,9 +25,9 @@ class DemocracyIndexCountryDetailFragment :
         super.onViewCreated(view, savedInstanceState)
 
         val args: DemocracyIndexCountryDetailFragmentArgs by navArgs()
-        val country = args.countryName
+        val countryCode = args.countryCode
 
-        view.findViewById<TextView>(R.id.tv_country_name).run { text = country }
+        view.findViewById<TextView>(R.id.tv_country_name).run { text = getNameByCode(countryCode) }
 
         val indexesContainer = view.findViewById<ViewGroup>(R.id.ll_indexes)
         allIndexes = INDEXES_TO_SHOW.asSequence()
@@ -40,7 +41,7 @@ class DemocracyIndexCountryDetailFragment :
                 it.setData(indexPerYear)
             }
         }
-        model.setCountry(country)
+        model.setCountry(countryCode)
     }
 
     private fun createIndexView(

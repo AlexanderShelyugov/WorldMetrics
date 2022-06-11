@@ -71,7 +71,7 @@
         android:name="ru.alexander.worldmetrics.fragment.democracy_index.DemocracyIndexCountryDetailFragment"
         android:label="Democracy Index country detail fragment">
         <argument
-            android:name="countryName"
+            android:name="countryCode"
             app:argType="string" />
     </fragment>
     <fragment
@@ -79,7 +79,7 @@
         android:name="ru.alexander.worldmetrics.fragment.corruption_perceptions.CorruptionPerceptionsCountryDetailFragment"
         android:label="Corruption perceptions country detail fragment">
         <argument
-            android:name="countryName"
+            android:name="countryCode"
             app:argType="string" />
     </fragment>
     <fragment
@@ -87,7 +87,7 @@
         android:name="ru.alexander.worldmetrics.fragment.press_freedom.PressFreedomCountryDetailFragment"
         android:label="Press freedom country detail fragment">
         <argument
-            android:name="countryName"
+            android:name="countryCode"
             app:argType="string" />
     </fragment>
 </navigation>
