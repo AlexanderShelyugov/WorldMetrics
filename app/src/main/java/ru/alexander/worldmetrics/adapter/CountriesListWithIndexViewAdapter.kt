@@ -11,18 +11,19 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import androidx.recyclerview.widget.SortedList
 import androidx.recyclerview.widget.SortedListAdapterCallback
 import ru.alexander.worldmetrics.R
-import ru.alexander.worldmetrics.model.KeyValueItem
+import ru.alexander.worldmetrics.model.CountriesData
+import ru.alexander.worldmetrics.model.TripleItem
 import ru.alexander.worldmetrics.search.SearchCriteria
 import ru.alexander.worldmetrics.search.TextSearchCriteria
 
-typealias Item = KeyValueItem
+typealias Item = TripleItem
 
 class CountriesListWithIndexViewAdapter(private val onClick: (String) -> Unit) :
     RecyclerView.Adapter<ViewHolder>(), Filterable {
 
     companion object {
-        private val COMPORATOR_BY_NAME: Comparator<Item> = compareBy { it.k }
-        private val COMPARATOR_BY_VALUE: Comparator<Item> = compareBy { it.v }
+        private val COMPORATOR_BY_NAME: Comparator<Item> = compareBy { it.second }
+        private val COMPARATOR_BY_VALUE: Comparator<Item> = compareBy { it.third }
     }
 
     var sortByCountry = true
@@ -40,11 +41,11 @@ class CountriesListWithIndexViewAdapter(private val onClick: (String) -> Unit) :
             }
 
             override fun areContentsTheSame(i1: Item, i2: Item): Boolean {
-                return i1.v == i2.v
+                return i1.third == i2.third
             }
 
             override fun areItemsTheSame(i1: Item, i2: Item): Boolean {
-                return i1.k == i2.k
+                return i1.second == i2.second
             }
         })
 
@@ -70,7 +71,7 @@ class CountriesListWithIndexViewAdapter(private val onClick: (String) -> Unit) :
 
     fun setData(newData: Map<String, String>) {
         val newItems = newData.asSequence()
-            .map { Item(it.key, it.value) }
+            .map { Item(it.key, CountriesData.getNameByCode(it.key), it.value) }
             .toMutableList()
         setData(newItems)
     }
@@ -100,11 +101,13 @@ class CountriesListWithIndexViewAdapter(private val onClick: (String) -> Unit) :
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
         (viewHolder as CountryIndexViewHolder).run {
-            val country = data[position].k
-            countryName.text = country
-            value.text = data[position].v
-            this.itemView.setOnClickListener {
-                onClick.invoke(country)
+            data[position].let { row ->
+                val countryCode = row.first
+                countryName.text = row.second
+                value.text = row.third
+                this.itemView.setOnClickListener {
+                    onClick.invoke(countryCode)
+                }
             }
         }
     }
@@ -115,7 +118,7 @@ class CountriesListWithIndexViewAdapter(private val onClick: (String) -> Unit) :
         return object : Filter() {
             override fun performFiltering(constraint: CharSequence?): FilterResults {
                 val search = constraint?.toString()?.lowercase() ?: ""
-                val filteredData: List<Item> = searchCriteria.search(fullData, Item::k, search)
+                val filteredData: List<Item> = searchCriteria.search(fullData, Item::second, search)
                 return FilterResults().apply { values = filteredData }
             }
 

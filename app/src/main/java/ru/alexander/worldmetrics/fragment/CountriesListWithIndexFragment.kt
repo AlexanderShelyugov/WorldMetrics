@@ -10,7 +10,6 @@ import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import ru.alexander.worldmetrics.R
 import ru.alexander.worldmetrics.adapter.CountriesListWithIndexViewAdapter
-import ru.alexander.worldmetrics.model.CountriesData
 
 abstract class CountriesListWithIndexFragment :
     InjectableFragment(R.layout.countries_list_with_index), SearchView.OnQueryTextListener {
@@ -34,10 +33,7 @@ abstract class CountriesListWithIndexFragment :
         countriesAdapter.naturalOrder = true
         countriesAdapter.reSort()
         getData().observe(viewLifecycleOwner) { countries ->
-            val formattedCountries = countries.asSequence()
-                .map { entry -> CountriesData.getNameByCode(entry.key) to entry.value }
-                .toMap()
-            countriesAdapter.setData(formattedCountries)
+            countriesAdapter.setData(countries)
         }
     }
 

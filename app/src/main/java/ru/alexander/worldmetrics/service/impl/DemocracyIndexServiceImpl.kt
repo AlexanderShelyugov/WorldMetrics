@@ -73,11 +73,11 @@ class DemocracyIndexServiceImpl @Inject constructor(
         row[8].toFloat(),
     )
 
-    private fun getDataForCountry(country: String): List<List<String>> {
+    private fun getDataForCountry(countryCode: String): List<List<String>> {
         lateinit var result: List<List<String>>
         csvService.process(filePath) { rows ->
             rows
-                .filter { country == it[COLUMN_COUNTRY_NAME] }
+                .filter { countryCode == it[COLUMN_COUNTRY_CODE] }
                 .toList()
                 .also { result = it }
         }

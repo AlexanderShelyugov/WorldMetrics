@@ -40,16 +40,16 @@ class CorruptionPerceptionsServiceImpl @Inject constructor(
         return result
     }
 
-    override fun getAllData(country: String): List<CorruptionPerceptionsValue> {
+    override fun getAllData(countryCode: String): List<CorruptionPerceptionsValue> {
         lateinit var result: List<CorruptionPerceptionsValue>
         csvService.process(filePath) { rows ->
             rows
-                .filter { country == it[COLUMN_COUNTRY_CODE] }
+                .filter { countryCode == it[COLUMN_COUNTRY_CODE] }
                 .flatMap {
                     (COLUMN_MIN_YEAR.first until it.size).map { i ->
                         val year = COLUMN_MIN_YEAR.second + (i - 1)
                         val value = it[i]
-                        Triple(country, year, value)
+                        Triple(countryCode, year, value)
                     }.asSequence()
                 }
                 .map(this::dataToIndexValue)

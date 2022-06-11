@@ -14,9 +14,7 @@ class TextSearchCriteria<T> : SearchCriteria<T> {
                 val key = searchKeyExtractor.invoke(it)
                 key.indexOf(searchQuery, ignoreCase = true) to it
             }
-            .filter {
-                0 <= it.first
-            }
+            .filter { 0 <= it.first }
             .sortedBy { it.first }
             .map { it.second }
             .toList()

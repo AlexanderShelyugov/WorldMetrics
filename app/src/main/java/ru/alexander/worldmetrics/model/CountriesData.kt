@@ -63,6 +63,7 @@ class CountriesData private constructor() {
             "dji" to R.string.country_name_djibouti,
             "dnk" to R.string.country_name_denmark,
             "dom" to R.string.country_name_dominican_republic,
+            "dma" to R.string.country_name_dominica,
             "dza" to R.string.country_name_algeria,
             "ecu" to R.string.country_name_ecuador,
             "egy" to R.string.country_name_egypt,
