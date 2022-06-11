@@ -27,7 +27,7 @@ class PressFreedomServiceImpl @Inject constructor(private val csvService: CsvSer
         val processor: (Sequence<List<String>>) -> Unit = { rows ->
             rows
                 .filter { MAX_YEAR == it[COLUMN_YEAR].toInt() }
-                .map { it[COLUMN_COUNTRY_NAME] to it[COLUMN_INDEX_VALUE] }
+                .map { it[COLUMN_COUNTRY_CODE] to it[COLUMN_INDEX_VALUE] }
                 .associateTo(result) { it }
         }
         csvService.process(filePath, processor, ';')

@@ -3,6 +3,7 @@
     <string name="country_name_afghanistan">Afghanistan</string>
     <string name="country_name_albania">Albania</string>
     <string name="country_name_algeria">Algeria</string>
+    <string name="country_name_andorra">Andorra</string>
     <string name="country_name_angola">Angola</string>
     <string name="country_name_argentina">Argentina</string>
     <string name="country_name_armenia">Armenia</string>
@@ -42,6 +43,7 @@
     <string name="country_name_croatia">Croatia</string>
     <string name="country_name_cuba">Cuba</string>
     <string name="country_name_cyprus">Cyprus</string>
+    <string name="country_name_cyprus_north">Cyprus North</string>
     <string name="country_name_czech_republic">Czech Republic</string>
     <string name="country_name_denmark">Denmark</string>
     <string name="country_name_djibouti">Djibouti</string>
@@ -95,6 +97,7 @@
     <string name="country_name_lesotho">Lesotho</string>
     <string name="country_name_liberia">Liberia</string>
     <string name="country_name_libya">Libya</string>
+    <string name="country_name_liechtenstein">Liechtenstein</string>
     <string name="country_name_lithuania">Lithuania</string>
     <string name="country_name_luxembourg">Luxembourg</string>
     <string name="country_name_macedonia">Macedonia</string>
@@ -123,6 +126,7 @@
     <string name="country_name_nigeria">Nigeria</string>
     <string name="country_name_north_korea">North Korea</string>
     <string name="country_name_norway">Norway</string>
+    <string name="country_name_oecs">OECS</string>
     <string name="country_name_oman">Oman</string>
     <string name="country_name_pakistan">Pakistan</string>
     <string name="country_name_palestine">Palestine</string>
