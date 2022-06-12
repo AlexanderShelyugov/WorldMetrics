@@ -13,12 +13,12 @@ import ru.alexander.worldmetrics.global.NavigationHelper.Companion.bindNavigatio
 
 class AllIndexesOverviewFragment : Fragment(R.layout.all_indexes) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        requireView().findViewById<ViewGroup>(R.id.ll_indexes).let { v ->
+        requireView().findViewById<ViewGroup>(R.id.ll_indexes).let { container ->
             INDEXES.forEach { index ->
-                val button = layoutInflater.inflate(R.layout.button_default, v, false) as Button
+                val button = layoutInflater.inflate(R.layout.button_default, container, false) as Button
                 button.text = getString(index.first)
                 bindNavigation(button, index.second)
-                v.addView(button)
+                container.addView(button)
             }
         }
     }
