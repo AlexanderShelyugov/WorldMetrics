@@ -5,7 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
@@ -24,7 +23,7 @@ class CountriesListWithIndexViewAdapter(private val onClick: (String) -> Unit) :
     RecyclerView.Adapter<ViewHolder>(), Filterable {
 
     companion object {
-        private val COMPORATOR_BY_NAME: Comparator<Item> = compareBy { it.second }
+        private val COMPARATOR_BY_NAME: Comparator<Item> = compareBy { it.second }
         private val COMPARATOR_BY_VALUE: Comparator<Item> = compareBy { it.third.toFloatOrNull() }
     }
 
@@ -78,7 +77,7 @@ class CountriesListWithIndexViewAdapter(private val onClick: (String) -> Unit) :
 
     private fun calculateComparator(): Comparator<Item> {
         return if (sortByCountry) {
-            COMPORATOR_BY_NAME.let {
+            COMPARATOR_BY_NAME.let {
                 if (naturalOrder) it else it.reversed()
             }
         } else {
@@ -97,7 +96,6 @@ class CountriesListWithIndexViewAdapter(private val onClick: (String) -> Unit) :
 
     class CountryIndexViewHolder(
         view: View,
-        val background: LinearLayout = view.findViewById(R.id.ll_country_index_background),
         val countryName: TextView = view.findViewById(R.id.tv_country_name),
         val value: TextView = view.findViewById(R.id.tv_value),
     ) : ViewHolder(view)
@@ -134,7 +132,6 @@ class CountriesListWithIndexViewAdapter(private val onClick: (String) -> Unit) :
                 )
                 countryName.setTextColor(color)
                 value.setTextColor(color)
-//                background.setBackgroundColor(color)
             }
         }
     }

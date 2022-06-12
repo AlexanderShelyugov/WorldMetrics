@@ -1,32 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/ll_country_index_background"
     android:layout_width="match_parent"
-    android:layout_height="50dp"
-    android:background="@drawable/neon_border"
+    android:layout_height="64dp"
     android:clickable="true"
     android:focusable="true"
-    android:gravity="center"
-    android:orientation="horizontal"
-    android:padding="5dp">
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp">
 
     <TextView
         android:id="@+id/tv_country_name"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="28sp"
+        android:layout_marginTop="12dp"
         android:clickable="false"
-        android:textColor="@color/orange"
-        android:textSize="20sp"
+        android:fontFamily="sans-serif"
+        android:gravity="bottom"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="Some country" />
 
     <TextView
         android:id="@+id/tv_value"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="20sp"
         android:clickable="false"
-        android:textColor="@color/orange"
-        android:textSize="20sp"
+        android:fontFamily="sans-serif"
+        android:gravity="bottom"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_country_name"
         tools:text="Value" />
-</LinearLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:scaleType="center"
+        android:src="@drawable/chevron_right"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
