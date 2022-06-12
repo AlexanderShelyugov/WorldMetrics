@@ -2,11 +2,11 @@ package ru.alexander.worldmetrics.opengl.shadertoy.draws
 
 import android.opengl.GLES20
 import ru.alexander.worldmetrics.global.AssetsContainer.Companion.openRawResource
-import ru.alexander.worldmetrics.opengl.PlaybackTimer
 import ru.alexander.worldmetrics.opengl.GLESHelper.Companion.BYTES_PER_VERTEX
 import ru.alexander.worldmetrics.opengl.GLESHelper.Companion.COORDS_PER_VERTEX_2D
 import ru.alexander.worldmetrics.opengl.GLESHelper.Companion.VARIABLE_POSITION
 import ru.alexander.worldmetrics.opengl.GLESHelper.Companion.coordsToByteBuffer
+import ru.alexander.worldmetrics.opengl.PlaybackTimer
 import ru.alexander.worldmetrics.opengl.RedrawCountHelper
 import ru.alexander.worldmetrics.opengl.shadertoy.ShaderToyHelper.Companion.VARIABLE_RESOLUTION
 import ru.alexander.worldmetrics.opengl.shadertoy.ShaderToyHelper.Companion.VARIABLE_TIME

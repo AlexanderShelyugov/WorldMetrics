@@ -3,8 +3,8 @@ package ru.alexander.worldmetrics.opengl.shadertoy
 import ru.alexander.worldmetrics.R
 import ru.alexander.worldmetrics.global.AssetsContainer.Companion.openRawResource
 import ru.alexander.worldmetrics.opengl.GLESHelper.Companion.createProgram
-import ru.alexander.worldmetrics.opengl.shadertoy.renderer.ShaderToyRenderer
 import ru.alexander.worldmetrics.opengl.OpenGLView
+import ru.alexander.worldmetrics.opengl.shadertoy.renderer.ShaderToyRenderer
 
 class ShaderToyHelper private constructor() {
     companion object {

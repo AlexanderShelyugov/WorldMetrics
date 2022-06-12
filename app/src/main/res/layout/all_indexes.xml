@@ -4,27 +4,8 @@
     android:layout_height="match_parent">
 
     <LinearLayout
+        android:id="@+id/ll_indexes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <Button
-            android:id="@+id/btn_goto_democracy_index"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/democracy_index_name" />
-
-        <Button
-            android:id="@+id/btn_goto_corruption_perceptions"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/corruption_perceptions_index_name" />
-
-        <Button
-            android:id="@+id/btn_goto_press_freedom"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/press_freedom_index_name" />
-
-    </LinearLayout>
+        android:orientation="vertical" />
 </ScrollView>

@@ -2,6 +2,8 @@ package ru.alexander.worldmetrics.fragment
 
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
+import android.widget.Button
 import androidx.fragment.app.Fragment
 import ru.alexander.worldmetrics.R
 import ru.alexander.worldmetrics.fragment.AllIndexesOverviewFragmentDirections.Companion.actionAllIndexesOverviewFragmentToCorruptionPerceptionsOverviewFragment
@@ -11,22 +13,21 @@ import ru.alexander.worldmetrics.global.NavigationHelper.Companion.bindNavigatio
 
 class AllIndexesOverviewFragment : Fragment(R.layout.all_indexes) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        requireView().let {
-            bindNavigation(
-                it,
-                R.id.btn_goto_democracy_index,
-                actionAllIndexesOverviewFragmentToDemocracyIndexOverviewFragment()
-            )
-            bindNavigation(
-                it,
-                R.id.btn_goto_corruption_perceptions,
-                actionAllIndexesOverviewFragmentToCorruptionPerceptionsOverviewFragment()
-            )
-            bindNavigation(
-                it,
-                R.id.btn_goto_press_freedom,
-                actionAllIndexesOverviewFragmentToPressFreedomOverviewFragment()
-            )
+        requireView().findViewById<ViewGroup>(R.id.ll_indexes).let { v ->
+            INDEXES.forEach { index ->
+                val button = layoutInflater.inflate(R.layout.button_default, v, false) as Button
+                button.text = getString(index.first)
+                bindNavigation(button, index.second)
+                v.addView(button)
+            }
         }
+    }
+
+    private companion object {
+        val INDEXES = listOf(
+            R.string.democracy_index_name to actionAllIndexesOverviewFragmentToDemocracyIndexOverviewFragment(),
+            R.string.corruption_perceptions_index_name to actionAllIndexesOverviewFragmentToCorruptionPerceptionsOverviewFragment(),
+            R.string.press_freedom_index_name to actionAllIndexesOverviewFragmentToPressFreedomOverviewFragment()
+        )
     }
 }

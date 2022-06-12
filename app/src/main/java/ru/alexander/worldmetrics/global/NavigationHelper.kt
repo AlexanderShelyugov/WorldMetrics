@@ -7,8 +7,8 @@ import androidx.navigation.findNavController
 
 class NavigationHelper private constructor() {
     companion object {
-        fun bindNavigation(view: View, viewId: Int, action: NavDirections) {
-            view.findViewById<View>(viewId).setOnClickListener {
+        fun bindNavigation(view: View, action: NavDirections) {
+            view.setOnClickListener {
                 navigateTo(it.findNavController(), action)
             }
         }
