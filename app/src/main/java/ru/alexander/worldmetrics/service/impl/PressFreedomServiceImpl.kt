@@ -32,7 +32,7 @@ class PressFreedomServiceImpl @Inject constructor(private val csvService: CsvSer
                 .map { it[COLUMN_COUNTRY_CODE] to it[COLUMN_INDEX_VALUE] }
                 .associateTo(result) { it }
         }
-        csvService.process(filePath, processor, ';')
+        csvService.process(filePath, processor)
         return result
     }
 
@@ -47,7 +47,7 @@ class PressFreedomServiceImpl @Inject constructor(private val csvService: CsvSer
                 .toList()
                 .run(result::addAll)
         }
-        csvService.process(filePath, processor, ';')
+        csvService.process(filePath, processor)
         return result
     }
 
