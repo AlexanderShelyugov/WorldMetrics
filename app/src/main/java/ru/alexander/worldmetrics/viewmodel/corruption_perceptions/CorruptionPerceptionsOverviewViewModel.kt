@@ -11,9 +11,12 @@ import javax.inject.Inject
 class CorruptionPerceptionsOverviewViewModel @Inject constructor(
     private val service: CorruptionPerceptionsService
 ) : ViewModel() {
+
     val lastYearData: LiveData<Map<String, String>> by lazy {
         MutableLiveData<Map<String, String>>().also {
             it.value = service.getLastYearData()
         }
     }
+
+    fun getValueRange(): Pair<Float, Float> = service.getValueRange()
 }

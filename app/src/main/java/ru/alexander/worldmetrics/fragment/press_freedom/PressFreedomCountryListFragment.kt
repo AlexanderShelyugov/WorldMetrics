@@ -9,10 +9,11 @@ import ru.alexander.worldmetrics.global.NavigationHelper
 import ru.alexander.worldmetrics.viewmodel.press_freedom.PressFreedomOverviewViewModel
 
 class PressFreedomCountryListFragment : CountriesListWithIndexFragment() {
-    override fun getData(): LiveData<Map<String, String>> {
-        val model: PressFreedomOverviewViewModel by activityViewModels()
-        return model.lastYearData
-    }
+    private val model: PressFreedomOverviewViewModel by activityViewModels()
+
+    override fun getData(): LiveData<Map<String, String>> = model.lastYearData
+
+    override fun getValueRange(): Pair<Float, Float> = model.getValueRange()
 
     override fun onCountryClick(country: String) {
         NavigationHelper.navigateTo(

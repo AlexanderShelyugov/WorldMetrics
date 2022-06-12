@@ -13,4 +13,7 @@
     <color name="orange">#FFC300</color>
     <color name="orange_transparent">#99FFC300</color>
     <color name="icons_color">@android:color/white</color>
+
+    <color name="value_range_min">@color/orange</color>
+    <color name="value_range_max">#0A0</color>
 </resources>

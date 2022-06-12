@@ -16,4 +16,6 @@ class DemocracyIndexOverviewViewModel @Inject constructor(
             it.value = service.getLastYearData()
         }
     }
+
+    fun getValueRange(): Pair<Float, Float> = service.getValueRange()
 }

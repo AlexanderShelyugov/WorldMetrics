@@ -14,6 +14,8 @@ class DemocracyIndexServiceImpl @Inject constructor(
         const val COLUMN_COUNTRY_NAME = 1
         const val COLUMN_YEAR = 2
         const val COLUMN_INDEX_VALUE = 3
+
+        val VALUES_RANGE = 10.8f to 98.1f
     }
 
     lateinit var filePath: String
@@ -60,6 +62,8 @@ class DemocracyIndexServiceImpl @Inject constructor(
         getDataForCountry(country).asSequence()
             .map { rowToIndexValue(it) }
             .toList()
+
+    override fun getValueRange(): Pair<Float, Float> = VALUES_RANGE
 
     private fun rowToIndexValue(row: List<String>): DemocracyIndexValue = DemocracyIndexValue(
         row[0],

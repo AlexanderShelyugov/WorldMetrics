@@ -9,15 +9,15 @@ interface CorruptionPerceptionsService {
     fun getLastYearData(): Map<String, String>
 
     /**
-     * Возвращает данные за последний год для конкретной страны.
+     * Returns value range
      *
-     * @param country - страна
+     * @return pair of values, where first is minimum value and second is maximum value
      */
-    fun getLastYearData(country: String): CorruptionPerceptionsValue
+    fun getValueRange(): Pair<Float, Float>
 
     /**
      * Returns all data for specific country
      * @param country
      */
-    fun getAllData(country: String): List<CorruptionPerceptionsValue>
+    fun getAllData(countryCode: String): List<CorruptionPerceptionsValue>
 }

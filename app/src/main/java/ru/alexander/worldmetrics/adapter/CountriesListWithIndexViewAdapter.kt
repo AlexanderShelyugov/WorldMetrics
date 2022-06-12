@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
@@ -15,6 +16,7 @@ import ru.alexander.worldmetrics.model.CountriesData
 import ru.alexander.worldmetrics.model.TripleItem
 import ru.alexander.worldmetrics.search.SearchCriteria
 import ru.alexander.worldmetrics.search.TextSearchCriteria
+import ru.alexander.worldmetrics.view.ColorGradeCalculator
 
 typealias Item = TripleItem
 
@@ -23,7 +25,7 @@ class CountriesListWithIndexViewAdapter(private val onClick: (String) -> Unit) :
 
     companion object {
         private val COMPORATOR_BY_NAME: Comparator<Item> = compareBy { it.second }
-        private val COMPARATOR_BY_VALUE: Comparator<Item> = compareBy { it.third }
+        private val COMPARATOR_BY_VALUE: Comparator<Item> = compareBy { it.third.toFloatOrNull() }
     }
 
     var sortByCountry = true
@@ -33,6 +35,31 @@ class CountriesListWithIndexViewAdapter(private val onClick: (String) -> Unit) :
     private var data: SortedList<Item> = createData()
     private var fullData: List<Item> = listOf()
     private var comparator = calculateComparator()
+    private var colorCalculator: ColorGradeCalculator? = null
+    private var valuesRange: Pair<Float, Float>? = null
+
+    fun reSort() {
+        val prevData = (0 until data.size())
+            .map { i -> data.get(i) }
+            .toMutableList()
+        comparator = calculateComparator()
+        setDataItems(prevData)
+    }
+
+    fun setData(newData: Map<String, String>) {
+        val newItems = newData.asSequence()
+            .map { Item(it.key, CountriesData.getNameByCode(it.key), it.value) }
+            .toMutableList()
+        setDataItems(newItems)
+    }
+
+    fun setValuesRange(valueRange: Pair<Float, Float>) {
+        valuesRange = valueRange
+    }
+
+    fun setColorsRange(colorRange: Pair<Int, Int>) {
+        colorCalculator = ColorGradeCalculator(colorRange)
+    }
 
     private fun createData(): SortedList<Item> = SortedList(Item::class.java,
         object : SortedListAdapterCallback<Item>(this) {
@@ -61,32 +88,19 @@ class CountriesListWithIndexViewAdapter(private val onClick: (String) -> Unit) :
         }
     }
 
-    fun reSort() {
-        val prevData = (0 until data.size())
-            .map { i -> data.get(i) }
-            .toMutableList()
-        comparator = calculateComparator()
-        setData(prevData)
-    }
-
-    fun setData(newData: Map<String, String>) {
-        val newItems = newData.asSequence()
-            .map { Item(it.key, CountriesData.getNameByCode(it.key), it.value) }
-            .toMutableList()
-        setData(newItems)
-    }
-
-    private fun setData(newData: List<Item>) {
+    private fun setDataItems(newData: List<Item>) {
         fullData = newData.toList()
         data = createData().also {
             it.addAll(newData)
         }
     }
 
-    class CountryIndexViewHolder(view: View) : ViewHolder(view) {
-        val countryName: TextView = view.findViewById(R.id.tv_country_name)
-        val value: TextView = view.findViewById(R.id.tv_value)
-    }
+    class CountryIndexViewHolder(
+        view: View,
+        val background: LinearLayout = view.findViewById(R.id.ll_country_index_background),
+        val countryName: TextView = view.findViewById(R.id.tv_country_name),
+        val value: TextView = view.findViewById(R.id.tv_value),
+    ) : ViewHolder(view)
 
     // Create new views (invoked by the layout manager)
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
@@ -108,6 +122,19 @@ class CountriesListWithIndexViewAdapter(private val onClick: (String) -> Unit) :
                 this.itemView.setOnClickListener {
                     onClick.invoke(countryCode)
                 }
+
+                if (valuesRange == null || colorCalculator == null) {
+                    return
+                }
+                val index = row.third.toFloatOrNull() ?: valuesRange!!.first
+                val color = colorCalculator!!.evalColor(
+                    valuesRange!!.first,
+                    valuesRange!!.second,
+                    index
+                )
+                countryName.setTextColor(color)
+                value.setTextColor(color)
+//                background.setBackgroundColor(color)
             }
         }
     }

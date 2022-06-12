@@ -11,5 +11,5 @@
         android:width="2dp"
         android:color="@color/yellow" />
         -->
-    <solid android:color="@color/yellow_pale_transparent" />
+    <solid android:color="@android:color/transparent" />
 </shape>

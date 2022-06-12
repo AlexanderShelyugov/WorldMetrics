@@ -10,6 +10,7 @@ import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import ru.alexander.worldmetrics.R
 import ru.alexander.worldmetrics.adapter.CountriesListWithIndexViewAdapter
+import ru.alexander.worldmetrics.global.ColorAccess.Companion.VALUE_DEFAULT_COLOR_RANGE
 
 abstract class CountriesListWithIndexFragment :
     InjectableFragment(R.layout.countries_list_with_index), SearchView.OnQueryTextListener {
@@ -17,6 +18,14 @@ abstract class CountriesListWithIndexFragment :
     private lateinit var sortTypeItem: MenuItem
     private lateinit var sortOrderItem: MenuItem
     private lateinit var listView: RecyclerView
+
+    init {
+        countriesAdapter.run {
+            sortByCountry = true
+            naturalOrder = true
+            setColorsRange(VALUE_DEFAULT_COLOR_RANGE)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,8 +38,7 @@ abstract class CountriesListWithIndexFragment :
             it.adapter = countriesAdapter
             it.itemAnimator = null
         }
-        countriesAdapter.sortByCountry = true
-        countriesAdapter.naturalOrder = true
+        countriesAdapter.setValuesRange(getValueRange())
         countriesAdapter.reSort()
         getData().observe(viewLifecycleOwner) { countries ->
             countriesAdapter.setData(countries)
@@ -39,9 +47,7 @@ abstract class CountriesListWithIndexFragment :
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.action_bar_country_list, menu)
-        (menu.findItem(R.id.action_search).actionView as SearchView).let {
-            it.setOnQueryTextListener(this)
-        }
+        (menu.findItem(R.id.action_search).actionView as SearchView).setOnQueryTextListener(this)
 
         sortTypeItem = menu.findItem(R.id.action_sort_type)
         sortOrderItem = menu.findItem(R.id.action_sort_order)
@@ -96,6 +102,8 @@ abstract class CountriesListWithIndexFragment :
     }
 
     protected abstract fun getData(): LiveData<Map<String, String>>
+
+    protected abstract fun getValueRange(): Pair<Float, Float>
 
     protected abstract fun onCountryClick(country: String)
 }

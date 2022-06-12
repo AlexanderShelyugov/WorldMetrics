@@ -10,10 +10,11 @@ import ru.alexander.worldmetrics.viewmodel.corruption_perceptions.CorruptionPerc
 
 class CorruptionPerceptionsCountryListFragment :
     CountriesListWithIndexFragment() {
-    override fun getData(): LiveData<Map<String, String>> {
-        val model: CorruptionPerceptionsOverviewViewModel by activityViewModels()
-        return model.lastYearData
-    }
+    private val model: CorruptionPerceptionsOverviewViewModel by activityViewModels()
+
+    override fun getData(): LiveData<Map<String, String>> = model.lastYearData
+
+    override fun getValueRange(): Pair<Float, Float> = model.getValueRange()
 
     override fun onCountryClick(country: String) {
         navigateTo(

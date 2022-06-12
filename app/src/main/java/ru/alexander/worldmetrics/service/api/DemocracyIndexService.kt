@@ -9,6 +9,13 @@ interface DemocracyIndexService {
     fun getLastYearData(): Map<String, String>
 
     /**
+     * Returns value range
+     *
+     * @return pair of values, where first is minimum value and second is maximum value
+     */
+    fun getValueRange(): Pair<Float, Float>
+
+    /**
      * Возвращает данные за последний год для конкретной страны.
      *
      * @param country - страна

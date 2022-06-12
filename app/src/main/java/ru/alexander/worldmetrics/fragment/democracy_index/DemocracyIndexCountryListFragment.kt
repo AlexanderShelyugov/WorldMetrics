@@ -9,10 +9,11 @@ import ru.alexander.worldmetrics.global.NavigationHelper.Companion.navigateTo
 import ru.alexander.worldmetrics.viewmodel.democracy_index.DemocracyIndexOverviewViewModel
 
 class DemocracyIndexCountryListFragment : CountriesListWithIndexFragment() {
-    override fun getData(): LiveData<Map<String, String>> {
-        val model: DemocracyIndexOverviewViewModel by activityViewModels()
-        return model.lastYearData
-    }
+    private val model: DemocracyIndexOverviewViewModel by activityViewModels()
+
+    override fun getData(): LiveData<Map<String, String>> = model.lastYearData
+
+    override fun getValueRange(): Pair<Float, Float> = model.getValueRange()
 
     override fun onCountryClick(country: String) {
         navigateTo(

@@ -20,6 +20,8 @@ class PressFreedomServiceImpl @Inject constructor(private val csvService: CsvSer
         const val COLUMN_SOCIAL_CONTEXT = 9
         const val COLUMN_SAFETY = 11
         const val COLUMN_YEAR = 19
+
+        val VALUES_RANGE = 13.92f to 92.65f
     }
 
     override fun getLastYearData(): Map<String, String> {
@@ -33,6 +35,8 @@ class PressFreedomServiceImpl @Inject constructor(private val csvService: CsvSer
         csvService.process(filePath, processor, ';')
         return result
     }
+
+    override fun getValueRange(): Pair<Float, Float> = VALUES_RANGE
 
     override fun getData(country: String): List<PressFreedomValue> {
         val result = mutableListOf<PressFreedomValue>()
