@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tv_country_info"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/your_country_is_unknown"
+        android:textAlignment="textStart"
+        app:layout_constraintEnd_toStartOf="@id/ib_country_search_wizard"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_additional_message"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@id/ib_country_search_wizard"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_country_info" />
+
+    <ImageButton
+        android:id="@+id/ib_country_search_wizard"
+        android:layout_width="@dimen/button_size_middle"
+        android:layout_height="@dimen/button_size_middle"
+        android:background="@drawable/ripple_secondary_circle"
+        android:contentDescription="Country search wizard"
+        android:padding="10dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/action_wizard"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
