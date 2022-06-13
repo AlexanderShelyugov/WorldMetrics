@@ -2,6 +2,5 @@
     <string name="app_name">World Metrics</string>
     <string name="country_name">Country name</string>
     <string name="your_country_is">Your country is: </string>
-    <string name="your_country_is_unknown">Your country is unknown</string>
     <string name="consider_searching_your_country">Consider searching your country</string>
 </resources>

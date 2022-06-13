@@ -191,4 +191,6 @@
     <string name="country_name_yemen">Yemen</string>
     <string name="country_name_zambia">Zambia</string>
     <string name="country_name_zimbabwe">Zimbabwe</string>
+
+    <string name="country_name_unknown">Unknown</string>
 </resources>

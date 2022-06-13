@@ -29,6 +29,9 @@
             app:exitAnim="@anim/screen_exit"
             app:popEnterAnim="@anim/screen_enter"
             app:popExitAnim="@anim/screen_exit" />
+        <action
+            android:id="@+id/action_homeScreenFragment_to_countryDetectFragment"
+            app:destination="@id/countryDetectFragment" />
     </fragment>
     <fragment
         android:id="@+id/democracyIndexOverviewFragment"
@@ -90,4 +93,8 @@
             android:name="countryCode"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/countryDetectFragment"
+        android:name="ru.alexander.worldmetrics.fragment.CountryDetectFragment"
+        android:label="CountryDetectFragment" />
 </navigation>
