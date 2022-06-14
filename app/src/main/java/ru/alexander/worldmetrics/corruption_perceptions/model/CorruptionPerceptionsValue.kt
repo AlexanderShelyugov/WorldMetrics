@@ -1,4 +1,4 @@
-package ru.alexander.worldmetrics.model.corruption_perceptions
+package ru.alexander.worldmetrics.corruption_perceptions.model
 
 data class CorruptionPerceptionsValue(
     val country: String,

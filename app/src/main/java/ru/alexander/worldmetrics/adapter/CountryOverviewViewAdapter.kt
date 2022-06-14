@@ -11,7 +11,7 @@ import ru.alexander.worldmetrics.adapter.CountryOverviewViewAdapter.ViewTypes.DE
 import ru.alexander.worldmetrics.adapter.CountryOverviewViewAdapter.ViewTypes.DEMOCRACY_INDEX_ITEM
 import ru.alexander.worldmetrics.adapter.CountryOverviewViewAdapter.ViewTypes.PRESS_FREEDOM_HEADER
 import ru.alexander.worldmetrics.adapter.CountryOverviewViewAdapter.ViewTypes.PRESS_FREEDOM_ITEM
-import ru.alexander.worldmetrics.model.corruption_perceptions.CorruptionPerceptionsData
+import ru.alexander.worldmetrics.corruption_perceptions.model.CorruptionPerceptionsData
 import ru.alexander.worldmetrics.model.democracy_index.DemocracyIndexData
 import ru.alexander.worldmetrics.model.press_freedom.PressFreedomData
 import ru.alexander.worldmetrics.viewmodel.country_overview.CountryOverviewData

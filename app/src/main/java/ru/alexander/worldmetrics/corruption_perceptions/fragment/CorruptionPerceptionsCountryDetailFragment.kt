@@ -1,13 +1,13 @@
-package ru.alexander.worldmetrics.fragment.corruption_perceptions
+package ru.alexander.worldmetrics.corruption_perceptions.fragment
 
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LiveData
 import androidx.navigation.fragment.navArgs
 import ru.alexander.worldmetrics.adapter.IndexFeaturesRVAdapter
-import ru.alexander.worldmetrics.adapter.corruption_perceptions.CorruptionPerceptionsAdapter
+import ru.alexander.worldmetrics.corruption_perceptions.adapter.CorruptionPerceptionsAdapter
 import ru.alexander.worldmetrics.fragment.CountryIndexDetailFragment
-import ru.alexander.worldmetrics.model.corruption_perceptions.CorruptionPerceptionsValue
-import ru.alexander.worldmetrics.viewmodel.corruption_perceptions.CorruptionPerceptionsCountryDetailViewModel
+import ru.alexander.worldmetrics.corruption_perceptions.model.CorruptionPerceptionsValue
+import ru.alexander.worldmetrics.corruption_perceptions.viewmodel.CorruptionPerceptionsCountryDetailViewModel
 
 class CorruptionPerceptionsCountryDetailFragment :
     CountryIndexDetailFragment<CorruptionPerceptionsValue>() {

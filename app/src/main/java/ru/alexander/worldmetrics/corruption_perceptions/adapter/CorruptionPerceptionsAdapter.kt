@@ -1,10 +1,10 @@
-package ru.alexander.worldmetrics.adapter.corruption_perceptions
+package ru.alexander.worldmetrics.corruption_perceptions.adapter
 
 import ru.alexander.worldmetrics.adapter.IndexFeaturesRVAdapter
-import ru.alexander.worldmetrics.model.corruption_perceptions.CorruptionPerceptionsData
-import ru.alexander.worldmetrics.model.corruption_perceptions.CorruptionPerceptionsData.Companion.INDEXES_TO_SHOW
-import ru.alexander.worldmetrics.model.corruption_perceptions.CorruptionPerceptionsData.Companion.YEAR_FUNCTION
-import ru.alexander.worldmetrics.model.corruption_perceptions.CorruptionPerceptionsValue
+import ru.alexander.worldmetrics.corruption_perceptions.model.CorruptionPerceptionsData
+import ru.alexander.worldmetrics.corruption_perceptions.model.CorruptionPerceptionsData.Companion.INDEXES_TO_SHOW
+import ru.alexander.worldmetrics.corruption_perceptions.model.CorruptionPerceptionsData.Companion.YEAR_FUNCTION
+import ru.alexander.worldmetrics.corruption_perceptions.model.CorruptionPerceptionsValue
 
 class CorruptionPerceptionsAdapter : IndexFeaturesRVAdapter<CorruptionPerceptionsValue>() {
     override fun getFeatureName(index: Int): Int = INDEXES_TO_SHOW[index].first

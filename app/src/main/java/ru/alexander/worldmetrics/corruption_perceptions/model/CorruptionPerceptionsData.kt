@@ -1,4 +1,4 @@
-package ru.alexander.worldmetrics.model.corruption_perceptions
+package ru.alexander.worldmetrics.corruption_perceptions.model
 
 import ru.alexander.worldmetrics.R
 

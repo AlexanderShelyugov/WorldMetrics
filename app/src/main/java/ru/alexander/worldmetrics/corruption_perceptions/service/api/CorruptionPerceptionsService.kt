@@ -1,6 +1,6 @@
-package ru.alexander.worldmetrics.service.api
+package ru.alexander.worldmetrics.corruption_perceptions.service.api
 
-import ru.alexander.worldmetrics.model.corruption_perceptions.CorruptionPerceptionsValue
+import ru.alexander.worldmetrics.corruption_perceptions.model.CorruptionPerceptionsValue
 
 interface CorruptionPerceptionsService {
     /**
