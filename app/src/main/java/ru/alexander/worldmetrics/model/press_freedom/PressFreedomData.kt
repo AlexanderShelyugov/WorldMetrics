@@ -7,6 +7,8 @@ private typealias ValueFunction = (Index) -> Float
 
 class PressFreedomData private constructor() {
     companion object {
+        const val FEATURES_NUMBER = 6
+
         val YEAR_FUNCTION: ValueFunction = { it.year.toFloat() }
 
         val INDEXES_TO_SHOW: List<Pair<Int, ValueFunction>> = listOf(

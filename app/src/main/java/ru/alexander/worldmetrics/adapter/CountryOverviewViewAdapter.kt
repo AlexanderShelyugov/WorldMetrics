@@ -10,6 +10,9 @@ import ru.alexander.worldmetrics.adapter.CountryOverviewViewAdapter.ViewTypes.DE
 import ru.alexander.worldmetrics.adapter.CountryOverviewViewAdapter.ViewTypes.DEMOCRACY_INDEX_ITEM
 import ru.alexander.worldmetrics.adapter.CountryOverviewViewAdapter.ViewTypes.PRESS_FREEDOM_HEADER
 import ru.alexander.worldmetrics.adapter.CountryOverviewViewAdapter.ViewTypes.PRESS_FREEDOM_ITEM
+import ru.alexander.worldmetrics.model.corruption_perceptions.CorruptionPerceptionsData
+import ru.alexander.worldmetrics.model.democracy_index.DemocracyIndexData
+import ru.alexander.worldmetrics.model.press_freedom.PressFreedomData
 import ru.alexander.worldmetrics.viewmodel.country_overview.CountryOverviewData
 
 class CountryOverviewViewAdapter : RecyclerView.Adapter<ViewHolder>() {
@@ -47,7 +50,7 @@ class CountryOverviewViewAdapter : RecyclerView.Adapter<ViewHolder>() {
                 throw Error("Unexpected view type")
             }
         }
-        return vh
+        return ViewHolder()
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -55,11 +58,32 @@ class CountryOverviewViewAdapter : RecyclerView.Adapter<ViewHolder>() {
     }
 
     override fun getItemCount(): Int {
-        TODO("Not yet implemented")
+        // We will show a country badge, then
+        // Every feature of indexes + header for specific index
+        return ITEM_TYPE_LAYOUT.asSequence()
+            .map { it.first }
+            .sum()
     }
 
     override fun getItemViewType(position: Int): Int {
-        return super.getItemViewType(position)
+        var pos = position
+        for (detector in ITEM_TYPE_LAYOUT) {
+            pos -= detector.first
+            if (pos <= 0) return detector.second.ordinal
+        }
+        return -1
+    }
+
+    private companion object {
+        val ITEM_TYPE_LAYOUT = listOf(
+            1 to COUNTRY_BADGE,
+            1 to CORRUPTION_PERCEPTIONS_HEADER,
+            CorruptionPerceptionsData.FEATURES_NUMBER to CORRUPTION_PERCEPTIONS_ITEM,
+            1 to DEMOCRACY_INDEX_HEADER,
+            DemocracyIndexData.FEATURES_NUMBER to DEMOCRACY_INDEX_ITEM,
+            1 to PRESS_FREEDOM_HEADER,
+            PressFreedomData.FEATURES_NUMBER to PRESS_FREEDOM_ITEM,
+        )
     }
 
     private enum class ViewTypes {
