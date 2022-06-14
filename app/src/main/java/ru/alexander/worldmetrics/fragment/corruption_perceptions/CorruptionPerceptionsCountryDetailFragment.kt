@@ -1,63 +1,27 @@
 package ru.alexander.worldmetrics.fragment.corruption_perceptions
 
-import android.os.Bundle
-import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.LiveData
 import androidx.navigation.fragment.navArgs
-import ru.alexander.worldmetrics.R
-import ru.alexander.worldmetrics.model.CountriesData.Companion.getNameByCode
-import ru.alexander.worldmetrics.model.corruption_perceptions.CorruptionPerceptionsData.Companion.INDEXES_TO_SHOW
-import ru.alexander.worldmetrics.model.corruption_perceptions.CorruptionPerceptionsData.Companion.YEAR_FUNCTION
+import ru.alexander.worldmetrics.adapter.IndexFeaturesRVAdapter
+import ru.alexander.worldmetrics.adapter.corruption_perceptions.CorruptionPerceptionsAdapter
+import ru.alexander.worldmetrics.fragment.CountryIndexDetailFragment
 import ru.alexander.worldmetrics.model.corruption_perceptions.CorruptionPerceptionsValue
-import ru.alexander.worldmetrics.view.LabelValueChartView
 import ru.alexander.worldmetrics.viewmodel.corruption_perceptions.CorruptionPerceptionsCountryDetailViewModel
 
-private typealias Index = CorruptionPerceptionsValue
-private typealias ValueFunction = (Index) -> Float
-
 class CorruptionPerceptionsCountryDetailFragment :
-    Fragment(R.layout.country_detail_indexes) {
-    private var allIndexes: Collection<LabelValueChartView<Index>> = listOf()
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+    CountryIndexDetailFragment<CorruptionPerceptionsValue>() {
+    override fun getCountryCode(): String {
         val args: CorruptionPerceptionsCountryDetailFragmentArgs by navArgs()
-        val countryCode = args.countryCode
+        return args.countryCode
+    }
 
-        view.findViewById<TextView>(R.id.tv_country_name).run { text = getNameByCode(countryCode) }
-
-        val indexesContainer = view.findViewById<ViewGroup>(R.id.ll_indexes)
-        allIndexes = INDEXES_TO_SHOW.asSequence()
-            .map { createIndexView(it.first, it.second, indexesContainer) }
-            .onEach(indexesContainer::addView)
-            .toList()
-
+    override fun getData(): LiveData<List<CorruptionPerceptionsValue>> {
         val model: CorruptionPerceptionsCountryDetailViewModel by activityViewModels()
-        model.allData.observe(viewLifecycleOwner) { indexPerYear ->
-            allIndexes.forEach {
-                it.setData(indexPerYear)
-            }
-        }
-        model.setCountry(countryCode)
+        model.setCountry(getCountryCode())
+        return model.allData
     }
 
-    private fun createIndexView(
-        labelText: Int,
-        valueExtractor: ValueFunction,
-        container: ViewGroup
-    ): LabelValueChartView<Index> {
-        val view =
-            layoutInflater.inflate(
-                R.layout.label_value_chart_view,
-                container,
-                false
-            ) as LabelValueChartView<Index>
-        view.setLabelText(labelText)
-        view.setExtractors(YEAR_FUNCTION, valueExtractor)
-        return view
-    }
+    override fun getAdapter(): IndexFeaturesRVAdapter<CorruptionPerceptionsValue> =
+        CorruptionPerceptionsAdapter()
 }

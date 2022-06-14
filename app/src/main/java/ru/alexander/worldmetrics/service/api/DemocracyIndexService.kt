@@ -1,6 +1,6 @@
 package ru.alexander.worldmetrics.service.api
 
-import ru.alexander.worldmetrics.model.DemocracyIndexValue
+import ru.alexander.worldmetrics.model.democracy_index.DemocracyIndexValue
 
 interface DemocracyIndexService {
     /**

@@ -1,6 +1,6 @@
 package ru.alexander.worldmetrics.service.impl
 
-import ru.alexander.worldmetrics.model.DemocracyIndexValue
+import ru.alexander.worldmetrics.model.democracy_index.DemocracyIndexValue
 import ru.alexander.worldmetrics.service.api.DemocracyIndexService
 import ru.alexander.worldmetrics.service.api.csv.CsvService
 import javax.inject.Inject

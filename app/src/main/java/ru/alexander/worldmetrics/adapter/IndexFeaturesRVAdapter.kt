@@ -6,11 +6,14 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import ru.alexander.worldmetrics.R
 import ru.alexander.worldmetrics.adapter.IndexFeaturesRVAdapter.LVCViewHolder
+import ru.alexander.worldmetrics.global.ColorAccess.Companion.getColor
 import ru.alexander.worldmetrics.view.LabelValueChartView
 
-abstract class IndexFeaturesRVAdapter<T> : Adapter<LVCViewHolder<T>>() {
+private typealias VH<T> = LVCViewHolder<T>
 
-    protected lateinit var items: List<T>
+abstract class IndexFeaturesRVAdapter<T> : Adapter<VH<T>>() {
+
+    private lateinit var items: List<T>
 
     fun setData(data: List<T>) {
         items = data
@@ -23,25 +26,26 @@ abstract class IndexFeaturesRVAdapter<T> : Adapter<LVCViewHolder<T>>() {
     override fun onCreateViewHolder(
         viewGroup: ViewGroup,
         viewType: Int
-    ): LVCViewHolder<T> {
-        val view =
-            LayoutInflater.from(viewGroup.context).inflate(
-                R.layout.label_value_chart_view,
-                viewGroup,
-                false
-            ) as LabelValueChartView<T>
-        view.setData(items)
-        return LVCViewHolder(view)
+    ): VH<T> {
+        val view = LayoutInflater.from(viewGroup.context).inflate(
+            R.layout.label_value_chart_view,
+            viewGroup,
+            false
+        )
+        view.setBackgroundColor(getColor(R.color.orange))
+        return VH(view as LabelValueChartView<T>)
     }
 
     override fun onBindViewHolder(
-        holder: LVCViewHolder<T>,
+        holder: VH<T>,
         position: Int
     ) {
         holder.lcv.run {
             setLabelText(getFeatureName(position))
-            val extractors = getFeatureExtractors(position)
-            setExtractors(extractors.first, extractors.second)
+            getFeatureExtractors(position).run {
+                setExtractors(first, second)
+            }
+            setData(items)
         }
     }
 
