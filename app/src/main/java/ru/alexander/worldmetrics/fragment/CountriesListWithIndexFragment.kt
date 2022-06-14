@@ -6,6 +6,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.SearchView
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import ru.alexander.worldmetrics.R
@@ -13,7 +14,7 @@ import ru.alexander.worldmetrics.adapter.CountriesListWithIndexViewAdapter
 import ru.alexander.worldmetrics.global.ColorAccess.Companion.VALUE_DEFAULT_COLOR_RANGE
 
 abstract class CountriesListWithIndexFragment :
-    InjectableFragment(R.layout.countries_list_with_index), SearchView.OnQueryTextListener {
+    Fragment(R.layout.countries_list_with_index), SearchView.OnQueryTextListener {
     private val countriesAdapter = CountriesListWithIndexViewAdapter(this::onCountryClick)
     private lateinit var sortTypeItem: MenuItem
     private lateinit var sortOrderItem: MenuItem

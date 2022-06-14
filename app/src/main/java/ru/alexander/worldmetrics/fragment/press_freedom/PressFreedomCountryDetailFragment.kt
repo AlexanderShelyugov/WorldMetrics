@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import ru.alexander.worldmetrics.R
@@ -17,7 +18,7 @@ private typealias Index = PressFreedomValue
 private typealias ValueFunction = (Index) -> Float
 
 class PressFreedomCountryDetailFragment :
-    InjectableFragment(R.layout.country_detail_indexes) {
+    Fragment(R.layout.country_detail_indexes) {
     private var allIndexes: Collection<LabelValueChartView<Index>> = listOf()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

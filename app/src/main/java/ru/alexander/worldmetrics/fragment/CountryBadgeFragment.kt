@@ -5,6 +5,7 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import ru.alexander.worldmetrics.R
 import ru.alexander.worldmetrics.fragment.HomeScreenFragmentDirections.Companion.actionHomeScreenFragmentToCountryDetectFragment
@@ -13,7 +14,7 @@ import ru.alexander.worldmetrics.global.NavigationHelper.Companion.bindNavigatio
 import ru.alexander.worldmetrics.model.CountriesData
 import ru.alexander.worldmetrics.viewmodel.CurrentCountryViewModel
 
-class CountryBadgeFragment : InjectableFragment(R.layout.country_badge_fragment) {
+class CountryBadgeFragment : Fragment(R.layout.country_badge_fragment) {
     private lateinit var countryInfo: TextView
     private lateinit var messageLabel: TextView
 

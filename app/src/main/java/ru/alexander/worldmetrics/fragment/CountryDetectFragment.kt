@@ -2,13 +2,14 @@ package ru.alexander.worldmetrics.fragment
 
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import ru.alexander.worldmetrics.R
 import ru.alexander.worldmetrics.model.CountriesData
 import ru.alexander.worldmetrics.viewmodel.CurrentCountryViewModel
 
-class CountryDetectFragment : InjectableFragment(R.layout.country_detect_fragment) {
+class CountryDetectFragment : Fragment(R.layout.country_detect_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val model: CurrentCountryViewModel by activityViewModels()

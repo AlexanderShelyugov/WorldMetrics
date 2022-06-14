@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import ru.alexander.worldmetrics.R
-import ru.alexander.worldmetrics.fragment.InjectableFragment
 import ru.alexander.worldmetrics.model.CorruptionPerceptionsValue
 import ru.alexander.worldmetrics.model.CountriesData.Companion.getNameByCode
 import ru.alexander.worldmetrics.view.LabelValueChartView
@@ -17,7 +17,7 @@ private typealias Index = CorruptionPerceptionsValue
 private typealias ValueFunction = (Index) -> Float
 
 class CorruptionPerceptionsCountryDetailFragment :
-    InjectableFragment(R.layout.country_detail_indexes) {
+    Fragment(R.layout.country_detail_indexes) {
     private var allIndexes: Collection<LabelValueChartView<Index>> = listOf()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
