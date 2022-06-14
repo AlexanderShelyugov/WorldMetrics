@@ -100,18 +100,13 @@ class CountriesListWithIndexViewAdapter(private val onClick: (String) -> Unit) :
         val value: TextView = view.findViewById(R.id.tv_value),
     ) : ViewHolder(view)
 
-    // Create new views (invoked by the layout manager)
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-        // Create a new view, which defines the UI of the list item
         val view = LayoutInflater.from(viewGroup.context)
             .inflate(R.layout.country_name_with_value_item, viewGroup, false)
         return CountryIndexViewHolder(view)
     }
 
-    // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        // Get element from your dataset at this position and replace the
-        // contents of the view with that element
         (viewHolder as CountryIndexViewHolder).run {
             data[position].let { row ->
                 val countryCode = row.first
@@ -136,7 +131,6 @@ class CountriesListWithIndexViewAdapter(private val onClick: (String) -> Unit) :
         }
     }
 
-    // Return the size of your dataset (invoked by the layout manager)
     override fun getItemCount() = data.size()
     override fun getFilter(): Filter {
         return object : Filter() {

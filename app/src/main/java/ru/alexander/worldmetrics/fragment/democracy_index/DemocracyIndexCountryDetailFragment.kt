@@ -9,7 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import ru.alexander.worldmetrics.R
 import ru.alexander.worldmetrics.model.CountriesData.Companion.getNameByCode
-import ru.alexander.worldmetrics.model.democracy_index.DemocracyIndexData.Companion.INDEXES_TO_SHOW
+import ru.alexander.worldmetrics.model.democracy_index.DemocracyIndexData.Companion.FEATURES_TO_SHOW
 import ru.alexander.worldmetrics.model.democracy_index.DemocracyIndexData.Companion.YEAR_FUNCTION
 import ru.alexander.worldmetrics.model.democracy_index.DemocracyIndexValue
 import ru.alexander.worldmetrics.view.LabelValueChartView
@@ -32,7 +32,7 @@ class DemocracyIndexCountryDetailFragment :
         view.findViewById<TextView>(R.id.tv_country_name).run { text = getNameByCode(countryCode) }
 
         val indexesContainer = view.findViewById<ViewGroup>(R.id.ll_indexes)
-        allIndexes = INDEXES_TO_SHOW.asSequence()
+        allIndexes = FEATURES_TO_SHOW.asSequence()
             .map { createIndexView(it.first, it.second, indexesContainer) }
             .onEach(indexesContainer::addView)
             .toList()

@@ -1,5 +1,6 @@
 package ru.alexander.worldmetrics.adapter
 
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
@@ -21,6 +22,11 @@ class CountryOverviewViewAdapter : RecyclerView.Adapter<ViewHolder>() {
     fun setData(data: CountryOverviewData) {
         this.data = data
     }
+
+    class MyViewHolder(
+        val lcv: View
+    ) : RecyclerView.ViewHolder(lcv)
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val vh: ViewHolder
@@ -50,7 +56,7 @@ class CountryOverviewViewAdapter : RecyclerView.Adapter<ViewHolder>() {
                 throw Error("Unexpected view type")
             }
         }
-        return ViewHolder()
+        return MyViewHolder(parent)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
