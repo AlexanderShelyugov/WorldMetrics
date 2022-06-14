@@ -32,6 +32,9 @@
         <action
             android:id="@+id/action_homeScreenFragment_to_countryDetectFragment"
             app:destination="@id/countryDetectFragment" />
+        <action
+            android:id="@+id/action_homeScreenFragment_to_countryOverviewFragment"
+            app:destination="@id/countryOverviewFragment" />
     </fragment>
     <fragment
         android:id="@+id/democracyIndexOverviewFragment"
@@ -97,4 +100,12 @@
         android:id="@+id/countryDetectFragment"
         android:name="ru.alexander.worldmetrics.fragment.CountryDetectFragment"
         android:label="CountryDetectFragment" />
+    <fragment
+        android:id="@+id/countryOverviewFragment"
+        android:name="ru.alexander.worldmetrics.fragment.CountryOverviewFragment"
+        android:label="CountryOverviewFragment" >
+        <argument
+            android:name="countryCode"
+            app:argType="string" />
+    </fragment>
 </navigation>

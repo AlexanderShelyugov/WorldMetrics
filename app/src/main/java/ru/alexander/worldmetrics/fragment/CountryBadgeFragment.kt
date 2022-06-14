@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import ru.alexander.worldmetrics.R
 import ru.alexander.worldmetrics.fragment.HomeScreenFragmentDirections.Companion.actionHomeScreenFragmentToCountryDetectFragment
+import ru.alexander.worldmetrics.fragment.HomeScreenFragmentDirections.Companion.actionHomeScreenFragmentToCountryOverviewFragment
 import ru.alexander.worldmetrics.global.NavigationHelper.Companion.bindNavigation
 import ru.alexander.worldmetrics.model.CountriesData
 import ru.alexander.worldmetrics.viewmodel.CurrentCountryViewModel
@@ -18,17 +19,24 @@ class CountryBadgeFragment : InjectableFragment(R.layout.country_badge_fragment)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        requireView().run {
+        val v = requireView()
+        v.run {
             countryInfo = findViewById(R.id.tv_country_name)
             messageLabel = findViewById(R.id.tv_additional_message)
         }
 
+        val countryBadge: View = v.findViewById(R.id.cl_country_badge)
         val model: CurrentCountryViewModel by activityViewModels()
-
-        model.currentCountryCode.observe(viewLifecycleOwner, this::setCountryCode)
+        model.currentCountryCode.observe(viewLifecycleOwner) { countryCode ->
+            countryBadge.isClickable = countryCode.isNotBlank()
+            setCountryCode(countryCode)
+        }
         bindNavigation(
-            requireView().findViewById(R.id.ib_country_search_wizard),
+            countryBadge,
+            actionHomeScreenFragmentToCountryOverviewFragment(model.currentCountryCode.value!!)
+        )
+        bindNavigation(
+            v.findViewById(R.id.ib_country_search_wizard),
             actionHomeScreenFragmentToCountryDetectFragment()
         )
     }
