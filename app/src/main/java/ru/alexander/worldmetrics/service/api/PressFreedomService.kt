@@ -1,6 +1,6 @@
 package ru.alexander.worldmetrics.service.api
 
-import ru.alexander.worldmetrics.model.PressFreedomValue
+import ru.alexander.worldmetrics.model.press_freedom.PressFreedomValue
 
 interface PressFreedomService {
     /**

@@ -8,9 +8,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import ru.alexander.worldmetrics.R
-import ru.alexander.worldmetrics.fragment.InjectableFragment
 import ru.alexander.worldmetrics.model.CountriesData.Companion.getNameByCode
-import ru.alexander.worldmetrics.model.DemocracyIndexValue
+import ru.alexander.worldmetrics.model.democracy_index.DemocracyIndexData.Companion.INDEXES_TO_SHOW
+import ru.alexander.worldmetrics.model.democracy_index.DemocracyIndexData.Companion.YEAR_FUNCTION
+import ru.alexander.worldmetrics.model.democracy_index.DemocracyIndexValue
 import ru.alexander.worldmetrics.view.LabelValueChartView
 import ru.alexander.worldmetrics.viewmodel.democracy_index.DemocracyIndexCountryDetailViewModel
 
@@ -32,7 +33,7 @@ class DemocracyIndexCountryDetailFragment :
 
         val indexesContainer = view.findViewById<ViewGroup>(R.id.ll_indexes)
         allIndexes = INDEXES_TO_SHOW.asSequence()
-            .map { createIndexView(it.first, it.second) }
+            .map { createIndexView(it.first, it.second, indexesContainer) }
             .onEach(indexesContainer::addView)
             .toList()
 
@@ -47,28 +48,18 @@ class DemocracyIndexCountryDetailFragment :
 
     private fun createIndexView(
         labelText: Int,
-        valueExtractor: ValueFunction
+        valueExtractor: ValueFunction,
+        container: ViewGroup
     ): LabelValueChartView<Index> {
         val view =
             layoutInflater.inflate(
                 R.layout.label_value_chart_view,
-                null
+                container,
+                false
             ) as LabelValueChartView<Index>
         view.setLabelText(labelText)
         view.setExtractors(YEAR_FUNCTION, valueExtractor)
         return view
     }
 
-    private companion object {
-        val YEAR_FUNCTION: ValueFunction = { it.year.toFloat() }
-
-        val INDEXES_TO_SHOW: List<Pair<Int, ValueFunction>> = listOf(
-            R.string.democracy_index_name to { it.democracyIndex },
-            R.string.electoral_process_and_pluralism to { it.electoralProcessAndPluralism },
-            R.string.functioning_of_government to { it.functioningOfGovernment },
-            R.string.political_participation to { it.politicalParticipation },
-            R.string.political_culture to { it.politicalCulture },
-            R.string.civil_liberties to { it.civilLiberties },
-        )
-    }
 }

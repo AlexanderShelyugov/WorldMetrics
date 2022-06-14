@@ -1,4 +1,4 @@
-package ru.alexander.worldmetrics.model
+package ru.alexander.worldmetrics.model.press_freedom
 
 data class PressFreedomValue constructor(
     val countryCode: String,

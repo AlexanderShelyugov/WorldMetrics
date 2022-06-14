@@ -3,7 +3,7 @@ package ru.alexander.worldmetrics.viewmodel.corruption_perceptions
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import ru.alexander.worldmetrics.model.CorruptionPerceptionsValue
+import ru.alexander.worldmetrics.model.corruption_perceptions.CorruptionPerceptionsValue
 import ru.alexander.worldmetrics.service.api.CorruptionPerceptionsService
 import javax.inject.Inject
 

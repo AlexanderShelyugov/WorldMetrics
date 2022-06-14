@@ -8,9 +8,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import ru.alexander.worldmetrics.R
-import ru.alexander.worldmetrics.fragment.InjectableFragment
 import ru.alexander.worldmetrics.model.CountriesData.Companion.getNameByCode
-import ru.alexander.worldmetrics.model.PressFreedomValue
+import ru.alexander.worldmetrics.model.press_freedom.PressFreedomData.Companion.INDEXES_TO_SHOW
+import ru.alexander.worldmetrics.model.press_freedom.PressFreedomData.Companion.YEAR_FUNCTION
+import ru.alexander.worldmetrics.model.press_freedom.PressFreedomValue
 import ru.alexander.worldmetrics.view.LabelValueChartView
 import ru.alexander.worldmetrics.viewmodel.press_freedom.PressFreedomCountryDetailViewModel
 
@@ -31,7 +32,7 @@ class PressFreedomCountryDetailFragment :
 
         val indexesContainer = view.findViewById<ViewGroup>(R.id.ll_indexes)
         allIndexes = INDEXES_TO_SHOW.asSequence()
-            .map { createIndexView(it.first, it.second) }
+            .map { createIndexView(it.first, it.second, indexesContainer) }
             .onEach(indexesContainer::addView)
             .toList()
 
@@ -46,28 +47,17 @@ class PressFreedomCountryDetailFragment :
 
     private fun createIndexView(
         labelText: Int,
-        valueExtractor: ValueFunction
+        valueExtractor: ValueFunction,
+        container: ViewGroup
     ): LabelValueChartView<Index> {
         val view =
             layoutInflater.inflate(
                 R.layout.label_value_chart_view,
-                null
+                container,
+                false
             ) as LabelValueChartView<Index>
         view.setLabelText(labelText)
         view.setExtractors(YEAR_FUNCTION, valueExtractor)
         return view
-    }
-
-    private companion object {
-        val YEAR_FUNCTION: ValueFunction = { it.year.toFloat() }
-
-        val INDEXES_TO_SHOW: List<Pair<Int, ValueFunction>> = listOf(
-            R.string.press_freedom_index_name to { it.score },
-            R.string.press_freedom_political_context to { it.politicalContext },
-            R.string.press_freedom_economic_context to { it.economicContext },
-            R.string.press_freedom_legal_context to { it.legalContext },
-            R.string.press_freedom_social_context to { it.socialContext },
-            R.string.press_freedom_safety to { it.safety },
-        )
     }
 }

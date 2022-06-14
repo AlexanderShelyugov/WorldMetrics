@@ -1,6 +1,6 @@
 package ru.alexander.worldmetrics.service.impl
 
-import ru.alexander.worldmetrics.model.PressFreedomValue
+import ru.alexander.worldmetrics.model.press_freedom.PressFreedomValue
 import ru.alexander.worldmetrics.service.api.PressFreedomService
 import ru.alexander.worldmetrics.service.api.csv.CsvService
 import javax.inject.Inject

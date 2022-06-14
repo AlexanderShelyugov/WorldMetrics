@@ -1,6 +1,6 @@
 package ru.alexander.worldmetrics.service.impl
 
-import ru.alexander.worldmetrics.model.CorruptionPerceptionsValue
+import ru.alexander.worldmetrics.model.corruption_perceptions.CorruptionPerceptionsValue
 import ru.alexander.worldmetrics.service.api.CorruptionPerceptionsService
 import ru.alexander.worldmetrics.service.api.csv.CsvService
 import javax.inject.Inject

@@ -8,8 +8,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import ru.alexander.worldmetrics.R
-import ru.alexander.worldmetrics.model.CorruptionPerceptionsValue
 import ru.alexander.worldmetrics.model.CountriesData.Companion.getNameByCode
+import ru.alexander.worldmetrics.model.corruption_perceptions.CorruptionPerceptionsData.Companion.INDEXES_TO_SHOW
+import ru.alexander.worldmetrics.model.corruption_perceptions.CorruptionPerceptionsData.Companion.YEAR_FUNCTION
+import ru.alexander.worldmetrics.model.corruption_perceptions.CorruptionPerceptionsValue
 import ru.alexander.worldmetrics.view.LabelValueChartView
 import ru.alexander.worldmetrics.viewmodel.corruption_perceptions.CorruptionPerceptionsCountryDetailViewModel
 
@@ -30,7 +32,7 @@ class CorruptionPerceptionsCountryDetailFragment :
 
         val indexesContainer = view.findViewById<ViewGroup>(R.id.ll_indexes)
         allIndexes = INDEXES_TO_SHOW.asSequence()
-            .map { createIndexView(it.first, it.second) }
+            .map { createIndexView(it.first, it.second, indexesContainer) }
             .onEach(indexesContainer::addView)
             .toList()
 
@@ -45,23 +47,17 @@ class CorruptionPerceptionsCountryDetailFragment :
 
     private fun createIndexView(
         labelText: Int,
-        valueExtractor: ValueFunction
+        valueExtractor: ValueFunction,
+        container: ViewGroup
     ): LabelValueChartView<Index> {
         val view =
             layoutInflater.inflate(
                 R.layout.label_value_chart_view,
-                null
+                container,
+                false
             ) as LabelValueChartView<Index>
         view.setLabelText(labelText)
         view.setExtractors(YEAR_FUNCTION, valueExtractor)
         return view
-    }
-
-    private companion object {
-        val YEAR_FUNCTION: ValueFunction = { it.year.toFloat() }
-
-        val INDEXES_TO_SHOW: List<Pair<Int, ValueFunction>> = listOf(
-            R.string.corruption_perceptions_index_name to { it.value },
-        )
     }
 }
