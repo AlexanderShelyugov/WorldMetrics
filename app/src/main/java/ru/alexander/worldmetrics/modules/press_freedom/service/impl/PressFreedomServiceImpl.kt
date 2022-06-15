@@ -2,7 +2,7 @@ package ru.alexander.worldmetrics.modules.press_freedom.service.impl
 
 import ru.alexander.worldmetrics.modules.press_freedom.model.PressFreedomValue
 import ru.alexander.worldmetrics.modules.press_freedom.service.api.PressFreedomService
-import ru.alexander.worldmetrics.service.api.csv.CsvService
+import ru.alexander.worldmetrics.modules.csv.service.api.CsvService
 import javax.inject.Inject
 
 class PressFreedomServiceImpl @Inject constructor(private val csvService: CsvService) :

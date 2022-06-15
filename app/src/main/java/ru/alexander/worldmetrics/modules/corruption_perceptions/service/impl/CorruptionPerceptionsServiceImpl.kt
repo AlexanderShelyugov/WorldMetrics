@@ -2,7 +2,7 @@ package ru.alexander.worldmetrics.modules.corruption_perceptions.service.impl
 
 import ru.alexander.worldmetrics.modules.corruption_perceptions.model.CorruptionPerceptionsValue
 import ru.alexander.worldmetrics.modules.corruption_perceptions.service.api.CorruptionPerceptionsService
-import ru.alexander.worldmetrics.service.api.csv.CsvService
+import ru.alexander.worldmetrics.modules.csv.service.api.CsvService
 import javax.inject.Inject
 import kotlin.Float.Companion.NaN
 

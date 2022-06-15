@@ -1,11 +1,11 @@
-package ru.alexander.worldmetrics.injections
+package ru.alexander.worldmetrics.modules.csv.injections
 
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import ru.alexander.worldmetrics.service.api.csv.CsvService
-import ru.alexander.worldmetrics.service.impl.csv.CsvServiceImpl
+import ru.alexander.worldmetrics.modules.csv.service.api.CsvService
+import ru.alexander.worldmetrics.modules.csv.service.impl.CsvServiceImpl
 
 @Module
 @InstallIn(SingletonComponent::class)

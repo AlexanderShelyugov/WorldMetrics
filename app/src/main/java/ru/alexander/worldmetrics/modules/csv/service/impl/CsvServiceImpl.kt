@@ -1,8 +1,8 @@
-package ru.alexander.worldmetrics.service.impl.csv
+package ru.alexander.worldmetrics.modules.csv.service.impl
 
 import com.github.doyaaaaaken.kotlincsv.dsl.csvReader
 import ru.alexander.worldmetrics.global.AssetsContainer
-import ru.alexander.worldmetrics.service.api.csv.CsvService
+import ru.alexander.worldmetrics.modules.csv.service.api.CsvService
 import java.io.InputStream
 import javax.inject.Inject
 

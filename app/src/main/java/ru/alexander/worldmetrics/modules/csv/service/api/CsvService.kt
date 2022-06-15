@@ -1,4 +1,4 @@
-package ru.alexander.worldmetrics.service.api.csv
+package ru.alexander.worldmetrics.modules.csv.service.api
 
 interface CsvService {
     fun process(filePath: String, processor: (Sequence<List<String>>) -> Unit, separator: Char)

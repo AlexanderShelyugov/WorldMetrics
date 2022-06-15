@@ -2,7 +2,7 @@ package ru.alexander.worldmetrics.modules.democracy_index.service.impl
 
 import ru.alexander.worldmetrics.modules.democracy_index.model.DemocracyIndexValue
 import ru.alexander.worldmetrics.modules.democracy_index.service.api.DemocracyIndexService
-import ru.alexander.worldmetrics.service.api.csv.CsvService
+import ru.alexander.worldmetrics.modules.csv.service.api.CsvService
 import javax.inject.Inject
 
 class DemocracyIndexServiceImpl @Inject constructor(
