@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.navigation.fragment.findNavController
 import ru.alexander.worldmetrics.fragment.CountriesListWithIndexFragment
 import ru.alexander.worldmetrics.global.NavigationHelper
-import ru.alexander.worldmetrics.modules.press_freedom.fragment.PressFreedomCountryListFragmentDirections.Companion.actionPressFreedomOverviewFragmentToPressFreedomCountryDetailFragment
+import ru.alexander.worldmetrics.modules.press_freedom.fragment.PressFreedomCountryListFragmentDirections.Companion.actionPressFreedomOverviewToPressFreedomCountryDetail
 import ru.alexander.worldmetrics.modules.press_freedom.viewmodel.PressFreedomOverviewViewModel
 
 class PressFreedomCountryListFragment : CountriesListWithIndexFragment() {
@@ -18,7 +18,7 @@ class PressFreedomCountryListFragment : CountriesListWithIndexFragment() {
     override fun onCountryClick(country: String) {
         NavigationHelper.navigateTo(
             findNavController(),
-            actionPressFreedomOverviewFragmentToPressFreedomCountryDetailFragment(country)
+            actionPressFreedomOverviewToPressFreedomCountryDetail(country)
         )
     }
 }

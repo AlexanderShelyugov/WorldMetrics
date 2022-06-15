@@ -8,8 +8,8 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import ru.alexander.worldmetrics.R
-import ru.alexander.worldmetrics.fragment.HomeScreenFragmentDirections.Companion.actionHomeScreenFragmentToCountryDetectFragment
-import ru.alexander.worldmetrics.fragment.HomeScreenFragmentDirections.Companion.actionHomeScreenFragmentToCountryOverviewFragment
+import ru.alexander.worldmetrics.fragment.HomeScreenFragmentDirections.Companion.actionHomeScreenToCountryDetect
+import ru.alexander.worldmetrics.fragment.HomeScreenFragmentDirections.Companion.actionHomeScreenToCountryOverview
 import ru.alexander.worldmetrics.global.NavigationHelper.Companion.bindNavigation
 import ru.alexander.worldmetrics.model.CountriesData
 import ru.alexander.worldmetrics.viewmodel.CurrentCountryViewModel
@@ -34,11 +34,11 @@ class CountryBadgeFragment : Fragment(R.layout.country_badge_fragment) {
         }
         bindNavigation(
             countryBadge,
-            actionHomeScreenFragmentToCountryOverviewFragment(model.currentCountryCode.value!!)
+            actionHomeScreenToCountryOverview(model.currentCountryCode.value!!)
         )
         bindNavigation(
             v.findViewById(R.id.ib_country_search_wizard),
-            actionHomeScreenFragmentToCountryDetectFragment()
+            actionHomeScreenToCountryDetect()
         )
     }
 

@@ -16,24 +16,24 @@
             app:popEnterAnim="@anim/screen_enter"
             app:popExitAnim="@anim/screen_exit" />
         <action
-            android:id="@+id/action_homeScreenFragment_to_corruptionPerceptionsOverviewFragment"
+            android:id="@+id/action_homeScreen_to_corruptionPerceptionsOverview"
             app:destination="@id/corruptionPerceptionsOverviewFragment"
             app:enterAnim="@anim/screen_enter"
             app:exitAnim="@anim/screen_exit"
             app:popEnterAnim="@anim/screen_enter"
             app:popExitAnim="@anim/screen_exit" />
         <action
-            android:id="@+id/action_homeScreenFragment_to_pressFreedomOverviewFragment"
+            android:id="@+id/action_homeScreen_to_pressFreedomOverview"
             app:destination="@id/pressFreedomOverviewFragment"
             app:enterAnim="@anim/screen_enter"
             app:exitAnim="@anim/screen_exit"
             app:popEnterAnim="@anim/screen_enter"
             app:popExitAnim="@anim/screen_exit" />
         <action
-            android:id="@+id/action_homeScreenFragment_to_countryDetectFragment"
+            android:id="@+id/action_homeScreen_to_countryDetect"
             app:destination="@id/countryDetectFragment" />
         <action
-            android:id="@+id/action_homeScreenFragment_to_countryOverviewFragment"
+            android:id="@+id/action_homeScreen_to_countryOverview"
             app:destination="@id/countryOverviewFragment" />
     </fragment>
     <fragment
@@ -53,7 +53,7 @@
         android:name="ru.alexander.worldmetrics.modules.corruption_perceptions.fragment.CorruptionPerceptionsCountryListFragment"
         android:label="Corruption perceptions overview fragment">
         <action
-            android:id="@+id/action_corruptionPerceptionsOverviewFragment_to_corruptionPerceptionsCountryDetailFragment"
+            android:id="@+id/action_corruptionPerceptionsOverview_to_corruptionPerceptionsCountryDetail"
             app:destination="@id/corruptionPerceptionsCountryDetailFragment"
             app:enterAnim="@anim/screen_enter"
             app:exitAnim="@anim/screen_exit"
@@ -65,7 +65,7 @@
         android:name="ru.alexander.worldmetrics.modules.press_freedom.fragment.PressFreedomCountryListFragment"
         android:label="Press freedom overview fragment">
         <action
-            android:id="@+id/action_pressFreedomOverviewFragment_to_pressFreedomCountryDetailFragment"
+            android:id="@+id/action_pressFreedomOverview_to_pressFreedomCountryDetail"
             app:destination="@id/pressFreedomCountryDetailFragment"
             app:enterAnim="@anim/screen_enter"
             app:exitAnim="@anim/screen_exit"

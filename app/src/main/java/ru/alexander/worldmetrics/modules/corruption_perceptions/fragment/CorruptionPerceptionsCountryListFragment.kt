@@ -3,10 +3,10 @@ package ru.alexander.worldmetrics.modules.corruption_perceptions.fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LiveData
 import androidx.navigation.fragment.findNavController
-import ru.alexander.worldmetrics.modules.corruption_perceptions.fragment.CorruptionPerceptionsCountryListFragmentDirections.Companion.actionCorruptionPerceptionsOverviewFragmentToCorruptionPerceptionsCountryDetailFragment
-import ru.alexander.worldmetrics.modules.corruption_perceptions.viewmodel.CorruptionPerceptionsOverviewViewModel
 import ru.alexander.worldmetrics.fragment.CountriesListWithIndexFragment
 import ru.alexander.worldmetrics.global.NavigationHelper.Companion.navigateTo
+import ru.alexander.worldmetrics.modules.corruption_perceptions.fragment.CorruptionPerceptionsCountryListFragmentDirections.Companion.actionCorruptionPerceptionsOverviewToCorruptionPerceptionsCountryDetail
+import ru.alexander.worldmetrics.modules.corruption_perceptions.viewmodel.CorruptionPerceptionsOverviewViewModel
 
 class CorruptionPerceptionsCountryListFragment :
     CountriesListWithIndexFragment() {
@@ -19,7 +19,7 @@ class CorruptionPerceptionsCountryListFragment :
     override fun onCountryClick(country: String) {
         navigateTo(
             findNavController(),
-            actionCorruptionPerceptionsOverviewFragmentToCorruptionPerceptionsCountryDetailFragment(
+            actionCorruptionPerceptionsOverviewToCorruptionPerceptionsCountryDetail(
                 country
             )
         )
