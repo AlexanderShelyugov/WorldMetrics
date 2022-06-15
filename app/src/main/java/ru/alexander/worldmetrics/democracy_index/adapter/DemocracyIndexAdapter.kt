@@ -1,10 +1,10 @@
-package ru.alexander.worldmetrics.adapter.democracy_index
+package ru.alexander.worldmetrics.democracy_index.adapter
 
 import ru.alexander.worldmetrics.adapter.IndexFeaturesRVAdapter
-import ru.alexander.worldmetrics.model.democracy_index.DemocracyIndexData.Companion.FEATURES_NUMBER
-import ru.alexander.worldmetrics.model.democracy_index.DemocracyIndexData.Companion.FEATURES_TO_SHOW
-import ru.alexander.worldmetrics.model.democracy_index.DemocracyIndexData.Companion.YEAR_FUNCTION
-import ru.alexander.worldmetrics.model.democracy_index.DemocracyIndexValue
+import ru.alexander.worldmetrics.democracy_index.model.DemocracyIndexData.Companion.FEATURES_NUMBER
+import ru.alexander.worldmetrics.democracy_index.model.DemocracyIndexData.Companion.FEATURES_TO_SHOW
+import ru.alexander.worldmetrics.democracy_index.model.DemocracyIndexData.Companion.YEAR_FUNCTION
+import ru.alexander.worldmetrics.democracy_index.model.DemocracyIndexValue
 
 class DemocracyIndexAdapter : IndexFeaturesRVAdapter<DemocracyIndexValue>() {
     override fun getFeatureName(index: Int): Int = FEATURES_TO_SHOW[index].first

@@ -1,11 +1,11 @@
-package ru.alexander.worldmetrics.injections
+package ru.alexander.worldmetrics.democracy_index.injections
 
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import ru.alexander.worldmetrics.service.api.DemocracyIndexService
-import ru.alexander.worldmetrics.service.impl.DemocracyIndexServiceImpl
+import ru.alexander.worldmetrics.democracy_index.service.api.DemocracyIndexService
+import ru.alexander.worldmetrics.democracy_index.service.impl.DemocracyIndexServiceImpl
 
 @Module
 @InstallIn(SingletonComponent::class)

@@ -1,10 +1,10 @@
-package ru.alexander.worldmetrics.viewmodel.democracy_index
+package ru.alexander.worldmetrics.democracy_index.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import ru.alexander.worldmetrics.model.democracy_index.DemocracyIndexValue
-import ru.alexander.worldmetrics.service.api.DemocracyIndexService
+import ru.alexander.worldmetrics.democracy_index.model.DemocracyIndexValue
+import ru.alexander.worldmetrics.democracy_index.service.api.DemocracyIndexService
 import javax.inject.Inject
 
 @HiltViewModel

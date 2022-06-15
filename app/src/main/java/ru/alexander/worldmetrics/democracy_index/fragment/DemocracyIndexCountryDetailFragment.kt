@@ -1,13 +1,13 @@
-package ru.alexander.worldmetrics.fragment.democracy_index
+package ru.alexander.worldmetrics.democracy_index.fragment
 
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LiveData
 import androidx.navigation.fragment.navArgs
 import ru.alexander.worldmetrics.adapter.IndexFeaturesRVAdapter
-import ru.alexander.worldmetrics.adapter.democracy_index.DemocracyIndexAdapter
+import ru.alexander.worldmetrics.democracy_index.adapter.DemocracyIndexAdapter
 import ru.alexander.worldmetrics.fragment.CountryIndexDetailFragment
-import ru.alexander.worldmetrics.model.democracy_index.DemocracyIndexValue
-import ru.alexander.worldmetrics.viewmodel.democracy_index.DemocracyIndexCountryDetailViewModel
+import ru.alexander.worldmetrics.democracy_index.model.DemocracyIndexValue
+import ru.alexander.worldmetrics.democracy_index.viewmodel.DemocracyIndexCountryDetailViewModel
 
 class DemocracyIndexCountryDetailFragment :
     CountryIndexDetailFragment<DemocracyIndexValue>() {

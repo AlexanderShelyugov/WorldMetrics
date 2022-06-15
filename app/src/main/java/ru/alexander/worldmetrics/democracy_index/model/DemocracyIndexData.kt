@@ -1,4 +1,4 @@
-package ru.alexander.worldmetrics.model.democracy_index
+package ru.alexander.worldmetrics.democracy_index.model
 
 import ru.alexander.worldmetrics.R
 

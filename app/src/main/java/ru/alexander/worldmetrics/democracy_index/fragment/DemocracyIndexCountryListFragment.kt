@@ -1,12 +1,12 @@
-package ru.alexander.worldmetrics.fragment.democracy_index
+package ru.alexander.worldmetrics.democracy_index.fragment
 
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LiveData
 import androidx.navigation.fragment.findNavController
+import ru.alexander.worldmetrics.democracy_index.fragment.DemocracyIndexCountryListFragmentDirections.Companion.actionDemocracyIndexOverviewToDemocracyIndexCountryDetail
+import ru.alexander.worldmetrics.democracy_index.viewmodel.DemocracyIndexOverviewViewModel
 import ru.alexander.worldmetrics.fragment.CountriesListWithIndexFragment
-import ru.alexander.worldmetrics.fragment.democracy_index.DemocracyIndexCountryListFragmentDirections.Companion.actionDemocracyIndexOverviewFragmentToDemocracyIndexCountryDetailFragment
 import ru.alexander.worldmetrics.global.NavigationHelper.Companion.navigateTo
-import ru.alexander.worldmetrics.viewmodel.democracy_index.DemocracyIndexOverviewViewModel
 
 class DemocracyIndexCountryListFragment : CountriesListWithIndexFragment() {
     private val model: DemocracyIndexOverviewViewModel by activityViewModels()
@@ -18,7 +18,7 @@ class DemocracyIndexCountryListFragment : CountriesListWithIndexFragment() {
     override fun onCountryClick(country: String) {
         navigateTo(
             findNavController(),
-            actionDemocracyIndexOverviewFragmentToDemocracyIndexCountryDetailFragment(country)
+            actionDemocracyIndexOverviewToDemocracyIndexCountryDetail(country)
         )
     }
 }
