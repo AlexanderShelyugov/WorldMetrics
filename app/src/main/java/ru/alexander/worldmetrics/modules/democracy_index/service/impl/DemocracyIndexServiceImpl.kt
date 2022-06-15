@@ -1,8 +1,8 @@
 package ru.alexander.worldmetrics.modules.democracy_index.service.impl
 
+import ru.alexander.worldmetrics.modules.csv.service.api.CsvService
 import ru.alexander.worldmetrics.modules.democracy_index.model.DemocracyIndexValue
 import ru.alexander.worldmetrics.modules.democracy_index.service.api.DemocracyIndexService
-import ru.alexander.worldmetrics.modules.csv.service.api.CsvService
 import javax.inject.Inject
 
 class DemocracyIndexServiceImpl @Inject constructor(
@@ -81,7 +81,7 @@ class DemocracyIndexServiceImpl @Inject constructor(
         lateinit var result: List<List<String>>
         csvService.process(filePath) { rows ->
             rows
-                .filter { countryCode == it[COLUMN_COUNTRY_CODE] }
+                .filter { it[COLUMN_COUNTRY_CODE].equals(countryCode, ignoreCase = true) }
                 .toList()
                 .also { result = it }
         }

@@ -35,7 +35,7 @@ class CorruptionPerceptionsServiceImpl @Inject constructor(
         lateinit var result: List<CorruptionPerceptionsValue>
         csvService.process(filePath) { rows ->
             rows
-                .filter { countryCode == it[COLUMN_COUNTRY_CODE] }
+                .filter { it[COLUMN_COUNTRY_CODE].equals(countryCode, ignoreCase = true) }
                 .flatMap {
                     (COLUMN_MIN_YEAR.first until it.size).map { i ->
                         val year = COLUMN_MIN_YEAR.second + (i - 1)

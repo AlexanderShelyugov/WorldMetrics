@@ -1,8 +1,8 @@
 package ru.alexander.worldmetrics.modules.press_freedom.service.impl
 
+import ru.alexander.worldmetrics.modules.csv.service.api.CsvService
 import ru.alexander.worldmetrics.modules.press_freedom.model.PressFreedomValue
 import ru.alexander.worldmetrics.modules.press_freedom.service.api.PressFreedomService
-import ru.alexander.worldmetrics.modules.csv.service.api.CsvService
 import javax.inject.Inject
 
 class PressFreedomServiceImpl @Inject constructor(private val csvService: CsvService) :
@@ -42,7 +42,7 @@ class PressFreedomServiceImpl @Inject constructor(private val csvService: CsvSer
         val result = mutableListOf<PressFreedomValue>()
         val processor: (Sequence<List<String>>) -> Unit = { rows ->
             rows
-                .filter { it[COLUMN_COUNTRY_CODE] == country }
+                .filter { it[COLUMN_COUNTRY_CODE].equals(country, ignoreCase = true) }
                 .map { rowToIndexValue(it) }
                 .toList()
                 .run(result::addAll)
