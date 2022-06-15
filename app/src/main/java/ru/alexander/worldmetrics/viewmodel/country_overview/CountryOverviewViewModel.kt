@@ -2,12 +2,12 @@ package ru.alexander.worldmetrics.viewmodel.country_overview
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import ru.alexander.worldmetrics.corruption_perceptions.model.CorruptionPerceptionsValue
-import ru.alexander.worldmetrics.democracy_index.model.DemocracyIndexValue
-import ru.alexander.worldmetrics.model.press_freedom.PressFreedomValue
-import ru.alexander.worldmetrics.corruption_perceptions.service.api.CorruptionPerceptionsService
-import ru.alexander.worldmetrics.democracy_index.service.api.DemocracyIndexService
-import ru.alexander.worldmetrics.press_freedom.service.api.PressFreedomService
+import ru.alexander.worldmetrics.modules.corruption_perceptions.model.CorruptionPerceptionsValue
+import ru.alexander.worldmetrics.modules.democracy_index.model.DemocracyIndexValue
+import ru.alexander.worldmetrics.modules.press_freedom.model.PressFreedomValue
+import ru.alexander.worldmetrics.modules.corruption_perceptions.service.api.CorruptionPerceptionsService
+import ru.alexander.worldmetrics.modules.democracy_index.service.api.DemocracyIndexService
+import ru.alexander.worldmetrics.modules.press_freedom.service.api.PressFreedomService
 import javax.inject.Inject
 
 @HiltViewModel

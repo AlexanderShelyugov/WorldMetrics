@@ -11,9 +11,9 @@ import ru.alexander.worldmetrics.adapter.CountryOverviewViewAdapter.ViewTypes.DE
 import ru.alexander.worldmetrics.adapter.CountryOverviewViewAdapter.ViewTypes.DEMOCRACY_INDEX_ITEM
 import ru.alexander.worldmetrics.adapter.CountryOverviewViewAdapter.ViewTypes.PRESS_FREEDOM_HEADER
 import ru.alexander.worldmetrics.adapter.CountryOverviewViewAdapter.ViewTypes.PRESS_FREEDOM_ITEM
-import ru.alexander.worldmetrics.corruption_perceptions.model.CorruptionPerceptionsData
-import ru.alexander.worldmetrics.democracy_index.model.DemocracyIndexData
-import ru.alexander.worldmetrics.model.press_freedom.PressFreedomData
+import ru.alexander.worldmetrics.modules.corruption_perceptions.model.CorruptionPerceptionsData
+import ru.alexander.worldmetrics.modules.democracy_index.model.DemocracyIndexData
+import ru.alexander.worldmetrics.modules.press_freedom.model.PressFreedomData
 import ru.alexander.worldmetrics.viewmodel.country_overview.CountryOverviewData
 
 class CountryOverviewViewAdapter : RecyclerView.Adapter<ViewHolder>() {
