@@ -1,11 +1,11 @@
-package ru.alexander.worldmetrics.injections
+package ru.alexander.worldmetrics.press_freedom.injections
 
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import ru.alexander.worldmetrics.service.api.PressFreedomService
-import ru.alexander.worldmetrics.service.impl.PressFreedomServiceImpl
+import ru.alexander.worldmetrics.press_freedom.service.api.PressFreedomService
+import ru.alexander.worldmetrics.press_freedom.service.impl.PressFreedomServiceImpl
 
 @Module
 @InstallIn(SingletonComponent::class)

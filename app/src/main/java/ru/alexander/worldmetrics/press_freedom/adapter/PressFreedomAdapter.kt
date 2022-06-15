@@ -1,4 +1,4 @@
-package ru.alexander.worldmetrics.adapter.press_freedom
+package ru.alexander.worldmetrics.press_freedom.adapter
 
 import ru.alexander.worldmetrics.adapter.IndexFeaturesRVAdapter
 import ru.alexander.worldmetrics.model.press_freedom.PressFreedomData.Companion.FEATURES_NUMBER

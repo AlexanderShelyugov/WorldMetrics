@@ -1,12 +1,12 @@
-package ru.alexander.worldmetrics.fragment.press_freedom
+package ru.alexander.worldmetrics.press_freedom.fragment
 
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LiveData
 import androidx.navigation.fragment.findNavController
 import ru.alexander.worldmetrics.fragment.CountriesListWithIndexFragment
-import ru.alexander.worldmetrics.fragment.press_freedom.PressFreedomCountryListFragmentDirections.Companion.actionPressFreedomOverviewFragmentToPressFreedomCountryDetailFragment
 import ru.alexander.worldmetrics.global.NavigationHelper
-import ru.alexander.worldmetrics.viewmodel.press_freedom.PressFreedomOverviewViewModel
+import ru.alexander.worldmetrics.press_freedom.fragment.PressFreedomCountryListFragmentDirections.Companion.actionPressFreedomOverviewFragmentToPressFreedomCountryDetailFragment
+import ru.alexander.worldmetrics.press_freedom.viewmodel.PressFreedomOverviewViewModel
 
 class PressFreedomCountryListFragment : CountriesListWithIndexFragment() {
     private val model: PressFreedomOverviewViewModel by activityViewModels()

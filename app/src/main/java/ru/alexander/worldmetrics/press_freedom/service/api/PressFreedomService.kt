@@ -1,4 +1,4 @@
-package ru.alexander.worldmetrics.service.api
+package ru.alexander.worldmetrics.press_freedom.service.api
 
 import ru.alexander.worldmetrics.model.press_freedom.PressFreedomValue
 

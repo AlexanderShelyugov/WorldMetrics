@@ -1,10 +1,10 @@
-package ru.alexander.worldmetrics.viewmodel.press_freedom
+package ru.alexander.worldmetrics.press_freedom.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ru.alexander.worldmetrics.model.press_freedom.PressFreedomValue
-import ru.alexander.worldmetrics.service.api.PressFreedomService
+import ru.alexander.worldmetrics.press_freedom.service.api.PressFreedomService
 import javax.inject.Inject
 
 @HiltViewModel

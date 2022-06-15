@@ -7,7 +7,7 @@ import ru.alexander.worldmetrics.democracy_index.model.DemocracyIndexValue
 import ru.alexander.worldmetrics.model.press_freedom.PressFreedomValue
 import ru.alexander.worldmetrics.corruption_perceptions.service.api.CorruptionPerceptionsService
 import ru.alexander.worldmetrics.democracy_index.service.api.DemocracyIndexService
-import ru.alexander.worldmetrics.service.api.PressFreedomService
+import ru.alexander.worldmetrics.press_freedom.service.api.PressFreedomService
 import javax.inject.Inject
 
 @HiltViewModel

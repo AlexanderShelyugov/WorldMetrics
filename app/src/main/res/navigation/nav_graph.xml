@@ -62,7 +62,7 @@
     </fragment>
     <fragment
         android:id="@+id/pressFreedomOverviewFragment"
-        android:name="ru.alexander.worldmetrics.fragment.press_freedom.PressFreedomCountryListFragment"
+        android:name="ru.alexander.worldmetrics.press_freedom.fragment.PressFreedomCountryListFragment"
         android:label="Press freedom overview fragment">
         <action
             android:id="@+id/action_pressFreedomOverviewFragment_to_pressFreedomCountryDetailFragment"
@@ -90,7 +90,7 @@
     </fragment>
     <fragment
         android:id="@+id/pressFreedomCountryDetailFragment"
-        android:name="ru.alexander.worldmetrics.fragment.press_freedom.PressFreedomCountryDetailFragment"
+        android:name="ru.alexander.worldmetrics.press_freedom.fragment.PressFreedomCountryDetailFragment"
         android:label="Press freedom country detail fragment">
         <argument
             android:name="countryCode"
