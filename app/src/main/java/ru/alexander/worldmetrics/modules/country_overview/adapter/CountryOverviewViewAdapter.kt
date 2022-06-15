@@ -1,16 +1,16 @@
-package ru.alexander.worldmetrics.adapter
+package ru.alexander.worldmetrics.modules.country_overview.adapter
 
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import ru.alexander.worldmetrics.adapter.CountryOverviewViewAdapter.ViewTypes.CORRUPTION_PERCEPTIONS_HEADER
-import ru.alexander.worldmetrics.adapter.CountryOverviewViewAdapter.ViewTypes.CORRUPTION_PERCEPTIONS_ITEM
-import ru.alexander.worldmetrics.adapter.CountryOverviewViewAdapter.ViewTypes.COUNTRY_BADGE
-import ru.alexander.worldmetrics.adapter.CountryOverviewViewAdapter.ViewTypes.DEMOCRACY_INDEX_HEADER
-import ru.alexander.worldmetrics.adapter.CountryOverviewViewAdapter.ViewTypes.DEMOCRACY_INDEX_ITEM
-import ru.alexander.worldmetrics.adapter.CountryOverviewViewAdapter.ViewTypes.PRESS_FREEDOM_HEADER
-import ru.alexander.worldmetrics.adapter.CountryOverviewViewAdapter.ViewTypes.PRESS_FREEDOM_ITEM
+import ru.alexander.worldmetrics.modules.country_overview.adapter.CountryOverviewViewAdapter.ViewTypes.CORRUPTION_PERCEPTIONS_HEADER
+import ru.alexander.worldmetrics.modules.country_overview.adapter.CountryOverviewViewAdapter.ViewTypes.CORRUPTION_PERCEPTIONS_ITEM
+import ru.alexander.worldmetrics.modules.country_overview.adapter.CountryOverviewViewAdapter.ViewTypes.COUNTRY_BADGE
+import ru.alexander.worldmetrics.modules.country_overview.adapter.CountryOverviewViewAdapter.ViewTypes.DEMOCRACY_INDEX_HEADER
+import ru.alexander.worldmetrics.modules.country_overview.adapter.CountryOverviewViewAdapter.ViewTypes.DEMOCRACY_INDEX_ITEM
+import ru.alexander.worldmetrics.modules.country_overview.adapter.CountryOverviewViewAdapter.ViewTypes.PRESS_FREEDOM_HEADER
+import ru.alexander.worldmetrics.modules.country_overview.adapter.CountryOverviewViewAdapter.ViewTypes.PRESS_FREEDOM_ITEM
 import ru.alexander.worldmetrics.modules.corruption_perceptions.model.CorruptionPerceptionsData
 import ru.alexander.worldmetrics.modules.democracy_index.model.DemocracyIndexData
 import ru.alexander.worldmetrics.modules.press_freedom.model.PressFreedomData

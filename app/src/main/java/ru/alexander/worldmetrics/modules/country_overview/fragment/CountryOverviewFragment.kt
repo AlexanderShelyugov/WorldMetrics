@@ -1,4 +1,4 @@
-package ru.alexander.worldmetrics.fragment
+package ru.alexander.worldmetrics.modules.country_overview.fragment
 
 import android.os.Bundle
 import android.view.View
@@ -8,7 +8,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
 import ru.alexander.worldmetrics.R
-import ru.alexander.worldmetrics.adapter.CountryOverviewViewAdapter
+import ru.alexander.worldmetrics.modules.country_overview.adapter.CountryOverviewViewAdapter
 import ru.alexander.worldmetrics.model.CountriesData.Companion.getNameByCode
 import ru.alexander.worldmetrics.viewmodel.country_overview.CountryOverviewViewModel
 
