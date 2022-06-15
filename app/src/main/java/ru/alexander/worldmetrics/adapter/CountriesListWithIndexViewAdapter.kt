@@ -125,7 +125,6 @@ class CountriesListWithIndexViewAdapter(private val onClick: (String) -> Unit) :
                     valuesRange!!.second,
                     index
                 )
-                countryName.setTextColor(color)
                 value.setTextColor(color)
             }
         }
