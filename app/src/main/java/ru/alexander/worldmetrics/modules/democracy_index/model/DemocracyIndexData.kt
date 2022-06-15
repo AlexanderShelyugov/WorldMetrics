@@ -7,8 +7,6 @@ private typealias ValueFunction = (Index) -> Float
 
 class DemocracyIndexData private constructor() {
     companion object {
-        const val FEATURES_NUMBER = 6
-
         val YEAR_FUNCTION: ValueFunction = { it.year.toFloat() }
 
         val FEATURES_TO_SHOW: List<Pair<Int, ValueFunction>> = listOf(
@@ -19,6 +17,8 @@ class DemocracyIndexData private constructor() {
             R.string.political_culture to { it.politicalCulture },
             R.string.civil_liberties to { it.civilLiberties },
         )
+
+        val FEATURES_NUMBER = FEATURES_TO_SHOW.size
     }
 
 }
