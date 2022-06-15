@@ -2,7 +2,6 @@ package ru.alexander.worldmetrics.modules.democracy_index.model
 
 data class DemocracyIndexValue(
     val countryCode: String,
-    val country: String,
     val year: Int,
     val democracyIndex: Float,
     val electoralProcessAndPluralism: Float,

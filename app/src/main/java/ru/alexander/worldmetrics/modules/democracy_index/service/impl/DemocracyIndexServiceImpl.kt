@@ -11,7 +11,6 @@ class DemocracyIndexServiceImpl @Inject constructor(
     private companion object {
         const val MAX_YEAR = 2020
         const val COLUMN_COUNTRY_CODE = 0
-        const val COLUMN_COUNTRY_NAME = 1
         const val COLUMN_YEAR = 2
         const val COLUMN_INDEX_VALUE = 3
 
@@ -38,7 +37,7 @@ class DemocracyIndexServiceImpl @Inject constructor(
         val rows = getDataForCountry(country)
         val row = rows.asSequence().let {
             it.filter { row -> MAX_YEAR.equals(row[COLUMN_YEAR].toInt()) }.firstOrNull()
-                ?: it.filter { row -> (MAX_YEAR - 1).equals(row[COLUMN_YEAR].toInt()) }
+                ?: it.filter { row -> (MAX_YEAR - 1) == row[COLUMN_YEAR].toInt() }
                     .firstOrNull()
         }
         return rowToIndexValue(row!!)
@@ -49,7 +48,7 @@ class DemocracyIndexServiceImpl @Inject constructor(
         csvService.process(filePath) { rows ->
             result = rows.asSequence()
                 .map { rowToIndexValue(it) }
-                .groupBy { it.country }
+                .groupBy { it.countryCode }
                 .toMap()
         }
         return result
@@ -67,7 +66,6 @@ class DemocracyIndexServiceImpl @Inject constructor(
 
     private fun rowToIndexValue(row: List<String>): DemocracyIndexValue = DemocracyIndexValue(
         row[0],
-        row[1],
         row[2].toInt(),
         row[3].toFloat(),
         row[4].toFloat(),

@@ -12,7 +12,6 @@ class PressFreedomServiceImpl @Inject constructor(private val csvService: CsvSer
     private companion object {
         const val MAX_YEAR = 2022
         const val COLUMN_COUNTRY_CODE = 0
-        const val COLUMN_COUNTRY_NAME = 14
         const val COLUMN_INDEX_VALUE = 1
         const val COLUMN_POLITICAL_CONTEXT = 3
         const val COLUMN_ECONOMIC_CONTEXT = 5
@@ -53,7 +52,6 @@ class PressFreedomServiceImpl @Inject constructor(private val csvService: CsvSer
 
     private fun rowToIndexValue(row: List<String>): PressFreedomValue = PressFreedomValue(
         row[COLUMN_COUNTRY_CODE],
-        row[COLUMN_COUNTRY_NAME],
         row[COLUMN_INDEX_VALUE].toFloat(),
         row[COLUMN_POLITICAL_CONTEXT].toFloat(),
         row[COLUMN_ECONOMIC_CONTEXT].toFloat(),
