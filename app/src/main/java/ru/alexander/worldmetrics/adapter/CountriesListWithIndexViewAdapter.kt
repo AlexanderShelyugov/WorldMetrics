@@ -17,7 +17,7 @@ import ru.alexander.worldmetrics.search.SearchCriteria
 import ru.alexander.worldmetrics.search.TextSearchCriteria
 import ru.alexander.worldmetrics.view.ColorGradeCalculator
 
-typealias Item = TripleItem
+private typealias Item = TripleItem
 
 class CountriesListWithIndexViewAdapter(private val onClick: (String) -> Unit) :
     RecyclerView.Adapter<ViewHolder>(), Filterable {
@@ -94,7 +94,7 @@ class CountriesListWithIndexViewAdapter(private val onClick: (String) -> Unit) :
         }
     }
 
-    class CountryIndexViewHolder(
+    private class CountryIndexViewHolder(
         view: View,
         val countryName: TextView = view.findViewById(R.id.tv_country_name),
         val value: TextView = view.findViewById(R.id.tv_value),
@@ -141,7 +141,7 @@ class CountriesListWithIndexViewAdapter(private val onClick: (String) -> Unit) :
 
             override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
                 data = createData().also {
-                    it.addAll(results?.values as List<Item> ?: emptyList())
+                    it.addAll(results?.values as List<Item>)
                 }
                 notifyItemRangeChanged(0, data.size())
             }

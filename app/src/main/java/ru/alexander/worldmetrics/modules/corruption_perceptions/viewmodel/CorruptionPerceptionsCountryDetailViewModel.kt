@@ -1,5 +1,6 @@
 package ru.alexander.worldmetrics.modules.corruption_perceptions.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -12,17 +13,18 @@ class CorruptionPerceptionsCountryDetailViewModel @Inject constructor(
     private val service: CorruptionPerceptionsService
 ) : ViewModel() {
     private var country: String = ""
+    private val allDataContainer = MutableLiveData<List<CorruptionPerceptionsValue>>()
 
     fun setCountry(country: String) {
         this.country = country
         loadData()
     }
 
-    val allData: MutableLiveData<List<CorruptionPerceptionsValue>> by lazy {
-        MutableLiveData<List<CorruptionPerceptionsValue>>()
+    val allData: LiveData<List<CorruptionPerceptionsValue>> by lazy {
+        allDataContainer
     }
 
     private fun loadData() {
-        allData.value = service.getAllData(country)
+        allDataContainer.value = service.getAllData(country)
     }
 }

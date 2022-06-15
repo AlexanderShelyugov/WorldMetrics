@@ -34,7 +34,7 @@ class CurrentCountryViewModel @Inject constructor() : ViewModel() {
 
     }
 
-    fun loadFromPreferences() {
+    private fun loadFromPreferences() {
         val preferences = context.getSharedPreferences(
             context.getString(R.string.preferences_file_key), Context.MODE_PRIVATE
         )

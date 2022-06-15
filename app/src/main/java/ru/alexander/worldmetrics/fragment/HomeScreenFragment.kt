@@ -13,8 +13,7 @@ import ru.alexander.worldmetrics.global.NavigationHelper.Companion.bindNavigatio
 
 class HomeScreenFragment : Fragment(R.layout.home_screen) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val v = requireView()
-        v.findViewById<ViewGroup>(R.id.ll_indexes).let { container ->
+        requireView().findViewById<ViewGroup>(R.id.ll_indexes).let { container ->
             INDEXES.forEach { index ->
                 val button =
                     layoutInflater.inflate(R.layout.button_default, container, false) as Button

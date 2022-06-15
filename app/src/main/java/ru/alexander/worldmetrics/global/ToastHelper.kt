@@ -4,7 +4,7 @@ import android.widget.Toast.LENGTH_LONG
 import android.widget.Toast.LENGTH_SHORT
 import android.widget.Toast.makeText
 
-class ToastHelper {
+class ToastHelper private constructor() {
     companion object {
         fun show(message: String) {
             show(message, LENGTH_SHORT)

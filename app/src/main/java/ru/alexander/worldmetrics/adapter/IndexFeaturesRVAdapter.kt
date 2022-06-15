@@ -13,7 +13,7 @@ private typealias VH<T> = LVCViewHolder<T>
 
 abstract class IndexFeaturesRVAdapter<T> : Adapter<VH<T>>() {
 
-    private lateinit var items: List<T>
+    private var items: List<T> = emptyList()
 
     fun setData(data: List<T>) {
         items = data
@@ -28,24 +28,20 @@ abstract class IndexFeaturesRVAdapter<T> : Adapter<VH<T>>() {
         viewType: Int
     ): VH<T> {
         val view = LayoutInflater.from(viewGroup.context).inflate(
-            R.layout.label_value_chart_view,
-            viewGroup,
-            false
-        )
+            R.layout.label_value_chart_view, viewGroup, false
+        ) as LabelValueChartView<T>
+        view.setData(items)
         view.setBackgroundColor(getColor(R.color.orange))
-        return VH(view as LabelValueChartView<T>)
+        return VH(view)
     }
 
-    override fun onBindViewHolder(
-        holder: VH<T>,
-        position: Int
-    ) {
+    override fun onBindViewHolder(holder: VH<T>, position: Int) {
         holder.lcv.run {
             setLabelText(getFeatureName(position))
             getFeatureExtractors(position).run {
                 setExtractors(first, second)
             }
-            setData(items)
+            refresh()
         }
     }
 

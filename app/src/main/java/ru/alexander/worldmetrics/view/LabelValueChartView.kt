@@ -12,11 +12,9 @@ import com.github.mikephil.charting.data.LineDataSet
 import ru.alexander.worldmetrics.R
 import java.lang.Float.NaN
 
-typealias FeatureExtractor<T> = (T) -> Float
+private typealias FeatureExtractor<T> = (T) -> Float
 
-class LabelValueChartView<T>(context: Context, attrs: AttributeSet) :
-    FrameLayout(context, attrs) {
-
+class LabelValueChartView<T>(context: Context, attrs: AttributeSet) : FrameLayout(context, attrs) {
     private val label: TextView
     private val value: TextView
     private val chart: LineChart
@@ -54,13 +52,16 @@ class LabelValueChartView<T>(context: Context, attrs: AttributeSet) :
 
     fun setData(items: List<T>) {
         allData = items
+    }
 
-        val topDataItem = if (items.isEmpty()) null else items.sortedBy(keyExtractor).reversed()[0]
+    fun refresh() {
+        val topDataItem =
+            if (allData.isEmpty()) null else allData.sortedBy(keyExtractor).reversed()[0]
         topDataItem.let {
             value.text = if (it != null) valueExtractor(it).toString() else ""
         }
 
-        val entries = items.asSequence()
+        val entries = allData.asSequence()
             .map {
                 val x = keyExtractor(it)
                 val y = valueExtractor(it)

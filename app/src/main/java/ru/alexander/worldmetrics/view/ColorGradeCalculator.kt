@@ -8,7 +8,7 @@ private typealias ColorComponentType = Int
 
 class ColorGradeCalculator(
     colorRange: Pair<ColorType, ColorType>,
-    private val median: Float = .4f,
+    private val median: Float = MEDIAN,
     private val minColor: ColorType = colorRange.first,
     private val maxColor: ColorType = colorRange.second,
 ) {
@@ -23,7 +23,7 @@ class ColorGradeCalculator(
     }
 
     private fun mixForComponent(
-        component: (ColorType) -> ColorComponentType,
+        componentFunction: (ColorType) -> ColorComponentType,
         rate: Float,
     ): ColorComponentType {
         require(rate in 0f..1f)
@@ -32,6 +32,10 @@ class ColorGradeCalculator(
         val maxInclusion: Float /* 0 - 1 - 1 */
         if (rate < median) {
             minInclusion = 1f
+            /*
+            max(0) = 0
+            max(median) = 1
+            */
             maxInclusion = rate / median
         } else {
             /*
@@ -42,8 +46,13 @@ class ColorGradeCalculator(
             maxInclusion = 1f
         }
 
-        val component = component(maxColor).toFloat() * maxInclusion +
-                component(minColor).toFloat() * minInclusion
-        return min(component.toInt(), 255)
+        val component = componentFunction(maxColor).toFloat() * maxInclusion +
+                componentFunction(minColor).toFloat() * minInclusion
+        return min(component.toInt(), MAX_COMPONENT)
+    }
+
+    private companion object {
+        const val MEDIAN = .4f
+        const val MAX_COMPONENT = 255
     }
 }

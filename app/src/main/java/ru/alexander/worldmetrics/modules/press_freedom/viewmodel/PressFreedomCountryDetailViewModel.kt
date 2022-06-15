@@ -1,5 +1,6 @@
 package ru.alexander.worldmetrics.modules.press_freedom.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,24 +14,26 @@ class PressFreedomCountryDetailViewModel @Inject constructor(
 ) : ViewModel() {
 
     private var country: String = ""
+    private val lastYearDataContainer = MutableLiveData<Map<String, String>>().also {
+        it.value = service.getLastYearData()
+    }
+    private val allDataContainer = MutableLiveData<List<PressFreedomValue>>()
 
     fun setCountry(country: String) {
         this.country = country
         loadData()
     }
 
-    val lastYearData: MutableLiveData<Map<String, String>> by lazy {
-        MutableLiveData<Map<String, String>>().also {
-            it.value = service.getLastYearData()
-        }
+    val lastYearData: LiveData<Map<String, String>> by lazy {
+        lastYearDataContainer
     }
 
-    val allData: MutableLiveData<List<PressFreedomValue>> by lazy {
-        MutableLiveData<List<PressFreedomValue>>()
+    val allData: LiveData<List<PressFreedomValue>> by lazy {
+        allDataContainer
     }
 
     private fun loadData() {
-        lastYearData.value = service.getLastYearData()
-        allData.value = service.getData(country)
+        lastYearDataContainer.value = service.getLastYearData()
+        allDataContainer.value = service.getData(country)
     }
 }
