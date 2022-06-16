@@ -10,7 +10,7 @@
         android:orientation="vertical">
 
         <fragment
-            class="ru.alexander.worldmetrics.fragment.CountryBadgeFragment"
+            class="ru.alexander.worldmetrics.fragment.YourCountryFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
