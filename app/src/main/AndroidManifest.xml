@@ -5,6 +5,11 @@
         android:glEsVersion="0x00020000"
         android:required="true" />
 
+    <!-- Network location -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!-- GPS location -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application
         android:name=".App"
         android:allowBackup="true"
