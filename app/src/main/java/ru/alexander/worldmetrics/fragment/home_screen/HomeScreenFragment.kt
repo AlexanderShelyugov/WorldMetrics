@@ -1,4 +1,4 @@
-package ru.alexander.worldmetrics.fragment
+package ru.alexander.worldmetrics.fragment.home_screen
 
 import android.os.Bundle
 import android.view.View
@@ -6,9 +6,9 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import ru.alexander.worldmetrics.R
-import ru.alexander.worldmetrics.fragment.HomeScreenFragmentDirections.Companion.actionHomeScreenToCorruptionPerceptionsOverview
-import ru.alexander.worldmetrics.fragment.HomeScreenFragmentDirections.Companion.actionHomeScreenToDemocracyIndexOverview
-import ru.alexander.worldmetrics.fragment.HomeScreenFragmentDirections.Companion.actionHomeScreenToPressFreedomOverview
+import ru.alexander.worldmetrics.fragment.home_screen.HomeScreenFragmentDirections.Companion.actionHomeScreenToCorruptionPerceptionsOverview
+import ru.alexander.worldmetrics.fragment.home_screen.HomeScreenFragmentDirections.Companion.actionHomeScreenToDemocracyIndexOverview
+import ru.alexander.worldmetrics.fragment.home_screen.HomeScreenFragmentDirections.Companion.actionHomeScreenToPressFreedomOverview
 import ru.alexander.worldmetrics.global.NavigationHelper.Companion.bindNavigation
 
 class HomeScreenFragment : Fragment(R.layout.home_screen) {

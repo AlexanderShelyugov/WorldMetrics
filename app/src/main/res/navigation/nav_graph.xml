@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/homeScreenFragment"
-        android:name="ru.alexander.worldmetrics.fragment.HomeScreenFragment"
+        android:name="ru.alexander.worldmetrics.fragment.home_screen.HomeScreenFragment"
         android:label="All indexes overview fragment">
         <action
             android:id="@+id/action_homeScreen_to_democracyIndexOverview"

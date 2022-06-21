@@ -1,4 +1,4 @@
-package ru.alexander.worldmetrics.fragment
+package ru.alexander.worldmetrics.fragment.home_screen
 
 import android.os.Bundle
 import android.view.View
@@ -10,8 +10,8 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import ru.alexander.worldmetrics.R
-import ru.alexander.worldmetrics.fragment.HomeScreenFragmentDirections.Companion.actionHomeScreenToCountryDetect
-import ru.alexander.worldmetrics.fragment.HomeScreenFragmentDirections.Companion.actionHomeScreenToCountryOverview
+import ru.alexander.worldmetrics.fragment.home_screen.HomeScreenFragmentDirections.Companion.actionHomeScreenToCountryDetect
+import ru.alexander.worldmetrics.fragment.home_screen.HomeScreenFragmentDirections.Companion.actionHomeScreenToCountryOverview
 import ru.alexander.worldmetrics.global.NavigationHelper.Companion.bindNavigation
 import ru.alexander.worldmetrics.model.CountriesData.Companion.getNameByCode
 import ru.alexander.worldmetrics.viewmodel.CurrentCountryViewModel
