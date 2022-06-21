@@ -125,7 +125,7 @@ float clouds(vec2 uv) {
 
 void mainImage(out vec4 fragColor, in vec2 fragCoord)
 {
-    if (320.0 < fragCoord.y) {
+    if (400.0 < fragCoord.y) {
         fragColor = vec4(0, 0, 0, 1.0);
         return;
     }
