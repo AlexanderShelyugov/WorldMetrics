@@ -35,6 +35,15 @@
         <action
             android:id="@+id/action_homeScreen_to_countryOverview"
             app:destination="@id/countryOverviewFragment" />
+        <action
+            android:id="@+id/action_homeScreen_to_corruptionPerceptionsCountryDetail"
+            app:destination="@id/corruptionPerceptionsCountryDetailFragment" />
+        <action
+            android:id="@+id/action_homeScreen_to_democracyIndexCountryDetail"
+            app:destination="@id/democracyIndexCountryDetailFragment" />
+        <action
+            android:id="@+id/action_homeScreen_to_pressFreedomCountryDetail"
+            app:destination="@id/pressFreedomCountryDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/democracyIndexOverviewFragment"

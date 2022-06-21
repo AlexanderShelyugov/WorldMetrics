@@ -3,4 +3,7 @@
     <dimen name="index_value_chart_height">80dp</dimen>
     <dimen name="button_size_middle">48dp</dimen>
     <dimen name="button_circle_radius_middle">24dp</dimen>
+
+    <dimen name="index_list_item_width">80dp</dimen>
+    <dimen name="index_list_item_height">240dp</dimen>
 </resources>
