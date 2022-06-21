@@ -11,6 +11,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import ru.alexander.worldmetrics.R
 import ru.alexander.worldmetrics.adapter.IndexListAdapter
+import ru.alexander.worldmetrics.fragment.home_screen.HomeScreenFragmentDirections.Companion.actionGlobalToBeImplementedFragment
 import ru.alexander.worldmetrics.fragment.home_screen.HomeScreenFragmentDirections.Companion.actionHomeScreenToCorruptionPerceptionsCountryDetail
 import ru.alexander.worldmetrics.fragment.home_screen.HomeScreenFragmentDirections.Companion.actionHomeScreenToDemocracyIndexCountryDetail
 import ru.alexander.worldmetrics.fragment.home_screen.HomeScreenFragmentDirections.Companion.actionHomeScreenToPressFreedomCountryDetail
@@ -30,8 +31,16 @@ class IndexesForCountryFragment : Fragment(R.layout.indexes_for_country) {
                 return@observe
             }
             addIndexGroup(
+                R.string.index_group_name_demographic,
+                createDemographicIndexesGroup(countryCode)
+            )
+            addIndexGroup(
                 R.string.index_group_name_political,
                 createPoliticalIndexesGroup(countryCode)
+            )
+            addIndexGroup(
+                R.string.index_group_name_economic,
+                createEconomicIndexesGroup(countryCode)
             )
         }
     }
@@ -61,6 +70,11 @@ class IndexesForCountryFragment : Fragment(R.layout.indexes_for_country) {
         contentContainer.addView(indexesList)
     }
 
+    private fun createDemographicIndexesGroup(countryCode: String): List<Pair<Int, NavDirections>> =
+        listOf(
+            R.string.index_name_demographics to actionGlobalToBeImplementedFragment()
+        )
+
     private fun createPoliticalIndexesGroup(countryCode: String): List<Pair<Int, NavDirections>> =
         listOf(
             R.string.corruption_perceptions_index_name to actionHomeScreenToCorruptionPerceptionsCountryDetail(
@@ -74,4 +88,9 @@ class IndexesForCountryFragment : Fragment(R.layout.indexes_for_country) {
             )
         )
 
+    private fun createEconomicIndexesGroup(countryCode: String): List<Pair<Int, NavDirections>> =
+        listOf(
+            R.string.index_name_gdp to actionGlobalToBeImplementedFragment(),
+            R.string.index_name_some_business to actionGlobalToBeImplementedFragment(),
+        )
 }

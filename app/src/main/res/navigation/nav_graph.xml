@@ -117,4 +117,8 @@
             android:name="countryCode"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/toBeImplementedFragment"
+        android:name="ru.alexander.worldmetrics.fragment.ToBeImplementedFragment"
+        android:label="ToBeImplementedFragment" /><action android:id="@+id/action_global_toBeImplementedFragment" app:destination="@id/toBeImplementedFragment"/>
 </navigation>

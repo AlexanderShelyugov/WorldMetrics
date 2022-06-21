@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Demographical indexes -->
+    <string name="index_group_name_demographic">Demographic</string>
+    <color name="index_group_color_demographic">#FFC0CB</color>
+
+    <string name="index_name_demographics">Demographics overview</string>
+
     <!-- Political indexes -->
     <string name="index_group_name_political">Political</string>
+    <color name="index_group_color_political">#ADD8E6</color>
 
     <!-- Corruption perceptions -->
     <string name="corruption_perceptions_index_name">Corruption Perceptions</string>
@@ -21,4 +28,11 @@
     <string name="press_freedom_legal_context">Legal context</string>
     <string name="press_freedom_social_context">Social context</string>
     <string name="press_freedom_safety">Safety</string>
+
+    <!-- Ecomonic indexes -->
+    <string name="index_group_name_economic">Economics</string>
+    <color name="index_group_color_economic">#FFFFE0</color>
+
+    <string name="index_name_gdp">GDP</string>
+    <string name="index_name_some_business">Some index business</string>
 </resources>

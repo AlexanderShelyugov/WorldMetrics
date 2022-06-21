@@ -9,4 +9,6 @@
     <string name="country_detect_by_network">by Network</string>
     <string name="country_detect_manually">select</string>
     <string name="failed_to_detect_country">Failed to detect country</string>
+
+    <string name="to_be_implemented">To be implemented</string>
 </resources>
