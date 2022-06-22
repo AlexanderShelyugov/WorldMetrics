@@ -11,7 +11,7 @@ class CorruptionPerceptionsData private constructor() {
         val YEAR_FUNCTION: ValueFunction = { it.year.toFloat() }
 
         val FEATURES_TO_SHOW: List<Pair<Int, ValueFunction>> = listOf(
-            R.string.corruption_perceptions_index_name to { it.value },
+            R.string.index_name_corruption_perceptions to { it.value },
         )
 
         val FEATURES_NUMBER = FEATURES_TO_SHOW.size

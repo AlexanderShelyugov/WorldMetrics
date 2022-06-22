@@ -6,14 +6,33 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ru.alexander.worldmetrics.R
+import ru.alexander.worldmetrics.global.ColorAccess
+
 
 class IndexListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var data: List<IndexListItem> = emptyList()
+    var itemColor: Int = R.color.white_transparent_25
+    var textColor: Int = R.color.white
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view = LayoutInflater.from(parent.context)
+        val ctx = parent.context
+        val view = LayoutInflater.from(ctx)
             .inflate(R.layout.index_for_country_list_item, parent, false)
-        return VH(view)
+        view.background?.let {
+            val color = ctx.getColor(itemColor)
+            ColorAccess.setColorFilter(it, color)
+        }
+        return VH(view).also {
+            /*
+            it.label.setShadowLayer(
+                it.label.shadowRadius,
+                it.label.shadowDx,
+                it.label.shadowDy,
+                ctx.getColor(textColor)
+            )
+             */
+            it.label.setTextColor(ctx.getColor(textColor))
+        }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {

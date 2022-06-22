@@ -10,7 +10,7 @@ class DemocracyIndexData private constructor() {
         val YEAR_FUNCTION: ValueFunction = { it.year.toFloat() }
 
         val FEATURES_TO_SHOW: List<Pair<Int, ValueFunction>> = listOf(
-            R.string.democracy_index_name to { it.democracyIndex },
+            R.string.index_name_democracy to { it.democracyIndex },
             R.string.electoral_process_and_pluralism to { it.electoralProcessAndPluralism },
             R.string.functioning_of_government to { it.functioningOfGovernment },
             R.string.political_participation to { it.politicalParticipation },

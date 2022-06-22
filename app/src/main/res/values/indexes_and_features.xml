@@ -3,18 +3,20 @@
     <!-- Demographical indexes -->
     <string name="index_group_name_demographic">Demographic</string>
     <color name="index_group_color_demographic">#FFC0CB</color>
+    <color name="index_group_color_item_demographic">#9C284B</color>
 
     <string name="index_name_demographics">Demographics overview</string>
 
     <!-- Political indexes -->
     <string name="index_group_name_political">Political</string>
     <color name="index_group_color_political">#ADD8E6</color>
+    <color name="index_group_color_item_political">#4B68B8</color>
 
     <!-- Corruption perceptions -->
-    <string name="corruption_perceptions_index_name">Corruption Perceptions</string>
+    <string name="index_name_corruption_perceptions">Corruption Perceptions</string>
 
     <!-- Democracy index -->
-    <string name="democracy_index_name">Democracy Index</string>
+    <string name="index_name_democracy">Democracy Index</string>
     <string name="electoral_process_and_pluralism">Electoral process and pluralism</string>
     <string name="functioning_of_government">Functioning of government</string>
     <string name="political_participation">Political participation</string>
@@ -22,7 +24,7 @@
     <string name="civil_liberties">Civil liberties</string>
 
     <!-- Press freedom -->
-    <string name="press_freedom_index_name">Press freedom</string>
+    <string name="index_name_press_freedom">Press freedom</string>
     <string name="press_freedom_political_context">Political context</string>
     <string name="press_freedom_economic_context">Economic context</string>
     <string name="press_freedom_legal_context">Legal context</string>
@@ -31,7 +33,8 @@
 
     <!-- Ecomonic indexes -->
     <string name="index_group_name_economic">Economics</string>
-    <color name="index_group_color_economic">#FFFFE0</color>
+    <color name="index_group_color_economic">#FFECB3</color>
+    <color name="index_group_color_item_economic">#FFA000</color>
 
     <string name="index_name_gdp">GDP</string>
     <string name="index_name_some_business">Some index business</string>

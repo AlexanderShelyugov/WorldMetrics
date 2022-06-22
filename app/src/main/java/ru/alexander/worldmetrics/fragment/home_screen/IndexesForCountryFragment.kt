@@ -16,6 +16,8 @@ import ru.alexander.worldmetrics.fragment.home_screen.HomeScreenFragmentDirectio
 import ru.alexander.worldmetrics.fragment.home_screen.HomeScreenFragmentDirections.Companion.actionHomeScreenToDemocracyIndexCountryDetail
 import ru.alexander.worldmetrics.fragment.home_screen.HomeScreenFragmentDirections.Companion.actionHomeScreenToPressFreedomCountryDetail
 import ru.alexander.worldmetrics.global.NavigationHelper.Companion.navigateTo
+import ru.alexander.worldmetrics.model.indexes.AllIndexes.Companion.ALL_INDEXES
+import ru.alexander.worldmetrics.model.indexes.IndexGroupForCountryData
 import ru.alexander.worldmetrics.viewmodel.CurrentCountryViewModel
 
 class IndexesForCountryFragment : Fragment(R.layout.indexes_for_country) {
@@ -30,67 +32,50 @@ class IndexesForCountryFragment : Fragment(R.layout.indexes_for_country) {
             if (countryCode == null || countryCode.isBlank()) {
                 return@observe
             }
-            addIndexGroup(
-                R.string.index_group_name_demographic,
-                createDemographicIndexesGroup(countryCode)
-            )
-            addIndexGroup(
-                R.string.index_group_name_political,
-                createPoliticalIndexesGroup(countryCode)
-            )
-            addIndexGroup(
-                R.string.index_group_name_economic,
-                createEconomicIndexesGroup(countryCode)
-            )
+            val actions = getIndexesActions(countryCode)
+            ALL_INDEXES.forEach { addIndexGroup(it, actions) }
         }
     }
 
-    private fun addIndexGroup(groupName: Int, groupContent: List<Pair<Int, NavDirections>>) {
-        val groupHeader: TextView = layoutInflater.inflate(
-            R.layout.indexes_for_country_index_group_header,
+    private fun addIndexGroup(
+        indexGroup: IndexGroupForCountryData,
+        actions: Map<Int, NavDirections>
+    ) {
+        val indexGroupView: View = layoutInflater.inflate(
+            R.layout.index_group_for_country,
             contentContainer,
             false
-        ) as TextView
-        groupHeader.setText(groupName)
-        contentContainer.addView(groupHeader)
-        val indexesList =
-            layoutInflater.inflate(R.layout.list_indexes_for_country, contentContainer, false)
-                    as RecyclerView
-        val adapter = IndexListAdapter()
+        )
+//        indexGroupView.setBackgroundResource(indexGroup.color)
 
-        adapter.data = groupContent.asSequence()
+        val groupHeader = indexGroupView.findViewById<TextView>(R.id.tv_index_group_name)
+        groupHeader.setText(indexGroup.name)
+        groupHeader.setTextColor(requireContext().getColor(indexGroup.itemColor))
+
+        val indexesList = indexGroupView.findViewById<RecyclerView>(R.id.rv_indexes)
+        val adapter = IndexListAdapter()
+        adapter.itemColor = indexGroup.itemColor
+        adapter.textColor = indexGroup.color
+        adapter.data = indexGroup.indexes.asSequence()
             .map { groupItem ->
                 IndexListAdapter.IndexListItem(
-                    getString(groupItem.first)
-                ) { navigateTo(it.findNavController(), groupItem.second) }
+                    name = getString(groupItem.name)
+                ) { navigateTo(it.findNavController(), actions[groupItem.name]!!) }
             }
             .toList()
         indexesList.adapter = adapter
 
-        contentContainer.addView(indexesList)
+        contentContainer.addView(indexGroupView)
     }
 
-    private fun createDemographicIndexesGroup(countryCode: String): List<Pair<Int, NavDirections>> =
-        listOf(
-            R.string.index_name_demographics to actionGlobalToBeImplementedFragment()
-        )
-
-    private fun createPoliticalIndexesGroup(countryCode: String): List<Pair<Int, NavDirections>> =
-        listOf(
-            R.string.corruption_perceptions_index_name to actionHomeScreenToCorruptionPerceptionsCountryDetail(
-                countryCode
-            ),
-            R.string.democracy_index_name to actionHomeScreenToDemocracyIndexCountryDetail(
-                countryCode
-            ),
-            R.string.press_freedom_index_name to actionHomeScreenToPressFreedomCountryDetail(
-                countryCode
-            )
-        )
-
-    private fun createEconomicIndexesGroup(countryCode: String): List<Pair<Int, NavDirections>> =
-        listOf(
-            R.string.index_name_gdp to actionGlobalToBeImplementedFragment(),
-            R.string.index_name_some_business to actionGlobalToBeImplementedFragment(),
-        )
+    private fun getIndexesActions(countryCode: String) = mapOf(
+        R.string.index_name_demographics to actionGlobalToBeImplementedFragment(),
+        R.string.index_name_corruption_perceptions to actionHomeScreenToCorruptionPerceptionsCountryDetail(
+            countryCode
+        ),
+        R.string.index_name_democracy to actionHomeScreenToDemocracyIndexCountryDetail(countryCode),
+        R.string.index_name_press_freedom to actionHomeScreenToPressFreedomCountryDetail(countryCode),
+        R.string.index_name_gdp to actionGlobalToBeImplementedFragment(),
+        R.string.index_name_some_business to actionGlobalToBeImplementedFragment()
+    )
 }

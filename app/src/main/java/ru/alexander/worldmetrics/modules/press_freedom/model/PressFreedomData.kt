@@ -10,7 +10,7 @@ class PressFreedomData private constructor() {
         val YEAR_FUNCTION: ValueFunction = { it.year.toFloat() }
 
         val FEATURES_TO_SHOW: List<Pair<Int, ValueFunction>> = listOf(
-            R.string.press_freedom_index_name to { it.score },
+            R.string.index_name_press_freedom to { it.score },
             R.string.press_freedom_political_context to { it.politicalContext },
             R.string.press_freedom_economic_context to { it.economicContext },
             R.string.press_freedom_legal_context to { it.legalContext },
