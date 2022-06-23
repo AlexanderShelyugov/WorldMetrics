@@ -11,21 +11,22 @@ class PressFreedomServiceImpl @Inject constructor(private val csvService: CsvSer
 
     private companion object {
         const val MAX_YEAR = 2022
+
         const val COLUMN_COUNTRY_CODE = 0
         const val COLUMN_INDEX_VALUE = 1
-        const val COLUMN_POLITICAL_CONTEXT = 3
-        const val COLUMN_ECONOMIC_CONTEXT = 5
-        const val COLUMN_LEGAL_CONTEXT = 7
-        const val COLUMN_SOCIAL_CONTEXT = 9
-        const val COLUMN_SAFETY = 11
-        const val COLUMN_YEAR = 19
+        const val COLUMN_POLITICAL_CONTEXT = 2
+        const val COLUMN_ECONOMIC_CONTEXT = 3
+        const val COLUMN_LEGAL_CONTEXT = 4
+        const val COLUMN_SOCIAL_CONTEXT = 5
+        const val COLUMN_SAFETY = 6
+        const val COLUMN_YEAR = 7
 
         val RANGE_VALUES = 13.92f to 92.65f
-        val RANGE_POLITICAL_CONTEXT = 0f to 100f
-        val RANGE_ECONOMIC_CONTEXT = 0f to 100f
-        val RANGE_LEGAL_CONTEXT = 0f to 100f
-        val RANGE_SOCIAL_CONTEXT = 0f to 100f
-        val RANGE_SAFETY = 0f to 100f
+        val RANGE_POLITICAL_CONTEXT = 22.22f to 94.89f
+        val RANGE_ECONOMIC_CONTEXT = 0.0f to 90.38f
+        val RANGE_LEGAL_CONTEXT = 15.79f to 92.23f
+        val RANGE_SOCIAL_CONTEXT = 12.0f to 95.0f
+        val RANGE_SAFETY = 4.63f to 96.46f
     }
 
     override fun getLastYearData(): Map<String, String> {
