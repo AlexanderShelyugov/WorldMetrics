@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.alexander.worldmetrics.R
 import ru.alexander.worldmetrics.adapter.CountriesListWithIndexViewAdapter
 import ru.alexander.worldmetrics.global.ColorAccess.Companion.VALUE_DEFAULT_COLOR_RANGE
+import ru.alexander.worldmetrics.model.indexes.FeatureRange
 
 abstract class CountriesListWithIndexFragment :
     Fragment(R.layout.countries_list_with_index), SearchView.OnQueryTextListener {
@@ -104,7 +105,7 @@ abstract class CountriesListWithIndexFragment :
 
     protected abstract fun getData(): LiveData<Map<String, String>>
 
-    protected abstract fun getValueRange(): Pair<Float, Float>
+    protected abstract fun getValueRange(): FeatureRange
 
     protected abstract fun onCountryClick(country: String)
 }

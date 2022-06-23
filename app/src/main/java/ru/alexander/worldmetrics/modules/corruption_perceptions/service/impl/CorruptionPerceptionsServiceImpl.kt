@@ -48,7 +48,7 @@ class CorruptionPerceptionsServiceImpl @Inject constructor(
         return item
     }
 
-    override fun getValueRange(): Pair<Float, Float> = VALUES_RANGE
+    override fun getValueRange() = VALUES_RANGE
 
     override fun getAllData(countryCode: String): List<CorruptionPerceptionsValue> {
         lateinit var result: List<CorruptionPerceptionsValue>

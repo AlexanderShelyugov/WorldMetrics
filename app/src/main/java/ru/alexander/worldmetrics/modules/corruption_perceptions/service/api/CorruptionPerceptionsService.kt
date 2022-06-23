@@ -1,5 +1,6 @@
 package ru.alexander.worldmetrics.modules.corruption_perceptions.service.api
 
+import ru.alexander.worldmetrics.model.indexes.FeatureRange
 import ru.alexander.worldmetrics.modules.corruption_perceptions.model.CorruptionPerceptionsValue
 
 interface CorruptionPerceptionsService {
@@ -18,7 +19,7 @@ interface CorruptionPerceptionsService {
      *
      * @return pair of values, where first is minimum value and second is maximum value
      */
-    fun getValueRange(): Pair<Float, Float>
+    fun getValueRange(): FeatureRange
 
     /**
      * Returns all data for specific country

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.SortedListAdapterCallback
 import ru.alexander.worldmetrics.R
 import ru.alexander.worldmetrics.model.CountriesData
 import ru.alexander.worldmetrics.model.TripleItem
+import ru.alexander.worldmetrics.model.indexes.FeatureRange
 import ru.alexander.worldmetrics.search.SearchCriteria
 import ru.alexander.worldmetrics.search.TextSearchCriteria
 import ru.alexander.worldmetrics.view.ColorGradeCalculator
@@ -35,7 +36,7 @@ class CountriesListWithIndexViewAdapter(private val onClick: (String) -> Unit) :
     private var fullData: List<Item> = listOf()
     private var comparator = calculateComparator()
     private var colorCalculator: ColorGradeCalculator? = null
-    private var valuesRange: Pair<Float, Float>? = null
+    private var valuesRange: FeatureRange? = null
 
     fun reSort() {
         val prevData = (0 until data.size())
@@ -52,7 +53,7 @@ class CountriesListWithIndexViewAdapter(private val onClick: (String) -> Unit) :
         setDataItems(newItems)
     }
 
-    fun setValuesRange(valueRange: Pair<Float, Float>) {
+    fun setValuesRange(valueRange: FeatureRange) {
         valuesRange = valueRange
     }
 

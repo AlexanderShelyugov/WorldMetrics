@@ -1,5 +1,6 @@
 package ru.alexander.worldmetrics.modules.democracy_index.service.api
 
+import ru.alexander.worldmetrics.model.indexes.FeatureRange
 import ru.alexander.worldmetrics.modules.democracy_index.model.DemocracyIndexValue
 
 interface DemocracyIndexService {
@@ -30,40 +31,40 @@ interface DemocracyIndexService {
      *
      * @return pair of values, where first is minimum value and second is maximum value
      */
-    fun getValueRange(): Pair<Float, Float>
+    fun getValueRange(): FeatureRange
 
     /**
      * Returns value of electoral process and pluralism for last year across countries
      *
      * @return min and max of electoral process and pluralism
      */
-    fun getEPAPRange(): Pair<Float, Float>
+    fun getEPAPRange(): FeatureRange
 
     /**
      * Returns value of functioning of government for last year across countries
      *
      * @return min and max of functioning of government
      */
-    fun getFOGRange(): Pair<Float, Float>
+    fun getFOGRange(): FeatureRange
 
     /**
      * Returns value of political participation for last year across countries
      *
      * @return min and max of political participation
      */
-    fun getPPRange(): Pair<Float, Float>
+    fun getPPRange(): FeatureRange
 
     /**
      * Returns value of political culture for last year across countries
      *
      * @return min and max of political culture
      */
-    fun getPCRange(): Pair<Float, Float>
+    fun getPCRange(): FeatureRange
 
     /**
      * Returns value of civil liberties for last year across countries
      *
      * @return min and max of civil liberties
      */
-    fun getCLRange(): Pair<Float, Float>
+    fun getCLRange(): FeatureRange
 }

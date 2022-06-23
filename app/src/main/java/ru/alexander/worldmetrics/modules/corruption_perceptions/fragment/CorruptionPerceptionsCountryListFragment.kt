@@ -14,7 +14,7 @@ class CorruptionPerceptionsCountryListFragment :
 
     override fun getData(): LiveData<Map<String, String>> = model.lastYearData
 
-    override fun getValueRange(): Pair<Float, Float> = model.getValueRange()
+    override fun getValueRange() = model.getValueRange()
 
     override fun onCountryClick(country: String) {
         navigateTo(

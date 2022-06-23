@@ -67,12 +67,12 @@ class DemocracyIndexServiceImpl @Inject constructor(
             .map { rowToIndexValue(it) }
             .toList()
 
-    override fun getValueRange(): Pair<Float, Float> = RANGE_VALUES
-    override fun getEPAPRange(): Pair<Float, Float> = RANGE_ELECTORAL_PROCESS_AND_PLURALISM
-    override fun getFOGRange(): Pair<Float, Float> = RANGE_FUNCTIONING_OF_GOVERNMENT
-    override fun getPPRange(): Pair<Float, Float> = RANGE_POLITICAL_PARTICIPATION
-    override fun getPCRange(): Pair<Float, Float> = RANGE_POLITICAL_CULTURE
-    override fun getCLRange(): Pair<Float, Float> = RANGE_CIVIL_LIBERTIES
+    override fun getValueRange() = RANGE_VALUES
+    override fun getEPAPRange() = RANGE_ELECTORAL_PROCESS_AND_PLURALISM
+    override fun getFOGRange() = RANGE_FUNCTIONING_OF_GOVERNMENT
+    override fun getPPRange() = RANGE_POLITICAL_PARTICIPATION
+    override fun getPCRange() = RANGE_POLITICAL_CULTURE
+    override fun getCLRange() = RANGE_CIVIL_LIBERTIES
 
     private fun rowToIndexValue(row: List<String>): DemocracyIndexValue = DemocracyIndexValue(
         row[0],

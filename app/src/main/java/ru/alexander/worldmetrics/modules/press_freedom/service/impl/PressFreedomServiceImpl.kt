@@ -1,6 +1,5 @@
 package ru.alexander.worldmetrics.modules.press_freedom.service.impl
 
-import ru.alexander.worldmetrics.model.indexes.FeatureRange
 import ru.alexander.worldmetrics.modules.csv.service.api.CsvService
 import ru.alexander.worldmetrics.modules.press_freedom.model.PressFreedomValue
 import ru.alexander.worldmetrics.modules.press_freedom.service.api.PressFreedomService
@@ -55,12 +54,12 @@ class PressFreedomServiceImpl @Inject constructor(private val csvService: CsvSer
         return result
     }
 
-    override fun getValueRange(): Pair<Float, Float> = RANGE_VALUES
-    override fun getPCRange(): FeatureRange = RANGE_POLITICAL_CONTEXT
-    override fun getECRange(): FeatureRange = RANGE_ECONOMIC_CONTEXT
-    override fun getLCRange(): FeatureRange = RANGE_LEGAL_CONTEXT
-    override fun getSCRange(): FeatureRange = RANGE_SOCIAL_CONTEXT
-    override fun getSRange(): FeatureRange = RANGE_SAFETY
+    override fun getValueRange() = RANGE_VALUES
+    override fun getPCRange() = RANGE_POLITICAL_CONTEXT
+    override fun getECRange() = RANGE_ECONOMIC_CONTEXT
+    override fun getLCRange() = RANGE_LEGAL_CONTEXT
+    override fun getSCRange() = RANGE_SOCIAL_CONTEXT
+    override fun getSRange() = RANGE_SAFETY
 
     override fun getData(country: String): List<PressFreedomValue> {
         val result = mutableListOf<PressFreedomValue>()

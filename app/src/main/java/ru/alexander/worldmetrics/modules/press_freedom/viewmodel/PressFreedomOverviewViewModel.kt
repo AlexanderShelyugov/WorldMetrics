@@ -20,5 +20,5 @@ class PressFreedomOverviewViewModel @Inject constructor(
         lastYearDataContainer
     }
 
-    fun getValueRange(): Pair<Float, Float> = service.getValueRange()
+    fun getValueRange() = service.getValueRange()
 }
