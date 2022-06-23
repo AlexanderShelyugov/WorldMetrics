@@ -8,11 +8,13 @@ import android.os.Build
 import androidx.core.content.ContextCompat
 import ru.alexander.worldmetrics.R
 import ru.alexander.worldmetrics.global.ContextAccess.Companion.context
+import ru.alexander.worldmetrics.view.ColorGradeCalculator
 
 class ColorAccess private constructor() {
     companion object {
         val VALUE_DEFAULT_COLOR_RANGE =
             getColor(R.color.value_range_min) to getColor(R.color.value_range_max)
+        val DEFAULT_COLOR_CALCULATOR = ColorGradeCalculator(VALUE_DEFAULT_COLOR_RANGE)
 
         fun getColor(colorId: Int) = ContextCompat.getColor(context, colorId)
 

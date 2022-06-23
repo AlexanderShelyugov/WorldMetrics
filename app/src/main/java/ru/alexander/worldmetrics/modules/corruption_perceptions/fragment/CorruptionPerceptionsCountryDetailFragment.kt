@@ -24,4 +24,9 @@ class CorruptionPerceptionsCountryDetailFragment :
 
     override fun getAdapter(): IndexFeaturesRVAdapter<CorruptionPerceptionsValue> =
         getCorruptionPerceptionsFeaturesAdapter()
+
+    override fun getFeatureColors(): List<Int> {
+        val model: CorruptionPerceptionsCountryDetailViewModel by activityViewModels()
+        return model.getFeatureColors(getCountryCode())
+    }
 }

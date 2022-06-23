@@ -14,7 +14,12 @@ class DemocracyIndexServiceImpl @Inject constructor(
         const val COLUMN_YEAR = 2
         const val COLUMN_INDEX_VALUE = 3
 
-        val VALUES_RANGE = 10.8f to 98.1f
+        val RANGE_VALUES = 10.8f to 98.1f
+        val RANGE_ELECTORAL_PROCESS_AND_PLURALISM = 0.0f to 100.0f
+        val RANGE_FUNCTIONING_OF_GOVERNMENT = 0.0f to 100.0f
+        val RANGE_POLITICAL_PARTICIPATION = 0.0f to 100.0f
+        val RANGE_POLITICAL_CULTURE = 0.0f to 100.0f
+        val RANGE_CIVIL_LIBERTIES = 0.0f to 100.0f
     }
 
     lateinit var filePath: String
@@ -62,7 +67,12 @@ class DemocracyIndexServiceImpl @Inject constructor(
             .map { rowToIndexValue(it) }
             .toList()
 
-    override fun getValueRange(): Pair<Float, Float> = VALUES_RANGE
+    override fun getValueRange(): Pair<Float, Float> = RANGE_VALUES
+    override fun getEPAPRange(): Pair<Float, Float> = RANGE_ELECTORAL_PROCESS_AND_PLURALISM
+    override fun getFOGRange(): Pair<Float, Float> = RANGE_FUNCTIONING_OF_GOVERNMENT
+    override fun getPPRange(): Pair<Float, Float> = RANGE_POLITICAL_PARTICIPATION
+    override fun getPCRange(): Pair<Float, Float> = RANGE_POLITICAL_CULTURE
+    override fun getCLRange(): Pair<Float, Float> = RANGE_CIVIL_LIBERTIES
 
     private fun rowToIndexValue(row: List<String>): DemocracyIndexValue = DemocracyIndexValue(
         row[0],

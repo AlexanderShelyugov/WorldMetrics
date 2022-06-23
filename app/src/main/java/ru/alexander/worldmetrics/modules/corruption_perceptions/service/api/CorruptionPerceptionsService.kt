@@ -4,9 +4,14 @@ import ru.alexander.worldmetrics.modules.corruption_perceptions.model.Corruption
 
 interface CorruptionPerceptionsService {
     /**
-     * Возвращает данные за последний год.
+     * Return all countries index value for last year
      */
     fun getLastYearData(): Map<String, String>
+
+    /**
+     * Returns data of last year for a given country
+     */
+    fun getLastYearData(countryCode: String): CorruptionPerceptionsValue
 
     /**
      * Returns value range

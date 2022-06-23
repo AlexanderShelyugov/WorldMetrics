@@ -29,6 +29,25 @@ class CorruptionPerceptionsServiceImpl @Inject constructor(
         return result
     }
 
+    override fun getLastYearData(countryCode: String): CorruptionPerceptionsValue {
+        lateinit var item: CorruptionPerceptionsValue
+        csvService.process(filePath) { rows ->
+            rows
+                .filter { it[COLUMN_COUNTRY_CODE].equals(countryCode, ignoreCase = true) }
+                .map {
+                    Triple(
+                        countryCode.lowercase(),
+                        COLUMN_MAX_YEAR.second,
+                        it[COLUMN_MAX_YEAR.first]
+                    )
+                }
+                .map(this::dataToIndexValue)
+                .first()
+                .also { item = it }
+        }
+        return item
+    }
+
     override fun getValueRange(): Pair<Float, Float> = VALUES_RANGE
 
     override fun getAllData(countryCode: String): List<CorruptionPerceptionsValue> {

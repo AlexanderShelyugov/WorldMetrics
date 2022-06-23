@@ -9,13 +9,6 @@ interface DemocracyIndexService {
     fun getLastYearData(): Map<String, String>
 
     /**
-     * Returns value range
-     *
-     * @return pair of values, where first is minimum value and second is maximum value
-     */
-    fun getValueRange(): Pair<Float, Float>
-
-    /**
      * Возвращает данные за последний год для конкретной страны.
      *
      * @param country - страна
@@ -31,4 +24,46 @@ interface DemocracyIndexService {
      * Возвращает весь набор данных для отдельной страны
      */
     fun getAllYearData(country: String): List<DemocracyIndexValue>
+
+    /**
+     * Returns value range
+     *
+     * @return pair of values, where first is minimum value and second is maximum value
+     */
+    fun getValueRange(): Pair<Float, Float>
+
+    /**
+     * Returns value of electoral process and pluralism for last year across countries
+     *
+     * @return min and max of electoral process and pluralism
+     */
+    fun getEPAPRange(): Pair<Float, Float>
+
+    /**
+     * Returns value of functioning of government for last year across countries
+     *
+     * @return min and max of functioning of government
+     */
+    fun getFOGRange(): Pair<Float, Float>
+
+    /**
+     * Returns value of political participation for last year across countries
+     *
+     * @return min and max of political participation
+     */
+    fun getPPRange(): Pair<Float, Float>
+
+    /**
+     * Returns value of political culture for last year across countries
+     *
+     * @return min and max of political culture
+     */
+    fun getPCRange(): Pair<Float, Float>
+
+    /**
+     * Returns value of civil liberties for last year across countries
+     *
+     * @return min and max of civil liberties
+     */
+    fun getCLRange(): Pair<Float, Float>
 }
