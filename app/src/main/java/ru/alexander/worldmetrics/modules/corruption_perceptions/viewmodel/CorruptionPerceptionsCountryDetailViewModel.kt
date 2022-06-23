@@ -4,7 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import ru.alexander.worldmetrics.R
 import ru.alexander.worldmetrics.global.ColorAccess.Companion.DEFAULT_COLOR_CALCULATOR
+import ru.alexander.worldmetrics.model.indexes.FeatureRange
+import ru.alexander.worldmetrics.modules.corruption_perceptions.model.CorruptionPerceptionsData.Companion.FEATURES_TO_SHOW
 import ru.alexander.worldmetrics.modules.corruption_perceptions.model.CorruptionPerceptionsValue
 import ru.alexander.worldmetrics.modules.corruption_perceptions.service.api.CorruptionPerceptionsService
 import javax.inject.Inject
@@ -26,14 +29,16 @@ class CorruptionPerceptionsCountryDetailViewModel @Inject constructor(
     }
 
     fun getFeatureColors(countryCode: String): List<Int> {
-        val ranges = mapOf<Pair<Float, Float>, (CorruptionPerceptionsValue) -> Float>(
-            service.getValueRange() to { it.value }
-        )
+        val extractors = FEATURES_TO_SHOW.asSequence()
+            .map { feature ->
+                FEATURE_RANGE_EXTRACTORS[feature.first]!!.invoke(service) to feature.second
+            }
+            .toList()
         val lastYearData = service.getLastYearData(countryCode)
-        val colors = ranges.asSequence()
+        val colors = extractors.asSequence()
             .map {
                 DEFAULT_COLOR_CALCULATOR.evalColor(
-                    it.key.first, it.key.second, it.value(lastYearData)
+                    it.first, it.second(lastYearData)
                 )
             }
             .toList()
@@ -43,4 +48,11 @@ class CorruptionPerceptionsCountryDetailViewModel @Inject constructor(
     private fun loadData() {
         allDataContainer.value = service.getAllData(country)
     }
+
+    private companion object {
+        val FEATURE_RANGE_EXTRACTORS = mapOf<Int, (CorruptionPerceptionsService) -> FeatureRange>(
+            R.string.index_name_corruption_perceptions to { it.getValueRange() }
+        )
+    }
+
 }

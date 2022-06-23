@@ -1,13 +1,14 @@
 package ru.alexander.worldmetrics.modules.democracy_index.model
 
 import ru.alexander.worldmetrics.R
+import ru.alexander.worldmetrics.model.indexes.FeatureExtractor
 
 private typealias Index = DemocracyIndexValue
 private typealias ValueFunction = (Index) -> Float
 
 class DemocracyIndexData private constructor() {
     companion object {
-        val YEAR_FUNCTION: ValueFunction = { it.year.toFloat() }
+        val YEAR_FUNCTION: FeatureExtractor<Index> = { it.year.toFloat() }
 
         val FEATURES_TO_SHOW: List<Pair<Int, ValueFunction>> = listOf(
             R.string.index_name_democracy to { it.democracyIndex },

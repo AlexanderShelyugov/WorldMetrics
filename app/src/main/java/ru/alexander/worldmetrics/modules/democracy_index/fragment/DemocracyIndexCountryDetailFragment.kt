@@ -24,4 +24,9 @@ class DemocracyIndexCountryDetailFragment :
 
     override fun getAdapter(): IndexFeaturesRVAdapter<DemocracyIndexValue> =
         getDemocracyIndexFeaturesAdapter()
+
+    override fun getFeatureColors(): List<Int> {
+        val model: DemocracyIndexCountryDetailViewModel by activityViewModels()
+        return model.getFeatureColors(getCountryCode())
+    }
 }

@@ -24,4 +24,9 @@ class PressFreedomCountryDetailFragment :
 
     override fun getAdapter(): IndexFeaturesRVAdapter<PressFreedomValue> =
         getPressFreedomFeaturesAdapter()
+
+    override fun getFeatureColors(): List<Int> {
+        val model: PressFreedomCountryDetailViewModel by activityViewModels()
+        return model.getFeatureColors(getCountryCode())
+    }
 }

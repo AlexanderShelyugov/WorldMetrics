@@ -56,5 +56,4 @@ class IndexFeaturesRVAdapter<T>(
     }
 
     override fun getItemCount(): Int = featuresNumber
-
 }

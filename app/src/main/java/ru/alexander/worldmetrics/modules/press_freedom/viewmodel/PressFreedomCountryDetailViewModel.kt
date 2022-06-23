@@ -4,6 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import ru.alexander.worldmetrics.R
+import ru.alexander.worldmetrics.global.ColorAccess
+import ru.alexander.worldmetrics.model.indexes.FeatureRange
+import ru.alexander.worldmetrics.modules.press_freedom.model.PressFreedomData
 import ru.alexander.worldmetrics.modules.press_freedom.model.PressFreedomValue
 import ru.alexander.worldmetrics.modules.press_freedom.service.api.PressFreedomService
 import javax.inject.Inject
@@ -24,6 +28,21 @@ class PressFreedomCountryDetailViewModel @Inject constructor(
         loadData()
     }
 
+    fun getFeatureColors(countryCode: String): List<Int> {
+        val extractors = PressFreedomData.FEATURES_TO_SHOW.asSequence()
+            .map { feature ->
+                FEATURE_RANGE_EXTRACTORS[feature.first]!!.invoke(service) to feature.second
+            }
+            .toList()
+        val lastYearData = service.getLastYearData(countryCode)
+        val colors = extractors.asSequence()
+            .map {
+                ColorAccess.DEFAULT_COLOR_CALCULATOR.evalColor(it.first, it.second(lastYearData))
+            }
+            .toList()
+        return colors
+    }
+
     val lastYearData: LiveData<Map<String, String>> by lazy {
         lastYearDataContainer
     }
@@ -36,4 +55,16 @@ class PressFreedomCountryDetailViewModel @Inject constructor(
         lastYearDataContainer.value = service.getLastYearData()
         allDataContainer.value = service.getData(country)
     }
+
+    private companion object {
+        val FEATURE_RANGE_EXTRACTORS = mapOf<Int, (PressFreedomService) -> FeatureRange>(
+            R.string.index_name_press_freedom to { it.getValueRange() },
+            R.string.press_freedom_political_context to { it.getPCRange() },
+            R.string.press_freedom_economic_context to { it.getECRange() },
+            R.string.press_freedom_legal_context to { it.getLCRange() },
+            R.string.press_freedom_social_context to { it.getSCRange() },
+            R.string.press_freedom_safety to { it.getSRange() },
+        )
+    }
+
 }

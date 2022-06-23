@@ -1,6 +1,7 @@
 package ru.alexander.worldmetrics.view
 
 import android.graphics.Color
+import ru.alexander.worldmetrics.model.indexes.FeatureRange
 import kotlin.math.min
 
 private typealias ColorType = Int
@@ -12,6 +13,10 @@ class ColorGradeCalculator(
     private val minColor: ColorType = colorRange.first,
     private val maxColor: ColorType = colorRange.second,
 ) {
+    fun evalColor(range: FeatureRange, current: Float): ColorType = evalColor(
+        range.first, range.second, current
+    )
+
     fun evalColor(min: Float, max: Float, current: Float): ColorType {
         require(current in min..max) { "$current out of range from $min to $max" }
         val rate = (current - min) / (max - min)
