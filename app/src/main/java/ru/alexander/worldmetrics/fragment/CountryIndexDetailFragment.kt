@@ -17,6 +17,10 @@ abstract class CountryIndexDetailFragment<T> : Fragment(R.layout.country_detail_
         val adapter = getAdapter()
         getData().observe(viewLifecycleOwner) {
             adapter.setData(it)
+            val ranges = getRanges()
+            if (it.isEmpty() || ranges.isEmpty()) {
+                return@observe
+            }
         }
         featuresListView.adapter = adapter
     }
@@ -26,4 +30,8 @@ abstract class CountryIndexDetailFragment<T> : Fragment(R.layout.country_detail_
     protected abstract fun getData(): LiveData<List<T>>
 
     protected abstract fun getAdapter(): IndexFeaturesRVAdapter<T>
+
+    protected fun getRanges(): List<Pair<Float, Float>> {
+        return emptyList()
+    }
 }

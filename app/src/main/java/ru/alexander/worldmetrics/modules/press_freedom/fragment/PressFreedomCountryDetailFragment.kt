@@ -4,9 +4,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LiveData
 import androidx.navigation.fragment.navArgs
 import ru.alexander.worldmetrics.adapter.IndexFeaturesRVAdapter
-import ru.alexander.worldmetrics.modules.press_freedom.adapter.PressFreedomAdapter
 import ru.alexander.worldmetrics.fragment.CountryIndexDetailFragment
 import ru.alexander.worldmetrics.modules.press_freedom.model.PressFreedomValue
+import ru.alexander.worldmetrics.modules.press_freedom.rv_adapter.PressFreedomAdapterFactory.Companion.getPressFreedomFeaturesAdapter
 import ru.alexander.worldmetrics.modules.press_freedom.viewmodel.PressFreedomCountryDetailViewModel
 
 class PressFreedomCountryDetailFragment :
@@ -23,5 +23,5 @@ class PressFreedomCountryDetailFragment :
     }
 
     override fun getAdapter(): IndexFeaturesRVAdapter<PressFreedomValue> =
-        PressFreedomAdapter()
+        getPressFreedomFeaturesAdapter()
 }

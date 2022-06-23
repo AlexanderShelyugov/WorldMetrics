@@ -4,9 +4,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LiveData
 import androidx.navigation.fragment.navArgs
 import ru.alexander.worldmetrics.adapter.IndexFeaturesRVAdapter
-import ru.alexander.worldmetrics.modules.corruption_perceptions.adapter.CorruptionPerceptionsAdapter
 import ru.alexander.worldmetrics.fragment.CountryIndexDetailFragment
 import ru.alexander.worldmetrics.modules.corruption_perceptions.model.CorruptionPerceptionsValue
+import ru.alexander.worldmetrics.modules.corruption_perceptions.rv_adapter.CorruptionPerceptionsAdapterFactory.Companion.getCorruptionPerceptionsFeaturesAdapter
 import ru.alexander.worldmetrics.modules.corruption_perceptions.viewmodel.CorruptionPerceptionsCountryDetailViewModel
 
 class CorruptionPerceptionsCountryDetailFragment :
@@ -23,5 +23,5 @@ class CorruptionPerceptionsCountryDetailFragment :
     }
 
     override fun getAdapter(): IndexFeaturesRVAdapter<CorruptionPerceptionsValue> =
-        CorruptionPerceptionsAdapter()
+        getCorruptionPerceptionsFeaturesAdapter()
 }

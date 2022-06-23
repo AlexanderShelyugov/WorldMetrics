@@ -6,17 +6,25 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import ru.alexander.worldmetrics.R
 import ru.alexander.worldmetrics.adapter.IndexFeaturesRVAdapter.LVCViewHolder
-import ru.alexander.worldmetrics.global.ColorAccess.Companion.getColor
 import ru.alexander.worldmetrics.view.LabelValueChartView
 
 private typealias VH<T> = LVCViewHolder<T>
 
-abstract class IndexFeaturesRVAdapter<T> : Adapter<VH<T>>() {
+class IndexFeaturesRVAdapter<T>(
+    private val featureName: (Int) -> Int,
+    private val featureExtractors: (Int) -> Pair<(T) -> Float, (T) -> Float>,
+    private val featuresNumber: Int,
+) : Adapter<VH<T>>() {
 
     private var items: List<T> = emptyList()
+    private var valueColors: List<Int> = emptyList()
 
     fun setData(data: List<T>) {
         items = data
+    }
+
+    fun setValueColors(colors: List<Int>) {
+        valueColors = colors
     }
 
     class LVCViewHolder<T>(
@@ -31,26 +39,22 @@ abstract class IndexFeaturesRVAdapter<T> : Adapter<VH<T>>() {
             R.layout.label_value_chart_view, viewGroup, false
         ) as LabelValueChartView<T>
         view.setData(items)
-        view.setBackgroundColor(getColor(R.color.orange))
         return VH(view)
     }
 
     override fun onBindViewHolder(holder: VH<T>, position: Int) {
         holder.lcv.run {
-            setLabelText(getFeatureName(position))
-            getFeatureExtractors(position).run {
+            setLabelText(featureName(position))
+            if (!valueColors.isEmpty()) {
+                setValueColor(valueColors[position])
+            }
+            featureExtractors(position).run {
                 setExtractors(first, second)
             }
             refresh()
         }
     }
 
-    override fun getItemCount(): Int = getFeaturesNumber()
-
-    protected abstract fun getFeatureName(index: Int): Int
-
-    protected abstract fun getFeatureExtractors(index: Int): Pair<(T) -> Float, (T) -> Float>
-
-    protected abstract fun getFeaturesNumber(): Int
+    override fun getItemCount(): Int = featuresNumber
 
 }

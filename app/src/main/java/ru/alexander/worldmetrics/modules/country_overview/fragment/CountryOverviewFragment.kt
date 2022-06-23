@@ -12,9 +12,9 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import ru.alexander.worldmetrics.R
 import ru.alexander.worldmetrics.adapter.CompositeRVAdapter
 import ru.alexander.worldmetrics.model.CountriesData.Companion.getNameByCode
-import ru.alexander.worldmetrics.modules.corruption_perceptions.adapter.CorruptionPerceptionsAdapter
-import ru.alexander.worldmetrics.modules.democracy_index.adapter.DemocracyIndexAdapter
-import ru.alexander.worldmetrics.modules.press_freedom.adapter.PressFreedomAdapter
+import ru.alexander.worldmetrics.modules.corruption_perceptions.rv_adapter.CorruptionPerceptionsAdapterFactory.Companion.getCorruptionPerceptionsFeaturesAdapter
+import ru.alexander.worldmetrics.modules.democracy_index.rv_adapter.DemocracyIndexAdapterFactory.Companion.getDemocracyIndexFeaturesAdapter
+import ru.alexander.worldmetrics.modules.press_freedom.rv_adapter.PressFreedomAdapterFactory.Companion.getPressFreedomFeaturesAdapter
 import ru.alexander.worldmetrics.viewmodel.country_overview.CountryOverviewViewModel
 
 class CountryOverviewFragment : Fragment(R.layout.country_overview) {
@@ -33,9 +33,9 @@ class CountryOverviewFragment : Fragment(R.layout.country_overview) {
         val model: CountryOverviewViewModel by activityViewModels()
         val data = model.getDataForCountry(countryCode)
         val atomicAdapters = listOf(
-            CorruptionPerceptionsAdapter().also { it.setData(data.corruptionPerceptions) } as Adapter<ViewHolder>,
-            DemocracyIndexAdapter().also { it.setData(data.democracyIndex) } as Adapter<ViewHolder>,
-            PressFreedomAdapter().also { it.setData(data.pressFreedom) } as Adapter<ViewHolder>,
+            getCorruptionPerceptionsFeaturesAdapter().also { it.setData(data.corruptionPerceptions) } as Adapter<ViewHolder>,
+            getDemocracyIndexFeaturesAdapter().also { it.setData(data.democracyIndex) } as Adapter<ViewHolder>,
+            getPressFreedomFeaturesAdapter().also { it.setData(data.pressFreedom) } as Adapter<ViewHolder>,
         )
         return CompositeRVAdapter(atomicAdapters)
     }
