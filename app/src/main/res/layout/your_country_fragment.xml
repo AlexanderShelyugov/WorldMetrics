@@ -19,11 +19,11 @@
         android:id="@+id/iv_location_marker"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:baselineAlignBottom="true"
+        android:layout_marginBottom="@dimen/spacing_middle"
         android:clickable="false"
         android:contentDescription="Location marker"
         android:focusable="false"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/tv_country_name"
         app:layout_constraintStart_toStartOf="parent"
         tools:srcCompat="@drawable/geolocation_marker" />
 
@@ -31,11 +31,10 @@
         android:id="@+id/tv_country_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:baselineAlignBottom="true"
         android:clickable="false"
         android:focusable="false"
         android:textSize="40sp"
-        app:layout_constraintBaseline_toBottomOf="@id/iv_location_marker"
+        app:layout_constraintBottom_toTopOf="@id/tv_additional_message"
         app:layout_constraintEnd_toStartOf="@id/ib_country_search_wizard"
         app:layout_constraintStart_toEndOf="@id/iv_location_marker"
         tools:text="Country name" />
@@ -50,20 +49,19 @@
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/ib_country_search_wizard"
-        app:layout_constraintStart_toStartOf="@id/tv_country_name"
-        app:layout_constraintTop_toBottomOf="@id/tv_country_name" />
+        app:layout_constraintStart_toStartOf="@id/tv_country_name" />
 
     <ImageButton
         android:id="@+id/ib_country_search_wizard"
         android:layout_width="@dimen/button_size_middle"
         android:layout_height="@dimen/button_size_middle"
+        android:layout_marginBottom="@dimen/spacing_large"
         android:background="@drawable/ripple_secondary_circle"
         android:contentDescription="Country search wizard"
         android:padding="10dp"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="@id/tv_country_name"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tv_country_name"
         tools:srcCompat="@drawable/action_wizard" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
