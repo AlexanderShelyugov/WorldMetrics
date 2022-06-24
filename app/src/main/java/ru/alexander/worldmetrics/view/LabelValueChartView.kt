@@ -11,9 +11,8 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.data.LineDataSet.Mode.HORIZONTAL_BEZIER
 import ru.alexander.worldmetrics.R
+import ru.alexander.worldmetrics.model.indexes.FeatureExtractor
 import java.lang.Float.NaN
-
-private typealias FeatureExtractor<T> = (T) -> Float
 
 class LabelValueChartView<T>(context: Context, attrs: AttributeSet) : FrameLayout(context, attrs) {
     private val label: TextView
@@ -80,7 +79,7 @@ class LabelValueChartView<T>(context: Context, attrs: AttributeSet) : FrameLayou
         chart.data = LineData(LineDataSet(entries, "").also {
             it.setDrawCircles(false)
             it.setDrawValues(false)
-            it.lineWidth = 3f
+            it.lineWidth = 2f
             it.mode = HORIZONTAL_BEZIER
         })
     }
