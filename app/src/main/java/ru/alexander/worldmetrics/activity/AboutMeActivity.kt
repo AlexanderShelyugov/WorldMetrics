@@ -45,7 +45,7 @@ class AboutMeActivity : AppCompatActivity(R.layout.about_me_activity) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         clipboardManager = getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
-        CONTACTS.forEach { id, contact ->
+        CONTACTS.forEach { (id, contact) ->
             val container = findViewById<View>(id)!!
             container.findViewById<ImageView>(R.id.iv_icon)
                 .setImageResource(contact.icon)
