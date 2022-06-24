@@ -17,8 +17,8 @@
 
     <ImageView
         android:id="@+id/iv_location_marker"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+        android:layout_width="@dimen/button_size_small"
+        android:layout_height="@dimen/button_size_small"
         android:layout_marginBottom="@dimen/spacing_middle"
         android:clickable="false"
         android:contentDescription="Location marker"
