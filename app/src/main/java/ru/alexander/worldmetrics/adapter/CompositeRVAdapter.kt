@@ -1,6 +1,5 @@
 package ru.alexander.worldmetrics.adapter
 
-import android.util.Log
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
@@ -47,7 +46,6 @@ class CompositeRVAdapter(
         val itemsCount = adapters.asSequence()
             .map { it.itemCount }
             .sum()
-        Log.i("CompositeRVAdapter", "!!!! We have $itemsCount items")
         return itemsCount
     }
 }

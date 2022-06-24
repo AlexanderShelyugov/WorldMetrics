@@ -10,4 +10,7 @@
 
     <dimen name="index_list_item_width">180dp</dimen>
     <dimen name="index_list_item_height">80dp</dimen>
+
+    <dimen name="list_item_height_simple">56dp</dimen>
+    <dimen name="list_item_text_size_simple">24sp</dimen>
 </resources>

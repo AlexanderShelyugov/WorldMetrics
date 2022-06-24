@@ -42,7 +42,7 @@ class IndexListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
     }
 
-    override fun getItemCount(): Int = data.size
+    override fun getItemCount() = data.size
 
     data class IndexListItem(val name: String, val onClick: View.OnClickListener)
 

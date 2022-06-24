@@ -6,13 +6,14 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import ru.alexander.worldmetrics.R
 import ru.alexander.worldmetrics.adapter.IndexFeaturesRVAdapter.LVCViewHolder
+import ru.alexander.worldmetrics.model.indexes.FeatureExtractor
 import ru.alexander.worldmetrics.view.LabelValueChartView
 
 private typealias VH<T> = LVCViewHolder<T>
 
 class IndexFeaturesRVAdapter<T>(
     private val featureName: (Int) -> Int,
-    private val featureExtractors: (Int) -> Pair<(T) -> Float, (T) -> Float>,
+    private val featureExtractors: (Int) -> Pair<FeatureExtractor<T>, FeatureExtractor<T>>,
     private val featuresNumber: Int,
 ) : Adapter<VH<T>>() {
 
@@ -45,7 +46,7 @@ class IndexFeaturesRVAdapter<T>(
     override fun onBindViewHolder(holder: VH<T>, position: Int) {
         holder.lcv.run {
             setLabelText(featureName(position))
-            if (!valueColors.isEmpty()) {
+            if (valueColors.isNotEmpty()) {
                 setValueColor(valueColors[position])
             }
             featureExtractors(position).run {
@@ -55,5 +56,5 @@ class IndexFeaturesRVAdapter<T>(
         }
     }
 
-    override fun getItemCount(): Int = featuresNumber
+    override fun getItemCount() = featuresNumber
 }

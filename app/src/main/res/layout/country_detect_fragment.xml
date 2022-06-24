@@ -1,79 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
+        android:id="@+id/ll_detection_type"
         android:layout_width="match_parent"
-        android:layout_height="40dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tv_content"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            app:layout_constraintEnd_toStartOf="@id/b_confirm"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/b_confirm"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="Confirm?"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/tv_content"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:layout_constraintEnd_toStartOf="@id/b_confirm"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <FrameLayout
-        android:id="@+id/fl_detect_by_gps"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@drawable/ripple_secondary"
-        android:clickable="true"
-        android:focusable="true">
+            <Button
+                android:id="@+id/b_confirm"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Confirm?"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <FrameLayout
+            android:id="@+id/fl_detect_by_gps"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/ripple_secondary"
+            android:clickable="true"
+            android:focusable="true">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_gravity="center"
+                android:text="@string/country_detect_by_gps" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/fl_detect_by_network"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_gravity="center"
-            android:text="@string/country_detect_by_gps" />
-    </FrameLayout>
+            android:layout_weight="1"
+            android:background="@drawable/ripple_secondary"
+            android:clickable="true"
+            android:focusable="true">
 
-    <FrameLayout
-        android:id="@+id/fl_detect_by_network"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_gravity="center"
-        android:layout_weight="1"
-        android:background="@drawable/ripple_secondary"
-        android:clickable="true"
-        android:focusable="true">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/country_detect_by_network" />
+        </FrameLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <FrameLayout
+            android:id="@+id/fl_detect_manual"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_gravity="center"
-            android:text="@string/country_detect_by_network" />
-    </FrameLayout>
+            android:layout_weight="1"
+            android:background="@drawable/ripple_secondary"
+            android:clickable="true"
+            android:focusable="true">
 
-    <FrameLayout
-        android:id="@+id/fl_detect_manual"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/country_detect_manually" />
+        </FrameLayout>
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_countries_list"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_gravity="center"
-        android:layout_weight="1"
-        android:background="@drawable/ripple_secondary"
-        android:clickable="true"
-        android:focusable="true">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/country_detect_manually" />
-    </FrameLayout>
-</LinearLayout>
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        app:layoutManager="ru.alexander.worldmetrics.adapter.WrapContentLinearLayoutManager" />
+</FrameLayout>
