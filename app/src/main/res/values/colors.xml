@@ -7,6 +7,11 @@
     <color name="colorSecondaryVariant">@color/teal_700</color>
     <color name="colorOnSecondary">@color/black</color>
 
+    <color name="background_holo_dark">#ff000000</color>
+    <color name="holo_blue_bright">#ff00ddff</color>
+    <color name="holo_blue_dark">#ff0099cc</color>
+    <color name="holo_blue_light">#ff33b5e5</color>
+
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>

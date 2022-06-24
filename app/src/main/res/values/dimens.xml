@@ -2,6 +2,7 @@
 <resources>
     <dimen name="button_size_small">24dp</dimen>
     <dimen name="button_size_middle">48dp</dimen>
+    <dimen name="button_size_large">64dp</dimen>
     <dimen name="button_circle_radius_middle">24dp</dimen>
 
     <dimen name="spacing_small">4dp</dimen>

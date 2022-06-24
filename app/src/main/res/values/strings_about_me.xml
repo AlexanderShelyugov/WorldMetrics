@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="my_name">Shelyugov Alexander</string>
+    <string name="my_bio">Full stack for 6+ years.\nI specialize in Android, Java/Spring, Go, Vue/React.</string>
+    <string name="my_website">Website</string>
+    <string name="my_website_url">https://ashelyugov.wixsite.com/portfolio</string>
+    <string name="my_linkedin">LinkedIn</string>
+    <string name="my_linkedin_url">https://www.linkedin.com/in/alexander-shelyugov/</string>
+    <string name="my_upwork">UpWork</string>
+    <string name="my_upwork_url">https://www.upwork.com/freelancers/~01f7a157e7f3e000fe</string>
+    <string name="my_peopleperhour">PeoplePerHour</string>
+    <string name="my_peopleperhour_url">https://www.peopleperhour.com/freelancer/technology-programming/alexander-shelyugov-web-applications-developer-jyaxqyy</string>
+</resources>

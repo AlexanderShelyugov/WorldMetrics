@@ -4,6 +4,10 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/homeScreenFragment">
 
+    <activity
+        android:id="@+id/activityAboutMe"
+        android:name="ru.alexander.worldmetrics.activity.AboutMeActivity"
+        android:label="AboutMeActivity" />
     <fragment
         android:id="@+id/homeScreenFragment"
         android:name="ru.alexander.worldmetrics.fragment.home_screen.HomeScreenFragment"
@@ -23,6 +27,9 @@
         <action
             android:id="@+id/action_homeScreen_to_pressFreedomCountryDetail"
             app:destination="@id/pressFreedomCountryDetailFragment" />
+        <action
+            android:id="@+id/action_homeScreen_to_aboutMeActivity"
+            app:destination="@id/activityAboutMe" />
     </fragment>
     <fragment
         android:id="@+id/democracyIndexOverviewFragment"
@@ -100,5 +107,7 @@
         android:id="@+id/toBeImplementedFragment"
         android:name="ru.alexander.worldmetrics.fragment.ToBeImplementedFragment"
         android:label="ToBeImplementedFragment" />
-    <action android:id="@+id/action_global_toBeImplementedFragment" app:destination="@id/toBeImplementedFragment" />
+    <action
+        android:id="@+id/action_global_toBeImplementedFragment"
+        app:destination="@id/toBeImplementedFragment" />
 </navigation>
