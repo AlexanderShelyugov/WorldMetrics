@@ -22,17 +22,17 @@ class AboutMeActivity : AppCompatActivity(R.layout.about_me_activity) {
                 R.string.my_website_url,
             ),
             R.id.cl_my_linkedin to ContactItem(
-                R.drawable.ic_round_public_24,
+                R.drawable.ic_linkedin,
                 R.string.my_linkedin,
                 R.string.my_linkedin_url,
             ),
             R.id.cl_my_upwork to ContactItem(
-                R.drawable.ic_round_public_24,
+                R.drawable.ic_upwork,
                 R.string.my_upwork,
                 R.string.my_upwork_url,
             ),
-            R.id.cl_my_people_per_hour to ContactItem(
-                R.drawable.ic_round_public_24,
+            R.id.cl_my_peopleperhour to ContactItem(
+                R.drawable.ic_peopleperhour,
                 R.string.my_peopleperhour,
                 R.string.my_peopleperhour_url,
             ),

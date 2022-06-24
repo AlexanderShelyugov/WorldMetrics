@@ -71,7 +71,7 @@
                 layout="@layout/contact_item_layout" />
 
             <include
-                android:id="@+id/cl_my_people_per_hour"
+                android:id="@+id/cl_my_peopleperhour"
                 layout="@layout/contact_item_layout" />
         </LinearLayout>
     </ScrollView>
