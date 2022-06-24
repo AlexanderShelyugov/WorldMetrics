@@ -3,6 +3,7 @@ package ru.alexander.worldmetrics.activity
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Intent
+import android.content.Intent.ACTION_VIEW
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
@@ -58,7 +59,7 @@ class AboutMeActivity : AppCompatActivity(R.layout.about_me_activity) {
                 ToastHelper.show(message)
             }
             container.setOnClickListener {
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                val intent = Intent(ACTION_VIEW, Uri.parse(url))
                 startActivity(intent)
             }
         }
