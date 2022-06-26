@@ -12,6 +12,8 @@ import android.location.LocationManager.GPS_PROVIDER
 import android.location.LocationManager.NETWORK_PROVIDER
 import android.os.Bundle
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResultLauncher
@@ -32,11 +34,13 @@ import ru.alexander.worldmetrics.model.CountriesData.Companion.getAlpha2Code
 import ru.alexander.worldmetrics.model.CountriesData.Companion.getAlpha3Code
 import ru.alexander.worldmetrics.model.CountriesData.Companion.getNameByCode
 import ru.alexander.worldmetrics.viewmodel.CurrentCountryViewModel
+import java.util.concurrent.TimeUnit.SECONDS
 
 
 class CountryDetectFragment : Fragment(R.layout.country_detect_fragment) {
     private lateinit var countryCode: String
     private lateinit var content: TextView
+    private lateinit var confirm: View
     private lateinit var lastAction: () -> Unit
     private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
     private lateinit var viewDetectionTypes: View
@@ -66,10 +70,12 @@ class CountryDetectFragment : Fragment(R.layout.country_detect_fragment) {
         val model: CurrentCountryViewModel by activityViewModels()
         val v = requireView()
         content = v.findViewById(R.id.tv_content)
+        confirm = v.findViewById(R.id.ib_confirm)
         viewDetectionTypes = v.findViewById(R.id.ll_detection_type)
         viewCountriesList = v.findViewById(R.id.rv_countries_list)
         initCountriesList()
-        v.findViewById<View>(R.id.b_confirm).setOnClickListener {
+        confirm.visibility = GONE
+        confirm.setOnClickListener {
             model.setCurrentCountryCode(countryCode)
             findNavController().navigateUp()
         }
@@ -92,7 +98,7 @@ class CountryDetectFragment : Fragment(R.layout.country_detect_fragment) {
             .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
                     if (fragmentState == DETECTION_TYPES) {
-                        requireActivity().onBackPressed()
+                        findNavController().navigateUp()
                     } else {
                         switchFragmentState(DETECTION_TYPES)
                     }
@@ -184,7 +190,13 @@ class CountryDetectFragment : Fragment(R.layout.country_detect_fragment) {
         val message =
             if (countryCode.isBlank()) getString(R.string.failed_to_detect_country)
             else getString(R.string.question_is_your_country) + " - " + getNameByCode(countryCode) + "?"
+        if (countryCode.isNotBlank()) {
+            confirm.visibility = VISIBLE
+        }
         content.text = message
+        content.postDelayed({
+            content.isSelected = true
+        }, SECONDS.toMillis(1));
     }
 
     private fun switchFragmentState(state: FragmentState) {
