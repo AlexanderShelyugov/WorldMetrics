@@ -5,6 +5,11 @@
     android:layout_height="match_parent"
     android:background="@color/background_holo_dark">
 
+    <ru.alexander.worldmetrics.opengl.OpenGLView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:shader="@raw/star_nest" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -40,6 +45,11 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/spacing_middle"
+                    android:fontFamily="@font/orbitron"
+                    android:shadowColor="@color/holo_blue_bright"
+                    android:shadowDx="0.0"
+                    android:shadowDy="0.0"
+                    android:shadowRadius="12"
                     android:text="@string/my_name"
                     android:textColor="@color/holo_blue_bright"
                     android:textSize="30sp"
@@ -54,9 +64,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_large"
+                android:fontFamily="@font/orbitron"
+                android:shadowColor="@color/holo_blue_bright"
+                android:shadowDx="0.0"
+                android:shadowDy="0.0"
+                android:shadowRadius="12"
                 android:text="@string/my_bio"
-                android:textColor="@color/holo_blue_dark"
-                android:textStyle="italic|bold" />
+                android:textColor="@color/holo_blue_bright"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
             <include
                 android:id="@+id/cl_my_linkedin"
