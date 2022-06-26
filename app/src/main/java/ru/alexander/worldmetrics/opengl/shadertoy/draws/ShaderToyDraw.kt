@@ -12,7 +12,7 @@ import ru.alexander.worldmetrics.opengl.shadertoy.ShaderToyHelper.Companion.VARI
 import ru.alexander.worldmetrics.opengl.shadertoy.ShaderToyHelper.Companion.VARIABLE_TIME
 import ru.alexander.worldmetrics.opengl.shadertoy.ShaderToyHelper.Companion.createOpenGLESProgram
 
-class ShaderToyDraw(shaderId: Int) {
+class ShaderToyDraw(private val shaderId: Int) {
     private companion object {
         val POSITION = floatArrayOf(
             -1.0f, -1.0f,
@@ -27,11 +27,13 @@ class ShaderToyDraw(shaderId: Int) {
         const val OPTIMIZATION_METHOD = GLES20.GL_STATIC_DRAW
     }
 
-    private val mProgram: Int = createOpenGLESProgram(openRawResource(shaderId))
+    private var mProgram: Int = 0
     private val buffer = IntArray(1)
     private val playbackTimer = PlaybackTimer()
+        .also { it.randomizeTiming() }
 
-    init {
+    fun init() {
+        mProgram = createOpenGLESProgram(openRawResource(shaderId))
         GLES20.glGenBuffers(1, buffer, 0)
         GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, buffer[0])
         GLES20.glBufferData(

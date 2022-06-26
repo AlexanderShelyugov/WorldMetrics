@@ -6,16 +6,16 @@ import ru.alexander.worldmetrics.opengl.shadertoy.draws.ShaderToyDraw
 import javax.microedition.khronos.egl.EGLConfig
 import javax.microedition.khronos.opengles.GL10
 
-class ShaderToyRenderer(private val shaderId: Int) : GLSurfaceView.Renderer {
-    private lateinit var draw: ShaderToyDraw
+class ShaderToyRenderer(shaderId: Int) : GLSurfaceView.Renderer {
+    private val draw = ShaderToyDraw(shaderId)
     private var width: Int = 0
     private var height: Int = 0
 
     override fun onSurfaceCreated(unused: GL10, config: EGLConfig) {
         GLES20.glClearColor(0.0f, 0.0f, 0.5f, 1.0f)
-        draw = ShaderToyDraw(shaderId)
         GLES20.glEnable(GLES20.GL_CULL_FACE)
         GLES20.glCullFace(GLES20.GL_BACK)
+        draw.init()
     }
 
     override fun onSurfaceChanged(unused: GL10, width: Int, height: Int) {
