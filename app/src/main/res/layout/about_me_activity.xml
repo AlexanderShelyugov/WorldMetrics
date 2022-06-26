@@ -59,11 +59,11 @@
                 android:textStyle="italic|bold" />
 
             <include
-                android:id="@+id/cl_my_website"
+                android:id="@+id/cl_my_linkedin"
                 layout="@layout/contact_item_layout" />
 
             <include
-                android:id="@+id/cl_my_linkedin"
+                android:id="@+id/cl_my_website"
                 layout="@layout/contact_item_layout" />
 
             <include
