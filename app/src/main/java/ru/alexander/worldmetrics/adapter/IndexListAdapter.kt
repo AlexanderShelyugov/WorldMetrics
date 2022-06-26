@@ -12,7 +12,7 @@ import ru.alexander.worldmetrics.global.ColorAccess
 class IndexListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var data: List<IndexListItem> = emptyList()
     var itemColor: Int = R.color.white_transparent_25
-    var textColor: Int = R.color.white
+    var textColor: Int = R.color.colorOnPrimary
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val ctx = parent.context
