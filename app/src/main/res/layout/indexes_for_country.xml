@@ -2,14 +2,13 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="@dimen/spacing_large">
+    android:paddingHorizontal="@dimen/spacing_middle"
+    android:paddingVertical="@dimen/spacing_large">
 
     <LinearLayout
         android:id="@+id/ll_indexes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/index_for_country_item_background"
-        android:orientation="vertical"
-        android:paddingTop="@dimen/spacing_large"
-        android:paddingBottom="@dimen/spacing_large" />
+        android:orientation="vertical" />
 </ScrollView>

@@ -35,7 +35,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="0dp"
+        android:requiresFadingEdge="horizontal"
         app:layoutManager="ru.alexander.worldmetrics.adapter.WrapContentLinearLayoutManager"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ib_go_to_index_group" />
