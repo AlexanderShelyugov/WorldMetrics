@@ -11,6 +11,7 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import ru.alexander.worldmetrics.R
 import ru.alexander.worldmetrics.global.ToastHelper
 
@@ -63,6 +64,9 @@ class AboutMeActivity : AppCompatActivity(R.layout.about_me_activity) {
                 startActivity(intent)
             }
         }
+        Glide.with(this)
+            .load(R.raw.snoop_dogg_dance)
+            .into(findViewById(R.id.iv_snoop_dogg))
     }
 }
 

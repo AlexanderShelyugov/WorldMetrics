@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="my_name">Shelyugov Alexander</string>
-    <string name="my_bio">Full stack for 6+ years.\nI specialize in Android, Java/Spring, Go, Vue/React.</string>
+    <string name="my_bio">Full stack for 6+ years.\nI specialize in:\n• Android\n• Java/Spring\n• Go\n• Vue/React</string>
     <string name="my_website">Website</string>
     <string name="my_website_url">https://ashelyugov.wixsite.com/portfolio</string>
     <string name="my_linkedin">LinkedIn</string>

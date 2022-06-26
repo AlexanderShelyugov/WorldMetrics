@@ -78,6 +78,10 @@ dependencies {
     // Charts
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
+    // To play GIF
+    implementation 'com.github.bumptech.glide:glide:4.13.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.13.0'
+
     implementation "org.jetbrains.kotlin:kotlin-reflect:1.6.21"
 
     // Tests
