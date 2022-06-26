@@ -15,8 +15,11 @@ import android.transition.Fade
 import android.transition.Slide
 import android.transition.TransitionManager.beginDelayedTransition
 import android.view.Gravity
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResultLauncher
@@ -35,7 +38,6 @@ import ru.alexander.worldmetrics.adapter.CountryListAdapterItem
 import ru.alexander.worldmetrics.fragment.CountryDetectFragment.FragmentState.COUNTRIES_LIST
 import ru.alexander.worldmetrics.fragment.CountryDetectFragment.FragmentState.DETECTION_TYPES
 import ru.alexander.worldmetrics.model.CountriesData
-import ru.alexander.worldmetrics.model.CountriesData.Companion.getAlpha2Code
 import ru.alexander.worldmetrics.model.CountriesData.Companion.getAlpha3Code
 import ru.alexander.worldmetrics.model.CountriesData.Companion.getNameByCode
 import ru.alexander.worldmetrics.viewmodel.CurrentCountryViewModel
@@ -51,6 +53,8 @@ class CountryDetectFragment : Fragment(R.layout.country_detect_fragment) {
     private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
     private lateinit var viewDetectionTypes: ViewGroup
     private lateinit var viewCountriesList: RecyclerView
+    private lateinit var countriesListAdapter: CountriesListAdapter
+
     private var fragmentState: FragmentState = DETECTION_TYPES
 
     override fun onAttach(context: Context) {
@@ -112,6 +116,17 @@ class CountryDetectFragment : Fragment(R.layout.country_detect_fragment) {
                 }
             })
         switchFragmentState(fragmentState)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        if (fragmentState == COUNTRIES_LIST) {
+            inflater.inflate(R.menu.action_bar_country_list, menu)
+            (menu.findItem(R.id.action_search).actionView as SearchView)
+                .setOnQueryTextListener(onSearchListener)
+            listOf(R.id.action_sort_type, R.id.action_sort_order).forEach {
+                menu.findItem(it)?.isVisible = false
+            }
+        }
     }
 
     private fun tryDetectByGPS(action: () -> Unit) {
@@ -234,15 +249,21 @@ class CountryDetectFragment : Fragment(R.layout.country_detect_fragment) {
         beginDelayedTransition(incomingView, transitionIn)
         outgoingView.isVisible = false
         incomingView.isVisible = true
+        setHasOptionsMenu(fragmentState == COUNTRIES_LIST)
+        requireActivity().invalidateOptionsMenu()
     }
 
     private fun initCountriesList() {
-        val adapter = CountriesListAdapter()
+        countriesListAdapter = CountriesListAdapter()
         CountriesData.CODES_TO_NAMES.asSequence()
-            .map { CountryListAdapterItem(getAlpha2Code(it.key), it.value, callback) }
+            .map {
+                CountryListAdapterItem(it.key, it.value) { view, iso3Code ->
+                    callback(view, CountriesData.getAlpha2Code(iso3Code))
+                }
+            }
             .toList()
-            .let { adapter.data = it }
-        viewCountriesList.adapter = adapter
+            .let(countriesListAdapter::setData)
+        viewCountriesList.adapter = countriesListAdapter
     }
 
     private fun getLocationManager() =
@@ -256,5 +277,14 @@ class CountryDetectFragment : Fragment(R.layout.country_detect_fragment) {
     private enum class FragmentState {
         DETECTION_TYPES,
         COUNTRIES_LIST,
+    }
+
+    private val onSearchListener = object : SearchView.OnQueryTextListener {
+        override fun onQueryTextSubmit(query: String?): Boolean {
+            countriesListAdapter.searchWith(query ?: "")
+            return true
+        }
+
+        override fun onQueryTextChange(newText: String?): Boolean = onQueryTextSubmit(newText)
     }
 }
