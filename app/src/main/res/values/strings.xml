@@ -6,7 +6,7 @@
     <string name="copy">Copy</string>
     <string name="country_name">Country name</string>
     <string name="your_country_is">Your country is: </string>
-    <string name="question_is_your_country">Is your country</string>
+    <string name="question_is_your_country">Is your country - %1$s?</string>
     <string name="consider_searching_your_country">Consider searching your country</string>
 
     <string name="country_detect_by_gps">by GPS</string>

@@ -11,14 +11,19 @@ import android.location.LocationManager
 import android.location.LocationManager.GPS_PROVIDER
 import android.location.LocationManager.NETWORK_PROVIDER
 import android.os.Bundle
+import android.transition.Fade
+import android.transition.Slide
+import android.transition.TransitionManager.beginDelayedTransition
+import android.view.Gravity
 import android.view.View
-import android.view.View.GONE
-import android.view.View.VISIBLE
+import android.view.ViewGroup
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts.RequestPermission
 import androidx.core.content.ContextCompat.checkSelfPermission
+import androidx.core.transition.addListener
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -39,11 +44,12 @@ import java.util.concurrent.TimeUnit.SECONDS
 
 class CountryDetectFragment : Fragment(R.layout.country_detect_fragment) {
     private lateinit var countryCode: String
+    private lateinit var countrySuggestionContainer: ViewGroup
     private lateinit var content: TextView
     private lateinit var confirm: View
     private lateinit var lastAction: () -> Unit
     private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
-    private lateinit var viewDetectionTypes: View
+    private lateinit var viewDetectionTypes: ViewGroup
     private lateinit var viewCountriesList: RecyclerView
     private var fragmentState: FragmentState = DETECTION_TYPES
 
@@ -68,31 +74,32 @@ class CountryDetectFragment : Fragment(R.layout.country_detect_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val model: CurrentCountryViewModel by activityViewModels()
-        val v = requireView()
-        content = v.findViewById(R.id.tv_content)
-        confirm = v.findViewById(R.id.ib_confirm)
-        viewDetectionTypes = v.findViewById(R.id.ll_detection_type)
-        viewCountriesList = v.findViewById(R.id.rv_countries_list)
+        requireView().run {
+            countrySuggestionContainer = findViewById(R.id.ll_country_suggestion)
+            content = findViewById(R.id.tv_content)
+            confirm = findViewById<View>(R.id.ib_confirm).also {
+                it.setOnClickListener {
+                    model.setCurrentCountryCode(countryCode)
+                    findNavController().navigateUp()
+                }
+            }
+            viewDetectionTypes = findViewById(R.id.ll_detection_type)
+            viewCountriesList = findViewById(R.id.rv_countries_list)
+            findViewById<View>(R.id.fl_detect_by_gps).setOnClickListener {
+                tryDetectByGPS {
+                    detectCountryBy(GPS_PROVIDER, this@CountryDetectFragment::setCountryCode)
+                }
+            }
+            findViewById<View>(R.id.fl_detect_by_network).setOnClickListener {
+                tryDetectByNetwork {
+                    detectCountryBy(NETWORK_PROVIDER, this@CountryDetectFragment::setCountryCode)
+                }
+            }
+            findViewById<View>(R.id.fl_detect_manual).setOnClickListener {
+                switchFragmentState(COUNTRIES_LIST)
+            }
+        }
         initCountriesList()
-        confirm.visibility = GONE
-        confirm.setOnClickListener {
-            model.setCurrentCountryCode(countryCode)
-            findNavController().navigateUp()
-        }
-        v.findViewById<View>(R.id.fl_detect_by_gps).setOnClickListener {
-            tryDetectByGPS {
-                detectCountryBy(GPS_PROVIDER, this::setCountryCode)
-            }
-        }
-        v.findViewById<View>(R.id.fl_detect_by_network).setOnClickListener {
-            tryDetectByNetwork {
-                detectCountryBy(NETWORK_PROVIDER, this::setCountryCode)
-            }
-        }
-        v.findViewById<View>(R.id.fl_detect_manual).setOnClickListener {
-            switchFragmentState(COUNTRIES_LIST)
-        }
-
         requireActivity()
             .onBackPressedDispatcher
             .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
@@ -174,12 +181,16 @@ class CountryDetectFragment : Fragment(R.layout.country_detect_fragment) {
     private fun detectCountryBy(provider: String, countryConsumer: (String) -> Unit) {
         val lm = getLocationManager()
         lm.getCurrentLocation(provider, null, requireContext().mainExecutor) {
+            if (it == null) {
+                countryConsumer.invoke("")
+                return@getCurrentLocation
+            }
             val countryCode = countryCodeFromLocation(it)
-            countryConsumer.invoke(countryCode)
+            countryConsumer.invoke(countryCode ?: "")
         }
     }
 
-    private fun countryCodeFromLocation(location: Location): String {
+    private fun countryCodeFromLocation(location: Location): String? {
         val geocoder = Geocoder(requireContext())
         val address = geocoder.getFromLocation(location.latitude, location.longitude, 1)[0]
         return address.countryCode
@@ -189,28 +200,40 @@ class CountryDetectFragment : Fragment(R.layout.country_detect_fragment) {
         countryCode = getAlpha3Code(alpha2Code)
         val message =
             if (countryCode.isBlank()) getString(R.string.failed_to_detect_country)
-            else getString(R.string.question_is_your_country) + " - " + getNameByCode(countryCode) + "?"
-        if (countryCode.isNotBlank()) {
-            confirm.visibility = VISIBLE
-        }
+            else getString(R.string.question_is_your_country, getNameByCode(countryCode))
+        confirm.isVisible = countryCode.isNotBlank()
         content.text = message
-        content.postDelayed({
-            content.isSelected = true
-        }, SECONDS.toMillis(1));
+        content.isSelected = false
+        if (countrySuggestionContainer.isVisible) {
+            content.postDelayed({
+                content.isSelected = true
+            }, SECONDS.toMillis(1))
+            return
+        }
+        beginDelayedTransition(countrySuggestionContainer, Slide(Gravity.TOP).also {
+            it.addListener(onEnd = {
+                content.postDelayed({
+                    content.isSelected = true
+                }, SECONDS.toMillis(1))
+            })
+        })
+        countrySuggestionContainer.isVisible = true
     }
 
     private fun switchFragmentState(state: FragmentState) {
         fragmentState = state
-        when (fragmentState) {
-            DETECTION_TYPES -> {
-                viewDetectionTypes.visibility = View.VISIBLE
-                viewCountriesList.visibility = View.GONE
-            }
-            COUNTRIES_LIST -> {
-                viewDetectionTypes.visibility = View.GONE
-                viewCountriesList.visibility = View.VISIBLE
-            }
-        }
+        val transitionOut = Fade()
+        val transitionIn = Fade()
+            .also { it.startDelay = transitionOut.duration / 2 }
+        val outgoingView =
+            if (fragmentState == DETECTION_TYPES) viewCountriesList else viewDetectionTypes
+        val incomingView =
+            if (fragmentState == DETECTION_TYPES) viewDetectionTypes else viewCountriesList
+
+        beginDelayedTransition(outgoingView, transitionOut)
+        beginDelayedTransition(incomingView, transitionIn)
+        outgoingView.isVisible = false
+        incomingView.isVisible = true
     }
 
     private fun initCountriesList() {

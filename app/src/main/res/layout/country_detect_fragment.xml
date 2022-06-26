@@ -12,11 +12,13 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/ll_country_suggestion"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/list_item_height_simple"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:paddingHorizontal="@dimen/spacing_middle">
+            android:paddingHorizontal="@dimen/spacing_middle"
+            android:visibility="invisible">
 
             <TextView
                 android:id="@+id/tv_content"
@@ -43,6 +45,32 @@
         </LinearLayout>
 
         <FrameLayout
+            android:id="@+id/fl_detect_manual"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@drawable/ripple_secondary"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="bottom|left"
+                android:layout_marginLeft="@dimen/button_size_middle"
+                android:layout_marginBottom="@dimen/spacing_large"
+                android:src="@drawable/search_icon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/country_detect_manually"
+                android:textSize="@dimen/list_item_text_size_simple" />
+        </FrameLayout>
+
+        <FrameLayout
             android:id="@+id/fl_detect_by_gps"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -51,12 +79,20 @@
             android:clickable="true"
             android:focusable="true">
 
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="bottom|left"
+                android:layout_marginLeft="@dimen/button_size_middle"
+                android:layout_marginBottom="@dimen/spacing_large"
+                android:src="@drawable/geolocation_marker" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 android:layout_gravity="center"
-                android:text="@string/country_detect_by_gps" />
+                android:text="@string/country_detect_by_gps"
+                android:textSize="@dimen/list_item_text_size_simple" />
         </FrameLayout>
 
         <FrameLayout
@@ -69,28 +105,20 @@
             android:clickable="true"
             android:focusable="true">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/country_detect_by_network" />
-        </FrameLayout>
-
-        <FrameLayout
-            android:id="@+id/fl_detect_manual"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:background="@drawable/ripple_secondary"
-            android:clickable="true"
-            android:focusable="true">
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="bottom|left"
+                android:layout_marginLeft="@dimen/button_size_middle"
+                android:layout_marginBottom="@dimen/spacing_large"
+                android:src="@drawable/ic_baseline_cell_tower_64" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/country_detect_manually" />
+                android:text="@string/country_detect_by_network"
+                android:textSize="@dimen/list_item_text_size_simple" />
         </FrameLayout>
     </LinearLayout>
 
