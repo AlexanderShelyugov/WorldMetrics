@@ -26,7 +26,6 @@ abstract class FilterableAdapter<DataItem> : RecyclerView.Adapter<RecyclerView.V
     private fun filterDataIfPossible() {
         if (query.isEmpty()) {
             differ.submitList(originalData.toList())
-            notifyItemRangeChanged(0, originalData.size)
             return
         }
         val result = originalData.asSequence()
