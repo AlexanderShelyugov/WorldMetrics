@@ -31,7 +31,7 @@ abstract class FilterableAdapter<DataItem> : RecyclerView.Adapter<RecyclerView.V
         }
         val result = originalData.asSequence()
             // Not just .filter, because
-            // We want to order data by it first query occurrence
+            // We want to order data by its first query occurrence
             .map {
                 search(query, it) to it
             }
