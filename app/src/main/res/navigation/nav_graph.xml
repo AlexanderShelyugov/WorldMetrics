@@ -14,22 +14,46 @@
         android:label="All indexes overview fragment">
         <action
             android:id="@+id/action_homeScreen_to_countryDetect"
-            app:destination="@id/countryDetectFragment" />
+            app:destination="@id/countryDetectFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_homeScreen_to_countryOverview"
-            app:destination="@id/countryOverviewFragment" />
+            app:destination="@id/countryOverviewFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_homeScreen_to_corruptionPerceptionsCountryDetail"
-            app:destination="@id/corruptionPerceptionsCountryDetailFragment" />
+            app:destination="@id/corruptionPerceptionsCountryDetailFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_homeScreen_to_democracyIndexCountryDetail"
-            app:destination="@id/democracyIndexCountryDetailFragment" />
+            app:destination="@id/democracyIndexCountryDetailFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_homeScreen_to_pressFreedomCountryDetail"
-            app:destination="@id/pressFreedomCountryDetailFragment" />
+            app:destination="@id/pressFreedomCountryDetailFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_homeScreen_to_aboutMeActivity"
-            app:destination="@id/activityAboutMe" />
+            app:destination="@id/activityAboutMe"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/democracyIndexOverviewFragment"

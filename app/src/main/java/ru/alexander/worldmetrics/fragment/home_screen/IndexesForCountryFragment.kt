@@ -22,6 +22,7 @@ import ru.alexander.worldmetrics.viewmodel.CurrentCountryViewModel
 
 class IndexesForCountryFragment : Fragment(R.layout.indexes_for_country) {
     private lateinit var contentContainer: ViewGroup
+    lateinit var transitionTV: TextView
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -46,7 +47,6 @@ class IndexesForCountryFragment : Fragment(R.layout.indexes_for_country) {
             contentContainer,
             false
         )
-//        indexGroupView.setBackgroundResource(indexGroup.color)
 
         val groupHeader = indexGroupView.findViewById<TextView>(R.id.tv_index_group_name)
         groupHeader.setText(indexGroup.name)
