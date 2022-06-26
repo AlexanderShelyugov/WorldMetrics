@@ -10,20 +10,17 @@ abstract class FilterableAdapter<DataItem> : RecyclerView.Adapter<RecyclerView.V
     private var query = ""
     private val differ = AsyncListDiffer(this, getDiffCallBack())
 
-    protected val data: List<DataItem>
-        get() = differ.currentList
-
     fun searchWith(query: String) {
         this.query = query.trim()
-        filterDataIfPossible()
+        refreshData()
     }
 
     fun setData(data: List<DataItem>) {
         originalData = data.toList() // Make a copy
-        filterDataIfPossible()
+        refreshData()
     }
 
-    private fun filterDataIfPossible() {
+    private fun refreshData() {
         if (query.isEmpty()) {
             differ.submitList(originalData.toList())
             return
@@ -40,6 +37,9 @@ abstract class FilterableAdapter<DataItem> : RecyclerView.Adapter<RecyclerView.V
             .toList()
         differ.submitList(result)
     }
+
+    protected val data: List<DataItem>
+        get() = differ.currentList
 
     final override fun getItemCount(): Int = differ.currentList.size
     protected abstract fun getDiffCallBack(): DiffUtil.ItemCallback<DataItem>
