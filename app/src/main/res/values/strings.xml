@@ -15,4 +15,5 @@
     <string name="failed_to_detect_country">Failed to detect country</string>
 
     <string name="to_be_implemented">To be implemented</string>
+    <string name="global_lookup">Global lookup</string>
 </resources>
