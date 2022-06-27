@@ -18,8 +18,12 @@ class ColorGradeCalculator(
     )
 
     fun evalColor(min: Float, max: Float, current: Float): ColorType {
-        require(current in min..max) { "$current out of range from $min to $max" }
-        val rate = (current - min) / (max - min)
+        val rate = if (current.isNaN()) {
+            min
+        } else {
+            require(current in min..max) { "$current out of range from $min to $max" }
+            (current - min) / (max - min)
+        }
         return Color.rgb(
             mixForComponent(Color::red, rate),
             mixForComponent(Color::green, rate),

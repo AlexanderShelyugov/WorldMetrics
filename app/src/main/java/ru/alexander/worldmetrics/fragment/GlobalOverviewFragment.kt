@@ -25,15 +25,19 @@ class GlobalOverviewFragment : Fragment(R.layout.all_indexes) {
     }
 
     private fun inflateIndexes() {
+        val ctx = requireContext()
         ALL_INDEXES.forEach { indexGroup ->
             indexGroup.indexes.forEach { index ->
                 val button = layoutInflater.inflate(
-                    R.layout.index_for_country_list_item,
+                    R.layout.all_indexes_item,
                     allIndexesContainer,
                     false
                 )
-                button.findViewById<TextView>(R.id.tv_index_name).setText(index.name)
-                val color = requireContext().getColor(indexGroup.itemColor)
+                button.findViewById<TextView>(R.id.tv_index_name).run {
+                    setText(index.name)
+                    setTextColor(ctx.getColor(indexGroup.color))
+                }
+                val color = ctx.getColor(indexGroup.itemColor)
                 setColorFilter(button.background, color)
                 val action: NavDirections = INDEX_ACTIONS[index.name]
                     ?: actionGlobalToBeImplementedFragment()
