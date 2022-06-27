@@ -54,6 +54,13 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_homeScreenFragment_to_globalOverviewFragment"
+            app:destination="@id/globalOverviewFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/democracyIndexOverviewFragment"
@@ -62,10 +69,10 @@
         <action
             android:id="@+id/action_democracyIndexOverview_to_democracyIndexCountryDetail"
             app:destination="@id/democracyIndexCountryDetailFragment"
-            app:enterAnim="@anim/screen_enter"
-            app:exitAnim="@anim/screen_exit"
-            app:popEnterAnim="@anim/screen_enter"
-            app:popExitAnim="@anim/screen_exit" />
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/corruptionPerceptionsOverviewFragment"
@@ -74,10 +81,10 @@
         <action
             android:id="@+id/action_corruptionPerceptionsOverview_to_corruptionPerceptionsCountryDetail"
             app:destination="@id/corruptionPerceptionsCountryDetailFragment"
-            app:enterAnim="@anim/screen_enter"
-            app:exitAnim="@anim/screen_exit"
-            app:popEnterAnim="@anim/screen_enter"
-            app:popExitAnim="@anim/screen_exit" />
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/pressFreedomOverviewFragment"
@@ -86,10 +93,10 @@
         <action
             android:id="@+id/action_pressFreedomOverview_to_pressFreedomCountryDetail"
             app:destination="@id/pressFreedomCountryDetailFragment"
-            app:enterAnim="@anim/screen_enter"
-            app:exitAnim="@anim/screen_exit"
-            app:popEnterAnim="@anim/screen_enter"
-            app:popExitAnim="@anim/screen_exit" />
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/democracyIndexCountryDetailFragment"
@@ -134,4 +141,30 @@
     <action
         android:id="@+id/action_global_toBeImplementedFragment"
         app:destination="@id/toBeImplementedFragment" />
+    <fragment
+        android:id="@+id/globalOverviewFragment"
+        android:name="ru.alexander.worldmetrics.fragment.GlobalOverviewFragment"
+        android:label="GlobalOverviewFragment">
+        <action
+            android:id="@+id/action_globalOverviewFragment_to_corruptionPerceptionsOverviewFragment"
+            app:destination="@id/corruptionPerceptionsOverviewFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_globalOverviewFragment_to_pressFreedomOverviewFragment"
+            app:destination="@id/pressFreedomOverviewFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_globalOverviewFragment_to_democracyIndexOverviewFragment"
+            app:destination="@id/democracyIndexOverviewFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+    </fragment>
 </navigation>
