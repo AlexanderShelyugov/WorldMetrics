@@ -44,9 +44,12 @@
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="@dimen/spacing_middle"
+                    android:autoSizeMinTextSize="30sp"
+                    android:autoSizeTextType="uniform"
                     android:fontFamily="@font/orbitron"
+                    android:maxLines="2"
                     android:shadowColor="@color/holo_blue_bright"
                     android:shadowDx="0.0"
                     android:shadowDy="0.0"
@@ -54,7 +57,7 @@
                     android:text="@string/my_name"
                     android:textColor="@color/holo_blue_bright"
                     android:textSize="30sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@id/cv_my_photo"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/cv_my_photo"
                     app:layout_constraintTop_toTopOf="@id/cv_my_photo" />
@@ -65,6 +68,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_large"
+                android:autoSizeMinTextSize="14sp"
+                android:autoSizeTextType="uniform"
                 android:fontFamily="@font/orbitron"
                 android:shadowColor="@color/holo_blue_bright"
                 android:shadowDx="0.0"
@@ -72,7 +77,6 @@
                 android:shadowRadius="12"
                 android:text="@string/my_bio"
                 android:textColor="@color/holo_blue_bright"
-                android:textSize="14sp"
                 android:textStyle="bold" />
 
             <include
