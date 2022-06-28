@@ -26,7 +26,7 @@ abstract class FilterableSortableAdapter<DataItem> : Adapter<ViewHolder>() {
             differ.submitList(sort(originalData))
             return
         }
-        val result = originalData.asSequence()
+        originalData.asSequence()
             // Not just .filter, because
             // We want to order data by its first query occurrence
             .map {
@@ -36,13 +36,12 @@ abstract class FilterableSortableAdapter<DataItem> : Adapter<ViewHolder>() {
             .sortedBy { it.first }
             .map { it.second }
             .toList()
-        differ.submitList(result)
+            .run(differ::submitList)
     }
 
-    private fun sort(items: List<DataItem>): List<DataItem> {
-        val comparator = calculateComparator() ?: return items
-        return items.sortedWith(comparator)
-    }
+    private fun sort(items: List<DataItem>): List<DataItem> =
+        calculateComparator()?.run(items::sortedWith)
+            ?: items
 
     protected val data: List<DataItem>
         get() = differ.currentList

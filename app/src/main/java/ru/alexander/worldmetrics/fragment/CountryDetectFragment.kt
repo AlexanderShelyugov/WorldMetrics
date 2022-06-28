@@ -108,10 +108,11 @@ class CountryDetectFragment : Fragment(R.layout.country_detect_fragment) {
             .onBackPressedDispatcher
             .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    if (fragmentState == DETECTION_TYPES) {
-                        findNavController().navigateUp()
-                    } else {
-                        switchFragmentState(DETECTION_TYPES)
+                    when (fragmentState) {
+                        DETECTION_TYPES ->
+                            findNavController().navigateUp()
+                        else ->
+                            switchFragmentState(DETECTION_TYPES)
                     }
                 }
             })
@@ -254,11 +255,13 @@ class CountryDetectFragment : Fragment(R.layout.country_detect_fragment) {
     }
 
     private fun initCountriesList() {
+        val ctx = requireContext()
         countriesListAdapter = CountriesListAdapter()
         CountriesData.CODES_TO_NAMES.asSequence()
             .map {
-                CountryListAdapterItem(it.key, it.value) { view, iso3Code ->
-                    callback(view, CountriesData.getAlpha2Code(iso3Code))
+                val name = ctx.getString(it.value)
+                CountryListAdapterItem(it.key, name) { iso3Code ->
+                    callback(CountriesData.getAlpha2Code(iso3Code))
                 }
             }
             .toList()
@@ -269,7 +272,7 @@ class CountryDetectFragment : Fragment(R.layout.country_detect_fragment) {
     private fun getLocationManager() =
         requireContext().getSystemService(LOCATION_SERVICE) as LocationManager
 
-    private val callback: (View, String) -> Unit = { _, countryCode ->
+    private val callback: (String) -> Unit = { countryCode ->
         setCountryCode(countryCode)
         switchFragmentState(DETECTION_TYPES)
     }

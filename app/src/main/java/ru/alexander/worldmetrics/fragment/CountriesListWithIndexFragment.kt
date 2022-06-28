@@ -11,13 +11,13 @@ import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import ru.alexander.worldmetrics.R
 import ru.alexander.worldmetrics.adapter.CountriesListWithIndexDataItem
-import ru.alexander.worldmetrics.adapter.CountriesListWithIndexViewAdapter
+import ru.alexander.worldmetrics.adapter.CountriesListWithIndexAdapter
 import ru.alexander.worldmetrics.global.ColorAccess.Companion.VALUE_DEFAULT_COLOR_RANGE
 import ru.alexander.worldmetrics.model.CountriesData.Companion.CODES_TO_NAMES
 import ru.alexander.worldmetrics.model.indexes.FeatureRange
 
 abstract class CountriesListWithIndexFragment : Fragment(R.layout.countries_list_with_index) {
-    private val countriesAdapter = CountriesListWithIndexViewAdapter(this::onCountryClick)
+    private val countriesAdapter = CountriesListWithIndexAdapter(this::onCountryClick)
         .also {
             it.sortByCountry = true
             it.naturalOrder = true

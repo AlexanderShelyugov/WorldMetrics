@@ -12,7 +12,7 @@ import ru.alexander.worldmetrics.view.ColorGradeCalculator
 
 private typealias Item = CountriesListWithIndexDataItem
 
-class CountriesListWithIndexViewAdapter(private val onClick: (String) -> Unit) :
+class CountriesListWithIndexAdapter(private val onClick: (String) -> Unit) :
     FilterableSortableAdapter<Item>() {
 
     private companion object {
@@ -51,7 +51,9 @@ class CountriesListWithIndexViewAdapter(private val onClick: (String) -> Unit) :
 
     override fun search(query: String, item: Item) =
         item.name.indexOf(query, ignoreCase = true).takeIf { 0 <= it }
-            ?: item.iso3Code.indexOf(query, ignoreCase = true)
+            ?: item.iso3Code.indexOf(query, ignoreCase = true).takeIf { 0 <= it }
+                ?.let { it + itemCount }
+            ?: -1
 
     private class CountryIndexViewHolder(
         view: View,
