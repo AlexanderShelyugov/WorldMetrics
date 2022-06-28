@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.alexander.worldmetrics.R
 import ru.alexander.worldmetrics.global.ContextAccess.Companion.context
 
-class CountriesListAdapter : FilterableAdapter<CountryListAdapterItem>() {
+class CountriesListAdapter : FilterableSortableAdapter<CountryListAdapterItem>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val v = LayoutInflater.from(parent.context)
             .inflate(R.layout.countries_list_item, parent, false)

@@ -4,7 +4,8 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 
-abstract class FilterableAdapter<DataItem> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+abstract class FilterableSortableAdapter<DataItem> :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var originalData: List<DataItem> = emptyList()
     private var query = ""
@@ -20,7 +21,7 @@ abstract class FilterableAdapter<DataItem> : RecyclerView.Adapter<RecyclerView.V
         refreshData()
     }
 
-    private fun refreshData() {
+    protected fun refreshData() {
         if (query.isEmpty()) {
             differ.submitList(originalData.toList())
             return
@@ -35,12 +36,18 @@ abstract class FilterableAdapter<DataItem> : RecyclerView.Adapter<RecyclerView.V
             .sortedBy { it.first }
             .map { it.second }
             .toList()
-        differ.submitList(result)
+        differ.submitList(sort(result))
+    }
+
+    private fun sort(items: List<DataItem>): List<DataItem> {
+        val comparator = calculateComparator() ?: return items
+        return items.sortedWith(comparator)
     }
 
     protected val data: List<DataItem>
         get() = differ.currentList
 
+    open fun calculateComparator(): Comparator<DataItem>? = null
     final override fun getItemCount(): Int = differ.currentList.size
     protected abstract fun getDiffCallBack(): DiffUtil.ItemCallback<DataItem>
     protected abstract fun search(query: String, item: DataItem): Int
