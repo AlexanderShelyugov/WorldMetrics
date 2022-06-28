@@ -1,9 +1,12 @@
 package ru.alexander.worldmetrics.modules.democracy_index.service.impl
 
+import ru.alexander.worldmetrics.modules.csv.model.CsvRow
 import ru.alexander.worldmetrics.modules.csv.service.api.CsvService
 import ru.alexander.worldmetrics.modules.democracy_index.model.DemocracyIndexValue
 import ru.alexander.worldmetrics.modules.democracy_index.service.api.DemocracyIndexService
+import ru.alexander.worldmetrics.modules.indexes.model.SimpleCountryValue
 import javax.inject.Inject
+import kotlin.Float.Companion.NaN
 
 class DemocracyIndexServiceImpl @Inject constructor(
     private val csvService: CsvService
@@ -29,46 +32,34 @@ class DemocracyIndexServiceImpl @Inject constructor(
 
     lateinit var filePath: String
 
-    override fun getLastYearData(): Map<String, String> {
-        val result = mutableMapOf<String, String>()
+    override fun getLastYearData(): List<SimpleCountryValue> {
+        lateinit var result: List<SimpleCountryValue>
         csvService.process(filePath) { rows ->
             rows
                 .filter { MAX_YEAR == it[COLUMN_YEAR].toInt() }
-                .forEach { row: List<String> ->
+                .map { row: CsvRow ->
                     val country = row[COLUMN_COUNTRY_CODE]
-                    val indexValue = row[COLUMN_INDEX_VALUE]
-                    result[country] = indexValue
+                    val value = row[COLUMN_INDEX_VALUE].toFloatOrNull() ?: NaN
+                    SimpleCountryValue(country, value)
                 }
+                .toList()
+                .also { result = it }
         }
         return result
     }
 
-    override fun getLastYearData(country: String): DemocracyIndexValue {
-        val rows = getDataForCountry(country)
-        val row = rows.asSequence().let {
+    override fun getLastYearData(countryCode: String): DemocracyIndexValue {
+        val rows = getDataForCountry(countryCode)
+        val lastYearRow = rows.asSequence().let {
             it.filter { row -> MAX_YEAR == row[COLUMN_YEAR].toInt() }.firstOrNull()
                 ?: it.filter { row -> (MAX_YEAR - 1) == row[COLUMN_YEAR].toInt() }
                     .firstOrNull()
         }
-        return rowToIndexValue(row!!)
+        return rowToIndexValue(lastYearRow!!)
     }
 
-    override fun getAllYearData(): Map<String, List<DemocracyIndexValue>> {
-        lateinit var result: Map<String, List<DemocracyIndexValue>>
-        csvService.process(filePath) { rows ->
-            result = rows.asSequence()
-                .map { rowToIndexValue(it) }
-                .groupBy { it.countryCode }
-                .toMap()
-        }
-        return result
-    }
-
-    /**
-     * Возвращает весь набор данных для отдельной страны
-     */
-    override fun getAllYearData(country: String): List<DemocracyIndexValue> =
-        getDataForCountry(country).asSequence()
+    override fun getAllData(countryCode: String): List<DemocracyIndexValue> =
+        getDataForCountry(countryCode).asSequence()
             .map { rowToIndexValue(it) }
             .toList()
 
@@ -79,7 +70,7 @@ class DemocracyIndexServiceImpl @Inject constructor(
     override fun getPCRange() = RANGE_POLITICAL_CULTURE
     override fun getCLRange() = RANGE_CIVIL_LIBERTIES
 
-    private fun rowToIndexValue(row: List<String>): DemocracyIndexValue = DemocracyIndexValue(
+    private fun rowToIndexValue(row: CsvRow): DemocracyIndexValue = DemocracyIndexValue(
         row[COLUMN_COUNTRY_CODE],
         row[COLUMN_YEAR].toInt(),
         row[COLUMN_INDEX_VALUE].toFloat(),
@@ -90,8 +81,8 @@ class DemocracyIndexServiceImpl @Inject constructor(
         row[COLUMN_CIVIL_LIBERTIES].toFloat(),
     )
 
-    private fun getDataForCountry(countryCode: String): List<List<String>> {
-        lateinit var result: List<List<String>>
+    private fun getDataForCountry(countryCode: String): List<CsvRow> {
+        lateinit var result: List<CsvRow>
         csvService.process(filePath) { rows ->
             rows
                 .filter { it[COLUMN_COUNTRY_CODE].equals(countryCode, ignoreCase = true) }

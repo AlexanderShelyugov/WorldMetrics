@@ -1,7 +1,7 @@
 package ru.alexander.worldmetrics.view
 
 import android.graphics.Color
-import ru.alexander.worldmetrics.model.indexes.FeatureRange
+import ru.alexander.worldmetrics.modules.indexes.model.FeatureRange
 import kotlin.math.min
 
 private typealias ColorType = Int

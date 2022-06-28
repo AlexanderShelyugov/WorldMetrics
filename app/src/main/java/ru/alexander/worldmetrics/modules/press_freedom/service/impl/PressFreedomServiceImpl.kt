@@ -1,9 +1,12 @@
 package ru.alexander.worldmetrics.modules.press_freedom.service.impl
 
+import ru.alexander.worldmetrics.modules.csv.model.CsvRow
 import ru.alexander.worldmetrics.modules.csv.service.api.CsvService
+import ru.alexander.worldmetrics.modules.indexes.model.SimpleCountryValue
 import ru.alexander.worldmetrics.modules.press_freedom.model.PressFreedomValue
 import ru.alexander.worldmetrics.modules.press_freedom.service.api.PressFreedomService
 import javax.inject.Inject
+import kotlin.Float.Companion.NaN
 
 class PressFreedomServiceImpl @Inject constructor(private val csvService: CsvService) :
     PressFreedomService {
@@ -29,21 +32,25 @@ class PressFreedomServiceImpl @Inject constructor(private val csvService: CsvSer
         val RANGE_SAFETY = 4.63f to 96.46f
     }
 
-    override fun getLastYearData(): Map<String, String> {
-        val result = mutableMapOf<String, String>()
-        val processor: (Sequence<List<String>>) -> Unit = { rows ->
-            rows
-                .filter { MAX_YEAR == it[COLUMN_YEAR].toInt() }
-                .map { it[COLUMN_COUNTRY_CODE] to it[COLUMN_INDEX_VALUE] }
-                .associateTo(result) { it }
+    override fun getLastYearData(): List<SimpleCountryValue> {
+        lateinit var result: List<SimpleCountryValue>
+        csvService.process(filePath) { rows ->
+            rows.filter { MAX_YEAR == it[COLUMN_YEAR].toInt() }
+                .map {
+                    SimpleCountryValue(
+                        it[COLUMN_COUNTRY_CODE],
+                        it[COLUMN_INDEX_VALUE].toFloatOrNull() ?: NaN
+                    )
+                }
+                .toList()
+                .also { result = it }
         }
-        csvService.process(filePath, processor)
         return result
     }
 
     override fun getLastYearData(countryCode: String): PressFreedomValue {
         lateinit var result: PressFreedomValue
-        val processor: (Sequence<List<String>>) -> Unit = { rows ->
+        csvService.process(filePath) { rows ->
             rows
                 .filter { it[COLUMN_COUNTRY_CODE].equals(countryCode, ignoreCase = true) }
                 .filter { MAX_YEAR == it[COLUMN_YEAR].toInt() }
@@ -51,7 +58,18 @@ class PressFreedomServiceImpl @Inject constructor(private val csvService: CsvSer
                 .let { rowToIndexValue(it) }
                 .also { result = it }
         }
-        csvService.process(filePath, processor)
+        return result
+    }
+
+    override fun getAllData(countryCode: String): List<PressFreedomValue> {
+        lateinit var result: List<PressFreedomValue>
+        csvService.process(filePath) { rows ->
+            rows
+                .filter { it[COLUMN_COUNTRY_CODE].equals(countryCode, ignoreCase = true) }
+                .map { rowToIndexValue(it) }
+                .toList()
+                .also { result = it }
+        }
         return result
     }
 
@@ -62,20 +80,7 @@ class PressFreedomServiceImpl @Inject constructor(private val csvService: CsvSer
     override fun getSCRange() = RANGE_SOCIAL_CONTEXT
     override fun getSRange() = RANGE_SAFETY
 
-    override fun getData(country: String): List<PressFreedomValue> {
-        val result = mutableListOf<PressFreedomValue>()
-        val processor: (Sequence<List<String>>) -> Unit = { rows ->
-            rows
-                .filter { it[COLUMN_COUNTRY_CODE].equals(country, ignoreCase = true) }
-                .map { rowToIndexValue(it) }
-                .toList()
-                .run(result::addAll)
-        }
-        csvService.process(filePath, processor)
-        return result
-    }
-
-    private fun rowToIndexValue(row: List<String>): PressFreedomValue = PressFreedomValue(
+    private fun rowToIndexValue(row: CsvRow): PressFreedomValue = PressFreedomValue(
         row[COLUMN_COUNTRY_CODE],
         row[COLUMN_INDEX_VALUE].toFloat(),
         row[COLUMN_POLITICAL_CONTEXT].toFloat(),

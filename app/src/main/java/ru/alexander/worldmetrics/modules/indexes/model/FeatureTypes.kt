@@ -1,4 +1,4 @@
-package ru.alexander.worldmetrics.model.indexes
+package ru.alexander.worldmetrics.modules.indexes.model
 
 typealias FeatureRange = Pair<Float, Float>
 

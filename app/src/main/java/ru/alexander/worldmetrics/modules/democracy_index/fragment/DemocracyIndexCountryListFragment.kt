@@ -7,11 +7,12 @@ import ru.alexander.worldmetrics.fragment.CountriesListWithIndexFragment
 import ru.alexander.worldmetrics.global.NavigationHelper.Companion.navigateTo
 import ru.alexander.worldmetrics.modules.democracy_index.fragment.DemocracyIndexCountryListFragmentDirections.Companion.actionDemocracyIndexOverviewToDemocracyIndexCountryDetail
 import ru.alexander.worldmetrics.modules.democracy_index.viewmodel.DemocracyIndexOverviewViewModel
+import ru.alexander.worldmetrics.modules.indexes.model.SimpleCountryValue
 
 class DemocracyIndexCountryListFragment : CountriesListWithIndexFragment() {
     private val model: DemocracyIndexOverviewViewModel by activityViewModels()
 
-    override fun getData(): LiveData<Map<String, String>> = model.lastYearData
+    override fun getData(): LiveData<List<SimpleCountryValue>> = model.lastYearData
 
     override fun getValueRange() = model.getValueRange()
 

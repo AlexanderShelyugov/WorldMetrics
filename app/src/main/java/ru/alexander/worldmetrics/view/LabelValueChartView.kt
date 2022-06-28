@@ -11,7 +11,7 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.data.LineDataSet.Mode.HORIZONTAL_BEZIER
 import ru.alexander.worldmetrics.R
-import ru.alexander.worldmetrics.model.indexes.FeatureExtractor
+import ru.alexander.worldmetrics.modules.indexes.model.FeatureExtractor
 import java.lang.Float.NaN
 
 class LabelValueChartView<T>(context: Context, attrs: AttributeSet) : FrameLayout(context, attrs) {

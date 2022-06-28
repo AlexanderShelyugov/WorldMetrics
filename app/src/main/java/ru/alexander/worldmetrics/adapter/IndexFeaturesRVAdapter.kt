@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import ru.alexander.worldmetrics.R
 import ru.alexander.worldmetrics.adapter.IndexFeaturesRVAdapter.LVCViewHolder
-import ru.alexander.worldmetrics.model.indexes.FeatureExtractor
+import ru.alexander.worldmetrics.modules.indexes.model.FeatureExtractor
 import ru.alexander.worldmetrics.view.LabelValueChartView
 
 private typealias VH<T> = LVCViewHolder<T>

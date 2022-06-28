@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil.ItemCallback
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import ru.alexander.worldmetrics.R
-import ru.alexander.worldmetrics.model.indexes.FeatureRange
+import ru.alexander.worldmetrics.modules.indexes.model.FeatureRange
 import ru.alexander.worldmetrics.view.ColorGradeCalculator
 
 private typealias Item = CountriesListWithIndexDataItem

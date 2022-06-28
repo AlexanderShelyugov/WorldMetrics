@@ -6,10 +6,10 @@ import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ru.alexander.worldmetrics.R
 import ru.alexander.worldmetrics.global.ColorAccess.Companion.DEFAULT_COLOR_CALCULATOR
-import ru.alexander.worldmetrics.model.indexes.FeatureRange
 import ru.alexander.worldmetrics.modules.democracy_index.model.DemocracyIndexData.Companion.FEATURES_TO_SHOW
 import ru.alexander.worldmetrics.modules.democracy_index.model.DemocracyIndexValue
 import ru.alexander.worldmetrics.modules.democracy_index.service.api.DemocracyIndexService
+import ru.alexander.worldmetrics.modules.indexes.model.FeatureRange
 import javax.inject.Inject
 
 @HiltViewModel
@@ -50,7 +50,7 @@ class DemocracyIndexCountryDetailViewModel @Inject constructor(
 
     private fun loadData() {
         lastYearDataContainer.value = service.getLastYearData(country)
-        allDataContainer.value = service.getAllYearData(country)
+        allDataContainer.value = service.getAllData(country)
     }
 
     private companion object {

@@ -1,26 +1,10 @@
 package ru.alexander.worldmetrics.modules.press_freedom.service.api
 
-import ru.alexander.worldmetrics.model.indexes.FeatureRange
+import ru.alexander.worldmetrics.modules.indexes.model.FeatureRange
+import ru.alexander.worldmetrics.modules.indexes.service.api.IndexFeatureService
 import ru.alexander.worldmetrics.modules.press_freedom.model.PressFreedomValue
 
-interface PressFreedomService {
-    /**
-     * Returns data for the most recent year for all countries.
-     */
-    fun getLastYearData(): Map<String, String>
-
-    /**
-     * Returns data for the most recent year for all countries.
-     */
-    fun getLastYearData(countryCode: String): PressFreedomValue
-
-    /**
-     * Returns data for specific country.
-     *
-     * @param country
-     */
-    fun getData(country: String): List<PressFreedomValue>
-
+interface PressFreedomService : IndexFeatureService<PressFreedomValue> {
     /**
      * Returns value range
      *

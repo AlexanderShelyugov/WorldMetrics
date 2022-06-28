@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ru.alexander.worldmetrics.R
 import ru.alexander.worldmetrics.global.ColorAccess.Companion.DEFAULT_COLOR_CALCULATOR
-import ru.alexander.worldmetrics.model.indexes.FeatureRange
+import ru.alexander.worldmetrics.modules.indexes.model.FeatureRange
 import ru.alexander.worldmetrics.modules.corruption_perceptions.model.CorruptionPerceptionsData.Companion.FEATURES_TO_SHOW
 import ru.alexander.worldmetrics.modules.corruption_perceptions.model.CorruptionPerceptionsValue
 import ru.alexander.worldmetrics.modules.corruption_perceptions.service.api.CorruptionPerceptionsService

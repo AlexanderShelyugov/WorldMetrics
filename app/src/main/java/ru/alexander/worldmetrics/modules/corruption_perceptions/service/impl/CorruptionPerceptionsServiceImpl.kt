@@ -3,6 +3,7 @@ package ru.alexander.worldmetrics.modules.corruption_perceptions.service.impl
 import ru.alexander.worldmetrics.modules.corruption_perceptions.model.CorruptionPerceptionsValue
 import ru.alexander.worldmetrics.modules.corruption_perceptions.service.api.CorruptionPerceptionsService
 import ru.alexander.worldmetrics.modules.csv.service.api.CsvService
+import ru.alexander.worldmetrics.modules.indexes.model.SimpleCountryValue
 import javax.inject.Inject
 import kotlin.Float.Companion.NaN
 
@@ -19,12 +20,18 @@ class CorruptionPerceptionsServiceImpl @Inject constructor(
 
     lateinit var filePath: String
 
-    override fun getLastYearData(): Map<String, String> {
-        val result = mutableMapOf<String, String>()
+    override fun getLastYearData(): List<SimpleCountryValue> {
+        lateinit var result: List<SimpleCountryValue>
         csvService.process(filePath) { rows ->
             rows
-                .map { it[COLUMN_COUNTRY_CODE] to it[COLUMN_MAX_YEAR.first] }
-                .associateTo(result) { it }
+                .map {
+                    SimpleCountryValue(
+                        it[COLUMN_COUNTRY_CODE],
+                        it[COLUMN_MAX_YEAR.first].toFloatOrNull() ?: NaN
+                    )
+                }
+                .toList()
+                .also { result = it }
         }
         return result
     }
@@ -48,8 +55,6 @@ class CorruptionPerceptionsServiceImpl @Inject constructor(
         return item
     }
 
-    override fun getValueRange() = VALUES_RANGE
-
     override fun getAllData(countryCode: String): List<CorruptionPerceptionsValue> {
         lateinit var result: List<CorruptionPerceptionsValue>
         csvService.process(filePath) { rows ->
@@ -69,7 +74,8 @@ class CorruptionPerceptionsServiceImpl @Inject constructor(
         return result
     }
 
+    override fun getValueRange() = VALUES_RANGE
+
     private fun dataToIndexValue(row: Triple<String, Int, String>): CorruptionPerceptionsValue =
         CorruptionPerceptionsValue(row.first, row.second, row.third.toFloatOrNull() ?: NaN)
-
 }

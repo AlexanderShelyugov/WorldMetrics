@@ -1,31 +1,10 @@
 package ru.alexander.worldmetrics.modules.democracy_index.service.api
 
-import ru.alexander.worldmetrics.model.indexes.FeatureRange
 import ru.alexander.worldmetrics.modules.democracy_index.model.DemocracyIndexValue
+import ru.alexander.worldmetrics.modules.indexes.model.FeatureRange
+import ru.alexander.worldmetrics.modules.indexes.service.api.IndexFeatureService
 
-interface DemocracyIndexService {
-    /**
-     * Returns last year data
-     */
-    fun getLastYearData(): Map<String, String>
-
-    /**
-     * Возвращает данные за последний год для конкретной страны.
-     *
-     * @param country - страна
-     */
-    fun getLastYearData(country: String): DemocracyIndexValue
-
-    /**
-     * Возвращает весь набор данных
-     */
-    fun getAllYearData(): Map<String, List<DemocracyIndexValue>>
-
-    /**
-     * Возвращает весь набор данных для отдельной страны
-     */
-    fun getAllYearData(country: String): List<DemocracyIndexValue>
-
+interface DemocracyIndexService : IndexFeatureService<DemocracyIndexValue> {
     /**
      * Returns value range
      *

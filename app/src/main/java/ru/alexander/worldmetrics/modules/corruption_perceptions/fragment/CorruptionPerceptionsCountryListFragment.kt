@@ -7,12 +7,13 @@ import ru.alexander.worldmetrics.fragment.CountriesListWithIndexFragment
 import ru.alexander.worldmetrics.global.NavigationHelper.Companion.navigateTo
 import ru.alexander.worldmetrics.modules.corruption_perceptions.fragment.CorruptionPerceptionsCountryListFragmentDirections.Companion.actionCorruptionPerceptionsOverviewToCorruptionPerceptionsCountryDetail
 import ru.alexander.worldmetrics.modules.corruption_perceptions.viewmodel.CorruptionPerceptionsOverviewViewModel
+import ru.alexander.worldmetrics.modules.indexes.model.SimpleCountryValue
 
 class CorruptionPerceptionsCountryListFragment :
     CountriesListWithIndexFragment() {
     private val model: CorruptionPerceptionsOverviewViewModel by activityViewModels()
 
-    override fun getData(): LiveData<Map<String, String>> = model.lastYearData
+    override fun getData(): LiveData<List<SimpleCountryValue>> = model.lastYearData
 
     override fun getValueRange() = model.getValueRange()
 

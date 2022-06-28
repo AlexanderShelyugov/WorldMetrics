@@ -1,7 +1,7 @@
 package ru.alexander.worldmetrics.modules.democracy_index.model
 
 import ru.alexander.worldmetrics.R
-import ru.alexander.worldmetrics.model.indexes.FeatureExtractor
+import ru.alexander.worldmetrics.modules.indexes.model.FeatureExtractor
 
 private typealias Index = DemocracyIndexValue
 private typealias ValueFunction = (Index) -> Float

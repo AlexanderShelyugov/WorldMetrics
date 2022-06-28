@@ -6,7 +6,8 @@ import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ru.alexander.worldmetrics.R
 import ru.alexander.worldmetrics.global.ColorAccess
-import ru.alexander.worldmetrics.model.indexes.FeatureRange
+import ru.alexander.worldmetrics.modules.indexes.model.FeatureRange
+import ru.alexander.worldmetrics.modules.indexes.model.SimpleCountryValue
 import ru.alexander.worldmetrics.modules.press_freedom.model.PressFreedomData
 import ru.alexander.worldmetrics.modules.press_freedom.model.PressFreedomValue
 import ru.alexander.worldmetrics.modules.press_freedom.service.api.PressFreedomService
@@ -18,7 +19,7 @@ class PressFreedomCountryDetailViewModel @Inject constructor(
 ) : ViewModel() {
 
     private var country: String = ""
-    private val lastYearDataContainer = MutableLiveData<Map<String, String>>().also {
+    private val lastYearDataContainer = MutableLiveData<List<SimpleCountryValue>>().also {
         it.value = service.getLastYearData()
     }
     private val allDataContainer = MutableLiveData<List<PressFreedomValue>>()
@@ -26,6 +27,14 @@ class PressFreedomCountryDetailViewModel @Inject constructor(
     fun setCountry(country: String) {
         this.country = country
         loadData()
+    }
+
+    val lastYearData: LiveData<List<SimpleCountryValue>> by lazy {
+        lastYearDataContainer
+    }
+
+    val allData: LiveData<List<PressFreedomValue>> by lazy {
+        allDataContainer
     }
 
     fun getFeatureColors(countryCode: String): List<Int> {
@@ -43,17 +52,9 @@ class PressFreedomCountryDetailViewModel @Inject constructor(
         return colors
     }
 
-    val lastYearData: LiveData<Map<String, String>> by lazy {
-        lastYearDataContainer
-    }
-
-    val allData: LiveData<List<PressFreedomValue>> by lazy {
-        allDataContainer
-    }
-
     private fun loadData() {
         lastYearDataContainer.value = service.getLastYearData()
-        allDataContainer.value = service.getData(country)
+        allDataContainer.value = service.getAllData(country)
     }
 
     private companion object {

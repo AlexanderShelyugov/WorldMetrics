@@ -10,11 +10,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import ru.alexander.worldmetrics.R
-import ru.alexander.worldmetrics.adapter.CountriesListWithIndexDataItem
 import ru.alexander.worldmetrics.adapter.CountriesListWithIndexAdapter
+import ru.alexander.worldmetrics.adapter.CountriesListWithIndexDataItem
 import ru.alexander.worldmetrics.global.ColorAccess.Companion.VALUE_DEFAULT_COLOR_RANGE
 import ru.alexander.worldmetrics.model.CountriesData.Companion.CODES_TO_NAMES
-import ru.alexander.worldmetrics.model.indexes.FeatureRange
+import ru.alexander.worldmetrics.modules.indexes.model.FeatureRange
+import ru.alexander.worldmetrics.modules.indexes.model.SimpleCountryValue
 
 abstract class CountriesListWithIndexFragment : Fragment(R.layout.countries_list_with_index) {
     private val countriesAdapter = CountriesListWithIndexAdapter(this::onCountryClick)
@@ -42,9 +43,9 @@ abstract class CountriesListWithIndexFragment : Fragment(R.layout.countries_list
             val ctx = requireContext()
             val data = countries.asSequence()
                 .map {
-                    val name = CODES_TO_NAMES[it.key]?.run(ctx::getString) ?: ""
-                    val value = it.value.toFloatOrNull() ?: Float.NaN
-                    CountriesListWithIndexDataItem(it.key, name, value)
+                    val name = CODES_TO_NAMES[it.iso3CountyCode]?.run(ctx::getString) ?: ""
+                    val value = it.value
+                    CountriesListWithIndexDataItem(it.iso3CountyCode, name, value)
                 }
                 .toList()
             countriesAdapter.setData(data)
@@ -97,7 +98,7 @@ abstract class CountriesListWithIndexFragment : Fragment(R.layout.countries_list
         sortOrderItem.setIcon(nextIcon)
     }
 
-    protected abstract fun getData(): LiveData<Map<String, String>>
+    protected abstract fun getData(): LiveData<List<SimpleCountryValue>>
 
     protected abstract fun getValueRange(): FeatureRange
 
