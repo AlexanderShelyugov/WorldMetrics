@@ -5,7 +5,7 @@ import ru.alexander.worldmetrics.modules.democracy_index.model.DemocracyIndexVal
 
 interface DemocracyIndexService {
     /**
-     * Возвращает данные за последний год.
+     * Returns last year data
      */
     fun getLastYearData(): Map<String, String>
 

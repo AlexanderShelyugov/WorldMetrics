@@ -10,24 +10,22 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import ru.alexander.worldmetrics.R
+import ru.alexander.worldmetrics.adapter.CountriesListWithIndexDataItem
 import ru.alexander.worldmetrics.adapter.CountriesListWithIndexViewAdapter
 import ru.alexander.worldmetrics.global.ColorAccess.Companion.VALUE_DEFAULT_COLOR_RANGE
+import ru.alexander.worldmetrics.model.CountriesData.Companion.CODES_TO_NAMES
 import ru.alexander.worldmetrics.model.indexes.FeatureRange
 
-abstract class CountriesListWithIndexFragment :
-    Fragment(R.layout.countries_list_with_index), SearchView.OnQueryTextListener {
+abstract class CountriesListWithIndexFragment : Fragment(R.layout.countries_list_with_index) {
     private val countriesAdapter = CountriesListWithIndexViewAdapter(this::onCountryClick)
+        .also {
+            it.sortByCountry = true
+            it.naturalOrder = true
+            it.setColorsRange(VALUE_DEFAULT_COLOR_RANGE)
+        }
     private lateinit var sortTypeItem: MenuItem
     private lateinit var sortOrderItem: MenuItem
     private lateinit var listView: RecyclerView
-
-    init {
-        countriesAdapter.run {
-            sortByCountry = true
-            naturalOrder = true
-            setColorsRange(VALUE_DEFAULT_COLOR_RANGE)
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,19 +36,25 @@ abstract class CountriesListWithIndexFragment :
         super.onViewCreated(view, savedInstanceState)
         listView = view.findViewById<RecyclerView>(R.id.rv_countries_list).also {
             it.adapter = countriesAdapter
-            it.itemAnimator = null
         }
         countriesAdapter.setValuesRange(getValueRange())
-        countriesAdapter.reSort()
         getData().observe(viewLifecycleOwner) { countries ->
-            countriesAdapter.setData(countries)
+            val ctx = requireContext()
+            val data = countries.asSequence()
+                .map {
+                    val name = CODES_TO_NAMES[it.key]?.run(ctx::getString) ?: ""
+                    val value = it.value.toFloatOrNull() ?: Float.NaN
+                    CountriesListWithIndexDataItem(it.key, name, value)
+                }
+                .toList()
+            countriesAdapter.setData(data)
         }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.action_bar_country_list, menu)
-        (menu.findItem(R.id.action_search).actionView as SearchView).setOnQueryTextListener(this)
-
+        (menu.findItem(R.id.action_search).actionView as SearchView)
+            .setOnQueryTextListener(onSearchListener)
         sortTypeItem = menu.findItem(R.id.action_sort_type)
         sortOrderItem = menu.findItem(R.id.action_sort_order)
     }
@@ -77,7 +81,7 @@ abstract class CountriesListWithIndexFragment :
             R.drawable.sort_numeric_variant
         }
         countriesAdapter.sortByCountry = weWillSortByCountry
-        countriesAdapter.reSort()
+        countriesAdapter.refresh()
         sortTypeItem.setIcon(nextIcon)
     }
 
@@ -89,18 +93,8 @@ abstract class CountriesListWithIndexFragment :
             R.drawable.sort_reverse_variant
         }
         countriesAdapter.naturalOrder = weWillSortByNaturalOrder
-        countriesAdapter.reSort()
+        countriesAdapter.refresh()
         sortOrderItem.setIcon(nextIcon)
-    }
-
-    override fun onQueryTextSubmit(query: String?): Boolean {
-        countriesAdapter.filter.filter(query)
-        return false
-    }
-
-    override fun onQueryTextChange(newText: String?): Boolean {
-        countriesAdapter.filter.filter(newText)
-        return false
     }
 
     protected abstract fun getData(): LiveData<Map<String, String>>
@@ -108,4 +102,13 @@ abstract class CountriesListWithIndexFragment :
     protected abstract fun getValueRange(): FeatureRange
 
     protected abstract fun onCountryClick(country: String)
+
+    private val onSearchListener = object : SearchView.OnQueryTextListener {
+        override fun onQueryTextSubmit(query: String?): Boolean {
+            countriesAdapter.searchWith(query ?: "")
+            return true
+        }
+
+        override fun onQueryTextChange(newText: String?): Boolean = onQueryTextSubmit(newText)
+    }
 }

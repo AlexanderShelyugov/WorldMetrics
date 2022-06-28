@@ -1,11 +1,11 @@
 package ru.alexander.worldmetrics.adapter
 
 import androidx.recyclerview.widget.AsyncListDiffer
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.DiffUtil.ItemCallback
+import androidx.recyclerview.widget.RecyclerView.Adapter
+import androidx.recyclerview.widget.RecyclerView.ViewHolder
 
-abstract class FilterableSortableAdapter<DataItem> :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+abstract class FilterableSortableAdapter<DataItem> : Adapter<ViewHolder>() {
 
     private var originalData: List<DataItem> = emptyList()
     private var query = ""
@@ -13,17 +13,17 @@ abstract class FilterableSortableAdapter<DataItem> :
 
     fun searchWith(query: String) {
         this.query = query.trim()
-        refreshData()
+        refresh()
     }
 
     fun setData(data: List<DataItem>) {
         originalData = data.toList() // Make a copy
-        refreshData()
+        refresh()
     }
 
-    protected fun refreshData() {
+    fun refresh() {
         if (query.isEmpty()) {
-            differ.submitList(originalData.toList())
+            differ.submitList(sort(originalData))
             return
         }
         val result = originalData.asSequence()
@@ -36,7 +36,7 @@ abstract class FilterableSortableAdapter<DataItem> :
             .sortedBy { it.first }
             .map { it.second }
             .toList()
-        differ.submitList(sort(result))
+        differ.submitList(result)
     }
 
     private fun sort(items: List<DataItem>): List<DataItem> {
@@ -47,8 +47,8 @@ abstract class FilterableSortableAdapter<DataItem> :
     protected val data: List<DataItem>
         get() = differ.currentList
 
-    open fun calculateComparator(): Comparator<DataItem>? = null
+    protected open fun calculateComparator(): Comparator<DataItem>? = null
+    protected open fun search(query: String, item: DataItem) = 0
     final override fun getItemCount(): Int = differ.currentList.size
-    protected abstract fun getDiffCallBack(): DiffUtil.ItemCallback<DataItem>
-    protected abstract fun search(query: String, item: DataItem): Int
+    protected abstract fun getDiffCallBack(): ItemCallback<DataItem>
 }
