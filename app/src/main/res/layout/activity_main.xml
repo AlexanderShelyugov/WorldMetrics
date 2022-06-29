@@ -7,16 +7,6 @@
     android:background="@android:color/black"
     tools:context=".activity.MainActivity">
 
-    <ru.alexander.worldmetrics.opengl.OpenGLView
-        android:layout_width="@dimen/index_list_item_width"
-        android:layout_height="@dimen/index_list_item_width"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:shader="@raw/total_noob" />
-
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fcv_nav_host_container"
         android:name="androidx.navigation.fragment.NavHostFragment"
