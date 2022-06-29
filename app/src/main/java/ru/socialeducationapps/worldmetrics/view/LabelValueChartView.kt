@@ -12,6 +12,7 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.data.LineDataSet.Mode.HORIZONTAL_BEZIER
 import ru.socialeducationapps.worldmetrics.R
 import ru.socialeducationapps.worldmetrics.modules.indexes.model.FeatureExtractor
+import ru.socialeducationapps.worldmetrics.modules.indexes.model.FeatureRange
 import java.lang.Float.NaN
 
 class LabelValueChartView<T>(context: Context, attrs: AttributeSet) : FrameLayout(context, attrs) {
@@ -22,6 +23,8 @@ class LabelValueChartView<T>(context: Context, attrs: AttributeSet) : FrameLayou
     private var allData: List<T> = emptyList()
     private var keyExtractor: FeatureExtractor<T> = { NaN }
     private var valueExtractor: FeatureExtractor<T> = { NaN }
+    private var calculator: ColorGradeCalculator? = null
+    private lateinit var range: FeatureRange
 
     init {
         inflate(getContext(), R.layout.label_value_chart_view_content, this)
@@ -58,15 +61,23 @@ class LabelValueChartView<T>(context: Context, attrs: AttributeSet) : FrameLayou
         allData = items
     }
 
-    fun setValueColor(color: Int) {
-        value.setTextColor(color)
+    fun setRangeColors(calculator: ColorGradeCalculator, range: FeatureRange) {
+        this.calculator = calculator
+        this.range = range
     }
 
     fun refresh() {
         val topDataItem =
             if (allData.isEmpty()) null else allData.sortedBy(keyExtractor).reversed()[0]
-        topDataItem.let {
-            value.text = if (it != null) valueExtractor(it).toString() else ""
+        if (topDataItem == null) {
+            value.text = ""
+            value.setTextColor(context.getColor(R.color.colorOnPrimary))
+        } else {
+            val feature = valueExtractor(topDataItem)
+            value.text = feature.toString()
+            calculator?.let {
+                value.setTextColor(it.evalColor(range, feature))
+            }
         }
 
         val entries = allData.asSequence()
@@ -76,9 +87,19 @@ class LabelValueChartView<T>(context: Context, attrs: AttributeSet) : FrameLayou
                 Entry(x, y)
             }
             .toList()
+        val colors = calculator?.let { calc ->
+            entries.asSequence()
+                .map {
+                    calc.evalColor(range, it.y)
+                }
+                .toList()
+        }
         chart.data = LineData(LineDataSet(entries, "").also {
             it.setDrawCircles(false)
             it.setDrawValues(false)
+            if (colors != null) {
+//                it.colors = ColorTemplate.MATERIAL_COLORS.toList()
+            }
             it.lineWidth = 2f
             it.mode = HORIZONTAL_BEZIER
         })

@@ -45,6 +45,13 @@ class CorruptionPerceptionsCountryDetailViewModel @Inject constructor(
         return colors
     }
 
+    fun getFeatureRanges(countryCode: String): List<FeatureRange> = FEATURES_TO_SHOW.asSequence()
+        .map { feature ->
+            FEATURE_RANGE_EXTRACTORS[feature.first]!!.invoke(service)
+        }
+        .toList()
+
+
     private fun loadData() {
         allDataContainer.value = service.getAllData(country)
     }

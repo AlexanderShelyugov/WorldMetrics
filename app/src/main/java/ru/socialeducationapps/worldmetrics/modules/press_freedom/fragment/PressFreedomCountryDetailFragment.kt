@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.navigation.fragment.navArgs
 import ru.socialeducationapps.worldmetrics.adapter.IndexFeaturesRVAdapter
 import ru.socialeducationapps.worldmetrics.fragment.CountryIndexDetailFragment
+import ru.socialeducationapps.worldmetrics.modules.indexes.model.FeatureRange
 import ru.socialeducationapps.worldmetrics.modules.press_freedom.model.PressFreedomValue
 import ru.socialeducationapps.worldmetrics.modules.press_freedom.rv_adapter.PressFreedomAdapterFactory.Companion.getPressFreedomFeaturesAdapter
 import ru.socialeducationapps.worldmetrics.modules.press_freedom.viewmodel.PressFreedomCountryDetailViewModel
@@ -25,8 +26,8 @@ class PressFreedomCountryDetailFragment :
     override fun getAdapter(): IndexFeaturesRVAdapter<PressFreedomValue> =
         getPressFreedomFeaturesAdapter()
 
-    override fun getFeatureColors(): List<Int> {
+    override fun getFeatureRanges(): List<FeatureRange> {
         val model: PressFreedomCountryDetailViewModel by activityViewModels()
-        return model.getFeatureColors(getCountryCode())
+        return model.getFeatureRanges(getCountryCode())
     }
 }

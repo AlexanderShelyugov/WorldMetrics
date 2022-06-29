@@ -2,6 +2,7 @@ package ru.socialeducationapps.worldmetrics.view
 
 import android.graphics.Color
 import ru.socialeducationapps.worldmetrics.modules.indexes.model.FeatureRange
+import java.lang.Float.max
 import kotlin.math.min
 
 private typealias ColorType = Int
@@ -21,8 +22,9 @@ class ColorGradeCalculator(
         val rate = if (current.isNaN()) {
             min
         } else {
-            require(current in min..max) { "$current out of range from $min to $max" }
-            (current - min) / (max - min)
+            // Clip to bounds. Current can be out of [min; max].
+            val v = min(max(current, min), max)
+            (v - min) / (max - min)
         }
         return Color.rgb(
             mixForComponent(Color::red, rate),

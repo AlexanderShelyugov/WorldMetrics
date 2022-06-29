@@ -6,9 +6,12 @@ import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ru.socialeducationapps.worldmetrics.R
 import ru.socialeducationapps.worldmetrics.global.ColorAccess
+import ru.socialeducationapps.worldmetrics.modules.corruption_perceptions.model.CorruptionPerceptionsData
+import ru.socialeducationapps.worldmetrics.modules.democracy_index.viewmodel.DemocracyIndexCountryDetailViewModel
 import ru.socialeducationapps.worldmetrics.modules.indexes.model.FeatureRange
 import ru.socialeducationapps.worldmetrics.modules.indexes.model.SimpleCountryValue
 import ru.socialeducationapps.worldmetrics.modules.press_freedom.model.PressFreedomData
+import ru.socialeducationapps.worldmetrics.modules.press_freedom.model.PressFreedomData.Companion.FEATURES_TO_SHOW
 import ru.socialeducationapps.worldmetrics.modules.press_freedom.model.PressFreedomValue
 import ru.socialeducationapps.worldmetrics.modules.press_freedom.service.api.PressFreedomService
 import javax.inject.Inject
@@ -51,6 +54,13 @@ class PressFreedomCountryDetailViewModel @Inject constructor(
             .toList()
         return colors
     }
+
+    fun getFeatureRanges(countryCode: String): List<FeatureRange> =
+        FEATURES_TO_SHOW.asSequence()
+            .map { feature ->
+                FEATURE_RANGE_EXTRACTORS[feature.first]!!.invoke(service)
+            }
+            .toList()
 
     private fun loadData() {
         lastYearDataContainer.value = service.getLastYearData()

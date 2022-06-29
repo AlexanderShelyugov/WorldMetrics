@@ -6,7 +6,9 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import ru.socialeducationapps.worldmetrics.R
 import ru.socialeducationapps.worldmetrics.adapter.IndexFeaturesRVAdapter.LVCViewHolder
+import ru.socialeducationapps.worldmetrics.global.ColorAccess
 import ru.socialeducationapps.worldmetrics.modules.indexes.model.FeatureExtractor
+import ru.socialeducationapps.worldmetrics.modules.indexes.model.FeatureRange
 import ru.socialeducationapps.worldmetrics.view.LabelValueChartView
 
 private typealias VH<T> = LVCViewHolder<T>
@@ -18,14 +20,14 @@ class IndexFeaturesRVAdapter<T>(
 ) : Adapter<VH<T>>() {
 
     private var items: List<T> = emptyList()
-    private var valueColors: List<Int> = emptyList()
+    private var ranges: List<FeatureRange> = emptyList()
 
     fun setData(data: List<T>) {
         items = data
     }
 
-    fun setValueColors(colors: List<Int>) {
-        valueColors = colors
+    fun setFeatureRanges(ranges: List<FeatureRange>) {
+        this.ranges = ranges
     }
 
     class LVCViewHolder<T>(
@@ -46,8 +48,8 @@ class IndexFeaturesRVAdapter<T>(
     override fun onBindViewHolder(holder: VH<T>, position: Int) {
         holder.lcv.run {
             setLabelText(featureName(position))
-            if (valueColors.isNotEmpty()) {
-                setValueColor(valueColors[position])
+            if (ranges.isNotEmpty()) {
+                setRangeColors(ColorAccess.DEFAULT_COLOR_CALCULATOR, ranges[position])
             }
             featureExtractors(position).run {
                 setExtractors(first, second)

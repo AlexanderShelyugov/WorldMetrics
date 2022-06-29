@@ -8,6 +8,7 @@ import ru.socialeducationapps.worldmetrics.fragment.CountryIndexDetailFragment
 import ru.socialeducationapps.worldmetrics.modules.corruption_perceptions.model.CorruptionPerceptionsValue
 import ru.socialeducationapps.worldmetrics.modules.corruption_perceptions.rv_adapter.CorruptionPerceptionsAdapterFactory.Companion.getCorruptionPerceptionsFeaturesAdapter
 import ru.socialeducationapps.worldmetrics.modules.corruption_perceptions.viewmodel.CorruptionPerceptionsCountryDetailViewModel
+import ru.socialeducationapps.worldmetrics.modules.indexes.model.FeatureRange
 
 class CorruptionPerceptionsCountryDetailFragment :
     CountryIndexDetailFragment<CorruptionPerceptionsValue>() {
@@ -25,8 +26,8 @@ class CorruptionPerceptionsCountryDetailFragment :
     override fun getAdapter(): IndexFeaturesRVAdapter<CorruptionPerceptionsValue> =
         getCorruptionPerceptionsFeaturesAdapter()
 
-    override fun getFeatureColors(): List<Int> {
+    override fun getFeatureRanges(): List<FeatureRange> {
         val model: CorruptionPerceptionsCountryDetailViewModel by activityViewModels()
-        return model.getFeatureColors(getCountryCode())
+        return model.getFeatureRanges(getCountryCode())
     }
 }

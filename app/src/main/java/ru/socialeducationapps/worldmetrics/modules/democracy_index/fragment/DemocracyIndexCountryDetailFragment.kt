@@ -8,6 +8,7 @@ import ru.socialeducationapps.worldmetrics.fragment.CountryIndexDetailFragment
 import ru.socialeducationapps.worldmetrics.modules.democracy_index.model.DemocracyIndexValue
 import ru.socialeducationapps.worldmetrics.modules.democracy_index.rv_adapter.DemocracyIndexAdapterFactory.Companion.getDemocracyIndexFeaturesAdapter
 import ru.socialeducationapps.worldmetrics.modules.democracy_index.viewmodel.DemocracyIndexCountryDetailViewModel
+import ru.socialeducationapps.worldmetrics.modules.indexes.model.FeatureRange
 
 class DemocracyIndexCountryDetailFragment :
     CountryIndexDetailFragment<DemocracyIndexValue>() {
@@ -25,8 +26,8 @@ class DemocracyIndexCountryDetailFragment :
     override fun getAdapter(): IndexFeaturesRVAdapter<DemocracyIndexValue> =
         getDemocracyIndexFeaturesAdapter()
 
-    override fun getFeatureColors(): List<Int> {
+    override fun getFeatureRanges(): List<FeatureRange> {
         val model: DemocracyIndexCountryDetailViewModel by activityViewModels()
-        return model.getFeatureColors(getCountryCode())
+        return model.getFeatureRanges(getCountryCode())
     }
 }
