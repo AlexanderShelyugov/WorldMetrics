@@ -9,6 +9,7 @@
     <dimen name="spacing_small">4dp</dimen>
     <dimen name="spacing_middle">8dp</dimen>
     <dimen name="spacing_large">12dp</dimen>
+    <dimen name="spacing_extra_large">20dp</dimen>
 
     <dimen name="index_value_chart_height">80dp</dimen>
 

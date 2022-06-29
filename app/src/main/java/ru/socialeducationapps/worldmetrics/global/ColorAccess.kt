@@ -4,6 +4,7 @@ import android.graphics.BlendMode
 import android.graphics.BlendModeColorFilter
 import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
+import android.icu.lang.UCharacter.DecompositionType.SUB
 import android.os.Build
 import androidx.core.content.ContextCompat
 import ru.socialeducationapps.worldmetrics.R
@@ -20,9 +21,10 @@ class ColorAccess private constructor() {
 
         fun setColorFilter(drawable: Drawable, color: Int) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                drawable.colorFilter = BlendModeColorFilter(color, BlendMode.SRC_ATOP)
+                drawable.colorFilter = BlendModeColorFilter(color, BlendMode.MULTIPLY)
             } else {
-                drawable.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
+                ToastHelper.show("This is a backup color filter")
+                drawable.setColorFilter(color, PorterDuff.Mode.MULTIPLY)
             }
         }
     }
