@@ -22,10 +22,11 @@ class ShaderToyRenderer(shaderId: Int) : GLSurfaceView.Renderer {
         GLES20.glViewport(0, 0, width, height)
         this.width = width
         this.height = height
+        draw.resize(width, height)
     }
 
     override fun onDrawFrame(unused: GL10) {
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT)
-        draw.draw(width, height)
+        draw.draw()
     }
 }

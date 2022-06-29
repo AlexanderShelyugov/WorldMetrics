@@ -67,6 +67,12 @@ class AboutMeActivity : AppCompatActivity(R.layout.about_me_activity) {
         Glide.with(this)
             .load(R.raw.snoop_dogg_dance)
             .into(findViewById(R.id.iv_snoop_dogg))
+        Glide.with(this)
+            .load(R.raw.rarity_snoop_dance)
+            .into(findViewById(R.id.iv_rarity))
+        Glide.with(this)
+            .load(R.raw.retro)
+            .into(findViewById(R.id.iv_background))
     }
 }
 

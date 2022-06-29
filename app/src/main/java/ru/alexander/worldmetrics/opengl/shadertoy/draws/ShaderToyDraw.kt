@@ -7,7 +7,7 @@ import ru.alexander.worldmetrics.opengl.GLESHelper.Companion.COORDS_PER_VERTEX_2
 import ru.alexander.worldmetrics.opengl.GLESHelper.Companion.VARIABLE_POSITION
 import ru.alexander.worldmetrics.opengl.GLESHelper.Companion.coordsToByteBuffer
 import ru.alexander.worldmetrics.opengl.PlaybackTimer
-import ru.alexander.worldmetrics.opengl.RedrawCountHelper
+import ru.alexander.worldmetrics.opengl.shadertoy.ShaderToyHelper.Companion.VARIABLE_FRAME
 import ru.alexander.worldmetrics.opengl.shadertoy.ShaderToyHelper.Companion.VARIABLE_RESOLUTION
 import ru.alexander.worldmetrics.opengl.shadertoy.ShaderToyHelper.Companion.VARIABLE_TIME
 import ru.alexander.worldmetrics.opengl.shadertoy.ShaderToyHelper.Companion.createOpenGLESProgram
@@ -42,12 +42,7 @@ class ShaderToyDraw(private val shaderId: Int) {
             POSITION_BUFFER,
             OPTIMIZATION_METHOD
         )
-    }
 
-    fun draw(width: Int, height: Int) {
-        val playbackTime = playbackTimer.check()
-
-        // Add program to OpenGL ES environment
         GLES20.glUseProgram(mProgram)
         GLES20.glGetAttribLocation(mProgram, VARIABLE_POSITION).also {
             // Enable a handle to the triangle vertices
@@ -62,18 +57,46 @@ class ShaderToyDraw(private val shaderId: Int) {
                 0
             )
 
-            GLES20.glGetUniformLocation(mProgram, VARIABLE_TIME).also { handle ->
-                GLES20.glUniform1f(handle, playbackTime)
-            }
+            GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP, 0, VERTEX_COUNT)
+
+            GLES20.glDisableVertexAttribArray(it)
+        }
+    }
+
+    fun resize(width: Int, height: Int) {
+        GLES20.glUseProgram(mProgram)
+        GLES20.glGetAttribLocation(mProgram, VARIABLE_POSITION).also {
+            // Enable a handle to the triangle vertices
+            GLES20.glEnableVertexAttribArray(it)
 
             GLES20.glGetUniformLocation(mProgram, VARIABLE_RESOLUTION).also { handle ->
                 GLES20.glUniform3f(handle, width.toFloat(), height.toFloat(), 0f)
+            }
+
+            GLES20.glDisableVertexAttribArray(it)
+        }
+    }
+
+    fun draw() {
+        val playbackTime = playbackTimer.check()
+        val frame = playbackTimer.currentFrame()
+
+        // Add program to OpenGL ES environment
+        GLES20.glUseProgram(mProgram)
+        GLES20.glGetAttribLocation(mProgram, VARIABLE_POSITION).also {
+            // Enable a handle to the triangle vertices
+            GLES20.glEnableVertexAttribArray(it)
+
+            GLES20.glGetUniformLocation(mProgram, VARIABLE_TIME).also { handle ->
+                GLES20.glUniform1f(handle, playbackTime)
+            }
+            GLES20.glGetUniformLocation(mProgram, VARIABLE_FRAME).also { handle ->
+                GLES20.glUniform1i(handle, frame)
             }
 
             GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP, 0, VERTEX_COUNT)
 
             GLES20.glDisableVertexAttribArray(it)
         }
-        RedrawCountHelper.triggerRedraw()
     }
 }

@@ -8,7 +8,23 @@
     <ru.alexander.worldmetrics.opengl.OpenGLView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:shader="@raw/star_nest" />
+        android:visibility="gone"
+        app:shader="@raw/small_stars" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        android:orientation="vertical"
+        android:weightSum="100">
+
+        <ImageView
+            android:id="@+id/iv_background"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:scaleType="fitXY"
+            android:layout_weight="33" />
+    </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -98,18 +114,42 @@
     </ScrollView>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:gravity="bottom"
-        android:orientation="vertical"
-        android:weightSum="100">
+        android:layout_gravity="bottom|end"
+        android:gravity="end"
+        android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/iv_snoop_dogg"
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_gravity="bottom|right"
-            android:layout_marginEnd="@dimen/button_size_large"
-            android:layout_weight="20" />
+            android:layout_height="match_parent"
+            android:layout_marginEnd="@dimen/spacing_middle"
+            android:gravity="bottom"
+            android:orientation="vertical"
+            android:weightSum="100">
+
+            <ImageView
+                android:id="@+id/iv_rarity"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_gravity="bottom|right"
+                android:layout_weight="18" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="@dimen/spacing_large"
+            android:gravity="bottom"
+            android:orientation="vertical"
+            android:weightSum="100">
+
+            <ImageView
+                android:id="@+id/iv_snoop_dogg"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_gravity="bottom|right"
+                android:layout_weight="22" />
+        </LinearLayout>
     </LinearLayout>
 </FrameLayout>

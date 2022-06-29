@@ -9,6 +9,7 @@ import ru.alexander.worldmetrics.opengl.shadertoy.renderer.ShaderToyRenderer
 class ShaderToyHelper private constructor() {
     companion object {
         const val VARIABLE_TIME = "iTime"
+        const val VARIABLE_FRAME = "iFrame"
         const val VARIABLE_RESOLUTION = "iResolution"
 
         private const val SHADER_PREFIX = "precision highp float;\n" +
