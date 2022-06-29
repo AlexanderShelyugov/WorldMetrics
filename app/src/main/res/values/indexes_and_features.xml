@@ -31,7 +31,7 @@
     <string name="press_freedom_social_context">Social context</string>
     <string name="press_freedom_safety">Safety</string>
 
-    <!-- Ecomonic indexes -->
+    <!-- Economic indexes -->
     <string name="index_group_name_economic">Economic</string>
     <color name="index_group_color_economic">#FFECB3</color>
     <color name="index_group_color_item_economic">#FFA000</color>
