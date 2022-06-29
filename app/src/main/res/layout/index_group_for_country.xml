@@ -36,6 +36,7 @@
         android:layout_height="wrap_content"
         android:fadingEdgeLength="@dimen/spacing_middle"
         android:orientation="horizontal"
+        android:overScrollMode="never"
         android:requiresFadingEdge="horizontal"
         app:layoutManager="ru.alexander.worldmetrics.adapter.WrapContentLinearLayoutManager"
         app:layout_constraintStart_toStartOf="parent"

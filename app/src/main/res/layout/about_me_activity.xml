@@ -37,8 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="@dimen/spacing_large"
-            android:paddingBottom="@dimen/index_list_item_width">
+            android:padding="@dimen/spacing_large">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -112,6 +111,10 @@
             <include
                 android:id="@+id/cl_my_peopleperhour"
                 layout="@layout/contact_item_layout" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="200dp" />
         </LinearLayout>
     </ScrollView>
 
