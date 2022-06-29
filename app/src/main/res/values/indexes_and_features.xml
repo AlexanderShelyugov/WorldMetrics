@@ -32,10 +32,10 @@
     <string name="press_freedom_safety">Safety</string>
 
     <!-- Ecomonic indexes -->
-    <string name="index_group_name_economic">Economics</string>
+    <string name="index_group_name_economic">Economic</string>
     <color name="index_group_color_economic">#FFECB3</color>
     <color name="index_group_color_item_economic">#FFA000</color>
 
     <string name="index_name_gdp">GDP</string>
-    <string name="index_name_some_business">Some index business</string>
+    <string name="index_name_some_business">Some business index</string>
 </resources>

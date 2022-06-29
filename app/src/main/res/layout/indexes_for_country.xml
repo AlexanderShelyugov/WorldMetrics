@@ -11,5 +11,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/index_for_country_item_background"
         android:orientation="vertical"
-        android:paddingVertical="@dimen/spacing_large" />
+        android:paddingVertical="@dimen/spacing_large"
+        android:paddingStart="@dimen/spacing_extra_large"
+        android:paddingEnd="@dimen/spacing_large" />
 </FrameLayout>
