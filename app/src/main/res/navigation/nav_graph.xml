@@ -6,11 +6,11 @@
 
     <activity
         android:id="@+id/activityAboutMe"
-        android:name="ru.alexander.worldmetrics.activity.AboutMeActivity"
+        android:name="ru.socialeducationapps.worldmetrics.activity.AboutMeActivity"
         android:label="AboutMeActivity" />
     <fragment
         android:id="@+id/homeScreenFragment"
-        android:name="ru.alexander.worldmetrics.fragment.home_screen.HomeScreenFragment"
+        android:name="ru.socialeducationapps.worldmetrics.fragment.home_screen.HomeScreenFragment"
         android:label="All indexes overview fragment">
         <action
             android:id="@+id/action_homeScreen_to_countryDetect"
@@ -64,7 +64,7 @@
     </fragment>
     <fragment
         android:id="@+id/democracyIndexOverviewFragment"
-        android:name="ru.alexander.worldmetrics.modules.democracy_index.fragment.DemocracyIndexCountryListFragment"
+        android:name="ru.socialeducationapps.worldmetrics.modules.democracy_index.fragment.DemocracyIndexCountryListFragment"
         android:label="Democracy index overview fragment">
         <action
             android:id="@+id/action_democracyIndexOverview_to_democracyIndexCountryDetail"
@@ -76,7 +76,7 @@
     </fragment>
     <fragment
         android:id="@+id/corruptionPerceptionsOverviewFragment"
-        android:name="ru.alexander.worldmetrics.modules.corruption_perceptions.fragment.CorruptionPerceptionsCountryListFragment"
+        android:name="ru.socialeducationapps.worldmetrics.modules.corruption_perceptions.fragment.CorruptionPerceptionsCountryListFragment"
         android:label="Corruption perceptions overview fragment">
         <action
             android:id="@+id/action_corruptionPerceptionsOverview_to_corruptionPerceptionsCountryDetail"
@@ -88,7 +88,7 @@
     </fragment>
     <fragment
         android:id="@+id/pressFreedomOverviewFragment"
-        android:name="ru.alexander.worldmetrics.modules.press_freedom.fragment.PressFreedomCountryListFragment"
+        android:name="ru.socialeducationapps.worldmetrics.modules.press_freedom.fragment.PressFreedomCountryListFragment"
         android:label="Press freedom overview fragment">
         <action
             android:id="@+id/action_pressFreedomOverview_to_pressFreedomCountryDetail"
@@ -100,7 +100,7 @@
     </fragment>
     <fragment
         android:id="@+id/democracyIndexCountryDetailFragment"
-        android:name="ru.alexander.worldmetrics.modules.democracy_index.fragment.DemocracyIndexCountryDetailFragment"
+        android:name="ru.socialeducationapps.worldmetrics.modules.democracy_index.fragment.DemocracyIndexCountryDetailFragment"
         android:label="Democracy Index country detail fragment">
         <argument
             android:name="countryCode"
@@ -108,7 +108,7 @@
     </fragment>
     <fragment
         android:id="@+id/corruptionPerceptionsCountryDetailFragment"
-        android:name="ru.alexander.worldmetrics.modules.corruption_perceptions.fragment.CorruptionPerceptionsCountryDetailFragment"
+        android:name="ru.socialeducationapps.worldmetrics.modules.corruption_perceptions.fragment.CorruptionPerceptionsCountryDetailFragment"
         android:label="Corruption perceptions country detail fragment">
         <argument
             android:name="countryCode"
@@ -116,7 +116,7 @@
     </fragment>
     <fragment
         android:id="@+id/pressFreedomCountryDetailFragment"
-        android:name="ru.alexander.worldmetrics.modules.press_freedom.fragment.PressFreedomCountryDetailFragment"
+        android:name="ru.socialeducationapps.worldmetrics.modules.press_freedom.fragment.PressFreedomCountryDetailFragment"
         android:label="Press freedom country detail fragment">
         <argument
             android:name="countryCode"
@@ -124,11 +124,11 @@
     </fragment>
     <fragment
         android:id="@+id/countryDetectFragment"
-        android:name="ru.alexander.worldmetrics.fragment.CountryDetectFragment"
+        android:name="ru.socialeducationapps.worldmetrics.fragment.CountryDetectFragment"
         android:label="CountryDetectFragment" />
     <fragment
         android:id="@+id/countryOverviewFragment"
-        android:name="ru.alexander.worldmetrics.modules.country_overview.fragment.CountryOverviewFragment"
+        android:name="ru.socialeducationapps.worldmetrics.modules.country_overview.fragment.CountryOverviewFragment"
         android:label="CountryOverviewFragment">
         <argument
             android:name="countryCode"
@@ -136,14 +136,14 @@
     </fragment>
     <fragment
         android:id="@+id/toBeImplementedFragment"
-        android:name="ru.alexander.worldmetrics.fragment.ToBeImplementedFragment"
+        android:name="ru.socialeducationapps.worldmetrics.fragment.ToBeImplementedFragment"
         android:label="ToBeImplementedFragment" />
     <action
         android:id="@+id/action_global_toBeImplementedFragment"
         app:destination="@id/toBeImplementedFragment" />
     <fragment
         android:id="@+id/globalOverviewFragment"
-        android:name="ru.alexander.worldmetrics.fragment.GlobalOverviewFragment"
+        android:name="ru.socialeducationapps.worldmetrics.fragment.GlobalOverviewFragment"
         android:label="GlobalOverviewFragment">
         <action
             android:id="@+id/action_globalOverviewFragment_to_corruptionPerceptionsOverviewFragment"

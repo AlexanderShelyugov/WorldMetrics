@@ -19,12 +19,12 @@
             android:paddingBottom="200dp">
 
             <fragment
-                class="ru.alexander.worldmetrics.fragment.home_screen.YourCountryFragment"
+                class="ru.socialeducationapps.worldmetrics.fragment.home_screen.YourCountryFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
             <fragment
-                class="ru.alexander.worldmetrics.fragment.home_screen.IndexesForCountryFragment"
+                class="ru.socialeducationapps.worldmetrics.fragment.home_screen.IndexesForCountryFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </LinearLayout>
