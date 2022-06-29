@@ -4,7 +4,7 @@ on:
     branches:
       - main
 jobs:
-  tests:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -14,4 +14,4 @@ jobs:
         with:
           java-version: 11
       - name: Build
-        run: bash ./gradleW assembleDebug
+        run: bash gradlew assembleDebug
