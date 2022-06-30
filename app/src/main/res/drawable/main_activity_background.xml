@@ -12,7 +12,7 @@
         android:width="400dp"
         android:height="400dp"
         android:start="-100dp"
-        android:top="-150dp">
+        android:top="-100dp">
         <rotate
             android:fromDegrees="40"
             android:pivotX="50%"
@@ -24,9 +24,9 @@
                     android:angle="270"
                     android:centerX="1"
                     android:centerY="1"
-                    android:endColor="#ff85af"
+                    android:endColor="@color/pink_primary"
                     android:gradientRadius="90%"
-                    android:startColor="#ff43c4"
+                    android:startColor="@color/pink_blur"
                     android:type="radial" />
             </shape>
         </rotate>

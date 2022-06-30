@@ -17,6 +17,8 @@
     <color name="purple_700">#FF3700B3</color>
     <color name="purple_dark">#25243b</color>
     <color name="purple_middle">#333362</color>
+    <color name="pink_primary">#ff85af</color>
+    <color name="pink_blur">#ff43c4</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="white_transparent_25">#40FFFFFF</color>
