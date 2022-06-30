@@ -33,14 +33,12 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/mb_global_overview"
-        style="@style/Widget.MaterialComponents.Button.Icon"
         android:layout_width="@dimen/button_size_large"
         android:layout_height="@dimen/button_size_large"
         android:layout_gravity="bottom|right"
         android:layout_marginEnd="@dimen/spacing_large"
         android:layout_marginBottom="@dimen/spacing_large"
         android:contentDescription="@string/global_lookup"
-        android:gravity="center"
         android:insetLeft="0dp"
         android:insetTop="0dp"
         android:insetRight="0dp"
@@ -49,5 +47,6 @@
         app:cornerRadius="@dimen/button_circle_radius_large"
         app:icon="@drawable/ic_global"
         app:iconGravity="textStart"
+        app:iconPadding="0dp"
         app:iconSize="@dimen/button_circle_radius_large" />
 </FrameLayout>
