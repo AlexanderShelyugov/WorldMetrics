@@ -130,7 +130,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fadingEdgeLength="@dimen/spacing_large"
-        android:requiresFadingEdge="vertical"
+        android:requiresFadingEdge="none"
+        android:scrollbars="none"
         android:visibility="gone"
         app:layoutManager="ru.socialeducationapps.worldmetrics.adapter.WrapContentLinearLayoutManager" />
 </FrameLayout>

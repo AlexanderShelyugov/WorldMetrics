@@ -23,7 +23,6 @@ class ColorAccess private constructor() {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 drawable.colorFilter = BlendModeColorFilter(color, BlendMode.MULTIPLY)
             } else {
-                ToastHelper.show("This is a backup color filter")
                 drawable.setColorFilter(color, PorterDuff.Mode.MULTIPLY)
             }
         }

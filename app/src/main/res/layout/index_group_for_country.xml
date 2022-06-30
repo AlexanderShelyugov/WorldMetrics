@@ -36,6 +36,7 @@
         android:fadingEdgeLength="@dimen/spacing_middle"
         android:orientation="horizontal"
         android:requiresFadingEdge="horizontal"
+        android:scrollbars="none"
         app:layoutManager="ru.socialeducationapps.worldmetrics.adapter.WrapContentLinearLayoutManager"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ib_go_to_index_group" />
