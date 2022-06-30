@@ -57,7 +57,7 @@ class YourCountryFragment : Fragment(R.layout.your_country_fragment) {
                 text = getString(R.string.consider_searching_your_country)
                 visibility = VISIBLE
             }
-            countryDetect.setImageResource(R.drawable.action_wizard)
+            countryDetect.setImageResource(R.drawable.search_icon)
         } else {
             countryName = getNameByCode(countryCode)
             locationMarker.setImageResource(R.drawable.geolocation_marker)
