@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">@color/purple_500</color>
-    <color name="colorPrimaryVariant">@color/purple_700</color>
-    <color name="colorOnPrimary">@android:color/white</color>
-    <color name="colorSecondary">@color/teal_200</color>
-    <color name="colorSecondaryVariant">@color/teal_700</color>
-    <color name="colorOnSecondary">@android:color/black</color>
+    <color name="colorPrimary">@color/purple_middle</color>
+    <color name="colorPrimaryVariant">@color/purple_dark</color>
+    <color name="colorOnPrimary">#EEE</color>
+    <color name="colorSecondary">@color/pink_primary</color>
+    <color name="colorSecondaryVariant">@color/pink_blur</color>
+    <color name="colorOnSecondary">#202020</color>
 
     <color name="background_holo_dark">#ff000000</color>
     <color name="holo_blue_bright">#ff00ddff</color>

@@ -4,8 +4,8 @@
         <shape>
             <gradient
                 android:angle="270"
-                android:endColor="@color/purple_middle"
-                android:startColor="@color/purple_dark" />
+                android:endColor="@color/colorPrimary"
+                android:startColor="@color/colorPrimaryVariant" />
         </shape>
     </item>
     <item
@@ -24,9 +24,9 @@
                     android:angle="270"
                     android:centerX="1"
                     android:centerY="1"
-                    android:endColor="@color/pink_primary"
+                    android:endColor="@color/colorSecondary"
                     android:gradientRadius="90%"
-                    android:startColor="@color/pink_blur"
+                    android:startColor="@color/colorSecondaryVariant"
                     android:type="radial" />
             </shape>
         </rotate>

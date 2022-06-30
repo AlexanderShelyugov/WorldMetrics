@@ -50,7 +50,7 @@ class AboutMeActivity : AppCompatActivity(R.layout.about_me_activity) {
             val container = findViewById<View>(id)!!
             container.findViewById<ImageView>(R.id.iv_icon)
                 .setImageResource(contact.icon)
-            val name = getString(contact.name)
+            val name = getString(contact.name).uppercase()
             val url = getString(contact.url)
             container.findViewById<TextView>(R.id.tv_contact_name).text = name
             container.findViewById<ImageButton>(R.id.ib_copy).setOnClickListener {

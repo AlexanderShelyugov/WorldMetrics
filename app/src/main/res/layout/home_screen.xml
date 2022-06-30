@@ -38,6 +38,7 @@
         android:layout_gravity="bottom|right"
         android:layout_marginEnd="@dimen/spacing_large"
         android:layout_marginBottom="@dimen/spacing_large"
+        android:backgroundTint="@color/colorSecondary"
         android:contentDescription="@string/global_lookup"
         android:insetLeft="0dp"
         android:insetTop="0dp"
