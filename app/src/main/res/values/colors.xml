@@ -30,7 +30,7 @@
     <color name="yellow_pale_transparent">#77FFFFA7</color>
     <color name="orange">#FFC300</color>
     <color name="orange_transparent">#99FFC300</color>
-    <color name="icons_color">@android:color/white</color>
+    <color name="icons_color">@color/colorOnPrimary</color>
 
     <color name="value_range_min">@android:color/holo_red_light</color>
     <color name="value_range_max">#0A0</color>
