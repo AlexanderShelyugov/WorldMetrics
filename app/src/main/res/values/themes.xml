@@ -38,8 +38,6 @@
     <style name="Theme.WorldMetrics.AboutMe" parent="Theme.WorldMetrics">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="tint">@null</item>
-        <item name="android:tint" tools:ignore="NewApi">@null</item>
         <item name="iconTint">@null</item>
         <item name="android:iconTint" tools:ignore="NewApi">@null</item>
     </style>
