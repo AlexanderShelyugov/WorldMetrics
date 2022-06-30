@@ -1,11 +1,6 @@
 package ru.socialeducationapps.worldmetrics.global
 
-import android.graphics.BlendMode
-import android.graphics.BlendModeColorFilter
-import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
-import android.icu.lang.UCharacter.DecompositionType.SUB
-import android.os.Build
 import androidx.core.content.ContextCompat
 import ru.socialeducationapps.worldmetrics.R
 import ru.socialeducationapps.worldmetrics.global.ContextAccess.Companion.context
@@ -20,11 +15,7 @@ class ColorAccess private constructor() {
         fun getColor(colorId: Int) = ContextCompat.getColor(context, colorId)
 
         fun setColorFilter(drawable: Drawable, color: Int) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                drawable.colorFilter = BlendModeColorFilter(color, BlendMode.MULTIPLY)
-            } else {
-                drawable.setColorFilter(color, PorterDuff.Mode.MULTIPLY)
-            }
+            drawable.setTint(color)
         }
     }
 }

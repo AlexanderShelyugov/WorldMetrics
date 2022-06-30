@@ -26,13 +26,12 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         android:background="@android:color/transparent"
         android:fadingEdgeLength="@dimen/button_size_middle"
         android:overScrollMode="never"
-        android:scrollbars="none"
         android:requiresFadingEdge="vertical"
-        app:layout_constraintBottom_toTopOf="@id/v_background_shadow"
+        android:scrollbars="none"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -115,6 +114,10 @@
             <include
                 android:id="@+id/cl_my_peopleperhour"
                 layout="@layout/contact_item_layout" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="400dp" />
         </LinearLayout>
     </ScrollView>
 
