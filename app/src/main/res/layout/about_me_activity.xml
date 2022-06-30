@@ -30,6 +30,7 @@
         android:background="@android:color/transparent"
         android:fadingEdgeLength="@dimen/button_size_middle"
         android:overScrollMode="never"
+        android:scrollbars="none"
         android:requiresFadingEdge="vertical"
         app:layout_constraintBottom_toTopOf="@id/v_background_shadow"
         app:layout_constraintStart_toStartOf="parent"
