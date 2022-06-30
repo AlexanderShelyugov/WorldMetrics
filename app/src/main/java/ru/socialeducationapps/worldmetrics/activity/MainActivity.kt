@@ -17,6 +17,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fcv_nav_host_container) as NavHostFragment
         navigationController = navHostFragment.navController
+        supportActionBar?.setDisplayShowTitleEnabled(false)
     }
 
     override fun onResume() {
