@@ -60,7 +60,7 @@ class CountriesData private constructor() {
             "chn" to R.string.country_name_china,
             "civ" to R.string.country_name_cote_d_ivoire,
             "cmr" to R.string.country_name_cameroon,
-            "cod" to R.string.country_name_congo,
+            "cod" to R.string.country_name_congo_democratic,
             "cog" to R.string.country_name_congo,
             "col" to R.string.country_name_colombia,
             "com" to R.string.country_name_comoros,
