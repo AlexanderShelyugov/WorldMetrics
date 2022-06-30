@@ -57,7 +57,7 @@
             <ImageView
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:layout_gravity="bottom|left"
+                android:layout_gravity="bottom|start"
                 android:layout_marginStart="@dimen/button_size_middle"
                 android:layout_marginBottom="@dimen/spacing_large"
                 android:src="@drawable/search_icon"
@@ -83,7 +83,7 @@
             <ImageView
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:layout_gravity="bottom|left"
+                android:layout_gravity="bottom|start"
                 android:layout_marginStart="@dimen/button_size_middle"
                 android:layout_marginBottom="@dimen/spacing_large"
                 android:src="@drawable/geolocation_marker"
@@ -110,7 +110,7 @@
             <ImageView
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:layout_gravity="bottom|left"
+                android:layout_gravity="bottom|start"
                 android:layout_marginStart="@dimen/button_size_middle"
                 android:layout_marginBottom="@dimen/spacing_large"
                 android:src="@drawable/ic_baseline_cell_tower_64"

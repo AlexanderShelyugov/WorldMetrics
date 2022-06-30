@@ -87,19 +87,10 @@ class LabelValueChartView<T>(context: Context, attrs: AttributeSet) : FrameLayou
                 Entry(x, y)
             }
             .toList()
-        val colors = calculator?.let { calc ->
-            entries.asSequence()
-                .map {
-                    calc.evalColor(range, it.y)
-                }
-                .toList()
-        }
         chart.data = LineData(LineDataSet(entries, "").also {
             it.setDrawCircles(false)
             it.setDrawValues(false)
-            if (colors != null) {
-//                it.colors = ColorTemplate.MATERIAL_COLORS.toList()
-            }
+            it.color = context.getColor(R.color.holo_blue_bright)
             it.lineWidth = 2f
             it.mode = HORIZONTAL_BEZIER
         })
