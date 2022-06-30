@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavDirections
@@ -30,11 +31,12 @@ class IndexesForCountryFragment : Fragment(R.layout.indexes_for_country) {
         contentContainer = requireView().findViewById(R.id.ll_indexes)
         model.currentCountryCode.observe(viewLifecycleOwner) { countryCode ->
             contentContainer.removeAllViews()
-            if (countryCode == null || countryCode.isBlank()) {
-                return@observe
+            val someCountrySelected = countryCode?.isNotBlank() ?: false
+            contentContainer.isVisible = someCountrySelected
+            if (someCountrySelected) {
+                val actions = getIndexesActions(countryCode)
+                ALL_INDEXES.forEach { addIndexGroup(it, actions) }
             }
-            val actions = getIndexesActions(countryCode)
-            ALL_INDEXES.forEach { addIndexGroup(it, actions) }
         }
     }
 
