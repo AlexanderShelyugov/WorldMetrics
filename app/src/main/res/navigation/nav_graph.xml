@@ -140,7 +140,11 @@
         android:label="ToBeImplementedFragment" />
     <action
         android:id="@+id/action_global_toBeImplementedFragment"
-        app:destination="@id/toBeImplementedFragment" />
+        app:destination="@id/toBeImplementedFragment"
+        app:enterAnim="@anim/fade_in"
+        app:exitAnim="@anim/fade_out"
+        app:popEnterAnim="@anim/fade_in"
+        app:popExitAnim="@anim/fade_out" />
     <fragment
         android:id="@+id/globalOverviewFragment"
         android:name="ru.socialeducationapps.worldmetrics.fragment.GlobalOverviewFragment"
