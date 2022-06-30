@@ -23,14 +23,6 @@ class IndexListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             ColorAccess.setColorFilter(it, color)
         }
         return VH(view).also {
-            /*
-            it.label.setShadowLayer(
-                it.label.shadowRadius,
-                it.label.shadowDx,
-                it.label.shadowDy,
-                ctx.getColor(textColor)
-            )
-             */
             it.label.setTextColor(ctx.getColor(textColor))
         }
     }
