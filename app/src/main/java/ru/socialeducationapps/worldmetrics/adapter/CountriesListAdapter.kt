@@ -4,11 +4,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.DiffUtil.ItemCallback
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import ru.socialeducationapps.worldmetrics.R
 
-class CountriesListAdapter : FilterableSortableAdapter<CountryListAdapterItem>() {
+private typealias DataItem = CountryListAdapterItem
+
+class CountriesListAdapter : FilterableSortableAdapter<DataItem>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = LayoutInflater.from(parent.context)
             .inflate(R.layout.countries_list_item, parent, false)
@@ -29,20 +31,12 @@ class CountriesListAdapter : FilterableSortableAdapter<CountryListAdapterItem>()
         val label: TextView = view.findViewById(R.id.tv_country_name)
     ) : ViewHolder(view)
 
-    override fun getDiffCallBack(): DiffUtil.ItemCallback<CountryListAdapterItem> =
-        object : DiffUtil.ItemCallback<CountryListAdapterItem>() {
-            override fun areItemsTheSame(
-                oldItem: CountryListAdapterItem,
-                newItem: CountryListAdapterItem
-            ): Boolean = oldItem == newItem
+    override fun getDiffCallBack(): ItemCallback<DataItem> = object : ItemCallback<DataItem>() {
+        override fun areItemsTheSame(i1: DataItem, i2: DataItem) = i1.iso3Code == i2.iso3Code
+        override fun areContentsTheSame(i1: DataItem, i2: DataItem) = i1 == i2
+    }
 
-            override fun areContentsTheSame(
-                oldItem: CountryListAdapterItem,
-                newItem: CountryListAdapterItem
-            ): Boolean = oldItem.iso3Code == newItem.iso3Code
-        }
-
-    override fun search(query: String, item: CountryListAdapterItem) =
+    override fun search(query: String, item: DataItem) =
         item.name.indexOf(query, ignoreCase = true).takeIf { 0 <= it }
             ?: item.iso3Code.indexOf(query, ignoreCase = true).takeIf { 0 <= it }
                 ?.let { it + itemCount }

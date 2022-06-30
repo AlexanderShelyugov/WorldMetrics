@@ -19,8 +19,8 @@ class CountriesListWithIndexAdapter(private val onClick: (String) -> Unit) :
         val COMPARATOR_BY_NAME: Comparator<Item> = compareBy { it.name }
         val COMPARATOR_BY_VALUE: Comparator<Item> = compareBy { it.rate }
         val ITEM_CALLBACK = object : ItemCallback<Item>() {
-            override fun areContentsTheSame(i1: Item, i2: Item) = i1 == i2
             override fun areItemsTheSame(i1: Item, i2: Item) = i1.iso3Code == i2.iso3Code
+            override fun areContentsTheSame(i1: Item, i2: Item) = i1 == i2
         }
     }
 
