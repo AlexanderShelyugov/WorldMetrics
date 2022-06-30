@@ -60,7 +60,8 @@
                 android:layout_gravity="bottom|left"
                 android:layout_marginStart="@dimen/button_size_middle"
                 android:layout_marginBottom="@dimen/spacing_large"
-                android:src="@drawable/search_icon" />
+                android:src="@drawable/search_icon"
+                app:tint="@color/colorOnPrimary" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -85,7 +86,8 @@
                 android:layout_gravity="bottom|left"
                 android:layout_marginStart="@dimen/button_size_middle"
                 android:layout_marginBottom="@dimen/spacing_large"
-                android:src="@drawable/geolocation_marker" />
+                android:src="@drawable/geolocation_marker"
+                app:tint="@color/colorOnPrimary" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -111,7 +113,8 @@
                 android:layout_gravity="bottom|left"
                 android:layout_marginStart="@dimen/button_size_middle"
                 android:layout_marginBottom="@dimen/spacing_large"
-                android:src="@drawable/ic_baseline_cell_tower_64" />
+                android:src="@drawable/ic_baseline_cell_tower_64"
+                app:tint="@color/colorOnPrimary" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -126,6 +129,8 @@
         android:id="@+id/rv_countries_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fadingEdgeLength="@dimen/spacing_large"
+        android:requiresFadingEdge="vertical"
         android:visibility="gone"
         app:layoutManager="ru.socialeducationapps.worldmetrics.adapter.WrapContentLinearLayoutManager" />
 </FrameLayout>
