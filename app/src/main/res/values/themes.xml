@@ -17,8 +17,6 @@
         <!-- Action bar color -->
         <item name="android:actionBarStyle" tools:ignore="NewApi">@style/MyActionBar</item>
         <item name="actionBarStyle">@style/MyActionBar</item>
-        <item name="tint">?colorOnPrimary</item>
-        <item name="android:tint" tools:ignore="NewApi">?colorOnPrimary</item>
         <item name="iconTint">?colorOnPrimary</item>
         <item name="android:iconTint" tools:ignore="NewApi">?colorOnPrimary</item>
 
