@@ -5,6 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import ru.socialeducationapps.worldmetrics.R
 import ru.socialeducationapps.worldmetrics.modules.coroutines.api.DispatcherProvider
@@ -21,15 +24,16 @@ class DemocracyIndexCountryDetailViewModel @Inject constructor(
 ) : ViewModel() {
     private var country: String = ""
     private val _lastYearData = MutableLiveData<DemocracyIndexValue>()
-    private val _allData = MutableLiveData<List<DemocracyIndexValue>>()
+    private val _allData = MutableStateFlow<List<DemocracyIndexValue>>(emptyList())
 
     val lastYearData: LiveData<DemocracyIndexValue>
         get() = _lastYearData
             .also { loadLastYearData() }
 
-    val allData: LiveData<List<DemocracyIndexValue>>
+    val allData: StateFlow<List<DemocracyIndexValue>>
         get() = _allData
             .also { loadAllData() }
+            .asStateFlow()
 
     fun setCountry(country: String) {
         this.country = country

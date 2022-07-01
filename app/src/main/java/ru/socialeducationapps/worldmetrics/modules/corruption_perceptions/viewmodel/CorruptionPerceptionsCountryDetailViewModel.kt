@@ -1,10 +1,11 @@
 package ru.socialeducationapps.worldmetrics.modules.corruption_perceptions.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import ru.socialeducationapps.worldmetrics.R
@@ -21,38 +22,16 @@ class CorruptionPerceptionsCountryDetailViewModel @Inject constructor(
     private val dispatchers: DispatcherProvider,
 ) : ViewModel() {
     private var country: String = ""
-    private val _allData = MutableLiveData<List<CorruptionPerceptionsValue>>()
+    private val _allData = MutableStateFlow<List<CorruptionPerceptionsValue>>(emptyList())
 
     fun setCountry(country: String) {
         this.country = country
         loadData()
     }
 
-    val allData: LiveData<List<CorruptionPerceptionsValue>> = _allData
+    val allData: StateFlow<List<CorruptionPerceptionsValue>> = _allData
         .also { loadData() }
-
-    /*
-    fun getFeatureColors(countryCode: String): List<Int> {
-        viewModelScope.launch(dispatchers.io) {
-            val extractors = FEATURES_TO_SHOW.asSequence()
-                .map { feature ->
-                    FEATURE_RANGE_EXTRACTORS[feature.first]!!.invoke(service) to feature.second
-                }
-                .toList()
-            val lastYearData = service.getLastYearData(countryCode)
-            val colors = extractors.asSequence()
-                .map {
-                    DEFAULT_COLOR_CALCULATOR.evalColor(
-                        it.first, it.second(lastYearData)
-                    )
-                }
-                .toList()
-        }
-
-
-        return colors
-    }
-     */
+        .asStateFlow()
 
     fun getFeatureRanges(countryCode: String): List<FeatureRange> = FEATURES_TO_SHOW.asSequence()
         .map { feature ->

@@ -1,8 +1,8 @@
 package ru.socialeducationapps.worldmetrics.modules.democracy_index.fragment
 
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.LiveData
 import androidx.navigation.fragment.navArgs
+import kotlinx.coroutines.flow.Flow
 import ru.socialeducationapps.worldmetrics.adapter.IndexFeaturesRVAdapter
 import ru.socialeducationapps.worldmetrics.fragment.CountryIndexDetailFragment
 import ru.socialeducationapps.worldmetrics.modules.democracy_index.model.DemocracyIndexValue
@@ -17,7 +17,7 @@ class DemocracyIndexCountryDetailFragment :
         return args.countryCode
     }
 
-    override fun getData(): LiveData<List<DemocracyIndexValue>> {
+    override fun getData(): Flow<List<DemocracyIndexValue>> {
         val model: DemocracyIndexCountryDetailViewModel by activityViewModels()
         model.setCountry(getCountryCode())
         return model.allData

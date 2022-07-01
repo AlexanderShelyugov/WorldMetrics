@@ -1,8 +1,8 @@
 package ru.socialeducationapps.worldmetrics.modules.corruption_perceptions.fragment
 
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.LiveData
 import androidx.navigation.fragment.navArgs
+import kotlinx.coroutines.flow.Flow
 import ru.socialeducationapps.worldmetrics.adapter.IndexFeaturesRVAdapter
 import ru.socialeducationapps.worldmetrics.fragment.CountryIndexDetailFragment
 import ru.socialeducationapps.worldmetrics.modules.corruption_perceptions.model.CorruptionPerceptionsValue
@@ -17,7 +17,7 @@ class CorruptionPerceptionsCountryDetailFragment :
         return args.countryCode
     }
 
-    override fun getData(): LiveData<List<CorruptionPerceptionsValue>> {
+    override fun getData(): Flow<List<CorruptionPerceptionsValue>> {
         val model: CorruptionPerceptionsCountryDetailViewModel by activityViewModels()
         model.setCountry(getCountryCode())
         return model.allData

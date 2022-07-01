@@ -24,10 +24,12 @@ class IndexFeaturesRVAdapter<T>(
 
     fun setData(data: List<T>) {
         items = data
+        notifyItemRangeChanged(0, itemCount)
     }
 
     fun setFeatureRanges(ranges: List<FeatureRange>) {
         this.ranges = ranges
+        notifyItemRangeChanged(0, itemCount)
     }
 
     class LVCViewHolder<T>(
