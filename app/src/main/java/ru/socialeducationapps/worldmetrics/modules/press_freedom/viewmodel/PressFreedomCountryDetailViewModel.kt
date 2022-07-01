@@ -3,14 +3,13 @@ package ru.socialeducationapps.worldmetrics.modules.press_freedom.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import ru.socialeducationapps.worldmetrics.R
-import ru.socialeducationapps.worldmetrics.global.ColorAccess
-import ru.socialeducationapps.worldmetrics.modules.corruption_perceptions.model.CorruptionPerceptionsData
-import ru.socialeducationapps.worldmetrics.modules.democracy_index.viewmodel.DemocracyIndexCountryDetailViewModel
+import ru.socialeducationapps.worldmetrics.modules.coroutines.api.DispatcherProvider
 import ru.socialeducationapps.worldmetrics.modules.indexes.model.FeatureRange
 import ru.socialeducationapps.worldmetrics.modules.indexes.model.SimpleCountryValue
-import ru.socialeducationapps.worldmetrics.modules.press_freedom.model.PressFreedomData
 import ru.socialeducationapps.worldmetrics.modules.press_freedom.model.PressFreedomData.Companion.FEATURES_TO_SHOW
 import ru.socialeducationapps.worldmetrics.modules.press_freedom.model.PressFreedomValue
 import ru.socialeducationapps.worldmetrics.modules.press_freedom.service.api.PressFreedomService
@@ -18,42 +17,22 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PressFreedomCountryDetailViewModel @Inject constructor(
-    private val service: PressFreedomService
+    private val service: PressFreedomService,
+    private val dispatchers: DispatcherProvider,
 ) : ViewModel() {
-
     private var country: String = ""
-    private val lastYearDataContainer = MutableLiveData<List<SimpleCountryValue>>().also {
-        it.value = service.getLastYearData()
-    }
-    private val allDataContainer = MutableLiveData<List<PressFreedomValue>>()
+    private val _lastYearData = MutableLiveData<List<SimpleCountryValue>>()
+    private val _allData = MutableLiveData<List<PressFreedomValue>>()
 
     fun setCountry(country: String) {
         this.country = country
-        loadData()
     }
 
-    val lastYearData: LiveData<List<SimpleCountryValue>> by lazy {
-        lastYearDataContainer
-    }
+    val lastYearData: LiveData<List<SimpleCountryValue>>
+        get() = _lastYearData.also { loadLastYearData() }
 
-    val allData: LiveData<List<PressFreedomValue>> by lazy {
-        allDataContainer
-    }
-
-    fun getFeatureColors(countryCode: String): List<Int> {
-        val extractors = PressFreedomData.FEATURES_TO_SHOW.asSequence()
-            .map { feature ->
-                FEATURE_RANGE_EXTRACTORS[feature.first]!!.invoke(service) to feature.second
-            }
-            .toList()
-        val lastYearData = service.getLastYearData(countryCode)
-        val colors = extractors.asSequence()
-            .map {
-                ColorAccess.DEFAULT_COLOR_CALCULATOR.evalColor(it.first, it.second(lastYearData))
-            }
-            .toList()
-        return colors
-    }
+    val allData: LiveData<List<PressFreedomValue>>
+        get() = _allData.also { loadAllData() }
 
     fun getFeatureRanges(countryCode: String): List<FeatureRange> =
         FEATURES_TO_SHOW.asSequence()
@@ -62,9 +41,16 @@ class PressFreedomCountryDetailViewModel @Inject constructor(
             }
             .toList()
 
-    private fun loadData() {
-        lastYearDataContainer.value = service.getLastYearData()
-        allDataContainer.value = service.getAllData(country)
+    private fun loadAllData() {
+        viewModelScope.launch(dispatchers.io) {
+            _allData.value = service.getAllData(country)
+        }
+    }
+
+    private fun loadLastYearData() {
+        viewModelScope.launch(dispatchers.io) {
+            _lastYearData.value = service.getLastYearData()
+        }
     }
 
     private companion object {
@@ -77,5 +63,4 @@ class PressFreedomCountryDetailViewModel @Inject constructor(
             R.string.press_freedom_safety to { it.getSRange() },
         )
     }
-
 }

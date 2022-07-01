@@ -3,20 +3,19 @@ package ru.socialeducationapps.worldmetrics.modules.corruption_perceptions.injec
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
+import dagger.hilt.android.components.ViewModelComponent
 import ru.socialeducationapps.worldmetrics.modules.corruption_perceptions.service.api.CorruptionPerceptionsService
 import ru.socialeducationapps.worldmetrics.modules.corruption_perceptions.service.impl.CorruptionPerceptionsServiceImpl
 
 @Module
-@InstallIn(SingletonComponent::class)
+@InstallIn(ViewModelComponent::class)
 class CorruptionPerceptionsModule {
     @Provides
-    fun corruptionPercepsionsService(impl: CorruptionPerceptionsServiceImpl): CorruptionPerceptionsService {
-        impl.filePath = FILE_PATH
-        return impl
-    }
+    fun corruptionPerceptionsService(impl: CorruptionPerceptionsServiceImpl): CorruptionPerceptionsService =
+        impl
+            .also { it.filePath = FILE_PATH }
 
     companion object {
-        private val FILE_PATH = "indexes/CorruptionPerceptionsIndex.csv"
+        private const val FILE_PATH = "indexes/CorruptionPerceptionsIndex.csv"
     }
 }

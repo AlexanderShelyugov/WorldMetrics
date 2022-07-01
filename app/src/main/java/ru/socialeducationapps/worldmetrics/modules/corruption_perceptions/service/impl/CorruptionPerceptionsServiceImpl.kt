@@ -20,7 +20,7 @@ class CorruptionPerceptionsServiceImpl @Inject constructor(
 
     lateinit var filePath: String
 
-    override fun getLastYearData(): List<SimpleCountryValue> {
+    override suspend fun getLastYearData(): List<SimpleCountryValue> {
         lateinit var result: List<SimpleCountryValue>
         csvService.process(filePath) { rows ->
             rows
@@ -36,7 +36,7 @@ class CorruptionPerceptionsServiceImpl @Inject constructor(
         return result
     }
 
-    override fun getLastYearData(countryCode: String): CorruptionPerceptionsValue {
+    override suspend fun getLastYearData(countryCode: String): CorruptionPerceptionsValue {
         lateinit var item: CorruptionPerceptionsValue
         csvService.process(filePath) { rows ->
             rows
@@ -55,7 +55,7 @@ class CorruptionPerceptionsServiceImpl @Inject constructor(
         return item
     }
 
-    override fun getAllData(countryCode: String): List<CorruptionPerceptionsValue> {
+    override suspend fun getAllData(countryCode: String): List<CorruptionPerceptionsValue> {
         lateinit var result: List<CorruptionPerceptionsValue>
         csvService.process(filePath) { rows ->
             rows
@@ -74,7 +74,7 @@ class CorruptionPerceptionsServiceImpl @Inject constructor(
         return result
     }
 
-    override fun getValueRange() = VALUES_RANGE
+    override suspend fun getValueRange() = VALUES_RANGE
 
     private fun dataToIndexValue(row: Triple<String, Int, String>): CorruptionPerceptionsValue =
         CorruptionPerceptionsValue(row.first, row.second, row.third.toFloatOrNull() ?: NaN)

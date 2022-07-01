@@ -1,7 +1,14 @@
-package ru.socialeducationapps.worldmetrics.viewmodel.country_overview
+package ru.socialeducationapps.worldmetrics.modules.country_overview.viewmodel
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import ru.socialeducationapps.worldmetrics.modules.coroutines.api.DispatcherProvider
 import ru.socialeducationapps.worldmetrics.modules.corruption_perceptions.model.CorruptionPerceptionsValue
 import ru.socialeducationapps.worldmetrics.modules.corruption_perceptions.service.api.CorruptionPerceptionsService
 import ru.socialeducationapps.worldmetrics.modules.democracy_index.model.DemocracyIndexValue
@@ -15,17 +22,27 @@ class CountryOverviewViewModel @Inject constructor(
     private val corruptionPerceptionsService: CorruptionPerceptionsService,
     private val democracyIndexService: DemocracyIndexService,
     private val pressFreedomService: PressFreedomService,
+    private val dispatchers: DispatcherProvider,
 ) : ViewModel() {
     fun getDataForCountry(countryCode: String): CountryOverviewData {
-        val corruptionPerceptions = corruptionPerceptionsService.getAllData(countryCode)
-        val democracyIndex = democracyIndexService.getAllData(countryCode)
-        val pressFreedom = pressFreedomService.getAllData(countryCode)
-        return CountryOverviewData(
-            countryCode,
-            corruptionPerceptions,
-            democracyIndex,
-            pressFreedom,
-        )
+        val items = mutableListOf<Deferred<Any>>()
+        viewModelScope.launch(dispatchers.io) {
+            items += async { corruptionPerceptionsService.getAllData(countryCode) }
+            items += async { democracyIndexService.getAllData(countryCode) }
+            items += async { pressFreedomService.getAllData(countryCode) }
+        }
+        val result: CountryOverviewData
+        runBlocking {
+            result = items.awaitAll().let { data ->
+                CountryOverviewData(
+                    countryCode,
+                    data[0] as List<CorruptionPerceptionsValue>,
+                    data[1] as List<DemocracyIndexValue>,
+                    data[2] as List<PressFreedomValue>,
+                )
+            }
+        }
+        return result
     }
 }
 

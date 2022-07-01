@@ -13,9 +13,9 @@ import ru.socialeducationapps.worldmetrics.R
 import ru.socialeducationapps.worldmetrics.adapter.CompositeRVAdapter
 import ru.socialeducationapps.worldmetrics.model.CountriesData.Companion.getNameByCode
 import ru.socialeducationapps.worldmetrics.modules.corruption_perceptions.rv_adapter.CorruptionPerceptionsAdapterFactory.Companion.getCorruptionPerceptionsFeaturesAdapter
+import ru.socialeducationapps.worldmetrics.modules.country_overview.viewmodel.CountryOverviewViewModel
 import ru.socialeducationapps.worldmetrics.modules.democracy_index.rv_adapter.DemocracyIndexAdapterFactory.Companion.getDemocracyIndexFeaturesAdapter
 import ru.socialeducationapps.worldmetrics.modules.press_freedom.rv_adapter.PressFreedomAdapterFactory.Companion.getPressFreedomFeaturesAdapter
-import ru.socialeducationapps.worldmetrics.viewmodel.country_overview.CountryOverviewViewModel
 
 class CountryOverviewFragment : Fragment(R.layout.country_overview) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

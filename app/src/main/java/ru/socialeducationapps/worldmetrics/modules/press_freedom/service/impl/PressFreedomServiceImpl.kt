@@ -32,7 +32,7 @@ class PressFreedomServiceImpl @Inject constructor(private val csvService: CsvSer
         val RANGE_SAFETY = 4.63f to 96.46f
     }
 
-    override fun getLastYearData(): List<SimpleCountryValue> {
+    override suspend fun getLastYearData(): List<SimpleCountryValue> {
         lateinit var result: List<SimpleCountryValue>
         csvService.process(filePath) { rows ->
             rows.filter { MAX_YEAR == it[COLUMN_YEAR].toInt() }
@@ -48,7 +48,7 @@ class PressFreedomServiceImpl @Inject constructor(private val csvService: CsvSer
         return result
     }
 
-    override fun getLastYearData(countryCode: String): PressFreedomValue {
+    override suspend fun getLastYearData(countryCode: String): PressFreedomValue {
         lateinit var result: PressFreedomValue
         csvService.process(filePath) { rows ->
             rows
@@ -61,7 +61,7 @@ class PressFreedomServiceImpl @Inject constructor(private val csvService: CsvSer
         return result
     }
 
-    override fun getAllData(countryCode: String): List<PressFreedomValue> {
+    override suspend fun getAllData(countryCode: String): List<PressFreedomValue> {
         lateinit var result: List<PressFreedomValue>
         csvService.process(filePath) { rows ->
             rows
@@ -80,7 +80,7 @@ class PressFreedomServiceImpl @Inject constructor(private val csvService: CsvSer
     override fun getSCRange() = RANGE_SOCIAL_CONTEXT
     override fun getSRange() = RANGE_SAFETY
 
-    private fun rowToIndexValue(row: CsvRow): PressFreedomValue = PressFreedomValue(
+    private fun rowToIndexValue(row: CsvRow) = PressFreedomValue(
         row[COLUMN_COUNTRY_CODE],
         row[COLUMN_INDEX_VALUE].toFloat(),
         row[COLUMN_POLITICAL_CONTEXT].toFloat(),

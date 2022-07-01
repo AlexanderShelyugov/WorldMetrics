@@ -10,5 +10,5 @@ interface CorruptionPerceptionsService : IndexFeatureService<CorruptionPerceptio
      *
      * @return pair of values, where first is minimum value and second is maximum value
      */
-    fun getValueRange(): FeatureRange
+    suspend fun getValueRange(): FeatureRange
 }

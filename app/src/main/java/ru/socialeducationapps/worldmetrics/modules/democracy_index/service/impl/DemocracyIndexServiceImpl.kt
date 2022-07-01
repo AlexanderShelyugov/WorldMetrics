@@ -32,7 +32,7 @@ class DemocracyIndexServiceImpl @Inject constructor(
 
     lateinit var filePath: String
 
-    override fun getLastYearData(): List<SimpleCountryValue> {
+    override suspend fun getLastYearData(): List<SimpleCountryValue> {
         lateinit var result: List<SimpleCountryValue>
         csvService.process(filePath) { rows ->
             rows
@@ -48,7 +48,7 @@ class DemocracyIndexServiceImpl @Inject constructor(
         return result
     }
 
-    override fun getLastYearData(countryCode: String): DemocracyIndexValue {
+    override suspend fun getLastYearData(countryCode: String): DemocracyIndexValue {
         val rows = getDataForCountry(countryCode)
         val lastYearRow = rows.asSequence().let {
             it.filter { row -> MAX_YEAR == row[COLUMN_YEAR].toInt() }.firstOrNull()
@@ -58,7 +58,7 @@ class DemocracyIndexServiceImpl @Inject constructor(
         return rowToIndexValue(lastYearRow!!)
     }
 
-    override fun getAllData(countryCode: String): List<DemocracyIndexValue> =
+    override suspend fun getAllData(countryCode: String): List<DemocracyIndexValue> =
         getDataForCountry(countryCode).asSequence()
             .map { rowToIndexValue(it) }
             .toList()

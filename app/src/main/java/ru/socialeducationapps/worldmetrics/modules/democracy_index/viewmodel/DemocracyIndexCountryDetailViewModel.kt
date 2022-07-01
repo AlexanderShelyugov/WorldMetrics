@@ -3,10 +3,11 @@ package ru.socialeducationapps.worldmetrics.modules.democracy_index.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import ru.socialeducationapps.worldmetrics.R
-import ru.socialeducationapps.worldmetrics.global.ColorAccess.Companion.DEFAULT_COLOR_CALCULATOR
-import ru.socialeducationapps.worldmetrics.modules.corruption_perceptions.model.CorruptionPerceptionsData
+import ru.socialeducationapps.worldmetrics.modules.coroutines.api.DispatcherProvider
 import ru.socialeducationapps.worldmetrics.modules.democracy_index.model.DemocracyIndexData.Companion.FEATURES_TO_SHOW
 import ru.socialeducationapps.worldmetrics.modules.democracy_index.model.DemocracyIndexValue
 import ru.socialeducationapps.worldmetrics.modules.democracy_index.service.api.DemocracyIndexService
@@ -15,30 +16,23 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DemocracyIndexCountryDetailViewModel @Inject constructor(
-    private val service: DemocracyIndexService
+    private val service: DemocracyIndexService,
+    private val dispatchers: DispatcherProvider
 ) : ViewModel() {
     private var country: String = ""
-    private val lastYearDataContainer = MutableLiveData<DemocracyIndexValue>()
-    private val allDataContainer = MutableLiveData<List<DemocracyIndexValue>>()
+    private val _lastYearData = MutableLiveData<DemocracyIndexValue>()
+    private val _allData = MutableLiveData<List<DemocracyIndexValue>>()
+
+    val lastYearData: LiveData<DemocracyIndexValue>
+        get() = _lastYearData
+            .also { loadLastYearData() }
+
+    val allData: LiveData<List<DemocracyIndexValue>>
+        get() = _allData
+            .also { loadAllData() }
 
     fun setCountry(country: String) {
         this.country = country
-        loadData()
-    }
-
-    fun getFeatureColors(countryCode: String): List<Int> {
-        val extractors = FEATURES_TO_SHOW.asSequence()
-            .map { feature ->
-                FEATURE_RANGE_EXTRACTORS[feature.first]!!.invoke(service) to feature.second
-            }
-            .toList()
-        val lastYearData = service.getLastYearData(countryCode)
-        val colors = extractors.asSequence()
-            .map {
-                DEFAULT_COLOR_CALCULATOR.evalColor(it.first, it.second(lastYearData))
-            }
-            .toList()
-        return colors
     }
 
     fun getFeatureRanges(countryCode: String): List<FeatureRange> =
@@ -48,17 +42,16 @@ class DemocracyIndexCountryDetailViewModel @Inject constructor(
             }
             .toList()
 
-    val lastYearData: LiveData<DemocracyIndexValue> by lazy {
-        lastYearDataContainer
+    private fun loadLastYearData() {
+        viewModelScope.launch(dispatchers.io) {
+            _lastYearData.value = service.getLastYearData(country)
+        }
     }
 
-    val allData: LiveData<List<DemocracyIndexValue>> by lazy {
-        allDataContainer
-    }
-
-    private fun loadData() {
-        lastYearDataContainer.value = service.getLastYearData(country)
-        allDataContainer.value = service.getAllData(country)
+    private fun loadAllData() {
+        viewModelScope.launch(dispatchers.io) {
+            _allData.value = service.getAllData(country)
+        }
     }
 
     private companion object {
