@@ -16,8 +16,6 @@ abstract class CountryIndexDetailFragment<T> : Fragment(R.layout.country_detail_
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val featuresListView = requireView().findViewById<RecyclerView>(R.id.rv_content)
         val adapter = getAdapter()
         adapter.setFeatureRanges(getFeatureRanges())
         lifecycleScope.launch {
@@ -25,7 +23,7 @@ abstract class CountryIndexDetailFragment<T> : Fragment(R.layout.country_detail_
                 adapter.setData(items)
             }
         }
-        featuresListView.adapter = adapter
+        requireView().findViewById<RecyclerView>(R.id.rv_content).adapter = adapter
     }
 
     protected abstract fun getCountryCode(): String
