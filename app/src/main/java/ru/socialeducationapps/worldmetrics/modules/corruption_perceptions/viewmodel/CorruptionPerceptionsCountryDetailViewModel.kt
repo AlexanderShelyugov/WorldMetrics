@@ -3,6 +3,7 @@ package ru.socialeducationapps.worldmetrics.modules.corruption_perceptions.viewm
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -29,7 +30,7 @@ class CorruptionPerceptionsCountryDetailViewModel @Inject constructor(
         loadData()
     }
 
-    val allData: StateFlow<List<CorruptionPerceptionsValue>> = _allData
+    val allData: Flow<List<CorruptionPerceptionsValue>> = _allData
         .also { loadData() }
         .asStateFlow()
 

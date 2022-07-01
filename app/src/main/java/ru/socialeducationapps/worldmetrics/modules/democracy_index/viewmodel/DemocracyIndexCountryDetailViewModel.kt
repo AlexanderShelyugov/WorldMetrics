@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -30,7 +31,7 @@ class DemocracyIndexCountryDetailViewModel @Inject constructor(
         get() = _lastYearData
             .also { loadLastYearData() }
 
-    val allData: StateFlow<List<DemocracyIndexValue>>
+    val allData: Flow<List<DemocracyIndexValue>>
         get() = _allData
             .also { loadAllData() }
             .asStateFlow()

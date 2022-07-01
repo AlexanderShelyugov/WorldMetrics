@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import ru.socialeducationapps.worldmetrics.R
@@ -34,7 +34,7 @@ class PressFreedomCountryDetailViewModel @Inject constructor(
     val lastYearData: LiveData<List<SimpleCountryValue>>
         get() = _lastYearData.also { loadLastYearData() }
 
-    val allData: StateFlow<List<PressFreedomValue>>
+    val allData: Flow<List<PressFreedomValue>>
         get() = _allData
             .also { loadAllData() }
             .asStateFlow()
