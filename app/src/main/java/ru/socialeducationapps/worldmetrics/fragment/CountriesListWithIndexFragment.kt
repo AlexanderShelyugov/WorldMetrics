@@ -6,9 +6,11 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.SearchView
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import ru.socialeducationapps.worldmetrics.R
 import ru.socialeducationapps.worldmetrics.adapter.CountriesListWithIndexAdapter
 import ru.socialeducationapps.worldmetrics.adapter.CountriesListWithIndexDataItem
@@ -17,16 +19,15 @@ import ru.socialeducationapps.worldmetrics.model.CountriesData.Companion.CODES_T
 import ru.socialeducationapps.worldmetrics.modules.indexes.model.FeatureRange
 import ru.socialeducationapps.worldmetrics.modules.indexes.model.SimpleCountryValue
 
-abstract class CountriesListWithIndexFragment : Fragment(R.layout.countries_list_with_index) {
-    private val countriesAdapter = CountriesListWithIndexAdapter(this::onCountryClick)
-        .also {
-            it.sortByCountry = true
-            it.naturalOrder = true
-            it.setColorsRange(VALUE_DEFAULT_COLOR_RANGE)
-        }
+abstract class CountriesListWithIndexFragment :
+    InjectableFragment(R.layout.countries_list_with_index) {
+    private val countriesAdapter = CountriesListWithIndexAdapter(this::onCountryClick).apply {
+        sortByCountry = true
+        naturalOrder = true
+        setColorsRange(VALUE_DEFAULT_COLOR_RANGE)
+    }
     private lateinit var sortTypeItem: MenuItem
     private lateinit var sortOrderItem: MenuItem
-    private lateinit var listView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,20 +36,22 @@ abstract class CountriesListWithIndexFragment : Fragment(R.layout.countries_list
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        listView = view.findViewById<RecyclerView>(R.id.rv_countries_list).also {
-            it.adapter = countriesAdapter
-        }
         countriesAdapter.setValuesRange(getValueRange())
-        getData().observe(viewLifecycleOwner) { countries ->
-            val ctx = requireContext()
-            val data = countries.asSequence()
-                .map {
-                    val name = CODES_TO_NAMES[it.iso3CountyCode]?.run(ctx::getString) ?: ""
-                    val value = it.value
-                    CountriesListWithIndexDataItem(it.iso3CountyCode, name, value)
-                }
-                .toList()
-            countriesAdapter.setData(data)
+        view.findViewById<RecyclerView>(R.id.rv_countries_list).apply {
+            adapter = countriesAdapter
+        }
+        lifecycleScope.launch {
+            getData().collectLatest { countries ->
+                val ctx = requireContext()
+                countries.asSequence()
+                    .map {
+                        val name = CODES_TO_NAMES[it.iso3CountyCode]?.run(ctx::getString) ?: ""
+                        val value = it.value
+                        CountriesListWithIndexDataItem(it.iso3CountyCode, name, value)
+                    }
+                    .toList()
+                    .run(countriesAdapter::setData)
+            }
         }
     }
 
@@ -69,9 +72,7 @@ abstract class CountriesListWithIndexFragment : Fragment(R.layout.countries_list
             switchSortOrder()
             true
         }
-        else -> {
-            super.onOptionsItemSelected(item)
-        }
+        else -> super.onOptionsItemSelected(item)
     }
 
     private fun switchSortType() {
@@ -98,7 +99,7 @@ abstract class CountriesListWithIndexFragment : Fragment(R.layout.countries_list
         sortOrderItem.setIcon(nextIcon)
     }
 
-    protected abstract fun getData(): LiveData<List<SimpleCountryValue>>
+    protected abstract fun getData(): Flow<List<SimpleCountryValue>>
 
     protected abstract fun getValueRange(): FeatureRange
 

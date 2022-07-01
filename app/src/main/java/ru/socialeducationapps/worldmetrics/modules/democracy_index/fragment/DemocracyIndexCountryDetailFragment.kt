@@ -1,6 +1,6 @@
 package ru.socialeducationapps.worldmetrics.modules.democracy_index.fragment
 
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import kotlinx.coroutines.flow.Flow
 import ru.socialeducationapps.worldmetrics.adapter.IndexFeaturesRVAdapter
@@ -12,13 +12,13 @@ import ru.socialeducationapps.worldmetrics.modules.indexes.model.FeatureRange
 
 class DemocracyIndexCountryDetailFragment :
     CountryIndexDetailFragment<DemocracyIndexValue>() {
+    private val model: DemocracyIndexCountryDetailViewModel by viewModels()
     override fun getCountryCode(): String {
         val args: DemocracyIndexCountryDetailFragmentArgs by navArgs()
         return args.countryCode
     }
 
     override fun getData(): Flow<List<DemocracyIndexValue>> {
-        val model: DemocracyIndexCountryDetailViewModel by activityViewModels()
         model.setCountry(getCountryCode())
         return model.allData
     }
@@ -27,7 +27,6 @@ class DemocracyIndexCountryDetailFragment :
         getDemocracyIndexFeaturesAdapter()
 
     override fun getFeatureRanges(): List<FeatureRange> {
-        val model: DemocracyIndexCountryDetailViewModel by activityViewModels()
         return model.getFeatureRanges(getCountryCode())
     }
 }

@@ -1,6 +1,6 @@
 package ru.socialeducationapps.worldmetrics.modules.corruption_perceptions.fragment
 
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import kotlinx.coroutines.flow.Flow
 import ru.socialeducationapps.worldmetrics.adapter.IndexFeaturesRVAdapter
@@ -12,13 +12,14 @@ import ru.socialeducationapps.worldmetrics.modules.indexes.model.FeatureRange
 
 class CorruptionPerceptionsCountryDetailFragment :
     CountryIndexDetailFragment<CorruptionPerceptionsValue>() {
+    private val model: CorruptionPerceptionsCountryDetailViewModel by viewModels()
+
     override fun getCountryCode(): String {
         val args: CorruptionPerceptionsCountryDetailFragmentArgs by navArgs()
         return args.countryCode
     }
 
     override fun getData(): Flow<List<CorruptionPerceptionsValue>> {
-        val model: CorruptionPerceptionsCountryDetailViewModel by activityViewModels()
         model.setCountry(getCountryCode())
         return model.allData
     }
@@ -27,7 +28,6 @@ class CorruptionPerceptionsCountryDetailFragment :
         getCorruptionPerceptionsFeaturesAdapter()
 
     override fun getFeatureRanges(): List<FeatureRange> {
-        val model: CorruptionPerceptionsCountryDetailViewModel by activityViewModels()
         return model.getFeatureRanges(getCountryCode())
     }
 }

@@ -2,7 +2,6 @@ package ru.socialeducationapps.worldmetrics.fragment
 
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.flow.Flow
@@ -12,7 +11,7 @@ import ru.socialeducationapps.worldmetrics.R
 import ru.socialeducationapps.worldmetrics.adapter.IndexFeaturesRVAdapter
 import ru.socialeducationapps.worldmetrics.modules.indexes.model.FeatureRange
 
-abstract class CountryIndexDetailFragment<T> : Fragment(R.layout.country_detail_indexes) {
+abstract class CountryIndexDetailFragment<T> : InjectableFragment(R.layout.country_detail_indexes) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -32,7 +31,5 @@ abstract class CountryIndexDetailFragment<T> : Fragment(R.layout.country_detail_
 
     protected abstract fun getAdapter(): IndexFeaturesRVAdapter<T>
 
-    protected open fun getFeatureRanges(): List<FeatureRange> {
-        return emptyList()
-    }
+    protected open fun getFeatureRanges(): List<FeatureRange> = emptyList()
 }
