@@ -16,4 +16,12 @@
 
     <string name="to_be_implemented">To be implemented</string>
     <string name="global_lookup">Global lookup</string>
+
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
+    <string name="question_allow_gps_access">Allow Network access?</string>
+    <string name="question_allow_network_access">Allow Network access?</string>
+    <string name="country_detection_permission_explanation">We need your permission to locate country</string>
+
 </resources>

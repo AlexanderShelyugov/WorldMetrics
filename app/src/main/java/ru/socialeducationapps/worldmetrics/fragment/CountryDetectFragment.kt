@@ -5,6 +5,7 @@ import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.content.Context
 import android.content.Context.LOCATION_SERVICE
 import android.content.pm.PackageManager.PERMISSION_GRANTED
+import android.location.Address
 import android.location.Geocoder
 import android.location.Location
 import android.location.LocationManager
@@ -38,8 +39,8 @@ import ru.socialeducationapps.worldmetrics.adapter.CountryListAdapterItem
 import ru.socialeducationapps.worldmetrics.fragment.CountryDetectFragment.FragmentState.COUNTRIES_LIST
 import ru.socialeducationapps.worldmetrics.fragment.CountryDetectFragment.FragmentState.DETECTION_TYPES
 import ru.socialeducationapps.worldmetrics.model.CountriesData
+import ru.socialeducationapps.worldmetrics.model.CountriesData.Companion.getAlpha2Code
 import ru.socialeducationapps.worldmetrics.model.CountriesData.Companion.getAlpha3Code
-import ru.socialeducationapps.worldmetrics.model.CountriesData.Companion.getNameByCode
 import ru.socialeducationapps.worldmetrics.viewmodel.CurrentCountryViewModel
 import java.util.concurrent.TimeUnit.SECONDS
 
@@ -49,12 +50,12 @@ class CountryDetectFragment : Fragment(R.layout.country_detect_fragment) {
     private lateinit var countrySuggestionContainer: ViewGroup
     private lateinit var content: TextView
     private lateinit var confirm: View
-    private lateinit var lastAction: () -> Unit
-    private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
     private lateinit var viewDetectionTypes: ViewGroup
     private lateinit var viewCountriesList: RecyclerView
-    private lateinit var countriesListAdapter: CountriesListAdapter
 
+    private lateinit var lastAction: () -> Unit
+    private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
+    private lateinit var countriesListAdapter: CountriesListAdapter
     private var fragmentState: FragmentState = DETECTION_TYPES
 
     override fun onAttach(context: Context) {
@@ -63,7 +64,7 @@ class CountryDetectFragment : Fragment(R.layout.country_detect_fragment) {
             if (isGranted) {
                 // Permission is granted. Continue the action or workflow in your
                 // app.
-                lastAction.invoke()
+                lastAction()
             } else {
                 // Explain to the user that the feature is unavailable because the
                 // features requires a permission that the user has denied. At the
@@ -130,44 +131,21 @@ class CountryDetectFragment : Fragment(R.layout.country_detect_fragment) {
         }
     }
 
-    private fun tryDetectByGPS(action: () -> Unit) {
-        val permission = ACCESS_FINE_LOCATION
-        lastAction = action
-        when {
-            checkSelfPermission(requireContext(), permission) == PERMISSION_GRANTED -> {
-                // You can use the API that requires the permission.
-                lastAction.invoke()
-            }
-            shouldShowRequestPermissionRationale(permission) -> {
-                // In an educational UI, explain to the user why your app requires this
-                // permission for a specific feature to behave as expected. In this UI,
-                // include a "cancel" or "no thanks" button that allows the user to
-                // continue using your app without granting the permission.
-                MaterialAlertDialogBuilder(requireContext())
-                    .setTitle("Allow GPS access?")
-                    .setMessage("We need your permission to locate country")
-                    .setCancelable(true)
-                    .setPositiveButton("Yes") { _, _ ->
-                        tryDetectByGPS(action)
-                    }
-                    .setNegativeButton("No") { _, _ ->
-                        setCountryCode("")
-                    }
-                    .setIcon(R.drawable.geolocation_unknown_marker)
-                    .show()
-            }
-            else -> {
-                // You can directly ask for the permission.
-                requestPermissionLauncher.launch(permission)
-            }
-        }
-    }
+    private fun tryDetectByGPS(action: () -> Unit) =
+        tryRequestPermission(ACCESS_FINE_LOCATION, R.string.question_allow_gps_access, action)
 
-    private fun tryDetectByNetwork(action: () -> Unit) {
-        val permission = ACCESS_COARSE_LOCATION
+    private fun tryDetectByNetwork(action: () -> Unit) =
+        tryRequestPermission(ACCESS_COARSE_LOCATION, R.string.question_allow_network_access, action)
+
+    private fun tryRequestPermission(
+        permission: String,
+        dialogRequestMessage: Int,
+        action: () -> Unit,
+    ) {
+        val ctx = requireContext()
         lastAction = action
         when {
-            checkSelfPermission(requireContext(), permission) == PERMISSION_GRANTED -> {
+            checkSelfPermission(ctx, permission) == PERMISSION_GRANTED -> {
                 // You can use the API that requires the permission.
                 lastAction.invoke()
             }
@@ -176,14 +154,14 @@ class CountryDetectFragment : Fragment(R.layout.country_detect_fragment) {
                 // permission for a specific feature to behave as expected. In this UI,
                 // include a "cancel" or "no thanks" button that allows the user to
                 // continue using your app without granting the permission.
-                MaterialAlertDialogBuilder(requireContext())
-                    .setTitle("Allow Network access?")
-                    .setMessage("We need your permission to locate country")
+                MaterialAlertDialogBuilder(ctx)
+                    .setTitle(dialogRequestMessage)
+                    .setMessage(R.string.country_detection_permission_explanation)
                     .setCancelable(true)
-                    .setPositiveButton("Yes") { _, _ ->
-                        tryDetectByGPS(action)
+                    .setPositiveButton(R.string.yes) { _, _ ->
+                        tryRequestPermission(permission, dialogRequestMessage, action)
                     }
-                    .setNegativeButton("No", null)
+                    .setNegativeButton(R.string.no, null)
                     .setIcon(R.drawable.geolocation_unknown_marker)
                     .show()
             }
@@ -195,28 +173,27 @@ class CountryDetectFragment : Fragment(R.layout.country_detect_fragment) {
     }
 
     private fun detectCountryBy(provider: String, countryConsumer: (String) -> Unit) {
-        val lm = getLocationManager()
-        lm.getCurrentLocation(provider, null, requireContext().mainExecutor) {
-            if (it == null) {
-                countryConsumer.invoke("")
-                return@getCurrentLocation
-            }
-            val countryCode = countryCodeFromLocation(it)
-            countryConsumer.invoke(countryCode ?: "")
+        getLocationManager().getCurrentLocation(provider, null, requireContext().mainExecutor) {
+            val countryCode = it?.run(this::countryCodeFromLocation) ?: ""
+            countryConsumer(countryCode)
         }
     }
 
-    private fun countryCodeFromLocation(location: Location): String? {
+    private fun countryCodeFromLocation(location: Location): String {
         val geocoder = Geocoder(requireContext())
-        val address = geocoder.getFromLocation(location.latitude, location.longitude, 1)[0]
-        return address.countryCode
+        return geocoder.getFromLocation(location.latitude, location.longitude, 1)
+            ?.takeIf { it.isNotEmpty<Address?>() }
+            ?.first()
+            ?.countryCode ?: ""
     }
 
     private fun setCountryCode(alpha2Code: String) {
         countryCode = getAlpha3Code(alpha2Code)
-        val message =
-            if (countryCode.isBlank()) getString(R.string.failed_to_detect_country)
-            else getString(R.string.question_is_your_country, getNameByCode(countryCode))
+        val message = countryCode
+            .takeIf { it.isNotBlank() }
+            ?.run(CountriesData.Companion::getNameByCode)
+            ?.let { getString(R.string.question_is_your_country, it) }
+            ?: getString(R.string.failed_to_detect_country)
         confirm.isVisible = countryCode.isNotBlank()
         content.text = message
         content.isSelected = false
@@ -240,7 +217,7 @@ class CountryDetectFragment : Fragment(R.layout.country_detect_fragment) {
         fragmentState = state
         val transitionOut = Fade()
         val transitionIn = Fade()
-            .also { it.startDelay = transitionOut.duration / 2 }
+            .apply { startDelay = transitionOut.duration / 2 }
         val outgoingView =
             if (fragmentState == DETECTION_TYPES) viewCountriesList else viewDetectionTypes
         val incomingView =
@@ -261,11 +238,11 @@ class CountryDetectFragment : Fragment(R.layout.country_detect_fragment) {
             .map {
                 val name = ctx.getString(it.value)
                 CountryListAdapterItem(it.key, name) { iso3Code ->
-                    callback(CountriesData.getAlpha2Code(iso3Code))
+                    callback(getAlpha2Code(iso3Code))
                 }
             }
             .toList()
-            .let(countriesListAdapter::setData)
+            .run(countriesListAdapter::setData)
         viewCountriesList.adapter = countriesListAdapter
     }
 
