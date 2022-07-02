@@ -53,8 +53,8 @@
 
     <ImageButton
         android:id="@+id/ib_country_search_wizard"
-        android:layout_width="@dimen/button_size_middle"
-        android:layout_height="@dimen/button_size_middle"
+        android:layout_width="@dimen/button_size_large"
+        android:layout_height="@dimen/button_size_large"
         android:layout_marginBottom="@dimen/spacing_small"
         android:background="@drawable/ripple_secondary_circle"
         android:contentDescription="Country search wizard"
