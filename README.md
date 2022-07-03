@@ -14,7 +14,7 @@ and many more!
 <h2>Unfortunately, at the moment I can't verify my Google Play account. But I'm working on it.</h2>
 <p align="center">
     <img width="256" src="images/download_apk.png">
-    <img width="256" src="images/Get_it_on_F-Droid.svg">
+    <img width="256" src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png">
 </p>
 
 ## Indexes overview
