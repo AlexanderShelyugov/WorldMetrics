@@ -1,6 +1,7 @@
 # World Metrics
 
 ![Build](https://github.com/AlexanderShelyugov/WorldMetrics/actions/workflows/main.yml/badge.svg)
+![F-Droid](https://img.shields.io/f-droid/v/ru.socialeducationapps.worldmetrics.svg)
 
 With this app, you can examine various aspects of all planet's countries!
 
