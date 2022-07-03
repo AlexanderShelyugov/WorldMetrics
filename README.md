@@ -1,6 +1,6 @@
 # World Metrics
 
-![Build](https://github.com/AlexanderShelyugov/WorldMetrics/blob/main/.github/workflows/main.yml/badge.svg)
+![Build](https://github.com/AlexanderShelyugov/WorldMetrics/actions/workflows/main.yml/badge.svg)
 
 With this app, you can examine various aspects of all planet's countries!
 
