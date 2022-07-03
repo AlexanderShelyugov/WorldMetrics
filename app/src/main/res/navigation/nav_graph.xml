@@ -15,58 +15,58 @@
         <action
             android:id="@+id/action_homeScreen_to_countryDetect"
             app:destination="@id/countryDetectFragment"
-            app:enterAnim="@anim/fade_in"
-            app:exitAnim="@anim/fade_out"
-            app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/fade_out" />
+            app:enterAnim="@anim/fade_in_short"
+            app:exitAnim="@anim/fade_out_short"
+            app:popEnterAnim="@anim/fade_in_short"
+            app:popExitAnim="@anim/fade_out_short" />
         <action
             android:id="@+id/action_homeScreen_to_countryOverview"
             app:destination="@id/countryOverviewFragment"
-            app:enterAnim="@anim/fade_in"
+            app:enterAnim="@anim/fade_through"
             app:exitAnim="@anim/fade_out"
-            app:popEnterAnim="@anim/fade_in"
+            app:popEnterAnim="@anim/fade_through"
             app:popExitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_homeScreen_to_corruptionPerceptionsCountryDetail"
             app:destination="@id/corruptionPerceptionsCountryDetailFragment"
-            app:enterAnim="@anim/fade_in"
+            app:enterAnim="@anim/fade_through"
             app:exitAnim="@anim/fade_out"
-            app:popEnterAnim="@anim/fade_in"
+            app:popEnterAnim="@anim/fade_through"
             app:popExitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_homeScreen_to_democracyIndexCountryDetail"
             app:destination="@id/democracyIndexCountryDetailFragment"
-            app:enterAnim="@anim/fade_in"
+            app:enterAnim="@anim/fade_through"
             app:exitAnim="@anim/fade_out"
-            app:popEnterAnim="@anim/fade_in"
+            app:popEnterAnim="@anim/fade_through"
             app:popExitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_homeScreen_to_pressFreedomCountryDetail"
             app:destination="@id/pressFreedomCountryDetailFragment"
-            app:enterAnim="@anim/fade_in"
+            app:enterAnim="@anim/fade_through"
             app:exitAnim="@anim/fade_out"
-            app:popEnterAnim="@anim/fade_in"
+            app:popEnterAnim="@anim/fade_through"
             app:popExitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_homeScreen_to_aboutMeActivity"
             app:destination="@id/activityAboutMe"
-            app:enterAnim="@anim/fade_in"
+            app:enterAnim="@anim/fade_through"
             app:exitAnim="@anim/fade_out"
-            app:popEnterAnim="@anim/fade_in"
+            app:popEnterAnim="@anim/fade_through"
             app:popExitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_homeScreen_to_globalOverview"
             app:destination="@id/globalOverviewFragment"
-            app:enterAnim="@anim/fade_in"
+            app:enterAnim="@anim/fade_through"
             app:exitAnim="@anim/fade_out"
-            app:popEnterAnim="@anim/fade_in"
+            app:popEnterAnim="@anim/fade_through"
             app:popExitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_homeScreen_to_GDPCountryDetail"
             app:destination="@id/GDPCountryDetailFragment"
-            app:enterAnim="@anim/fade_in"
+            app:enterAnim="@anim/fade_through"
             app:exitAnim="@anim/fade_out"
-            app:popEnterAnim="@anim/fade_in"
+            app:popEnterAnim="@anim/fade_through"
             app:popExitAnim="@anim/fade_out" />
     </fragment>
     <fragment
@@ -76,9 +76,9 @@
         <action
             android:id="@+id/action_democracyIndexOverview_to_democracyIndexCountryDetail"
             app:destination="@id/democracyIndexCountryDetailFragment"
-            app:enterAnim="@anim/fade_in"
+            app:enterAnim="@anim/fade_through"
             app:exitAnim="@anim/fade_out"
-            app:popEnterAnim="@anim/fade_in"
+            app:popEnterAnim="@anim/fade_through"
             app:popExitAnim="@anim/fade_out" />
     </fragment>
     <fragment
@@ -88,9 +88,9 @@
         <action
             android:id="@+id/action_corruptionPerceptionsOverview_to_corruptionPerceptionsCountryDetail"
             app:destination="@id/corruptionPerceptionsCountryDetailFragment"
-            app:enterAnim="@anim/fade_in"
+            app:enterAnim="@anim/fade_through"
             app:exitAnim="@anim/fade_out"
-            app:popEnterAnim="@anim/fade_in"
+            app:popEnterAnim="@anim/fade_through"
             app:popExitAnim="@anim/fade_out" />
     </fragment>
     <fragment
@@ -100,9 +100,9 @@
         <action
             android:id="@+id/action_pressFreedomOverview_to_pressFreedomCountryDetail"
             app:destination="@id/pressFreedomCountryDetailFragment"
-            app:enterAnim="@anim/fade_in"
+            app:enterAnim="@anim/fade_through"
             app:exitAnim="@anim/fade_out"
-            app:popEnterAnim="@anim/fade_in"
+            app:popEnterAnim="@anim/fade_through"
             app:popExitAnim="@anim/fade_out" />
     </fragment>
     <fragment
@@ -148,9 +148,9 @@
     <action
         android:id="@+id/action_global_toBeImplementedFragment"
         app:destination="@id/toBeImplementedFragment"
-        app:enterAnim="@anim/fade_in"
+        app:enterAnim="@anim/fade_through"
         app:exitAnim="@anim/fade_out"
-        app:popEnterAnim="@anim/fade_in"
+        app:popEnterAnim="@anim/fade_through"
         app:popExitAnim="@anim/fade_out" />
     <fragment
         android:id="@+id/globalOverviewFragment"
@@ -159,30 +159,30 @@
         <action
             android:id="@+id/action_globalOverview_to_corruptionPerceptionsOverview"
             app:destination="@id/corruptionPerceptionsOverviewFragment"
-            app:enterAnim="@anim/fade_in"
+            app:enterAnim="@anim/fade_through"
             app:exitAnim="@anim/fade_out"
-            app:popEnterAnim="@anim/fade_in"
+            app:popEnterAnim="@anim/fade_through"
             app:popExitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_globalOverview_to_pressFreedomOverview"
             app:destination="@id/pressFreedomOverviewFragment"
-            app:enterAnim="@anim/fade_in"
+            app:enterAnim="@anim/fade_through"
             app:exitAnim="@anim/fade_out"
-            app:popEnterAnim="@anim/fade_in"
+            app:popEnterAnim="@anim/fade_through"
             app:popExitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_globalOverview_to_democracyIndexOverview"
             app:destination="@id/democracyIndexOverviewFragment"
-            app:enterAnim="@anim/fade_in"
+            app:enterAnim="@anim/fade_through"
             app:exitAnim="@anim/fade_out"
-            app:popEnterAnim="@anim/fade_in"
+            app:popEnterAnim="@anim/fade_through"
             app:popExitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_globalOverview_to_GDPCountryList"
             app:destination="@id/GDPCountryListFragment"
-            app:enterAnim="@anim/fade_in"
+            app:enterAnim="@anim/fade_through"
             app:exitAnim="@anim/fade_out"
-            app:popEnterAnim="@anim/fade_in"
+            app:popEnterAnim="@anim/fade_through"
             app:popExitAnim="@anim/fade_out" />
     </fragment>
     <fragment
@@ -191,11 +191,11 @@
         android:label="GDPCountryListFragment">
         <action
             android:id="@+id/action_GDPCountryList_to_GDPCountryDetail"
-            app:enterAnim="@anim/fade_in"
+            app:destination="@id/GDPCountryDetailFragment"
+            app:enterAnim="@anim/fade_through"
             app:exitAnim="@anim/fade_out"
-            app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/fade_out"
-            app:destination="@id/GDPCountryDetailFragment" />
+            app:popEnterAnim="@anim/fade_through"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/GDPCountryDetailFragment"

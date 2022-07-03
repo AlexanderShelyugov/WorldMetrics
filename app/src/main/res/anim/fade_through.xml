@@ -3,5 +3,5 @@
     android:duration="@android:integer/config_mediumAnimTime"
     android:fromAlpha="0"
     android:interpolator="@android:anim/decelerate_interpolator"
-    android:startOffset="@android:integer/config_mediumAnimTime"
+    android:startOffset="@android:integer/config_shortAnimTime"
     android:toAlpha="1" />
