@@ -8,9 +8,10 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import ru.socialeducationapps.worldmetrics.R
-import ru.socialeducationapps.worldmetrics.fragment.GlobalOverviewFragmentDirections.Companion.actionGlobalOverviewFragmentToCorruptionPerceptionsOverviewFragment
-import ru.socialeducationapps.worldmetrics.fragment.GlobalOverviewFragmentDirections.Companion.actionGlobalOverviewFragmentToDemocracyIndexOverviewFragment
-import ru.socialeducationapps.worldmetrics.fragment.GlobalOverviewFragmentDirections.Companion.actionGlobalOverviewFragmentToPressFreedomOverviewFragment
+import ru.socialeducationapps.worldmetrics.fragment.GlobalOverviewFragmentDirections.Companion.actionGlobalOverviewToCorruptionPerceptionsOverview
+import ru.socialeducationapps.worldmetrics.fragment.GlobalOverviewFragmentDirections.Companion.actionGlobalOverviewToDemocracyIndexOverview
+import ru.socialeducationapps.worldmetrics.fragment.GlobalOverviewFragmentDirections.Companion.actionGlobalOverviewToGDPCountryList
+import ru.socialeducationapps.worldmetrics.fragment.GlobalOverviewFragmentDirections.Companion.actionGlobalOverviewToPressFreedomOverview
 import ru.socialeducationapps.worldmetrics.fragment.GlobalOverviewFragmentDirections.Companion.actionGlobalToBeImplementedFragment
 import ru.socialeducationapps.worldmetrics.global.ColorAccess.Companion.setColorFilter
 import ru.socialeducationapps.worldmetrics.model.indexes.AllIndexes.Companion.ALL_INDEXES
@@ -49,9 +50,10 @@ class GlobalOverviewFragment : Fragment(R.layout.all_indexes) {
 
     private companion object {
         val INDEX_ACTIONS = mapOf(
-            R.string.index_name_corruption_perceptions to actionGlobalOverviewFragmentToCorruptionPerceptionsOverviewFragment(),
-            R.string.index_name_democracy to actionGlobalOverviewFragmentToDemocracyIndexOverviewFragment(),
-            R.string.index_name_press_freedom to actionGlobalOverviewFragmentToPressFreedomOverviewFragment()
+            R.string.index_name_corruption_perceptions to actionGlobalOverviewToCorruptionPerceptionsOverview(),
+            R.string.index_name_democracy to actionGlobalOverviewToDemocracyIndexOverview(),
+            R.string.index_name_press_freedom to actionGlobalOverviewToPressFreedomOverview(),
+            R.string.index_name_gdp to actionGlobalOverviewToGDPCountryList(),
         )
     }
 }

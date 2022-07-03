@@ -4,6 +4,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
+import ru.socialeducationapps.worldmetrics.modules.csv.service.api.CsvService
 import ru.socialeducationapps.worldmetrics.modules.democracy_index.service.api.DemocracyIndexService
 import ru.socialeducationapps.worldmetrics.modules.democracy_index.service.impl.DemocracyIndexServiceImpl
 
@@ -11,8 +12,9 @@ import ru.socialeducationapps.worldmetrics.modules.democracy_index.service.impl.
 @InstallIn(ViewModelComponent::class)
 class DemocracyIndexModule {
     @Provides
-    fun democracyIndexService(impl: DemocracyIndexServiceImpl): DemocracyIndexService = impl
-        .also { it.filePath = FILE_PATH }
+    fun democracyIndexService(csvService: CsvService): DemocracyIndexService =
+        DemocracyIndexServiceImpl(csvService)
+            .apply { filePath = FILE_PATH }
 
     companion object {
         private const val FILE_PATH = "indexes/DemocracyIndex.csv"

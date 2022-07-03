@@ -9,7 +9,7 @@ import javax.inject.Inject
 import kotlin.Float.Companion.NaN
 
 class DemocracyIndexServiceImpl @Inject constructor(
-    private val csvService: CsvService
+    private val csvService: CsvService,
 ) : DemocracyIndexService {
     private companion object {
         const val MAX_YEAR = 2020

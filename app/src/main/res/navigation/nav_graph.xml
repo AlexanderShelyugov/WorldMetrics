@@ -55,8 +55,15 @@
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
         <action
-            android:id="@+id/action_homeScreenFragment_to_globalOverviewFragment"
+            android:id="@+id/action_homeScreen_to_globalOverview"
             app:destination="@id/globalOverviewFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_homeScreen_to_GDPCountryDetail"
+            app:destination="@id/GDPCountryDetailFragment"
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
@@ -150,25 +157,52 @@
         android:name="ru.socialeducationapps.worldmetrics.fragment.GlobalOverviewFragment"
         android:label="GlobalOverviewFragment">
         <action
-            android:id="@+id/action_globalOverviewFragment_to_corruptionPerceptionsOverviewFragment"
+            android:id="@+id/action_globalOverview_to_corruptionPerceptionsOverview"
             app:destination="@id/corruptionPerceptionsOverviewFragment"
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
         <action
-            android:id="@+id/action_globalOverviewFragment_to_pressFreedomOverviewFragment"
+            android:id="@+id/action_globalOverview_to_pressFreedomOverview"
             app:destination="@id/pressFreedomOverviewFragment"
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
         <action
-            android:id="@+id/action_globalOverviewFragment_to_democracyIndexOverviewFragment"
+            android:id="@+id/action_globalOverview_to_democracyIndexOverview"
             app:destination="@id/democracyIndexOverviewFragment"
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_globalOverview_to_GDPCountryList"
+            app:destination="@id/GDPCountryListFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+    </fragment>
+    <fragment
+        android:id="@+id/GDPCountryListFragment"
+        android:name="ru.socialeducationapps.worldmetrics.modules.gdp.fragment.GDPCountryListFragment"
+        android:label="GDPCountryListFragment">
+        <action
+            android:id="@+id/action_GDPCountryList_to_GDPCountryDetail"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"
+            app:destination="@id/GDPCountryDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/GDPCountryDetailFragment"
+        android:name="ru.socialeducationapps.worldmetrics.modules.gdp.fragment.GDPCountryDetailFragment"
+        android:label="GDPCountryDetailFragment">
+        <argument
+            android:name="countryCode"
+            app:argType="string" />
     </fragment>
 </navigation>

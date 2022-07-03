@@ -8,7 +8,7 @@ import javax.inject.Inject
 import kotlin.Float.Companion.NaN
 
 class CorruptionPerceptionsServiceImpl @Inject constructor(
-    private val csvService: CsvService
+    private val csvService: CsvService,
 ) : CorruptionPerceptionsService {
     private companion object {
         const val COLUMN_COUNTRY_CODE = 0

@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import ru.socialeducationapps.worldmetrics.R
 import ru.socialeducationapps.worldmetrics.modules.indexes.model.FeatureRange
 import ru.socialeducationapps.worldmetrics.view.ColorGradeCalculator
+import kotlin.Float.Companion.NEGATIVE_INFINITY
 
 private typealias Item = CountriesListWithIndexDataItem
 
@@ -17,7 +18,8 @@ class CountriesListWithIndexAdapter(private val onClick: (String) -> Unit) :
 
     private companion object {
         val COMPARATOR_BY_NAME: Comparator<Item> = compareBy { it.name }
-        val COMPARATOR_BY_VALUE: Comparator<Item> = compareBy { it.rate }
+        val COMPARATOR_BY_VALUE: Comparator<Item> =
+            compareBy { it.rate.takeIf { x -> x.isFinite() } ?: NEGATIVE_INFINITY }
         val ITEM_CALLBACK = object : ItemCallback<Item>() {
             override fun areItemsTheSame(i1: Item, i2: Item) = i1.iso3Code == i2.iso3Code
             override fun areContentsTheSame(i1: Item, i2: Item) = i1 == i2
@@ -78,7 +80,7 @@ class CountriesListWithIndexAdapter(private val onClick: (String) -> Unit) :
                     value.text = ""
                     return
                 }
-                value.text = row.rate.toString()
+                value.text = row.rate.toBigDecimal().toPlainString()
                 valuesRange?.let { range ->
                     colorCalculator?.evalColor(range.first, range.second, row.rate)
                         ?.run(value::setTextColor)

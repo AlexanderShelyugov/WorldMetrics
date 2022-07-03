@@ -8,8 +8,8 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import ru.socialeducationapps.worldmetrics.R
-import ru.socialeducationapps.worldmetrics.fragment.home_screen.HomeScreenFragmentDirections.Companion.actionHomeScreenFragmentToGlobalOverviewFragment
 import ru.socialeducationapps.worldmetrics.fragment.home_screen.HomeScreenFragmentDirections.Companion.actionHomeScreenToAboutMeActivity
+import ru.socialeducationapps.worldmetrics.fragment.home_screen.HomeScreenFragmentDirections.Companion.actionHomeScreenToGlobalOverview
 import ru.socialeducationapps.worldmetrics.global.NavigationHelper.Companion.navigateTo
 
 class HomeScreenFragment : Fragment(R.layout.home_screen) {
@@ -22,7 +22,7 @@ class HomeScreenFragment : Fragment(R.layout.home_screen) {
         super.onViewCreated(view, savedInstanceState)
         requireView().findViewById<View>(R.id.mb_global_overview)
             .setOnClickListener {
-                findNavController().navigate(actionHomeScreenFragmentToGlobalOverviewFragment())
+                findNavController().navigate(actionHomeScreenToGlobalOverview())
             }
     }
 
