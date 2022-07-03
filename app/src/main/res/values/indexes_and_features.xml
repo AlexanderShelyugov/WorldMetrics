@@ -39,6 +39,4 @@
     <string name="index_name_gdp">GDP</string>
     <string name="gdp_millions_usd">GDP in USD millions</string>
     <string name="gdp_usd_per_capita">Dollars per capita</string>
-
-    <string name="index_name_some_business">Some business index</string>
 </resources>

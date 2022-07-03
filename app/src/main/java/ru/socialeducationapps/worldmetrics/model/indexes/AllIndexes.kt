@@ -42,7 +42,6 @@ class AllIndexes private constructor() {
                     itemColor = R.color.index_group_color_item_economic,
                     indexes = listOf(
                         IndexForCountryData(R.string.index_name_gdp),
-                        IndexForCountryData(R.string.index_name_some_business),
                     )
                 )
             )

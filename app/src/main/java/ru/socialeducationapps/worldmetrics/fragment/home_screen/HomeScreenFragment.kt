@@ -10,7 +10,6 @@ import androidx.navigation.fragment.findNavController
 import ru.socialeducationapps.worldmetrics.R
 import ru.socialeducationapps.worldmetrics.fragment.home_screen.HomeScreenFragmentDirections.Companion.actionHomeScreenToAboutMeActivity
 import ru.socialeducationapps.worldmetrics.fragment.home_screen.HomeScreenFragmentDirections.Companion.actionHomeScreenToGlobalOverview
-import ru.socialeducationapps.worldmetrics.global.NavigationHelper.Companion.navigateTo
 
 class HomeScreenFragment : Fragment(R.layout.home_screen) {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,7 +31,7 @@ class HomeScreenFragment : Fragment(R.layout.home_screen) {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
         R.id.about_me -> {
-            navigateTo(findNavController(), actionHomeScreenToAboutMeActivity())
+            findNavController().navigate(actionHomeScreenToAboutMeActivity())
             true
         }
         else -> super.onOptionsItemSelected(item)
