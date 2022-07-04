@@ -12,9 +12,7 @@ class GDPCountryListFragment : CountriesListWithIndexFragment() {
     private val model by viewModels<GDPOverviewViewModel>()
 
     override fun getData(): Flow<List<SimpleCountryValue>> = model.lastYearData
-
     override fun getValueRange(): FeatureRange = model.getValueRange()
-
     override fun getNavigationOnClick(countryCode: String) =
         actionGDPCountryListToGDPCountryDetail(countryCode)
 }

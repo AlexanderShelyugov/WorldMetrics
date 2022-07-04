@@ -11,9 +11,7 @@ class PressFreedomCountryListFragment : CountriesListWithIndexFragment() {
     private val model by viewModels<PressFreedomOverviewViewModel>()
 
     override fun getData(): Flow<List<SimpleCountryValue>> = model.lastYearData
-
     override fun getValueRange() = model.getValueRange()
-
     override fun getNavigationOnClick(countryCode: String) =
         actionPressFreedomOverviewToPressFreedomCountryDetail(countryCode)
 }
