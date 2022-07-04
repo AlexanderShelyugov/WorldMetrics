@@ -87,15 +87,22 @@ class CountriesListWithIndexAdapter(private val onClick: (View, String) -> Unit)
                         onClick(itemView, row.iso3Code)
                     }
                 }
-                if (row.rate.isNaN()) {
-                    value.text = ""
-                    return
+                val indexValue = row.rate.takeIf { it.isFinite() }
+                val valueText: String
+                val valueColor: Int
+                val ctx = value.context
+                if (indexValue == null) {
+                    valueText = ctx.getString(R.string.no_data)
+                    valueColor = ctx.getColor(R.color.colorOnPrimary)
+                } else {
+                    valueText = indexValue.toBigDecimal().toPlainString()
+                    valueColor = valuesRange
+                        ?.let { range ->
+                            colorCalculator?.evalColor(range.first, range.second, row.rate)
+                        } ?: R.color.colorOnPrimary
                 }
-                value.text = row.rate.toBigDecimal().toPlainString()
-                valuesRange?.let { range ->
-                    colorCalculator?.evalColor(range.first, range.second, row.rate)
-                        ?.run(value::setTextColor)
-                }
+                value.text = valueText
+                value.setTextColor(valueColor)
             }
         }
     }

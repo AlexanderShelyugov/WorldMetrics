@@ -70,18 +70,23 @@ class LabelValueChartView<T>(context: Context, attrs: AttributeSet) : FrameLayou
     }
 
     fun refresh() {
-        val topDataItem =
-            if (allData.isEmpty()) null else allData.sortedBy(keyExtractor).reversed()[0]
-        if (topDataItem == null) {
-            value.setText(R.string.no_data)
-            value.setTextColor(context.getColor(R.color.colorOnPrimary))
+        val feature = allData
+            .takeIf { it.isNotEmpty() }
+            ?.let { data -> data.sortedBy(keyExtractor).reversed()[0] }
+            ?.run { valueExtractor(this) }
+            ?.takeIf { featureValue -> featureValue.isFinite() }
+        val valueText: String
+        val valueColor: Int
+
+        if (feature == null) {
+            valueText = context.getString(R.string.no_data)
+            valueColor = context.getColor(R.color.colorOnPrimary)
         } else {
-            val feature = valueExtractor(topDataItem)
-            value.text = feature.toString()
-            calculator?.let {
-                value.setTextColor(it.evalColor(range, feature))
-            }
+            valueText = feature.toBigDecimal().toPlainString()
+            valueColor = calculator?.evalColor(range, feature) ?: R.color.colorOnPrimary
         }
+        value.text = valueText
+        value.setTextColor(valueColor)
 
         val entries = allData.asSequence()
             .map {

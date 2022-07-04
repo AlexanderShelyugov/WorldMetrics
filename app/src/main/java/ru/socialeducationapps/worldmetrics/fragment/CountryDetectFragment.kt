@@ -36,6 +36,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import ru.socialeducationapps.worldmetrics.R
 import ru.socialeducationapps.worldmetrics.adapter.CountriesListAdapter
 import ru.socialeducationapps.worldmetrics.adapter.CountryListAdapterItem
+import ru.socialeducationapps.worldmetrics.adapter.ScrollToTopOnChangeObserver
 import ru.socialeducationapps.worldmetrics.fragment.CountryDetectFragment.FragmentState.COUNTRIES_LIST
 import ru.socialeducationapps.worldmetrics.fragment.CountryDetectFragment.FragmentState.DETECTION_TYPES
 import ru.socialeducationapps.worldmetrics.model.CountriesData.Companion.getAllCountryCodes
@@ -52,6 +53,7 @@ class CountryDetectFragment : Fragment(R.layout.country_detect_fragment) {
     private lateinit var content: TextView
     private lateinit var confirm: View
     private lateinit var viewDetectionTypes: ViewGroup
+    private lateinit var viewCountrySearch: ViewGroup
     private lateinit var viewCountriesList: RecyclerView
 
     private lateinit var lastAction: () -> Unit
@@ -90,7 +92,8 @@ class CountryDetectFragment : Fragment(R.layout.country_detect_fragment) {
                 }
             }
             viewDetectionTypes = findViewById(R.id.ll_detection_type)
-            viewCountriesList = findViewById(R.id.rv_countries_list)
+            viewCountrySearch = findViewById<ViewGroup>(R.id.ll_country_search)
+                .also { viewCountriesList = it.findViewById(R.id.rv_countries_list) }
             findViewById<View>(R.id.fl_detect_by_gps).setOnClickListener {
                 tryDetectByGPS {
                     detectCountryBy(GPS_PROVIDER, this@CountryDetectFragment::setCountryCode)
@@ -223,9 +226,9 @@ class CountryDetectFragment : Fragment(R.layout.country_detect_fragment) {
         val transitionIn = Fade()
             .apply { startDelay = transitionOut.duration / 2 }
         val outgoingView =
-            if (fragmentState == DETECTION_TYPES) viewCountriesList else viewDetectionTypes
+            if (fragmentState == DETECTION_TYPES) viewCountrySearch else viewDetectionTypes
         val incomingView =
-            if (fragmentState == DETECTION_TYPES) viewDetectionTypes else viewCountriesList
+            if (fragmentState == DETECTION_TYPES) viewDetectionTypes else viewCountrySearch
 
         beginDelayedTransition(outgoingView, transitionOut)
         beginDelayedTransition(incomingView, transitionIn)
@@ -238,6 +241,9 @@ class CountryDetectFragment : Fragment(R.layout.country_detect_fragment) {
     private fun initCountriesList() {
         val ctx = requireContext()
         countriesListAdapter = CountriesListAdapter()
+        countriesListAdapter.registerAdapterDataObserver(
+            ScrollToTopOnChangeObserver(viewCountriesList)
+        )
         getAllCountryCodes().asSequence()
             .map { it to getNameIdByCode(it) }
             .filter { it.second != null }

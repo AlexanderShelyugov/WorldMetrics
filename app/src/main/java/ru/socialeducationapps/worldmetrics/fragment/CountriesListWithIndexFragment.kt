@@ -18,6 +18,7 @@ import kotlinx.coroutines.launch
 import ru.socialeducationapps.worldmetrics.R
 import ru.socialeducationapps.worldmetrics.adapter.CountriesListWithIndexAdapter
 import ru.socialeducationapps.worldmetrics.adapter.CountriesListWithIndexDataItem
+import ru.socialeducationapps.worldmetrics.adapter.ScrollToTopOnChangeObserver
 import ru.socialeducationapps.worldmetrics.global.ColorAccess.Companion.VALUE_DEFAULT_COLOR_RANGE
 import ru.socialeducationapps.worldmetrics.model.CountriesData.Companion.getNameIdByCode
 import ru.socialeducationapps.worldmetrics.modules.indexes.model.FeatureRange
@@ -40,9 +41,11 @@ abstract class CountriesListWithIndexFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        countriesAdapter.setValuesRange(getValueRange())
         view.findViewById<RecyclerView>(R.id.rv_countries_list).apply {
-            adapter = countriesAdapter
+            adapter = countriesAdapter.also {
+                it.setValuesRange(getValueRange())
+                it.registerAdapterDataObserver(ScrollToTopOnChangeObserver(this))
+            }
         }
         lifecycleScope.launch {
             getData().collectLatest { countries ->
