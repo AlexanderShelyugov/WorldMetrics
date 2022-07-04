@@ -9,12 +9,12 @@ import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import ru.socialeducationapps.worldmetrics.modules.coroutines.api.DispatcherProvider
-import ru.socialeducationapps.worldmetrics.modules.corruption_perceptions.model.CorruptionPerceptionsValue
-import ru.socialeducationapps.worldmetrics.modules.corruption_perceptions.service.api.CorruptionPerceptionsService
-import ru.socialeducationapps.worldmetrics.modules.democracy_index.model.DemocracyIndexValue
-import ru.socialeducationapps.worldmetrics.modules.democracy_index.service.api.DemocracyIndexService
-import ru.socialeducationapps.worldmetrics.modules.press_freedom.model.PressFreedomValue
-import ru.socialeducationapps.worldmetrics.modules.press_freedom.service.api.PressFreedomService
+import ru.socialeducationapps.worldmetrics.modules.politics.corruption_perceptions.model.CorruptionPerceptionsValue
+import ru.socialeducationapps.worldmetrics.modules.politics.corruption_perceptions.service.api.CorruptionPerceptionsService
+import ru.socialeducationapps.worldmetrics.modules.politics.democracy_index.model.DemocracyIndexValue
+import ru.socialeducationapps.worldmetrics.modules.politics.democracy_index.service.api.DemocracyIndexService
+import ru.socialeducationapps.worldmetrics.modules.politics.press_freedom.model.PressFreedomValue
+import ru.socialeducationapps.worldmetrics.modules.politics.press_freedom.service.api.PressFreedomService
 import javax.inject.Inject
 
 @HiltViewModel

@@ -71,7 +71,7 @@
     </fragment>
     <fragment
         android:id="@+id/democracyIndexOverviewFragment"
-        android:name="ru.socialeducationapps.worldmetrics.modules.democracy_index.fragment.DemocracyIndexCountryListFragment"
+        android:name="ru.socialeducationapps.worldmetrics.modules.politics.democracy_index.fragment.DemocracyIndexCountryListFragment"
         android:label="Democracy index overview fragment">
         <action
             android:id="@+id/action_democracyIndexOverview_to_democracyIndexCountryDetail"
@@ -83,7 +83,7 @@
     </fragment>
     <fragment
         android:id="@+id/corruptionPerceptionsOverviewFragment"
-        android:name="ru.socialeducationapps.worldmetrics.modules.corruption_perceptions.fragment.CorruptionPerceptionsCountryListFragment"
+        android:name="ru.socialeducationapps.worldmetrics.modules.politics.corruption_perceptions.fragment.CorruptionPerceptionsCountryListFragment"
         android:label="Corruption perceptions overview fragment">
         <action
             android:id="@+id/action_corruptionPerceptionsOverview_to_corruptionPerceptionsCountryDetail"
@@ -95,7 +95,7 @@
     </fragment>
     <fragment
         android:id="@+id/pressFreedomOverviewFragment"
-        android:name="ru.socialeducationapps.worldmetrics.modules.press_freedom.fragment.PressFreedomCountryListFragment"
+        android:name="ru.socialeducationapps.worldmetrics.modules.politics.press_freedom.fragment.PressFreedomCountryListFragment"
         android:label="Press freedom overview fragment">
         <action
             android:id="@+id/action_pressFreedomOverview_to_pressFreedomCountryDetail"
@@ -107,7 +107,7 @@
     </fragment>
     <fragment
         android:id="@+id/democracyIndexCountryDetailFragment"
-        android:name="ru.socialeducationapps.worldmetrics.modules.democracy_index.fragment.DemocracyIndexCountryDetailFragment"
+        android:name="ru.socialeducationapps.worldmetrics.modules.politics.democracy_index.fragment.DemocracyIndexCountryDetailFragment"
         android:label="Democracy Index country detail fragment">
         <argument
             android:name="countryCode"
@@ -115,7 +115,7 @@
     </fragment>
     <fragment
         android:id="@+id/corruptionPerceptionsCountryDetailFragment"
-        android:name="ru.socialeducationapps.worldmetrics.modules.corruption_perceptions.fragment.CorruptionPerceptionsCountryDetailFragment"
+        android:name="ru.socialeducationapps.worldmetrics.modules.politics.corruption_perceptions.fragment.CorruptionPerceptionsCountryDetailFragment"
         android:label="Corruption perceptions country detail fragment">
         <argument
             android:name="countryCode"
@@ -123,7 +123,7 @@
     </fragment>
     <fragment
         android:id="@+id/pressFreedomCountryDetailFragment"
-        android:name="ru.socialeducationapps.worldmetrics.modules.press_freedom.fragment.PressFreedomCountryDetailFragment"
+        android:name="ru.socialeducationapps.worldmetrics.modules.politics.press_freedom.fragment.PressFreedomCountryDetailFragment"
         android:label="Press freedom country detail fragment">
         <argument
             android:name="countryCode"
@@ -187,7 +187,7 @@
     </fragment>
     <fragment
         android:id="@+id/GDPCountryListFragment"
-        android:name="ru.socialeducationapps.worldmetrics.modules.gdp.fragment.GDPCountryListFragment"
+        android:name="ru.socialeducationapps.worldmetrics.modules.economics.gdp.fragment.GDPCountryListFragment"
         android:label="GDPCountryListFragment">
         <action
             android:id="@+id/action_GDPCountryList_to_GDPCountryDetail"
@@ -199,7 +199,7 @@
     </fragment>
     <fragment
         android:id="@+id/GDPCountryDetailFragment"
-        android:name="ru.socialeducationapps.worldmetrics.modules.gdp.fragment.GDPCountryDetailFragment"
+        android:name="ru.socialeducationapps.worldmetrics.modules.economics.gdp.fragment.GDPCountryDetailFragment"
         android:label="GDPCountryDetailFragment">
         <argument
             android:name="countryCode"

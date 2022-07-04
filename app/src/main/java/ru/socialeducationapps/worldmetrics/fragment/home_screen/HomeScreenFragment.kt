@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import ru.socialeducationapps.worldmetrics.R
 import ru.socialeducationapps.worldmetrics.fragment.home_screen.HomeScreenFragmentDirections.Companion.actionHomeScreenToAboutMeActivity
-import ru.socialeducationapps.worldmetrics.fragment.home_screen.HomeScreenFragmentDirections.Companion.actionHomeScreenToGlobalOverview
 
 class HomeScreenFragment : Fragment(R.layout.home_screen) {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,7 +20,7 @@ class HomeScreenFragment : Fragment(R.layout.home_screen) {
         super.onViewCreated(view, savedInstanceState)
         requireView().findViewById<View>(R.id.mb_global_overview)
             .setOnClickListener {
-                findNavController().navigate(actionHomeScreenToGlobalOverview())
+//                findNavController().navigate(actionHomeScreenToGlobalOverview())
             }
     }
 
