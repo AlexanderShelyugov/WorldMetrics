@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Demographical indexes -->
-    <string name="index_group_name_demographic">Demographics</string>
+    <string name="index_group_name_demographic">Demographic</string>
     <color name="index_group_color_demographic">#FFC0CB</color>
     <color name="index_group_color_item_demographic">#9C284B</color>
 
@@ -12,7 +12,7 @@
     <string name="population_population_density">Population (Density)</string>
 
     <!-- Political indexes -->
-    <string name="index_group_name_political">Politics</string>
+    <string name="index_group_name_political">Political</string>
     <color name="index_group_color_political">#ADD8E6</color>
     <color name="index_group_color_item_political">#4B68B8</color>
 
@@ -36,7 +36,7 @@
     <string name="press_freedom_safety">Safety</string>
 
     <!-- Economic indexes -->
-    <string name="index_group_name_economic">Economics</string>
+    <string name="index_group_name_economic">Economic</string>
     <color name="index_group_color_economic">#FFECB3</color>
     <color name="index_group_color_item_economic">#FFA000</color>
 
