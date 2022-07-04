@@ -15,10 +15,24 @@
         <action
             android:id="@+id/action_homeScreen_to_countryDetect"
             app:destination="@id/countryDetectFragment"
-            app:enterAnim="@anim/fade_in_short"
-            app:exitAnim="@anim/fade_out_short"
-            app:popEnterAnim="@anim/fade_in_short"
-            app:popExitAnim="@anim/fade_out_short" />
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_homeScreen_to_aboutMeActivity"
+            app:destination="@id/activityAboutMe"
+            app:enterAnim="@anim/fade_through"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_through"
+            app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_homeScreen_to_globalOverview"
+            app:destination="@id/globalOverviewFragment"
+            app:enterAnim="@anim/fade_through"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_through"
+            app:popExitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_homeScreen_to_countryOverview"
             app:destination="@id/countryOverviewFragment"
@@ -43,20 +57,6 @@
         <action
             android:id="@+id/action_homeScreen_to_pressFreedomCountryDetail"
             app:destination="@id/pressFreedomCountryDetailFragment"
-            app:enterAnim="@anim/fade_through"
-            app:exitAnim="@anim/fade_out"
-            app:popEnterAnim="@anim/fade_through"
-            app:popExitAnim="@anim/fade_out" />
-        <action
-            android:id="@+id/action_homeScreen_to_aboutMeActivity"
-            app:destination="@id/activityAboutMe"
-            app:enterAnim="@anim/fade_through"
-            app:exitAnim="@anim/fade_out"
-            app:popEnterAnim="@anim/fade_through"
-            app:popExitAnim="@anim/fade_out" />
-        <action
-            android:id="@+id/action_homeScreen_to_globalOverview"
-            app:destination="@id/globalOverviewFragment"
             app:enterAnim="@anim/fade_through"
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_through"
