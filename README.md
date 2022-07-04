@@ -17,11 +17,15 @@ Indexes showed in-app contain:
 
 and many more!
 
-## Unfortunately, at the moment I can't verify my Google Play account because.
+<img src="images/WorldMetrics_showcase.gif" width="50%"/>
+
+---
+
+## Unfortunately, at the moment I can't verify my Google Play account.
 
 ### But I'm working on it. 🙂
 
-[<img src="images/download_apk.png" width="250" />](https://drive.google.com/file/d/1mgC4irhPEKnd_1v2gA3Vy6_-gZoVqZc6/view?usp=sharing)
+[<img src="images/download_apk.png" width="250px" />](https://drive.google.com/file/d/1mgC4irhPEKnd_1v2gA3Vy6_-gZoVqZc6/view?usp=sharing)
 
 ## Indexes overview
 
