@@ -8,6 +8,9 @@ import android.view.View
 import android.widget.SearchView
 import androidx.core.view.doOnPreDraw
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavDirections
+import androidx.navigation.fragment.FragmentNavigatorExtras
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
@@ -106,7 +109,16 @@ abstract class CountriesListWithIndexFragment :
 
     protected abstract fun getValueRange(): FeatureRange
 
-    protected abstract fun onCountryClick(v: View, country: String)
+    protected open fun onCountryClick(v: View, countryCode: String) {
+        val extras = FragmentNavigatorExtras(
+            v to requireContext().getString(R.string.transition_name_target_screen)
+        )
+        getNavigationOnClick(countryCode)?.let { action ->
+            findNavController().navigate(action, extras)
+        }
+    }
+
+    protected open fun getNavigationOnClick(countryCode: String): NavDirections? = null
 
     private val onSearchListener = object : SearchView.OnQueryTextListener {
         override fun onQueryTextSubmit(query: String?): Boolean {

@@ -1,8 +1,6 @@
 package ru.socialeducationapps.worldmetrics.modules.press_freedom.fragment
 
-import android.view.View
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.flow.Flow
 import ru.socialeducationapps.worldmetrics.fragment.CountriesListWithIndexFragment
 import ru.socialeducationapps.worldmetrics.modules.indexes.model.SimpleCountryValue
@@ -16,9 +14,6 @@ class PressFreedomCountryListFragment : CountriesListWithIndexFragment() {
 
     override fun getValueRange() = model.getValueRange()
 
-    override fun onCountryClick(v: View, country: String) {
-        findNavController().navigate(
-            actionPressFreedomOverviewToPressFreedomCountryDetail(country)
-        )
-    }
+    override fun getNavigationOnClick(countryCode: String) =
+        actionPressFreedomOverviewToPressFreedomCountryDetail(countryCode)
 }
