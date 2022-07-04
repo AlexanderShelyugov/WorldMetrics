@@ -30,9 +30,11 @@ import androidx.core.transition.addListener
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import dagger.hilt.android.AndroidEntryPoint
 import ru.socialeducationapps.worldmetrics.R
 import ru.socialeducationapps.worldmetrics.adapter.CountriesListAdapter
 import ru.socialeducationapps.worldmetrics.adapter.CountryListAdapterItem
@@ -43,11 +45,16 @@ import ru.socialeducationapps.worldmetrics.model.CountriesData.Companion.getAllC
 import ru.socialeducationapps.worldmetrics.model.CountriesData.Companion.getAlpha2Code
 import ru.socialeducationapps.worldmetrics.model.CountriesData.Companion.getAlpha3Code
 import ru.socialeducationapps.worldmetrics.model.CountriesData.Companion.getNameIdByCode
+import ru.socialeducationapps.worldmetrics.modules.coroutines.api.DispatcherProvider
 import ru.socialeducationapps.worldmetrics.viewmodel.CurrentCountryViewModel
 import java.util.concurrent.TimeUnit.SECONDS
+import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class CountryDetectFragment : Fragment(R.layout.country_detect_fragment) {
+    @Inject
+    lateinit var dispatcherProvider: DispatcherProvider
+
     private lateinit var countryCode: String
     private lateinit var countrySuggestionContainer: ViewGroup
     private lateinit var content: TextView
@@ -240,10 +247,13 @@ class CountryDetectFragment : Fragment(R.layout.country_detect_fragment) {
 
     private fun initCountriesList() {
         val ctx = requireContext()
-        countriesListAdapter = CountriesListAdapter()
-        countriesListAdapter.registerAdapterDataObserver(
-            ScrollToTopOnChangeObserver(viewCountriesList)
-        )
+        countriesListAdapter = CountriesListAdapter().apply {
+            registerAdapterDataObserver(
+                ScrollToTopOnChangeObserver(viewCountriesList)
+            )
+            processInBackground(lifecycleScope, dispatcherProvider)
+        }
+
         getAllCountryCodes().asSequence()
             .map { it to getNameIdByCode(it) }
             .filter { it.second != null }
