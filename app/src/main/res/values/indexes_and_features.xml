@@ -6,6 +6,10 @@
     <color name="index_group_color_item_demographic">#9C284B</color>
 
     <string name="index_name_population">Population</string>
+    <string name="population_population_total">Population (Total)</string>
+    <string name="population_population_male">Population (Male)</string>
+    <string name="population_population_female">Population (Female)</string>
+    <string name="population_population_density">Population (Density)</string>
 
     <!-- Political indexes -->
     <string name="index_group_name_political">Politics</string>

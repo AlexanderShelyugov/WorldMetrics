@@ -18,6 +18,7 @@ import ru.socialeducationapps.worldmetrics.fragment.home_screen.HomeScreenFragme
 import ru.socialeducationapps.worldmetrics.fragment.home_screen.HomeScreenFragmentDirections.Companion.actionHomeScreenToCorruptionPerceptionsCountryDetail
 import ru.socialeducationapps.worldmetrics.fragment.home_screen.HomeScreenFragmentDirections.Companion.actionHomeScreenToDemocracyIndexCountryDetail
 import ru.socialeducationapps.worldmetrics.fragment.home_screen.HomeScreenFragmentDirections.Companion.actionHomeScreenToGDPCountryDetail
+import ru.socialeducationapps.worldmetrics.fragment.home_screen.HomeScreenFragmentDirections.Companion.actionHomeScreenToPopulationDetail
 import ru.socialeducationapps.worldmetrics.fragment.home_screen.HomeScreenFragmentDirections.Companion.actionHomeScreenToPressFreedomCountryDetail
 import ru.socialeducationapps.worldmetrics.model.indexes.AllIndexes.Companion.ALL_INDEXES
 import ru.socialeducationapps.worldmetrics.model.indexes.IndexGroupForCountryData
@@ -81,6 +82,7 @@ class IndexesForCountryFragment : InjectableFragment(R.layout.indexes_for_countr
     }
 
     private fun getIndexesActions(countryCode: String) = mapOf(
+        R.string.index_name_population to actionHomeScreenToPopulationDetail(countryCode),
         R.string.index_name_corruption_perceptions to actionHomeScreenToCorruptionPerceptionsCountryDetail(
             countryCode
         ),

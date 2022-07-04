@@ -11,6 +11,7 @@ import ru.socialeducationapps.worldmetrics.R
 import ru.socialeducationapps.worldmetrics.fragment.GlobalOverviewFragmentDirections.Companion.actionGlobalOverviewToCorruptionPerceptionsOverview
 import ru.socialeducationapps.worldmetrics.fragment.GlobalOverviewFragmentDirections.Companion.actionGlobalOverviewToDemocracyIndexOverview
 import ru.socialeducationapps.worldmetrics.fragment.GlobalOverviewFragmentDirections.Companion.actionGlobalOverviewToGDPCountryList
+import ru.socialeducationapps.worldmetrics.fragment.GlobalOverviewFragmentDirections.Companion.actionGlobalOverviewToPopulationCountryList
 import ru.socialeducationapps.worldmetrics.fragment.GlobalOverviewFragmentDirections.Companion.actionGlobalOverviewToPressFreedomOverview
 import ru.socialeducationapps.worldmetrics.fragment.GlobalOverviewFragmentDirections.Companion.actionGlobalToBeImplementedFragment
 import ru.socialeducationapps.worldmetrics.global.ColorAccess.Companion.setColorFilter
@@ -50,6 +51,7 @@ class GlobalOverviewFragment : Fragment(R.layout.all_indexes) {
 
     private companion object {
         val INDEX_ACTIONS = mapOf(
+            R.string.index_name_population to actionGlobalOverviewToPopulationCountryList(),
             R.string.index_name_corruption_perceptions to actionGlobalOverviewToCorruptionPerceptionsOverview(),
             R.string.index_name_democracy to actionGlobalOverviewToDemocracyIndexOverview(),
             R.string.index_name_press_freedom to actionGlobalOverviewToPressFreedomOverview(),
