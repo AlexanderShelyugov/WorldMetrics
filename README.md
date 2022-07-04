@@ -1,7 +1,12 @@
+> Man is by nature a social animal; an individual who is unsocial naturally and not accidentally is either beneath our notice or more than human. Society is something that precedes the individual. Anyone who either cannot lead the common life or is so self-sufficient as not to need to, and therefore does not partake of society, is either a beast or a god.
+>
+> -- <cite>Aristotle</cite>
+
+<br/>
+
 # World Metrics
 
 ![Build](https://github.com/AlexanderShelyugov/WorldMetrics/actions/workflows/main.yml/badge.svg)
-![F-Droid](https://img.shields.io/f-droid/v/ru.socialeducationapps.worldmetrics.svg)
 
 With this app, you can examine various aspects of all planet's countries!
 
@@ -12,11 +17,11 @@ Indexes showed in-app contain:
 
 and many more!
 
-<h2>Unfortunately, at the moment I can't verify my Google Play account. But I'm working on it.</h2>
-<p align="center">
-    <img width="256" src="images/download_apk.png">
-    <img width="256" src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png">
-</p>
+## Unfortunately, at the moment I can't verify my Google Play account because.
+
+### But I'm working on it. 🙂
+
+[<img src="images/download_apk.png" width="250" />](https://drive.google.com/file/d/1mgC4irhPEKnd_1v2gA3Vy6_-gZoVqZc6/view?usp=sharing)
 
 ## Indexes overview
 
