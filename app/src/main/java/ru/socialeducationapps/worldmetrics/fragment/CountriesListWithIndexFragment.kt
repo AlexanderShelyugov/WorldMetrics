@@ -19,7 +19,7 @@ import ru.socialeducationapps.worldmetrics.R
 import ru.socialeducationapps.worldmetrics.adapter.CountriesListWithIndexAdapter
 import ru.socialeducationapps.worldmetrics.adapter.CountriesListWithIndexDataItem
 import ru.socialeducationapps.worldmetrics.global.ColorAccess.Companion.VALUE_DEFAULT_COLOR_RANGE
-import ru.socialeducationapps.worldmetrics.model.CountriesData.Companion.CODES_TO_NAMES
+import ru.socialeducationapps.worldmetrics.model.CountriesData.Companion.getNameIdByCode
 import ru.socialeducationapps.worldmetrics.modules.indexes.model.FeatureRange
 import ru.socialeducationapps.worldmetrics.modules.indexes.model.SimpleCountryValue
 
@@ -50,7 +50,7 @@ abstract class CountriesListWithIndexFragment :
                 countries.asSequence()
                     .map {
                         val code = it.iso3CountyCode.lowercase()
-                        val name = CODES_TO_NAMES[code]?.run(ctx::getString) ?: ""
+                        val name = getNameIdByCode(code)?.run(ctx::getString) ?: ""
                         val value = it.value
                         CountriesListWithIndexDataItem(code, name, value)
                     }

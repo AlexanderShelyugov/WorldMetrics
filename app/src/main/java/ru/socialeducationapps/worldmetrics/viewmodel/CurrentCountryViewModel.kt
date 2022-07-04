@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ru.socialeducationapps.worldmetrics.R
 import ru.socialeducationapps.worldmetrics.global.ContextAccess.Companion.context
-import ru.socialeducationapps.worldmetrics.model.CountriesData
+import ru.socialeducationapps.worldmetrics.model.CountriesData.Companion.getAllCountryCodes
 import javax.inject.Inject
 
 @HiltViewModel
@@ -23,15 +23,11 @@ class CurrentCountryViewModel @Inject constructor() : ViewModel() {
     }
 
     fun setCurrentCountryCode(countryCode: String) {
-        if (CountriesData.CODES_TO_NAMES.keys.contains(countryCode)) {
-            countryCode
-        } else {
-            ""
-        }.let { country ->
-            saveToPreferences(country)
-            countryCodeContainer.value = country
-        }
-
+        val code = countryCode.lowercase()
+            .takeIf { getAllCountryCodes().contains(it) }
+            ?: ""
+        saveToPreferences(code)
+        countryCodeContainer.value = code
     }
 
     private fun loadFromPreferences() {

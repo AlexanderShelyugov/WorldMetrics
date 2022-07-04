@@ -49,9 +49,8 @@ class YourCountryFragment : Fragment(R.layout.your_country_fragment) {
     }
 
     private fun setCountryCode(countryCode: String) {
-        var countryNameId: Int
+        var countryNameId = R.string.country_name_unknown
         if (countryCode.isBlank()) {
-            countryNameId = R.string.country_name_unknown
             locationMarker.setImageResource(R.drawable.geolocation_unknown_marker)
             messageLabel.run {
                 text = getString(R.string.consider_searching_your_country)
@@ -59,7 +58,7 @@ class YourCountryFragment : Fragment(R.layout.your_country_fragment) {
             }
             countryDetect.setImageResource(R.drawable.search_icon)
         } else {
-            countryNameId = getNameIdByCode(countryCode)
+            getNameIdByCode(countryCode)?.let { countryNameId = it }
             locationMarker.setImageResource(R.drawable.geolocation_marker)
             messageLabel.run {
                 text = ""

@@ -1,6 +1,6 @@
 package ru.socialeducationapps.worldmetrics.modules.gdp.service.impl
 
-import ru.socialeducationapps.worldmetrics.model.CountriesData.Companion.ALPHA_3_TO_ALPHA_2_CODES
+import ru.socialeducationapps.worldmetrics.model.CountriesData.Companion.getNameIdByCode
 import ru.socialeducationapps.worldmetrics.modules.csv.model.CsvRow
 import ru.socialeducationapps.worldmetrics.modules.csv.service.api.CsvService
 import ru.socialeducationapps.worldmetrics.modules.gdp.model.GDPValue
@@ -18,7 +18,7 @@ class GDPCsvService @Inject constructor(
         lateinit var result: List<SimpleCountryValue>
         csvService.process(filePath) { rows ->
             rows
-                .filter { ALPHA_3_TO_ALPHA_2_CODES[it[COLUMN_COUNTRY_CODE].lowercase()] != null }
+                .filter { getNameIdByCode(it[COLUMN_COUNTRY_CODE]) != null }
                 .groupBy { it[COLUMN_COUNTRY_CODE] }
                 .values.asSequence()
                 .map { rowsPerCountry ->
@@ -42,7 +42,7 @@ class GDPCsvService @Inject constructor(
         lateinit var item: GDPValue
         csvService.process(filePath) { rows ->
             rows
-                .filter { ALPHA_3_TO_ALPHA_2_CODES[it[COLUMN_COUNTRY_CODE].lowercase()] != null }
+                .filter { getNameIdByCode(it[COLUMN_COUNTRY_CODE]) != null }
                 .filter { it[COLUMN_COUNTRY_CODE].equals(countryCode, ignoreCase = true) }
                 .map(this::rowToIndexValue)
                 .maxByOrNull { it.year }!!
@@ -55,7 +55,7 @@ class GDPCsvService @Inject constructor(
         lateinit var item: List<GDPValue>
         csvService.process(filePath) { rows ->
             rows
-                .filter { ALPHA_3_TO_ALPHA_2_CODES[it[COLUMN_COUNTRY_CODE].lowercase()] != null }
+                .filter { getNameIdByCode(it[COLUMN_COUNTRY_CODE]) != null }
                 .filter { it[COLUMN_COUNTRY_CODE].equals(countryCode, ignoreCase = true) }
                 .map(this::rowToIndexValue)
                 .toList()

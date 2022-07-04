@@ -38,7 +38,7 @@ import ru.socialeducationapps.worldmetrics.adapter.CountriesListAdapter
 import ru.socialeducationapps.worldmetrics.adapter.CountryListAdapterItem
 import ru.socialeducationapps.worldmetrics.fragment.CountryDetectFragment.FragmentState.COUNTRIES_LIST
 import ru.socialeducationapps.worldmetrics.fragment.CountryDetectFragment.FragmentState.DETECTION_TYPES
-import ru.socialeducationapps.worldmetrics.model.CountriesData
+import ru.socialeducationapps.worldmetrics.model.CountriesData.Companion.getAllCountryCodes
 import ru.socialeducationapps.worldmetrics.model.CountriesData.Companion.getAlpha2Code
 import ru.socialeducationapps.worldmetrics.model.CountriesData.Companion.getAlpha3Code
 import ru.socialeducationapps.worldmetrics.model.CountriesData.Companion.getNameIdByCode
@@ -192,9 +192,9 @@ class CountryDetectFragment : Fragment(R.layout.country_detect_fragment) {
         countryCode = getAlpha3Code(alpha2Code)
         val message = countryCode
             .takeIf { it.isNotBlank() }
-            ?.let { isoCode ->
-                val countryNameId = getNameIdByCode(isoCode)
-                requireContext().getString(countryNameId)
+            ?.let {
+                getNameIdByCode(it)
+                    ?.run(requireContext()::getString)
             }
             ?.let { getString(R.string.question_is_your_country, it) }
             ?: getString(R.string.failed_to_detect_country)
@@ -238,10 +238,11 @@ class CountryDetectFragment : Fragment(R.layout.country_detect_fragment) {
     private fun initCountriesList() {
         val ctx = requireContext()
         countriesListAdapter = CountriesListAdapter()
-        CountriesData.CODES_TO_NAMES.asSequence()
+        getAllCountryCodes().asSequence()
+            .map { it to getNameIdByCode(it) }
+            .filter { it.second != null }
             .map {
-                val name = ctx.getString(it.value)
-                CountryListAdapterItem(it.key, name) { iso3Code ->
+                CountryListAdapterItem(it.first, ctx.getString(it.second!!)) { iso3Code ->
                     callback(getAlpha2Code(iso3Code))
                 }
             }

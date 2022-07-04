@@ -22,11 +22,11 @@ class CountryOverviewFragment : InjectableFragment(R.layout.country_overview) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val args: CountryOverviewFragmentArgs by navArgs()
+        val args by navArgs<CountryOverviewFragmentArgs>()
         val countryCode = args.countryCode
         requireView().run {
             findViewById<TextView>(R.id.tv_country_name)
-                .setText(getNameIdByCode(countryCode))
+                .setText(getNameIdByCode(countryCode) ?: R.string.country_name_unknown)
             findViewById<RecyclerView>(R.id.rv_content).adapter =
                 createAdapter(countryCode)
         }

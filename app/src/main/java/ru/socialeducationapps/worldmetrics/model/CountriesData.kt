@@ -10,8 +10,8 @@ class CountriesData private constructor() {
          *
          * @param countryCode ISO code of a country
          */
-        fun getNameIdByCode(countryCode: String): Int =
-            CODES_TO_NAMES[countryCode.lowercase()] ?: -1
+        fun getNameIdByCode(countryCode: String): Int? =
+            CODES_TO_NAMES[countryCode.lowercase()]
 
         fun getAlpha3Code(alpha2: String): String =
             ALPHA_2_TO_ALPHA_3_CODES.getOrDefault(alpha2.lowercase(), "")
@@ -19,10 +19,12 @@ class CountriesData private constructor() {
         fun getAlpha2Code(alpha3: String): String =
             ALPHA_3_TO_ALPHA_2_CODES.getOrDefault(alpha3.lowercase(), "")
 
-        val ALPHA_2_TO_ALPHA_3_CODES: Map<String, String>
-        val ALPHA_3_TO_ALPHA_2_CODES: Map<String, String>
+        fun getAllCountryCodes(): Collection<String> = CODES_TO_NAMES.keys
 
-        val CODES_TO_NAMES = mapOf(
+        private val ALPHA_2_TO_ALPHA_3_CODES: Map<String, String>
+        private val ALPHA_3_TO_ALPHA_2_CODES: Map<String, String>
+
+        private val CODES_TO_NAMES = mapOf(
             "afg" to R.string.country_name_afghanistan,
             "ago" to R.string.country_name_angola,
             "alb" to R.string.country_name_albania,

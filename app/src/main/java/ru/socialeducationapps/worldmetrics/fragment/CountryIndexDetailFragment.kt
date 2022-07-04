@@ -43,7 +43,7 @@ abstract class CountryIndexDetailFragment<T> : InjectableFragment(R.layout.count
             findViewById<TextView>(R.id.tv_country_name).apply {
                 transitionName =
                     context.getString(R.string.transition_name_country_name_detail)
-                setText(getNameIdByCode(getCountryCode()))
+                getNameIdByCode(getCountryCode())?.run(this::setText)
             }
             findViewById<RecyclerView>(R.id.rv_content).adapter = adapter
         }
