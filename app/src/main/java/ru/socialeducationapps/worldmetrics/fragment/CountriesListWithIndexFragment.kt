@@ -21,11 +21,15 @@ import ru.socialeducationapps.worldmetrics.adapter.CountriesListWithIndexDataIte
 import ru.socialeducationapps.worldmetrics.adapter.ScrollToTopOnChangeObserver
 import ru.socialeducationapps.worldmetrics.global.ColorAccess.Companion.VALUE_DEFAULT_COLOR_RANGE
 import ru.socialeducationapps.worldmetrics.model.CountriesData.Companion.getNameIdByCode
+import ru.socialeducationapps.worldmetrics.modules.coroutines.api.DispatcherProvider
 import ru.socialeducationapps.worldmetrics.modules.indexes.model.FeatureRange
 import ru.socialeducationapps.worldmetrics.modules.indexes.model.SimpleCountryValue
+import javax.inject.Inject
 
 abstract class CountriesListWithIndexFragment :
     InjectableFragment(R.layout.countries_list_with_index) {
+    @Inject
+    lateinit var dispatcherProvider: DispatcherProvider
     private val countriesAdapter = CountriesListWithIndexAdapter(this::onCountryClick).apply {
         sortByCountry = true
         naturalOrder = true
@@ -45,6 +49,7 @@ abstract class CountriesListWithIndexFragment :
             adapter = countriesAdapter.also {
                 it.setValuesRange(getValueRange())
                 it.registerAdapterDataObserver(ScrollToTopOnChangeObserver(this))
+                it.processInBackground(lifecycleScope, dispatcherProvider)
             }
         }
         lifecycleScope.launch {

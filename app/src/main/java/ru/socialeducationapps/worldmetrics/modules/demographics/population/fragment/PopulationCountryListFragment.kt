@@ -2,11 +2,13 @@ package ru.socialeducationapps.worldmetrics.modules.demographics.population.frag
 
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavDirections
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.Flow
 import ru.socialeducationapps.worldmetrics.fragment.CountriesListWithIndexFragment
 import ru.socialeducationapps.worldmetrics.modules.demographics.population.viewmodel.PopulationOverviewViewModel
 import ru.socialeducationapps.worldmetrics.modules.indexes.model.SimpleCountryValue
 
+@AndroidEntryPoint
 class PopulationCountryListFragment : CountriesListWithIndexFragment() {
     private val model by viewModels<PopulationOverviewViewModel>()
 

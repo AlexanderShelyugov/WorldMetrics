@@ -4,12 +4,16 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil.ItemCallback
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
+import ru.socialeducationapps.worldmetrics.modules.coroutines.api.DispatcherProvider
 
 abstract class FilterableSortableAdapter<DataItem> : Adapter<ViewHolder>() {
 
     private var originalData: List<DataItem> = emptyList()
     private var query = ""
     private val differ = AsyncListDiffer(this, getDiffCallBack())
+    private var asyncResources: Pair<CoroutineScope, DispatcherProvider>? = null
 
     fun searchWith(query: String) {
         this.query = query.trim()
@@ -21,11 +25,27 @@ abstract class FilterableSortableAdapter<DataItem> : Adapter<ViewHolder>() {
         refresh()
     }
 
+    fun processInBackground(scope: CoroutineScope, provider: DispatcherProvider) {
+        asyncResources = scope to provider
+    }
+
     fun refresh() {
         if (query.isEmpty()) {
             differ.submitList(sort(originalData))
             return
         }
+        if (asyncResources == null) {
+            processOriginalData()
+            return
+        }
+        asyncResources!!.run {
+            first.launch(second.default) {
+                processOriginalData()
+            }
+        }
+    }
+
+    private fun processOriginalData() {
         originalData.asSequence()
             // Not just .filter, because
             // We want to order data by its first query occurrence
