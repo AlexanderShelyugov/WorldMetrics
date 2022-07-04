@@ -16,7 +16,7 @@ class AllIndexes private constructor() {
                     color = R.color.index_group_color_demographic,
                     itemColor = R.color.index_group_color_item_demographic,
                     indexes = listOf(
-                        IndexForCountryData(R.string.index_name_demographics)
+                        IndexForCountryData(R.string.index_name_population)
                     )
                 )
             )
