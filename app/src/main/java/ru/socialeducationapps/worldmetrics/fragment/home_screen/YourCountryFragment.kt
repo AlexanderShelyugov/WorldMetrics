@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import ru.socialeducationapps.worldmetrics.R
 import ru.socialeducationapps.worldmetrics.fragment.home_screen.HomeScreenFragmentDirections.Companion.actionHomeScreenToCountryDetect
-import ru.socialeducationapps.worldmetrics.fragment.home_screen.HomeScreenFragmentDirections.Companion.actionHomeScreenToCountryOverview
 import ru.socialeducationapps.worldmetrics.global.NavigationHelper.Companion.bindNavigation
 import ru.socialeducationapps.worldmetrics.model.CountriesData.Companion.getNameIdByCode
 import ru.socialeducationapps.worldmetrics.viewmodel.CurrentCountryViewModel
@@ -32,16 +31,10 @@ class YourCountryFragment : Fragment(R.layout.your_country_fragment) {
             countryDetect = findViewById(R.id.ib_country_search_wizard)
         }
 
-        val countryBadge: View = v.findViewById(R.id.cl_country_badge)
         val model: CurrentCountryViewModel by activityViewModels()
         model.currentCountryCode.observe(viewLifecycleOwner) { countryCode ->
-            countryBadge.isClickable = countryCode.isNotBlank()
             setCountryCode(countryCode)
         }
-        bindNavigation(
-            countryBadge,
-            actionHomeScreenToCountryOverview(model.currentCountryCode.value!!)
-        )
         bindNavigation(
             v.findViewById(R.id.ib_country_search_wizard),
             actionHomeScreenToCountryDetect()
