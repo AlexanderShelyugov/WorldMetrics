@@ -15,14 +15,14 @@ class CorruptionPerceptionsCountryDetailFragment :
     private val model: CorruptionPerceptionsCountryDetailViewModel by viewModels()
 
     override fun getCountryCode(): String {
-        val args: CorruptionPerceptionsCountryDetailFragmentArgs by navArgs()
+        val args by navArgs<CorruptionPerceptionsCountryDetailFragmentArgs>()
         return args.countryCode
     }
 
-    override fun getData(): Flow<List<CorruptionPerceptionsValue>> {
-        model.setCountry(getCountryCode())
-        return model.allData
-    }
+    override fun getData(): Flow<List<CorruptionPerceptionsValue>> =
+        model
+            .apply { setCountry(getCountryCode()) }
+            .allData
 
     override fun getAdapter(): IndexFeaturesRVAdapter<CorruptionPerceptionsValue> =
         getCorruptionPerceptionsFeaturesAdapter()

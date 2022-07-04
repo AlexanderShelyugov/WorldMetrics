@@ -1,5 +1,6 @@
 package ru.socialeducationapps.worldmetrics.modules.gdp.fragment
 
+import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.flow.Flow
@@ -16,7 +17,7 @@ class GDPCountryListFragment : CountriesListWithIndexFragment() {
 
     override fun getValueRange(): FeatureRange = model.getValueRange()
 
-    override fun onCountryClick(country: String) {
+    override fun onCountryClick(v: View, country: String) {
         findNavController()
             .navigate(actionGDPCountryListToGDPCountryDetail(country))
     }

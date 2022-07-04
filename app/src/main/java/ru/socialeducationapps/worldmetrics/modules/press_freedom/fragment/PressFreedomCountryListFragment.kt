@@ -1,5 +1,6 @@
 package ru.socialeducationapps.worldmetrics.modules.press_freedom.fragment
 
+import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.flow.Flow
@@ -15,7 +16,7 @@ class PressFreedomCountryListFragment : CountriesListWithIndexFragment() {
 
     override fun getValueRange() = model.getValueRange()
 
-    override fun onCountryClick(country: String) {
+    override fun onCountryClick(v: View, country: String) {
         findNavController().navigate(
             actionPressFreedomOverviewToPressFreedomCountryDetail(country)
         )

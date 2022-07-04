@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="action_bar_height">@dimen/list_item_height_simple</dimen>
     <dimen name="button_size_small">24dp</dimen>
     <dimen name="button_size_middle">48dp</dimen>
     <dimen name="button_size_large">64dp</dimen>

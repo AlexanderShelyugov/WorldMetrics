@@ -13,7 +13,7 @@ import kotlin.Float.Companion.NEGATIVE_INFINITY
 
 private typealias Item = CountriesListWithIndexDataItem
 
-class CountriesListWithIndexAdapter(private val onClick: (String) -> Unit) :
+class CountriesListWithIndexAdapter(private val onClick: (View, String) -> Unit) :
     FilterableSortableAdapter<Item>() {
 
     private companion object {
@@ -72,9 +72,20 @@ class CountriesListWithIndexAdapter(private val onClick: (String) -> Unit) :
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         (viewHolder as CountryIndexViewHolder).run {
             data[position].let { row ->
-                countryName.text = row.name
-                itemView.setOnClickListener {
-                    onClick.invoke(row.iso3Code)
+                countryName.apply {
+                    text = row.name
+                    transitionName =
+                        context.getString(
+                            R.string.transition_name_pattern_country_name,
+                            row.iso3Code
+                        )
+                }
+                itemView.apply {
+                    transitionName =
+                        context.getString(R.string.transition_name_pattern_list_item, row.iso3Code)
+                    setOnClickListener {
+                        onClick(itemView, row.iso3Code)
+                    }
                 }
                 if (row.rate.isNaN()) {
                     value.text = ""

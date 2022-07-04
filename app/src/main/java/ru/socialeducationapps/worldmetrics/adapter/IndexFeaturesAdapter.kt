@@ -39,13 +39,13 @@ class IndexFeaturesRVAdapter<T>(
     override fun onCreateViewHolder(
         viewGroup: ViewGroup,
         viewType: Int
-    ): VH<T> {
-        val view = LayoutInflater.from(viewGroup.context).inflate(
-            R.layout.label_value_chart_view, viewGroup, false
-        ) as LabelValueChartView<T>
-        view.setData(items)
-        return VH(view)
-    }
+    ): VH<T> = (LayoutInflater.from(viewGroup.context).inflate(
+        R.layout.label_value_chart_view, viewGroup, false
+    ) as LabelValueChartView<T>)
+        .run {
+            setData(items)
+            VH(this)
+        }
 
     override fun onBindViewHolder(holder: VH<T>, position: Int) {
         holder.lcv.run {

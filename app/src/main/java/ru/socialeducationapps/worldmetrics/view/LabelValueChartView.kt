@@ -5,6 +5,7 @@ import android.graphics.Color.TRANSPARENT
 import android.util.AttributeSet
 import android.widget.FrameLayout
 import android.widget.TextView
+import androidx.core.view.isVisible
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
@@ -16,7 +17,9 @@ import ru.socialeducationapps.worldmetrics.modules.indexes.model.FeatureRange
 import java.lang.Float.NaN
 
 class LabelValueChartView<T>(context: Context, attrs: AttributeSet) : FrameLayout(context, attrs) {
-    private val label: TextView
+    private val _label: TextView
+    val label: TextView
+        get() = _label
     private val value: TextView
     private val chart: LineChart
 
@@ -28,7 +31,7 @@ class LabelValueChartView<T>(context: Context, attrs: AttributeSet) : FrameLayou
 
     init {
         inflate(getContext(), R.layout.label_value_chart_view_content, this)
-        label = findViewById(R.id.tv_label)
+        _label = findViewById(R.id.tv_label)
         value = findViewById(R.id.tv_value)
         chart = findViewById(R.id.lc_chart)
         chart.run {
@@ -49,7 +52,7 @@ class LabelValueChartView<T>(context: Context, attrs: AttributeSet) : FrameLayou
     }
 
     fun setLabelText(strId: Int) {
-        label.text = context.getString(strId)
+        _label.text = context.getString(strId)
     }
 
     fun setExtractors(k: FeatureExtractor<T>, v: FeatureExtractor<T>) {
@@ -70,7 +73,7 @@ class LabelValueChartView<T>(context: Context, attrs: AttributeSet) : FrameLayou
         val topDataItem =
             if (allData.isEmpty()) null else allData.sortedBy(keyExtractor).reversed()[0]
         if (topDataItem == null) {
-            value.text = ""
+            value.setText(R.string.no_data)
             value.setTextColor(context.getColor(R.color.colorOnPrimary))
         } else {
             val feature = valueExtractor(topDataItem)
@@ -87,12 +90,15 @@ class LabelValueChartView<T>(context: Context, attrs: AttributeSet) : FrameLayou
                 Entry(x, y)
             }
             .toList()
-        chart.data = LineData(LineDataSet(entries, "").also {
-            it.setDrawCircles(false)
-            it.setDrawValues(false)
-            it.color = context.getColor(R.color.holo_blue_bright)
-            it.lineWidth = 2f
-            it.mode = HORIZONTAL_BEZIER
-        })
+        chart.apply {
+            data = LineData(LineDataSet(entries, "").also {
+                it.setDrawCircles(false)
+                it.setDrawValues(false)
+                it.color = context.getColor(R.color.holo_blue_bright)
+                it.lineWidth = 2f
+                it.mode = HORIZONTAL_BEZIER
+            })
+            isVisible = entries.isNotEmpty()
+        }
     }
 }

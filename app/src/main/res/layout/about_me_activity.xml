@@ -28,7 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/transparent"
-        android:fadingEdgeLength="@dimen/button_size_middle"
+        android:fadingEdgeLength="@dimen/spacing_small"
         android:overScrollMode="never"
         android:requiresFadingEdge="vertical"
         android:scrollbars="none"
@@ -45,21 +45,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <androidx.cardview.widget.CardView
+                <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/cv_my_photo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:cardCornerRadius="60dp"
-                    app:cardPreventCornerOverlap="false"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <ImageView
-                        android:layout_width="120dp"
-                        android:layout_height="120dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/my_photo" />
-                </androidx.cardview.widget.CardView>
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
+                    app:srcCompat="@drawable/my_photo" />
 
                 <TextView
                     android:id="@+id/tv_bio"

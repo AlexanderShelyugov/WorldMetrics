@@ -1,5 +1,6 @@
 package ru.socialeducationapps.worldmetrics.modules.corruption_perceptions.fragment
 
+import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.flow.Flow
@@ -15,7 +16,7 @@ class CorruptionPerceptionsCountryListFragment : CountriesListWithIndexFragment(
 
     override fun getValueRange() = model.getValueRange()
 
-    override fun onCountryClick(country: String) {
+    override fun onCountryClick(v: View, country: String) {
         findNavController().navigate(
             actionCorruptionPerceptionsOverviewToCorruptionPerceptionsCountryDetail(
                 country

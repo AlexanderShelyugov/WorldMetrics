@@ -6,6 +6,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.SearchView
+import androidx.core.view.doOnPreDraw
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.flow.Flow
@@ -53,6 +54,8 @@ abstract class CountriesListWithIndexFragment :
                     .run(countriesAdapter::setData)
             }
         }
+        postponeEnterTransition()
+        view.doOnPreDraw { startPostponedEnterTransition() }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -103,7 +106,7 @@ abstract class CountriesListWithIndexFragment :
 
     protected abstract fun getValueRange(): FeatureRange
 
-    protected abstract fun onCountryClick(country: String)
+    protected abstract fun onCountryClick(v: View, country: String)
 
     private val onSearchListener = object : SearchView.OnQueryTextListener {
         override fun onQueryTextSubmit(query: String?): Boolean {

@@ -24,4 +24,10 @@
     <string name="question_allow_network_access">Allow Network access?</string>
     <string name="country_detection_permission_explanation">We need your permission to locate country</string>
 
+    <string name="transition_name_target_screen">transition_name_target_screen</string>
+    <string name="transition_name_pattern_list_item">transition_name_pattern_list_item_%1$s</string>
+    <string name="transition_name_pattern_country_name">transition_name_pattern_country_name_%1$s</string>
+    <string name="transition_name_country_name_detail">transition_name_country_name_detail</string>
+
+    <string name="no_data">No data</string>
 </resources>

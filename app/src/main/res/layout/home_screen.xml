@@ -10,7 +10,7 @@
         android:fadingEdgeLength="@dimen/list_item_height_simple"
         android:orientation="vertical"
         android:overScrollMode="never"
-        android:requiresFadingEdge="vertical"
+        android:requiresFadingEdge="none"
         android:scrollbars="none">
 
         <LinearLayout
