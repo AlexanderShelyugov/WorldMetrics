@@ -7,7 +7,7 @@ import ru.socialeducationapps.worldmetrics.modules.indexes.model.SimpleCountryVa
 import javax.inject.Inject
 import kotlin.Float.Companion.NaN
 
-class CorruptionPerceptionsServiceImpl @Inject constructor(
+class CorruptionPerceptionsCsvService @Inject constructor(
     private val csvService: CsvService,
 ) : CorruptionPerceptionsService {
     private companion object {
@@ -26,7 +26,7 @@ class CorruptionPerceptionsServiceImpl @Inject constructor(
             rows
                 .map {
                     SimpleCountryValue(
-                        it[COLUMN_COUNTRY_CODE],
+                        it[COLUMN_COUNTRY_CODE].lowercase(),
                         it[COLUMN_MAX_YEAR.first].toFloatOrNull() ?: NaN
                     )
                 }

@@ -5,13 +5,13 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import ru.socialeducationapps.worldmetrics.modules.corruption_perceptions.service.api.CorruptionPerceptionsService
-import ru.socialeducationapps.worldmetrics.modules.corruption_perceptions.service.impl.CorruptionPerceptionsServiceImpl
+import ru.socialeducationapps.worldmetrics.modules.corruption_perceptions.service.impl.CorruptionPerceptionsCsvService
 
 @Module
 @InstallIn(ViewModelComponent::class)
 class CorruptionPerceptionsModule {
     @Provides
-    fun corruptionPerceptionsService(impl: CorruptionPerceptionsServiceImpl): CorruptionPerceptionsService =
+    fun corruptionPerceptionsService(impl: CorruptionPerceptionsCsvService): CorruptionPerceptionsService =
         impl
             .also { it.filePath = FILE_PATH }
 

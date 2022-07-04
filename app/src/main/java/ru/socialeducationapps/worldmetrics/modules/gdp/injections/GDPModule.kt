@@ -6,14 +6,14 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import ru.socialeducationapps.worldmetrics.modules.csv.service.api.CsvService
 import ru.socialeducationapps.worldmetrics.modules.gdp.service.api.GDPService
-import ru.socialeducationapps.worldmetrics.modules.gdp.service.impl.GDPCSVService
+import ru.socialeducationapps.worldmetrics.modules.gdp.service.impl.GDPCsvService
 
 @Module
 @InstallIn(ViewModelComponent::class)
 class GDPModule {
     @Provides
     fun gdpService(csvService: CsvService): GDPService =
-        GDPCSVService(csvService)
+        GDPCsvService(csvService)
             .apply { filePath = FILE_PATH }
 
     companion object {

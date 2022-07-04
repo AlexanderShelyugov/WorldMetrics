@@ -8,7 +8,7 @@ import ru.socialeducationapps.worldmetrics.modules.press_freedom.service.api.Pre
 import javax.inject.Inject
 import kotlin.Float.Companion.NaN
 
-class PressFreedomServiceImpl @Inject constructor(private val csvService: CsvService) :
+class PressFreedomCsvService @Inject constructor(private val csvService: CsvService) :
     PressFreedomService {
     lateinit var filePath: String
 
@@ -38,7 +38,7 @@ class PressFreedomServiceImpl @Inject constructor(private val csvService: CsvSer
             rows.filter { MAX_YEAR == it[COLUMN_YEAR].toInt() }
                 .map {
                     SimpleCountryValue(
-                        it[COLUMN_COUNTRY_CODE],
+                        it[COLUMN_COUNTRY_CODE].lowercase(),
                         it[COLUMN_INDEX_VALUE].toFloatOrNull() ?: NaN
                     )
                 }

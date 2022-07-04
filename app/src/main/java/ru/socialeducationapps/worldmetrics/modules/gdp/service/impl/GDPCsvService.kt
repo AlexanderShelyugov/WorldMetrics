@@ -9,7 +9,7 @@ import ru.socialeducationapps.worldmetrics.modules.indexes.model.SimpleCountryVa
 import javax.inject.Inject
 import kotlin.Float.Companion.NaN
 
-class GDPCSVService @Inject constructor(
+class GDPCsvService @Inject constructor(
     private val csvService: CsvService,
 ) : GDPService {
     lateinit var filePath: String

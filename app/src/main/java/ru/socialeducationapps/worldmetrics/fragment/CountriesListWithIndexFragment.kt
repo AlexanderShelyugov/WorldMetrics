@@ -49,9 +49,10 @@ abstract class CountriesListWithIndexFragment :
                 val ctx = requireContext()
                 countries.asSequence()
                     .map {
-                        val name = CODES_TO_NAMES[it.iso3CountyCode]?.run(ctx::getString) ?: ""
+                        val code = it.iso3CountyCode.lowercase()
+                        val name = CODES_TO_NAMES[code]?.run(ctx::getString) ?: ""
                         val value = it.value
-                        CountriesListWithIndexDataItem(it.iso3CountyCode, name, value)
+                        CountriesListWithIndexDataItem(code, name, value)
                     }
                     .toList()
                     .run(countriesAdapter::setData)
