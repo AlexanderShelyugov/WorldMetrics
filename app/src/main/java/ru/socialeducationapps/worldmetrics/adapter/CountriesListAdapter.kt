@@ -36,6 +36,8 @@ class CountriesListAdapter : FilterableSortableAdapter<DataItem>() {
         override fun areContentsTheSame(i1: DataItem, i2: DataItem) = i1 == i2
     }
 
+    override fun calculateComparator(): Comparator<DataItem> = compareBy { it.name }
+
     override fun search(query: String, item: DataItem) =
         item.name.indexOf(query, ignoreCase = true).takeIf { 0 <= it }
             ?: item.iso3Code.indexOf(query, ignoreCase = true).takeIf { 0 <= it }
