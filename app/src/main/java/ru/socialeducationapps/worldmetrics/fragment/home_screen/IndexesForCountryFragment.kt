@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.view.isVisible
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -25,16 +25,18 @@ import ru.socialeducationapps.worldmetrics.viewmodel.CurrentCountryViewModel
 
 @AndroidEntryPoint
 class IndexesForCountryFragment : InjectableFragment(R.layout.indexes_for_country) {
-    private val model by activityViewModels<CurrentCountryViewModel>()
+    private val model by viewModels<CurrentCountryViewModel>()
     private lateinit var contentContainer: ViewGroup
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         contentContainer = requireView().findViewById(R.id.ll_indexes)
         model.currentCountryCode.observe(viewLifecycleOwner) { countryCode ->
-            contentContainer.removeAllViews()
             val someCountrySelected = countryCode?.isNotBlank() ?: false
-            contentContainer.isVisible = someCountrySelected
+            contentContainer.apply {
+                removeAllViews()
+                isVisible = someCountrySelected
+            }
             if (someCountrySelected) {
                 val actions = getIndexesActions(countryCode)
                 ALL_INDEXES.forEach { addIndexGroup(it, actions) }
