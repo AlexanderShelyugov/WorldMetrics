@@ -73,7 +73,7 @@ class CountriesListWithIndexAdapter(private val onClick: (View, String) -> Unit)
         (viewHolder as CountryIndexViewHolder).run {
             data[position].let { row ->
                 countryName.apply {
-                    text = row.name
+                    text = row.name.takeIf { it.isNotBlank() } ?: row.iso3Code
                     transitionName =
                         context.getString(
                             R.string.transition_name_pattern_country_name,

@@ -265,6 +265,7 @@ class CountriesData private constructor() {
             "vut" to R.string.country_name_vanuatu,
             "wlf" to R.string.country_name_wallis_and_futuna,
             "wsm" to R.string.country_name_samoa,
+            "xko" to R.string.country_name_kosovo,
             "yem" to R.string.country_name_yemen,
             "zaf" to R.string.country_name_south_africa,
             "zmb" to R.string.country_name_zambia,
@@ -518,6 +519,7 @@ class CountriesData private constructor() {
             addCodes("vu", "vut")
             addCodes("wf", "wlf")
             addCodes("ws", "wsm")
+            addCodes("xk", "xko")
             addCodes("ye", "yem")
             addCodes("yt", "myt")
             addCodes("za", "zaf")
