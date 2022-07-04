@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import ru.socialeducationapps.worldmetrics.R
 import ru.socialeducationapps.worldmetrics.adapter.CompositeRVAdapter
-import ru.socialeducationapps.worldmetrics.model.CountriesData.Companion.getNameByCode
+import ru.socialeducationapps.worldmetrics.model.CountriesData.Companion.getNameIdByCode
 import ru.socialeducationapps.worldmetrics.modules.corruption_perceptions.rv_adapter.CorruptionPerceptionsAdapterFactory.Companion.getCorruptionPerceptionsFeaturesAdapter
 import ru.socialeducationapps.worldmetrics.modules.country_overview.viewmodel.CountryOverviewViewModel
 import ru.socialeducationapps.worldmetrics.modules.democracy_index.rv_adapter.DemocracyIndexAdapterFactory.Companion.getDemocracyIndexFeaturesAdapter
@@ -22,11 +22,12 @@ class CountryOverviewFragment : Fragment(R.layout.country_overview) {
         super.onViewCreated(view, savedInstanceState)
         val args: CountryOverviewFragmentArgs by navArgs()
         val countryCode = args.countryCode
-
-        requireView().findViewById<TextView>(R.id.tv_country_name).text =
-            getNameByCode(countryCode)
-        requireView().findViewById<RecyclerView>(R.id.rv_content).adapter =
-            createAdapter(countryCode)
+        requireView().run {
+            findViewById<TextView>(R.id.tv_country_name)
+                .setText(getNameIdByCode(countryCode))
+            findViewById<RecyclerView>(R.id.rv_content).adapter =
+                createAdapter(countryCode)
+        }
     }
 
     private fun createAdapter(countryCode: String): Adapter<out ViewHolder> {

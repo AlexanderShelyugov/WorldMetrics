@@ -13,7 +13,7 @@ import ru.socialeducationapps.worldmetrics.R
 import ru.socialeducationapps.worldmetrics.fragment.home_screen.HomeScreenFragmentDirections.Companion.actionHomeScreenToCountryDetect
 import ru.socialeducationapps.worldmetrics.fragment.home_screen.HomeScreenFragmentDirections.Companion.actionHomeScreenToCountryOverview
 import ru.socialeducationapps.worldmetrics.global.NavigationHelper.Companion.bindNavigation
-import ru.socialeducationapps.worldmetrics.model.CountriesData.Companion.getNameByCode
+import ru.socialeducationapps.worldmetrics.model.CountriesData.Companion.getNameIdByCode
 import ru.socialeducationapps.worldmetrics.viewmodel.CurrentCountryViewModel
 
 class YourCountryFragment : Fragment(R.layout.your_country_fragment) {
@@ -49,9 +49,9 @@ class YourCountryFragment : Fragment(R.layout.your_country_fragment) {
     }
 
     private fun setCountryCode(countryCode: String) {
-        val countryName: String
+        var countryNameId: Int
         if (countryCode.isBlank()) {
-            countryName = getString(R.string.country_name_unknown)
+            countryNameId = R.string.country_name_unknown
             locationMarker.setImageResource(R.drawable.geolocation_unknown_marker)
             messageLabel.run {
                 text = getString(R.string.consider_searching_your_country)
@@ -59,7 +59,7 @@ class YourCountryFragment : Fragment(R.layout.your_country_fragment) {
             }
             countryDetect.setImageResource(R.drawable.search_icon)
         } else {
-            countryName = getNameByCode(countryCode)
+            countryNameId = getNameIdByCode(countryCode)
             locationMarker.setImageResource(R.drawable.geolocation_marker)
             messageLabel.run {
                 text = ""
@@ -67,6 +67,6 @@ class YourCountryFragment : Fragment(R.layout.your_country_fragment) {
             }
             countryDetect.setImageResource(R.drawable.edit_icon)
         }
-        countryInfo.text = countryName
+        countryInfo.setText(countryNameId)
     }
 }

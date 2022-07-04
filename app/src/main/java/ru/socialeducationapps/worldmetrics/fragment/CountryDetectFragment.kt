@@ -41,6 +41,7 @@ import ru.socialeducationapps.worldmetrics.fragment.CountryDetectFragment.Fragme
 import ru.socialeducationapps.worldmetrics.model.CountriesData
 import ru.socialeducationapps.worldmetrics.model.CountriesData.Companion.getAlpha2Code
 import ru.socialeducationapps.worldmetrics.model.CountriesData.Companion.getAlpha3Code
+import ru.socialeducationapps.worldmetrics.model.CountriesData.Companion.getNameIdByCode
 import ru.socialeducationapps.worldmetrics.viewmodel.CurrentCountryViewModel
 import java.util.concurrent.TimeUnit.SECONDS
 
@@ -191,7 +192,10 @@ class CountryDetectFragment : Fragment(R.layout.country_detect_fragment) {
         countryCode = getAlpha3Code(alpha2Code)
         val message = countryCode
             .takeIf { it.isNotBlank() }
-            ?.run(CountriesData.Companion::getNameByCode)
+            ?.let { isoCode ->
+                val countryNameId = getNameIdByCode(isoCode)
+                requireContext().getString(countryNameId)
+            }
             ?.let { getString(R.string.question_is_your_country, it) }
             ?: getString(R.string.failed_to_detect_country)
         confirm.isVisible = countryCode.isNotBlank()

@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import ru.socialeducationapps.worldmetrics.R
 import ru.socialeducationapps.worldmetrics.adapter.IndexFeaturesRVAdapter
-import ru.socialeducationapps.worldmetrics.model.CountriesData
+import ru.socialeducationapps.worldmetrics.model.CountriesData.Companion.getNameIdByCode
 import ru.socialeducationapps.worldmetrics.modules.indexes.model.FeatureRange
 
 abstract class CountryIndexDetailFragment<T> : InjectableFragment(R.layout.country_detail_indexes) {
@@ -43,7 +43,7 @@ abstract class CountryIndexDetailFragment<T> : InjectableFragment(R.layout.count
             findViewById<TextView>(R.id.tv_country_name).apply {
                 transitionName =
                     context.getString(R.string.transition_name_country_name_detail)
-                text = CountriesData.getNameByCode(getCountryCode())
+                setText(getNameIdByCode(getCountryCode()))
             }
             findViewById<RecyclerView>(R.id.rv_content).adapter = adapter
         }

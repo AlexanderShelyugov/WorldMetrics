@@ -1,7 +1,6 @@
 package ru.socialeducationapps.worldmetrics.model
 
 import ru.socialeducationapps.worldmetrics.R
-import ru.socialeducationapps.worldmetrics.global.ContextAccess
 
 /** Provides relevant data about countries*/
 class CountriesData private constructor() {
@@ -11,10 +10,8 @@ class CountriesData private constructor() {
          *
          * @param countryCode ISO code of a country
          */
-        fun getNameByCode(countryCode: String): String {
-            val strId = CODES_TO_NAMES[countryCode.lowercase()] ?: -1
-            return if (strId < 0) "" else ContextAccess.context.getString(strId)
-        }
+        fun getNameIdByCode(countryCode: String): Int =
+            CODES_TO_NAMES[countryCode.lowercase()] ?: -1
 
         fun getAlpha3Code(alpha2: String): String =
             ALPHA_2_TO_ALPHA_3_CODES.getOrDefault(alpha2.lowercase(), "")
