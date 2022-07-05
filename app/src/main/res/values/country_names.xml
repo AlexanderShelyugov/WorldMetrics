@@ -68,6 +68,7 @@
     <string name="country_name_equatorial_guinea">Equatorial Guinea</string>
     <string name="country_name_eritrea">Eritrea</string>
     <string name="country_name_estonia">Estonia</string>
+    <string name="country_name_eswatini">Eswatini</string>
     <string name="country_name_ethiopia">Ethiopia</string>
     <string name="country_name_falkland_islands_malvinas">Falkland Islands (Malvinas)</string>
     <string name="country_name_faroe_islands">Faroe Islands</string>
@@ -184,9 +185,11 @@
     <string name="country_name_russia">Russia</string>
     <string name="country_name_rwanda">Rwanda</string>
     <string name="country_name_reunion">Réunion</string>
+    <string name="country_name_saint_barthelemy">Saint Barthélemy</string>
     <string name="country_name_saint_helena_ascension_and_tristan_da_cunha">Saint Helena, Ascension and Tristan da Cunha</string>
     <string name="country_name_saint_kitts_and_nevis">Saint Kitts and Nevis</string>
     <string name="country_name_saint_lucia">Saint Lucia</string>
+    <string name="country_name_saint_martin_french_part">Saint Martin (French part)</string>
     <string name="country_name_saint_pierre_and_miquelon">Saint Pierre and Miquelon</string>
     <string name="country_name_saint_vincent_and_the_grenadines">Saint Vincent and the Grenadines</string>
     <string name="country_name_samoa">Samoa</string>
@@ -211,7 +214,6 @@
     <string name="country_name_sudan">Sudan</string>
     <string name="country_name_suriname">Suriname</string>
     <string name="country_name_svalbard_and_jan_mayen">Svalbard and Jan Mayen</string>
-    <string name="country_name_swaziland">Swaziland</string>
     <string name="country_name_sweden">Sweden</string>
     <string name="country_name_switzerland">Switzerland</string>
     <string name="country_name_syrian_arab_republic">Syrian Arab Republic</string>

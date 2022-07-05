@@ -51,6 +51,7 @@ class CountriesData private constructor() {
             "bhr" to R.string.country_name_bahrain,
             "bhs" to R.string.country_name_bahamas,
             "bih" to R.string.country_name_bosnia_and_herzegovina,
+            "blm" to R.string.country_name_saint_barthelemy,
             "blr" to R.string.country_name_belarus,
             "blz" to R.string.country_name_belize,
             "bmu" to R.string.country_name_bermuda,
@@ -158,6 +159,7 @@ class CountriesData private constructor() {
             "lux" to R.string.country_name_luxembourg,
             "lva" to R.string.country_name_latvia,
             "mac" to R.string.country_name_macao,
+            "maf" to R.string.country_name_saint_martin_french_part,
             "mar" to R.string.country_name_morocco,
             "mco" to R.string.country_name_monaco,
             "mda" to R.string.country_name_moldova,
@@ -232,7 +234,7 @@ class CountriesData private constructor() {
             "svk" to R.string.country_name_slovakia,
             "svn" to R.string.country_name_slovenia,
             "swe" to R.string.country_name_sweden,
-            "swz" to R.string.country_name_swaziland,
+            "swz" to R.string.country_name_eswatini,
             "syc" to R.string.country_name_seychelles,
             "syr" to R.string.country_name_syrian_arab_republic,
             "tca" to R.string.country_name_turks_and_caicos_islands,
@@ -305,6 +307,7 @@ class CountriesData private constructor() {
             addCodes("bh", "bhr")
             addCodes("bi", "bdi")
             addCodes("bj", "ben")
+            addCodes("bl", "blm")
             addCodes("bm", "bmu")
             addCodes("bn", "brn")
             addCodes("bo", "bol")
@@ -417,6 +420,7 @@ class CountriesData private constructor() {
             addCodes("mc", "mco")
             addCodes("md", "mda")
             addCodes("me", "mne")
+            addCodes("mf", "maf")
             addCodes("mg", "mdg")
             addCodes("mh", "mhl")
             addCodes("mk", "mkd")
