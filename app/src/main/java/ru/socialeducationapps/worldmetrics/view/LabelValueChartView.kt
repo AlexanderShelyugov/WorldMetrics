@@ -83,7 +83,8 @@ class LabelValueChartView<T>(context: Context, attrs: AttributeSet) : FrameLayou
             valueColor = context.getColor(R.color.colorOnPrimary)
         } else {
             valueText = feature.toBigDecimal().toPlainString()
-            valueColor = calculator?.evalColor(range, feature) ?: R.color.colorOnPrimary
+            valueColor =
+                calculator?.evalColor(range, feature) ?: context.getColor(R.color.colorOnPrimary)
         }
         value.text = valueText
         value.setTextColor(valueColor)
