@@ -20,6 +20,7 @@ import ru.socialeducationapps.worldmetrics.adapter.CountriesListWithIndexAdapter
 import ru.socialeducationapps.worldmetrics.adapter.CountriesListWithIndexDataItem
 import ru.socialeducationapps.worldmetrics.adapter.ScrollToTopOnChangeObserver
 import ru.socialeducationapps.worldmetrics.global.ColorAccess.Companion.VALUE_DEFAULT_COLOR_RANGE
+import ru.socialeducationapps.worldmetrics.global.hideKeyboard
 import ru.socialeducationapps.worldmetrics.model.CountriesData.Companion.getNameIdByCode
 import ru.socialeducationapps.worldmetrics.modules.coroutines.api.DispatcherProvider
 import ru.socialeducationapps.worldmetrics.modules.indexes.model.FeatureRange
@@ -122,6 +123,7 @@ abstract class CountriesListWithIndexFragment :
         val extras = FragmentNavigatorExtras(
             v to requireContext().getString(R.string.transition_name_target_screen)
         )
+        requireActivity().hideKeyboard()
         getNavigationOnClick(countryCode)?.let { action ->
             findNavController().navigate(action, extras)
         }

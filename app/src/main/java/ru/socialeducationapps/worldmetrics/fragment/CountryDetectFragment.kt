@@ -41,6 +41,7 @@ import ru.socialeducationapps.worldmetrics.adapter.CountryListAdapterItem
 import ru.socialeducationapps.worldmetrics.adapter.ScrollToTopOnChangeObserver
 import ru.socialeducationapps.worldmetrics.fragment.CountryDetectFragment.FragmentState.COUNTRIES_LIST
 import ru.socialeducationapps.worldmetrics.fragment.CountryDetectFragment.FragmentState.DETECTION_TYPES
+import ru.socialeducationapps.worldmetrics.global.hideKeyboard
 import ru.socialeducationapps.worldmetrics.model.CountriesData.Companion.getAllCountryCodes
 import ru.socialeducationapps.worldmetrics.model.CountriesData.Companion.getAlpha2Code
 import ru.socialeducationapps.worldmetrics.model.CountriesData.Companion.getAlpha3Code
@@ -271,6 +272,7 @@ class CountryDetectFragment : Fragment(R.layout.country_detect_fragment) {
         requireContext().getSystemService(LOCATION_SERVICE) as LocationManager
 
     private val callback: (String) -> Unit = { countryCode ->
+        requireActivity().hideKeyboard()
         setCountryCode(countryCode)
         switchFragmentState(DETECTION_TYPES)
     }
