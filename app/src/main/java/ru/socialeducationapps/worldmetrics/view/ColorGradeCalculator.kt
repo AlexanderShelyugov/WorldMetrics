@@ -10,7 +10,7 @@ private typealias ColorComponentType = Int
 
 class ColorGradeCalculator(
     colorRange: Pair<ColorType, ColorType>,
-    private val median: Float = MEDIAN,
+    private val median: Float = DEFAULT_MEDIAN,
     private val minColor: ColorType = colorRange.first,
     private val maxColor: ColorType = colorRange.second,
 ) {
@@ -63,7 +63,7 @@ class ColorGradeCalculator(
     }
 
     private companion object {
-        const val MEDIAN = .4f
+        const val DEFAULT_MEDIAN = .5f
         const val MAX_COMPONENT = 255
     }
 }
