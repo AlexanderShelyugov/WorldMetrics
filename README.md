@@ -19,7 +19,7 @@
 
 - ### <img src="images/Google Drive.png" width="32dp" /> [Google Drive](https://drive.google.com/file/d/1mgC4irhPEKnd_1v2gA3Vy6_-gZoVqZc6/view?usp=sharing)
 
-- ### <img src="images/Octocat.png" width="32dp" /> [Latest GitHub Actions run](https://github.com/AlexanderShelyugov/WorldMetrics/actions/runs/2609420749)
+- ### <img src="images/Octocat.png" width="32dp" /> [Latest GitHub Actions run](https://github.com/AlexanderShelyugov/WorldMetrics/actions/runs/2619222733)
 
 ## Description
 
@@ -35,7 +35,7 @@ and many more!
 ## Indexes overview
 
 ### Demographic
-- Population by [United Nations](https://population.un.org/wpp/Download/Standard/) (Coming up!)
+- Population by [United Nations](https://population.un.org/wpp/Download/Standard/)
 
 ### Political
 - Corruption Perceptions Index by [Transparency International](https://www.transparency.org/en/cpi/2021)
