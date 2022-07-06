@@ -11,15 +11,15 @@
 
 ## Download
 
-<img src="images/WorldMetrics_showcase.gif" width="33%" align="right"/>
+<img src="https://github.com/AlexanderShelyugov/WorldMetrics/blob/main/images/WorldMetrics_showcase.gif" width="33%" align="right"/>
 
 ### Unfortunately, at the moment I can't verify my Google Play account because of sanctions.
 ### But I'm working on getting a residence permit. 🙂
 ### Meanwhile, you can download APK from:
 
-- ### <img src="images/Google Drive.png" width="32dp" /> [Google Drive](https://drive.google.com/file/d/1mgC4irhPEKnd_1v2gA3Vy6_-gZoVqZc6/view?usp=sharing)
+- ### <img src="https://github.com/AlexanderShelyugov/WorldMetrics/blob/main/images/Google%20Drive.png" width="32dp" /> [Google Drive](https://drive.google.com/file/d/1mgC4irhPEKnd_1v2gA3Vy6_-gZoVqZc6/view?usp=sharing)
 
-- ### <img src="images/Octocat.png" width="32dp" /> [Latest GitHub Actions run](https://github.com/AlexanderShelyugov/WorldMetrics/actions/runs/2619222733)
+- ### <img src="https://github.com/AlexanderShelyugov/WorldMetrics/blob/main/images/Octocat.png" width="32dp" /> [Latest GitHub Actions run](https://github.com/AlexanderShelyugov/WorldMetrics/actions/runs/2619222733)
 
 ## Description
 
