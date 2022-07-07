@@ -2,9 +2,13 @@ package ru.socialeducationapps.worldmetrics.modules.indexes.fragment
 
 import android.graphics.Color.TRANSPARENT
 import android.os.Bundle
+import android.transition.Fade
+import android.transition.TransitionManager
 import android.view.View
+import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.view.doOnPreDraw
+import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.transition.MaterialArcMotion
@@ -19,6 +23,9 @@ import ru.socialeducationapps.worldmetrics.modules.indexes.model.FeatureRange
 import ru.socialeducationapps.worldmetrics.modules.indexes.viewmodel.CommonCountryDetailViewModel
 
 abstract class CountryIndexDetailFragment<T> : InjectableFragment(R.layout.country_detail_indexes) {
+    private lateinit var spinner: ViewGroup
+    private lateinit var contentView: ViewGroup
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val ctx = requireContext()
@@ -33,25 +40,46 @@ abstract class CountryIndexDetailFragment<T> : InjectableFragment(R.layout.count
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val adapter = getAdapter()
-        adapter.setFeatureRanges(getFeatureRanges())
-        lifecycleScope.launch {
-            getData().collectLatest { items ->
-                adapter.setData(items)
-            }
+        val adapter = getAdapter().apply {
+            setFeatureRanges(getFeatureRanges())
         }
         requireView().run {
+            spinner = findViewById(R.id.fl_loading)
+            contentView = findViewById(R.id.ll_content)
             findViewById<TextView>(R.id.tv_country_name).apply {
                 transitionName =
                     context.getString(R.string.transition_name_country_name_detail)
                 getNameIdByCode(getCountryCode())?.run(this::setText)
             }
-            findViewById<RecyclerView>(R.id.rv_content).adapter = adapter
+            findViewById<RecyclerView>(R.id.rv_indexes).adapter = adapter
+        }
+        lifecycleScope.launch {
+            getData().collectLatest { items ->
+                setState(items != null)
+                adapter.setData(items ?: emptyList())
+            }
         }
         postponeEnterTransition()
         view.doOnPreDraw {
             startPostponedEnterTransition()
         }
+    }
+
+    private fun setState(contentReady: Boolean) {
+        val transitionOut = Fade()
+        val transitionIn = Fade()
+            .apply { startDelay = transitionOut.duration / 2 }
+        val outgoingView =
+            if (contentReady) spinner else contentView
+        val incomingView =
+            if (contentReady) contentView else spinner
+
+        TransitionManager.beginDelayedTransition(outgoingView, transitionOut)
+        TransitionManager.beginDelayedTransition(incomingView, transitionIn)
+        outgoingView.isVisible = false
+        incomingView.isVisible = true
+        setHasOptionsMenu(contentReady)
+        requireActivity().invalidateOptionsMenu()
     }
 
     private val model: CommonCountryDetailViewModel<T>

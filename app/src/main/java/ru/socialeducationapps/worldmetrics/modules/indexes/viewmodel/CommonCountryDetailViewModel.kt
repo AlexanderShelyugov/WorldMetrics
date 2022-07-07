@@ -20,12 +20,12 @@ abstract class CommonCountryDetailViewModel<Index> constructor(
 ) : ViewModel(), CountryDetailViewModel<Index> {
     private var country: String = ""
     private val _lastYearData = MutableLiveData<Index>()
-    private val _allData = MutableStateFlow<List<Index>>(emptyList())
+    private val _allData = MutableStateFlow<List<Index>?>(null)
 
     final override val lastYearData: LiveData<Index>
         get() = _lastYearData
             .also { loadLastYearData() }
-    final override val allData: Flow<List<Index>>
+    final override val allData: Flow<List<Index>?>
         get() = _allData
             .also { loadAllData() }
             .asStateFlow()

@@ -6,7 +6,7 @@ import ru.socialeducationapps.worldmetrics.modules.indexes.model.FeatureRange
 
 interface CountryDetailViewModel<T> {
     val lastYearData: LiveData<T>
-    val allData: Flow<List<T>>
+    val allData: Flow<List<T>?>
     fun setCountry(country: String)
     fun getFeatureRanges(): List<FeatureRange>
 }
