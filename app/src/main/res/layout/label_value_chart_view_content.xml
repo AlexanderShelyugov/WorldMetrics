@@ -6,10 +6,10 @@
 
     <TextView
         android:id="@+id/tv_label"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:lines="1"
         android:textSize="24sp"
-        app:layout_constraintEnd_toStartOf="@id/tv_value"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
