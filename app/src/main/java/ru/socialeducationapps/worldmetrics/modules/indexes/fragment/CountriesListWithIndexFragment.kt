@@ -1,12 +1,16 @@
 package ru.socialeducationapps.worldmetrics.modules.indexes.fragment
 
 import android.os.Bundle
+import android.transition.Fade
+import android.transition.TransitionManager
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.core.view.doOnPreDraw
+import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.FragmentNavigatorExtras
@@ -39,15 +43,14 @@ abstract class CountriesListWithIndexFragment :
     }
     private lateinit var sortTypeItem: MenuItem
     private lateinit var sortOrderItem: MenuItem
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-    }
+    private lateinit var spinner: ViewGroup
+    private lateinit var contentView: ViewGroup
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        spinner = view.findViewById(R.id.fl_loading)
         view.findViewById<RecyclerView>(R.id.rv_countries_list).apply {
+            contentView = this
             adapter = countriesAdapter.also {
                 it.setValuesRange(getValueRange())
                 it.registerAdapterDataObserver(ScrollToTopOnChangeObserver(this))
@@ -57,15 +60,16 @@ abstract class CountriesListWithIndexFragment :
         lifecycleScope.launch {
             getData().collectLatest { countries ->
                 val ctx = requireContext()
-                countries.asSequence()
-                    .map {
+                val data = countries?.asSequence()
+                    ?.map {
                         val code = it.iso3CountyCode.lowercase()
                         val name = getNameIdByCode(code)?.run(ctx::getString) ?: ""
                         val value = it.value
                         CountriesListWithIndexDataItem(code, name, value)
                     }
-                    .toList()
-                    .run(countriesAdapter::setData)
+                    ?.toList()
+                countriesAdapter.setData(data ?: emptyList())
+                setState(countries != null)
             }
         }
         postponeEnterTransition()
@@ -90,6 +94,23 @@ abstract class CountriesListWithIndexFragment :
             true
         }
         else -> super.onOptionsItemSelected(item)
+    }
+
+    private fun setState(contentReady: Boolean) {
+        val transitionOut = Fade()
+        val transitionIn = Fade()
+            .apply { startDelay = transitionOut.duration / 2 }
+        val outgoingView =
+            if (contentReady) spinner else contentView
+        val incomingView =
+            if (contentReady) contentView else spinner
+
+        TransitionManager.beginDelayedTransition(outgoingView, transitionOut)
+        TransitionManager.beginDelayedTransition(incomingView, transitionIn)
+        outgoingView.isVisible = false
+        incomingView.isVisible = true
+        setHasOptionsMenu(contentReady)
+        requireActivity().invalidateOptionsMenu()
     }
 
     private fun switchSortType() {
@@ -120,7 +141,7 @@ abstract class CountriesListWithIndexFragment :
     private val model: CommonOverviewViewModel
         get() = getOverviewViewModel()
 
-    protected fun getData(): Flow<List<SimpleCountryValue>> = model.lastYearData
+    private fun getData(): Flow<List<SimpleCountryValue>?> = model.lastYearData
     protected fun getValueRange() = model.getValueRange()
 
     protected open fun onCountryClick(v: View, countryCode: String) {

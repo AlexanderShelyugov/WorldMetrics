@@ -14,8 +14,8 @@ abstract class CommonOverviewViewModel constructor(
     private val service: IndexOverviewService,
     private val dispatchers: DispatcherProvider,
 ) : ViewModel(), OverviewViewModel {
-    private val _lastYearData = MutableStateFlow<List<SimpleCountryValue>>(emptyList())
-    final override val lastYearData: Flow<List<SimpleCountryValue>>
+    private val _lastYearData = MutableStateFlow<List<SimpleCountryValue>?>(null)
+    final override val lastYearData: Flow<List<SimpleCountryValue>?>
         get() = _lastYearData
             .also { reloadLastYearData() }
             .asStateFlow()
