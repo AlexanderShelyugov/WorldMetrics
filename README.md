@@ -19,7 +19,7 @@
 
 - ### <img src="images/Google Drive.png" width="32dp" /> [Google Drive](https://drive.google.com/file/d/1mgC4irhPEKnd_1v2gA3Vy6_-gZoVqZc6/view?usp=sharing)
 
-- ### <img src="images/Octocat.png" width="32dp" /> [Latest GitHub Actions run](https://github.com/AlexanderShelyugov/WorldMetrics/actions/runs/2619222733)
+- ### <img src="images/Octocat.png" width="32dp" /> [Latest GitHub Actions run](https://github.com/AlexanderShelyugov/WorldMetrics/actions/runs/2627436334)
 
 ## Description
 
