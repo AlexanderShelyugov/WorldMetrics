@@ -21,5 +21,5 @@ class PopulationDetailFragment : CountryIndexDetailFragment<PopulationIndexValue
         .run { allData }
 
     override fun getAdapter(): IndexFeaturesRVAdapter<PopulationIndexValue> = getPopulationAdapter()
-    override fun getFeatureRanges() = model.getFeatureRanges(getCountryCode())
+    override fun getFeatureRanges() = model.getFeatureRanges()
 }

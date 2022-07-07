@@ -15,9 +15,11 @@ class GDPCountryDetailFragment : CountryIndexDetailFragment<GDPValue>() {
         val args by navArgs<GDPCountryDetailFragmentArgs>()
         return args.countryCode
     }
+
     override fun getData() = model
         .apply { setCountry(getCountryCode()) }
         .run { allData }
+
     override fun getAdapter(): IndexFeaturesRVAdapter<GDPValue> = getGDPAdapter()
-    override fun getFeatureRanges() = model.getFeatureRanges(getCountryCode())
+    override fun getFeatureRanges() = model.getFeatureRanges()
 }

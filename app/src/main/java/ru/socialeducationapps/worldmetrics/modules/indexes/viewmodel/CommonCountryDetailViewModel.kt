@@ -22,19 +22,19 @@ abstract class CommonCountryDetailViewModel<Index> constructor(
     private val _lastYearData = MutableLiveData<Index>()
     private val _allData = MutableStateFlow<List<Index>>(emptyList())
 
-    override val lastYearData: LiveData<Index>
+    final override val lastYearData: LiveData<Index>
         get() = _lastYearData
             .also { loadLastYearData() }
-    override val allData: Flow<List<Index>>
+    final override val allData: Flow<List<Index>>
         get() = _allData
             .also { loadAllData() }
             .asStateFlow()
 
-    override fun setCountry(country: String) {
+    final override fun setCountry(country: String) {
         this.country = country
     }
 
-    override fun getFeatureRanges() = indexLayout.features.asSequence()
+    final override fun getFeatureRanges() = indexLayout.features.asSequence()
         .map { feature -> feature.first }
         .map { featureName ->
             getFeatureExtractors()[featureName]!!(service)

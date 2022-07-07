@@ -16,10 +16,13 @@ class PressFreedomCountryDetailFragment :
         val args: PressFreedomCountryDetailFragmentArgs by navArgs()
         return args.countryCode
     }
+
     override fun getData() = model
         .apply { setCountry(getCountryCode()) }
         .allData
+
     override fun getAdapter(): IndexFeaturesRVAdapter<PressFreedomValue> =
         getPressFreedomFeaturesAdapter()
-    override fun getFeatureRanges() = model.getFeatureRanges(getCountryCode())
+
+    override fun getFeatureRanges() = model.getFeatureRanges()
 }

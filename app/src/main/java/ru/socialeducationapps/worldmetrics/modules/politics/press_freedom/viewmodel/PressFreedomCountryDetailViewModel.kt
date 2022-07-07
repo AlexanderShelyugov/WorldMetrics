@@ -1,61 +1,25 @@
 package ru.socialeducationapps.worldmetrics.modules.politics.press_freedom.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
 import ru.socialeducationapps.worldmetrics.R
 import ru.socialeducationapps.worldmetrics.modules.coroutines.api.DispatcherProvider
 import ru.socialeducationapps.worldmetrics.modules.indexes.model.FeatureRange
-import ru.socialeducationapps.worldmetrics.modules.indexes.model.SimpleCountryValue
-import ru.socialeducationapps.worldmetrics.modules.politics.press_freedom.model.PressFreedomData
+import ru.socialeducationapps.worldmetrics.modules.indexes.service.api.IndexFeatureService
+import ru.socialeducationapps.worldmetrics.modules.indexes.viewmodel.CommonCountryDetailViewModel
+import ru.socialeducationapps.worldmetrics.modules.politics.press_freedom.model.PressFreedomData.Companion.PRESS_FREEDOM_INDEX_LAYOUT
 import ru.socialeducationapps.worldmetrics.modules.politics.press_freedom.model.PressFreedomValue
 import ru.socialeducationapps.worldmetrics.modules.politics.press_freedom.service.api.PressFreedomService
 import javax.inject.Inject
 
 @HiltViewModel
 class PressFreedomCountryDetailViewModel @Inject constructor(
-    private val service: PressFreedomService,
-    private val dispatchers: DispatcherProvider,
-) : ViewModel() {
-    private var country: String = ""
-    private val _lastYearData = MutableLiveData<List<SimpleCountryValue>>()
-    private val _allData = MutableStateFlow<List<PressFreedomValue>>(emptyList())
-
-    fun setCountry(country: String) {
-        this.country = country
-    }
-
-    val lastYearData: LiveData<List<SimpleCountryValue>>
-        get() = _lastYearData.also { loadLastYearData() }
-
-    val allData: Flow<List<PressFreedomValue>>
-        get() = _allData
-            .also { loadAllData() }
-            .asStateFlow()
-
-    fun getFeatureRanges(countryCode: String) =
-        PressFreedomData.PRESS_FREEDOM_INDEX_LAYOUT.features.asSequence()
-            .map { feature -> feature.first }
-            .map { featureName -> FEATURE_RANGE_EXTRACTORS[featureName]!!(service) }
-            .toList()
-
-    private fun loadAllData() {
-        viewModelScope.launch(dispatchers.io) {
-            _allData.value = service.getAllData(country)
-        }
-    }
-
-    private fun loadLastYearData() {
-        viewModelScope.launch(dispatchers.io) {
-            _lastYearData.value = service.getLastYearData()
-        }
-    }
+    service: PressFreedomService,
+    dispatchers: DispatcherProvider,
+) : CommonCountryDetailViewModel<PressFreedomValue>(
+    service, dispatchers, PRESS_FREEDOM_INDEX_LAYOUT
+) {
+    override fun getFeatureExtractors(): Map<Int, (IndexFeatureService<PressFreedomValue>) -> FeatureRange> =
+        FEATURE_RANGE_EXTRACTORS as Map<Int, (IndexFeatureService<PressFreedomValue>) -> FeatureRange>
 
     private companion object {
         val FEATURE_RANGE_EXTRACTORS = mapOf<Int, (PressFreedomService) -> FeatureRange>(

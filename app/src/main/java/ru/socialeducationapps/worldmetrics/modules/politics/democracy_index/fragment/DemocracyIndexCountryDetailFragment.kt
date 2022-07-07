@@ -23,5 +23,5 @@ class DemocracyIndexCountryDetailFragment :
     override fun getAdapter(): IndexFeaturesRVAdapter<DemocracyIndexValue> =
         getDemocracyIndexFeaturesAdapter()
 
-    override fun getFeatureRanges() = model.getFeatureRanges(getCountryCode())
+    override fun getFeatureRanges() = model.getFeatureRanges()
 }

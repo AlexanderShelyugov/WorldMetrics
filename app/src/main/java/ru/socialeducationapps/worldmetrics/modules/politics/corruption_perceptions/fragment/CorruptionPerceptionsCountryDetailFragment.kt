@@ -20,7 +20,9 @@ class CorruptionPerceptionsCountryDetailFragment :
     override fun getData() = model
         .apply { setCountry(getCountryCode()) }
         .allData
+
     override fun getAdapter(): IndexFeaturesRVAdapter<CorruptionPerceptionsValue> =
         getCorruptionPerceptionsFeaturesAdapter()
-    override fun getFeatureRanges() = model.getFeatureRanges(getCountryCode())
+
+    override fun getFeatureRanges() = model.getFeatureRanges()
 }
