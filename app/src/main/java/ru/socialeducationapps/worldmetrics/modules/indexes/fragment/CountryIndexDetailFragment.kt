@@ -1,4 +1,4 @@
-package ru.socialeducationapps.worldmetrics.fragment
+package ru.socialeducationapps.worldmetrics.modules.indexes.fragment
 
 import android.graphics.Color.TRANSPARENT
 import android.os.Bundle
@@ -9,13 +9,14 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.transition.MaterialArcMotion
 import com.google.android.material.transition.MaterialContainerTransform
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import ru.socialeducationapps.worldmetrics.R
 import ru.socialeducationapps.worldmetrics.adapter.IndexFeaturesRVAdapter
+import ru.socialeducationapps.worldmetrics.fragment.InjectableFragment
 import ru.socialeducationapps.worldmetrics.model.CountriesData.Companion.getNameIdByCode
 import ru.socialeducationapps.worldmetrics.modules.indexes.model.FeatureRange
+import ru.socialeducationapps.worldmetrics.modules.indexes.viewmodel.CommonCountryDetailViewModel
 
 abstract class CountryIndexDetailFragment<T> : InjectableFragment(R.layout.country_detail_indexes) {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,11 +54,18 @@ abstract class CountryIndexDetailFragment<T> : InjectableFragment(R.layout.count
         }
     }
 
+    private val model: CommonCountryDetailViewModel<T>
+        get() = getCountryDetailViewModel()
+
     protected abstract fun getCountryCode(): String
+    protected abstract fun getCountryDetailViewModel(): CommonCountryDetailViewModel<T>
+    private fun getData() = model
+        .apply { setCountry(getCountryCode()) }
+        .run { allData }
 
-    protected abstract fun getData(): Flow<List<T>>
+    private fun getFeatureRanges(): List<FeatureRange> =
+        model.getFeatureRanges()
 
-    protected abstract fun getAdapter(): IndexFeaturesRVAdapter<T>
-
-    protected open fun getFeatureRanges(): List<FeatureRange> = emptyList()
+    private fun getAdapter(): IndexFeaturesRVAdapter<T> =
+        IndexFeaturesRVAdapter(model.indexLayout)
 }

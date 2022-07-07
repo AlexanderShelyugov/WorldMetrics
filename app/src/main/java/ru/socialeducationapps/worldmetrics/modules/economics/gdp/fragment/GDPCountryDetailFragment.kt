@@ -2,24 +2,15 @@ package ru.socialeducationapps.worldmetrics.modules.economics.gdp.fragment
 
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
-import ru.socialeducationapps.worldmetrics.adapter.IndexFeaturesRVAdapter
-import ru.socialeducationapps.worldmetrics.fragment.CountryIndexDetailFragment
 import ru.socialeducationapps.worldmetrics.modules.economics.gdp.model.GDPValue
-import ru.socialeducationapps.worldmetrics.modules.economics.gdp.rv_adapter.GDPAdapterFactory.Companion.getGDPAdapter
 import ru.socialeducationapps.worldmetrics.modules.economics.gdp.viewmodel.GDPCountryDetailViewModel
+import ru.socialeducationapps.worldmetrics.modules.indexes.fragment.CountryIndexDetailFragment
 
 class GDPCountryDetailFragment : CountryIndexDetailFragment<GDPValue>() {
     private val model by viewModels<GDPCountryDetailViewModel>()
-
+    override fun getCountryDetailViewModel() = model
     override fun getCountryCode(): String {
         val args by navArgs<GDPCountryDetailFragmentArgs>()
         return args.countryCode
     }
-
-    override fun getData() = model
-        .apply { setCountry(getCountryCode()) }
-        .run { allData }
-
-    override fun getAdapter(): IndexFeaturesRVAdapter<GDPValue> = getGDPAdapter()
-    override fun getFeatureRanges() = model.getFeatureRanges()
 }

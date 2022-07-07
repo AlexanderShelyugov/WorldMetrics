@@ -16,7 +16,7 @@ import ru.socialeducationapps.worldmetrics.modules.indexes.service.api.IndexFeat
 abstract class CommonCountryDetailViewModel<Index> constructor(
     private val service: IndexFeatureService<Index>,
     private val dispatchers: DispatcherProvider,
-    private val indexLayout: CommonIndexLayout<Index>,
+    val indexLayout: CommonIndexLayout<Index>,
 ) : ViewModel(), CountryDetailViewModel<Index> {
     private var country: String = ""
     private val _lastYearData = MutableLiveData<Index>()
