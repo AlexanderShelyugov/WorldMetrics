@@ -1,4 +1,4 @@
-package ru.socialeducationapps.worldmetrics.fragment
+package ru.socialeducationapps.worldmetrics.modules.indexes.fragment
 
 import android.os.Bundle
 import android.view.Menu
@@ -19,12 +19,13 @@ import ru.socialeducationapps.worldmetrics.R
 import ru.socialeducationapps.worldmetrics.adapter.CountriesListWithIndexAdapter
 import ru.socialeducationapps.worldmetrics.adapter.CountriesListWithIndexDataItem
 import ru.socialeducationapps.worldmetrics.adapter.ScrollToTopOnChangeObserver
+import ru.socialeducationapps.worldmetrics.fragment.InjectableFragment
 import ru.socialeducationapps.worldmetrics.global.ColorAccess.Companion.VALUE_DEFAULT_COLOR_RANGE
 import ru.socialeducationapps.worldmetrics.global.hideKeyboard
 import ru.socialeducationapps.worldmetrics.model.CountriesData.Companion.getNameIdByCode
 import ru.socialeducationapps.worldmetrics.modules.coroutines.api.DispatcherProvider
-import ru.socialeducationapps.worldmetrics.modules.indexes.model.FeatureRange
 import ru.socialeducationapps.worldmetrics.modules.indexes.model.SimpleCountryValue
+import ru.socialeducationapps.worldmetrics.modules.indexes.viewmodel.CommonOverviewViewModel
 import javax.inject.Inject
 
 abstract class CountriesListWithIndexFragment :
@@ -115,9 +116,12 @@ abstract class CountriesListWithIndexFragment :
         sortOrderItem.setIcon(nextIcon)
     }
 
-    protected abstract fun getData(): Flow<List<SimpleCountryValue>>
+    protected abstract fun getOverviewViewModel(): CommonOverviewViewModel
+    private val model: CommonOverviewViewModel
+        get() = getOverviewViewModel()
 
-    protected abstract fun getValueRange(): FeatureRange
+    protected fun getData(): Flow<List<SimpleCountryValue>> = model.lastYearData
+    protected fun getValueRange() = model.getValueRange()
 
     protected open fun onCountryClick(v: View, countryCode: String) {
         val extras = FragmentNavigatorExtras(

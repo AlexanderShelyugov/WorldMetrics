@@ -8,20 +8,17 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import ru.socialeducationapps.worldmetrics.modules.coroutines.api.DispatcherProvider
 import ru.socialeducationapps.worldmetrics.modules.indexes.model.SimpleCountryValue
-import ru.socialeducationapps.worldmetrics.modules.indexes.service.api.IndexFeatureService
-import kotlin.Float.Companion.NaN
+import ru.socialeducationapps.worldmetrics.modules.indexes.service.api.IndexOverviewService
 
-abstract class CommonOverviewViewModel<T> constructor(
-    private val service: IndexFeatureService<T>,
+abstract class CommonOverviewViewModel constructor(
+    private val service: IndexOverviewService,
     private val dispatchers: DispatcherProvider,
-) : ViewModel(), OverviewViewModel<T> {
+) : ViewModel(), OverviewViewModel {
     private val _lastYearData = MutableStateFlow<List<SimpleCountryValue>>(emptyList())
-    override val lastYearData: Flow<List<SimpleCountryValue>>
+    final override val lastYearData: Flow<List<SimpleCountryValue>>
         get() = _lastYearData
             .also { reloadLastYearData() }
             .asStateFlow()
-
-    override fun getValueRange() = NaN to NaN
 
     private fun reloadLastYearData() {
         viewModelScope.launch(dispatchers.io) {

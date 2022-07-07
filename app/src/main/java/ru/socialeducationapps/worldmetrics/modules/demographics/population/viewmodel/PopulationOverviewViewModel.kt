@@ -3,7 +3,6 @@ package ru.socialeducationapps.worldmetrics.modules.demographics.population.view
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.runBlocking
 import ru.socialeducationapps.worldmetrics.modules.coroutines.api.DispatcherProvider
-import ru.socialeducationapps.worldmetrics.modules.demographics.population.model.PopulationIndexValue
 import ru.socialeducationapps.worldmetrics.modules.demographics.population.service.api.PopulationService
 import ru.socialeducationapps.worldmetrics.modules.indexes.viewmodel.CommonOverviewViewModel
 import javax.inject.Inject
@@ -12,7 +11,7 @@ import javax.inject.Inject
 class PopulationOverviewViewModel @Inject constructor(
     private val service: PopulationService,
     dispatchers: DispatcherProvider,
-) : CommonOverviewViewModel<PopulationIndexValue>(service, dispatchers) {
+) : CommonOverviewViewModel(service, dispatchers) {
     override fun getValueRange() = getTotalPopulationRange()
     fun getTotalPopulationRange() = runBlocking { service.getTotalPopulationRange() }
     fun getFemalePopulationRange() = runBlocking { service.getFemalePopulationRange() }
