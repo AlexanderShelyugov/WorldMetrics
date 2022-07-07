@@ -11,10 +11,10 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import ru.socialeducationapps.worldmetrics.R
 import ru.socialeducationapps.worldmetrics.modules.coroutines.api.DispatcherProvider
-import ru.socialeducationapps.worldmetrics.modules.politics.democracy_index.model.DemocracyIndexData.Companion.FEATURES_TO_SHOW
+import ru.socialeducationapps.worldmetrics.modules.indexes.model.FeatureRange
+import ru.socialeducationapps.worldmetrics.modules.politics.democracy_index.model.DemocracyIndexData
 import ru.socialeducationapps.worldmetrics.modules.politics.democracy_index.model.DemocracyIndexValue
 import ru.socialeducationapps.worldmetrics.modules.politics.democracy_index.service.api.DemocracyIndexService
-import ru.socialeducationapps.worldmetrics.modules.indexes.model.FeatureRange
 import javax.inject.Inject
 
 @HiltViewModel
@@ -39,11 +39,10 @@ class DemocracyIndexCountryDetailViewModel @Inject constructor(
         this.country = country
     }
 
-    fun getFeatureRanges(countryCode: String): List<FeatureRange> =
-        FEATURES_TO_SHOW.asSequence()
-            .map { feature ->
-                FEATURE_RANGE_EXTRACTORS[feature.first]!!.invoke(service)
-            }
+    fun getFeatureRanges(countryCode: String) =
+        DemocracyIndexData.DEMOCRACY_INDEX_LAYOUT.features.asSequence()
+            .map { feature -> feature.first }
+            .map { featureName -> FEATURE_RANGE_EXTRACTORS[featureName]!!(service) }
             .toList()
 
     private fun loadLastYearData() {

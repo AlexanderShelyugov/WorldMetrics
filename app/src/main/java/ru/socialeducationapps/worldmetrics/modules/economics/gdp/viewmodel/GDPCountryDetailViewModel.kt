@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import ru.socialeducationapps.worldmetrics.R
 import ru.socialeducationapps.worldmetrics.modules.coroutines.api.DispatcherProvider
-import ru.socialeducationapps.worldmetrics.modules.economics.gdp.model.GDPData.Companion.FEATURES_TO_SHOW
+import ru.socialeducationapps.worldmetrics.modules.economics.gdp.model.GDPData.Companion.GDP_INDEX_LAYOUT
 import ru.socialeducationapps.worldmetrics.modules.economics.gdp.model.GDPValue
 import ru.socialeducationapps.worldmetrics.modules.economics.gdp.service.api.GDPService
 import ru.socialeducationapps.worldmetrics.modules.indexes.model.FeatureRange
@@ -40,10 +40,9 @@ class GDPCountryDetailViewModel @Inject constructor(
     }
 
     fun getFeatureRanges(countryCode: String): List<FeatureRange> =
-        FEATURES_TO_SHOW.asSequence()
-            .map { feature ->
-                FEATURE_RANGE_EXTRACTORS[feature.first]!!.invoke(service)
-            }
+        GDP_INDEX_LAYOUT.features.asSequence()
+            .map { feature -> feature.first }
+            .map { featureName -> FEATURE_RANGE_EXTRACTORS[featureName]!!(service) }
             .toList()
 
     private fun loadLastYearData() {

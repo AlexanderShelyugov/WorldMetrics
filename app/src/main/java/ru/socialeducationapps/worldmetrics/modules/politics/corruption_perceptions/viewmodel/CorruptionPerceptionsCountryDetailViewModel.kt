@@ -10,10 +10,10 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import ru.socialeducationapps.worldmetrics.R
 import ru.socialeducationapps.worldmetrics.modules.coroutines.api.DispatcherProvider
-import ru.socialeducationapps.worldmetrics.modules.politics.corruption_perceptions.model.CorruptionPerceptionsData.Companion.FEATURES_TO_SHOW
+import ru.socialeducationapps.worldmetrics.modules.indexes.model.FeatureRange
+import ru.socialeducationapps.worldmetrics.modules.politics.corruption_perceptions.model.CorruptionPerceptionsData.Companion.CORRUPTION_PERCEPTIONS_LAYOUT
 import ru.socialeducationapps.worldmetrics.modules.politics.corruption_perceptions.model.CorruptionPerceptionsValue
 import ru.socialeducationapps.worldmetrics.modules.politics.corruption_perceptions.service.api.CorruptionPerceptionsService
-import ru.socialeducationapps.worldmetrics.modules.indexes.model.FeatureRange
 import javax.inject.Inject
 
 @HiltViewModel
@@ -33,11 +33,13 @@ class CorruptionPerceptionsCountryDetailViewModel @Inject constructor(
         .also { loadData() }
         .asStateFlow()
 
-    fun getFeatureRanges(countryCode: String): List<FeatureRange> = FEATURES_TO_SHOW.asSequence()
-        .map { feature ->
-            FEATURE_RANGE_EXTRACTORS[feature.first]!!.invoke(service)
-        }
-        .toList()
+    fun getFeatureRanges(countryCode: String) =
+        CORRUPTION_PERCEPTIONS_LAYOUT.features.asSequence()
+            .map { feature -> feature.first }
+            .map { featureName ->
+                FEATURE_RANGE_EXTRACTORS[featureName]!!(service)
+            }
+            .toList()
 
 
     private fun loadData() {

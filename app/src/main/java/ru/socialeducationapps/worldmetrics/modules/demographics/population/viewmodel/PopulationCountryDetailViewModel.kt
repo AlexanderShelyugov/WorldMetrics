@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import ru.socialeducationapps.worldmetrics.R
 import ru.socialeducationapps.worldmetrics.modules.coroutines.api.DispatcherProvider
-import ru.socialeducationapps.worldmetrics.modules.demographics.population.model.PopulationIndexData
+import ru.socialeducationapps.worldmetrics.modules.demographics.population.model.PopulationIndexData.Companion.POPULATION_INDEX_LAYOUT
 import ru.socialeducationapps.worldmetrics.modules.demographics.population.model.PopulationIndexValue
 import ru.socialeducationapps.worldmetrics.modules.demographics.population.service.api.PopulationService
 import ru.socialeducationapps.worldmetrics.modules.indexes.model.FeatureRange
@@ -42,10 +42,11 @@ class PopulationCountryDetailViewModel @Inject constructor(
         this.country = country
     }
 
-    fun getFeatureRanges(countryCode: String): List<FeatureRange> =
-        PopulationIndexData.FEATURES_TO_SHOW.asSequence()
-            .map { feature ->
-                FEATURE_RANGE_EXTRACTORS[feature.first]!!.invoke(service)
+    fun getFeatureRanges(countryCode: String) =
+        POPULATION_INDEX_LAYOUT.features.asSequence()
+            .map { feature -> feature.first }
+            .map { featureName ->
+                FEATURE_RANGE_EXTRACTORS[featureName]!!(service)
             }
             .toList()
 

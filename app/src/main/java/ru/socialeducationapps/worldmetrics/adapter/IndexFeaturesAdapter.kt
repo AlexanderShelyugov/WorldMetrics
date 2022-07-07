@@ -7,16 +7,14 @@ import androidx.recyclerview.widget.RecyclerView.Adapter
 import ru.socialeducationapps.worldmetrics.R
 import ru.socialeducationapps.worldmetrics.adapter.IndexFeaturesRVAdapter.LVCViewHolder
 import ru.socialeducationapps.worldmetrics.global.ColorAccess
-import ru.socialeducationapps.worldmetrics.modules.indexes.model.FeatureExtractor
+import ru.socialeducationapps.worldmetrics.modules.indexes.model.CommonIndexLayout
 import ru.socialeducationapps.worldmetrics.modules.indexes.model.FeatureRange
 import ru.socialeducationapps.worldmetrics.view.LabelValueChartView
 
 private typealias VH<T> = LVCViewHolder<T>
 
 class IndexFeaturesRVAdapter<T>(
-    private val featureName: (Int) -> Int,
-    private val featureExtractors: (Int) -> Pair<FeatureExtractor<T>, FeatureExtractor<T>>,
-    private val featuresNumber: Int,
+    private val layout: CommonIndexLayout<T>,
 ) : Adapter<VH<T>>() {
 
     private var items: List<T> = emptyList()
@@ -49,16 +47,14 @@ class IndexFeaturesRVAdapter<T>(
 
     override fun onBindViewHolder(holder: VH<T>, position: Int) {
         holder.lcv.run {
-            setLabelText(featureName(position))
+            setLabelText(layout.featureName(position))
             if (ranges.isNotEmpty()) {
                 setRangeColors(ColorAccess.DEFAULT_COLOR_CALCULATOR, ranges[position])
             }
-            featureExtractors(position).run {
-                setExtractors(first, second)
-            }
+            setExtractors(layout.yearFunction, layout.features[position].second)
             refresh()
         }
     }
 
-    override fun getItemCount() = featuresNumber
+    override fun getItemCount() = layout.featuresNumber
 }

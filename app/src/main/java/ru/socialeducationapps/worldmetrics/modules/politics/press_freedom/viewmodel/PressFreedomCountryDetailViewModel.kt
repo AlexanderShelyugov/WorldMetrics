@@ -13,7 +13,7 @@ import ru.socialeducationapps.worldmetrics.R
 import ru.socialeducationapps.worldmetrics.modules.coroutines.api.DispatcherProvider
 import ru.socialeducationapps.worldmetrics.modules.indexes.model.FeatureRange
 import ru.socialeducationapps.worldmetrics.modules.indexes.model.SimpleCountryValue
-import ru.socialeducationapps.worldmetrics.modules.politics.press_freedom.model.PressFreedomData.Companion.FEATURES_TO_SHOW
+import ru.socialeducationapps.worldmetrics.modules.politics.press_freedom.model.PressFreedomData
 import ru.socialeducationapps.worldmetrics.modules.politics.press_freedom.model.PressFreedomValue
 import ru.socialeducationapps.worldmetrics.modules.politics.press_freedom.service.api.PressFreedomService
 import javax.inject.Inject
@@ -39,11 +39,10 @@ class PressFreedomCountryDetailViewModel @Inject constructor(
             .also { loadAllData() }
             .asStateFlow()
 
-    fun getFeatureRanges(countryCode: String): List<FeatureRange> =
-        FEATURES_TO_SHOW.asSequence()
-            .map { feature ->
-                FEATURE_RANGE_EXTRACTORS[feature.first]!!.invoke(service)
-            }
+    fun getFeatureRanges(countryCode: String) =
+        PressFreedomData.PRESS_FREEDOM_INDEX_LAYOUT.features.asSequence()
+            .map { feature -> feature.first }
+            .map { featureName -> FEATURE_RANGE_EXTRACTORS[featureName]!!(service) }
             .toList()
 
     private fun loadAllData() {
