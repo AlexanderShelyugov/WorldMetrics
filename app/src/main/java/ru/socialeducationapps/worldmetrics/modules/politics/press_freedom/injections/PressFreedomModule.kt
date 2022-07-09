@@ -5,16 +5,11 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import ru.socialeducationapps.worldmetrics.modules.politics.press_freedom.service.api.PressFreedomService
-import ru.socialeducationapps.worldmetrics.modules.politics.press_freedom.service.impl.PressFreedomCsvService
+import ru.socialeducationapps.worldmetrics.modules.politics.press_freedom.service.impl.PressFreedomRoomService
 
 @Module
 @InstallIn(ViewModelComponent::class)
 class PressFreedomModule {
     @Provides
-    fun pressFreedomService(impl: PressFreedomCsvService): PressFreedomService = impl
-        .also { it.filePath = FILE_PATH }
-
-    companion object {
-        private const val FILE_PATH = "indexes/PressFreedomIndex.csv"
-    }
+    fun pressFreedomService(impl: PressFreedomRoomService): PressFreedomService = impl
 }
