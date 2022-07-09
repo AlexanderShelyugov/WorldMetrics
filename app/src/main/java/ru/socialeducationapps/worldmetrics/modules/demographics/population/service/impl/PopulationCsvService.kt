@@ -66,9 +66,9 @@ class PopulationCsvService @Inject constructor(
     }
 
     override suspend fun getTotalPopulationRange() = RANGE_TOTAL
-    override suspend fun getMalePopulationRange() = RANGE_TOTAL
-    override suspend fun getFemalePopulationRange() = RANGE_TOTAL
-    override suspend fun getPopulationDensityRange() = RANGE_TOTAL
+    override suspend fun getMalePopulationRange() = RANGE_MALE
+    override suspend fun getFemalePopulationRange() = RANGE_FEMALE
+    override suspend fun getPopulationDensityRange() = RANGE_DENSITY
 
     private fun rowToIndexValue(row: CsvRow): PopulationIndexValue = PopulationIndexValue(
         row[COLUMN_ISO_3_CODE],
@@ -88,5 +88,8 @@ class PopulationCsvService @Inject constructor(
         const val COLUMN_POPULATION_DENSITY = 5
 
         val RANGE_TOTAL = 55.032f to 1448471.4f
+        val RANGE_FEMALE = 48.511f to 706016.75f
+        val RANGE_MALE = 49.333f to 742454.7f
+        val RANGE_DENSITY = 0.139f to 26696.645f
     }
 }

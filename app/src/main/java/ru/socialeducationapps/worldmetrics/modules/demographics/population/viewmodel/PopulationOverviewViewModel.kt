@@ -12,9 +12,5 @@ class PopulationOverviewViewModel @Inject constructor(
     private val service: PopulationService,
     dispatchers: DispatcherProvider,
 ) : CommonOverviewViewModel(service, dispatchers) {
-    override fun getValueRange() = getTotalPopulationRange()
-    fun getTotalPopulationRange() = runBlocking { service.getTotalPopulationRange() }
-    fun getFemalePopulationRange() = runBlocking { service.getFemalePopulationRange() }
-    fun getMalePopulationRange() = runBlocking { service.getMalePopulationRange() }
-    fun getPopulationDensityRange() = runBlocking { service.getPopulationDensityRange() }
+    override fun getValueRange() = runBlocking { service.getTotalPopulationRange() }
 }
