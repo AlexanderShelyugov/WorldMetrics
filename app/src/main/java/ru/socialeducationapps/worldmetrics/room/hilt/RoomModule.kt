@@ -21,7 +21,9 @@ class RoomModule {
         app,
         WorldMetricsDatabase::class.java,
         "WorldMetricsDatabase"
-    ).build()
+    )
+        .createFromAsset("database/WorldMetrics.db")
+        .build()
 
     @Provides
     fun pressFreedomDao(db: WorldMetricsDatabase) = db.pressFreedomDao()
