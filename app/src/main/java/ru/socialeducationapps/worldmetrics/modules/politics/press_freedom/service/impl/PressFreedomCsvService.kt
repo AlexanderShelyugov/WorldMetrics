@@ -1,14 +1,16 @@
 package ru.socialeducationapps.worldmetrics.modules.politics.press_freedom.service.impl
 
 import ru.socialeducationapps.worldmetrics.modules.csv.model.CsvRow
-import ru.socialeducationapps.worldmetrics.modules.csv.service.api.CsvService
 import ru.socialeducationapps.worldmetrics.modules.indexes.model.SimpleCountryValue
 import ru.socialeducationapps.worldmetrics.modules.politics.press_freedom.model.PressFreedomValue
+import ru.socialeducationapps.worldmetrics.modules.politics.press_freedom.room.dao.PressFreedomDao
+import ru.socialeducationapps.worldmetrics.modules.politics.press_freedom.room.entity.PressFreedomIndexValue
 import ru.socialeducationapps.worldmetrics.modules.politics.press_freedom.service.api.PressFreedomService
 import javax.inject.Inject
-import kotlin.Float.Companion.NaN
 
-class PressFreedomCsvService @Inject constructor(private val csvService: CsvService) :
+class PressFreedomCsvService @Inject constructor(
+    private val dao: PressFreedomDao,
+) :
     PressFreedomService {
     lateinit var filePath: String
 
@@ -33,43 +35,21 @@ class PressFreedomCsvService @Inject constructor(private val csvService: CsvServ
     }
 
     override suspend fun getLastYearData(): List<SimpleCountryValue> {
-        lateinit var result: List<SimpleCountryValue>
-        csvService.process(filePath) { rows ->
-            rows.filter { MAX_YEAR == it[COLUMN_YEAR].toInt() }
-                .map {
-                    SimpleCountryValue(
-                        it[COLUMN_COUNTRY_CODE].lowercase(),
-                        it[COLUMN_INDEX_VALUE].toFloatOrNull() ?: NaN
-                    )
-                }
-                .toList()
-                .also { result = it }
-        }
+        val result: List<SimpleCountryValue> = dao.getLastYearData()
         return result
     }
 
     override suspend fun getLastYearData(countryCode: String): PressFreedomValue {
-        lateinit var result: PressFreedomValue
-        csvService.process(filePath) { rows ->
-            rows
-                .filter { it[COLUMN_COUNTRY_CODE].equals(countryCode, ignoreCase = true) }
-                .filter { MAX_YEAR == it[COLUMN_YEAR].toInt() }
-                .first()
-                .let { rowToIndexValue(it) }
-                .also { result = it }
-        }
+        val result: PressFreedomValue = dao.getLastYearData(countryCode)
+            .let(this::rowToIndexValue)
         return result
     }
 
     override suspend fun getAllData(countryCode: String): List<PressFreedomValue> {
-        lateinit var result: List<PressFreedomValue>
-        csvService.process(filePath) { rows ->
-            rows
-                .filter { it[COLUMN_COUNTRY_CODE].equals(countryCode, ignoreCase = true) }
-                .map { rowToIndexValue(it) }
-                .toList()
-                .also { result = it }
-        }
+        val result: List<PressFreedomValue> = dao.getAllData(countryCode)
+            .asSequence()
+            .map(this::rowToIndexValue)
+            .toList()
         return result
     }
 
@@ -89,5 +69,16 @@ class PressFreedomCsvService @Inject constructor(private val csvService: CsvServ
         row[COLUMN_SOCIAL_CONTEXT].toFloat(),
         row[COLUMN_SAFETY].toFloat(),
         row[COLUMN_YEAR].toInt(),
+    )
+
+    private fun rowToIndexValue(row: PressFreedomIndexValue) = PressFreedomValue(
+        row.iso3CountryCode,
+        row.pressFreedom,
+        row.politicalContext,
+        row.economicContext,
+        row.legalContext,
+        row.socialContext,
+        row.safety,
+        row.year,
     )
 }
