@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import ru.socialeducationapps.worldmetrics.R
 import ru.socialeducationapps.worldmetrics.adapter.IndexFeaturesRVAdapter.LVCViewHolder
-import ru.socialeducationapps.worldmetrics.global.ColorAccess
+import ru.socialeducationapps.worldmetrics.global.ColorAccess.Companion.DEFAULT_COLOR_CALCULATOR
 import ru.socialeducationapps.worldmetrics.modules.indexes.model.CommonIndexLayout
 import ru.socialeducationapps.worldmetrics.modules.indexes.model.FeatureRange
 import ru.socialeducationapps.worldmetrics.view.LabelValueChartView
@@ -49,7 +49,7 @@ class IndexFeaturesRVAdapter<T>(
         holder.lcv.run {
             setLabelText(layout.featureName(position))
             if (ranges.isNotEmpty()) {
-                setRangeColors(ColorAccess.DEFAULT_COLOR_CALCULATOR, ranges[position])
+                setRangeColors(DEFAULT_COLOR_CALCULATOR, ranges[position])
             }
             setExtractors(layout.yearFunction, layout.features[position].second)
             refresh()
