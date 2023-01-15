@@ -12,12 +12,13 @@ import com.github.mikephil.charting.formatter.ValueFormatter
 import dagger.hilt.android.AndroidEntryPoint
 import ru.socialeducationapps.worldmetrics.R
 import ru.socialeducationapps.worldmetrics.fragment.InjectableFragment
-import ru.socialeducationapps.worldmetrics.model.indexes.AllIndexes.Companion.ALL_INDEXES
 import ru.socialeducationapps.worldmetrics.viewmodel.CountryScoreViewModel
+import ru.socialeducationapps.worldmetrics.viewmodel.CurrentCountryViewModel
 
 @AndroidEntryPoint
 class CountryRadarFragment : InjectableFragment(R.layout.country_radar_layout) {
     private val model by viewModels<CountryScoreViewModel>()
+    private val countryModel by viewModels<CurrentCountryViewModel>()
     private lateinit var chart: RadarChart
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -58,32 +59,31 @@ class CountryRadarFragment : InjectableFragment(R.layout.country_radar_layout) {
     }
 
     private fun setRadarData() {
-        val labels = mutableListOf<String>()
-        val items = mutableListOf<RadarEntry>()
-        ALL_INDEXES
-            .stream()
-            .forEach {
-                labels += getString(it.name).substring(0, 1)
-                items += RadarEntry((2..10).random().toFloat())
+        countryModel.currentCountryCode.observe(viewLifecycleOwner) { country ->
+            val labels = mutableListOf<String>()
+            val items = mutableListOf<RadarEntry>()
+            model.getCountryScores(country).forEach { (name, score) ->
+                labels += requireContext().getString(name).first().toString()
+                items += RadarEntry(score.toFloat())
             }
-        val dataSet = RadarDataSet(items, "").run {
-            setDrawFilled(true)
-            setDrawValues(false)
-            isHighlightEnabled = false
-            this
-        }
 
-        val data = RadarData(listOf(dataSet)).also {
-            it.setDrawValues(false)
-        }
-
-        chart.data = data
-        val formatter = object : ValueFormatter() {
-            override fun getAxisLabel(value: Float, axis: AxisBase?): String {
-                return labels[value.toInt() % labels.size]
+            val dataSet = RadarDataSet(items, "").run {
+                setDrawFilled(true)
+                setDrawValues(false)
+                isHighlightEnabled = false
+                this
             }
+
+            chart.data = RadarData(listOf(dataSet)).also {
+                it.setDrawValues(false)
+            }
+            val formatter = object : ValueFormatter() {
+                override fun getAxisLabel(value: Float, axis: AxisBase?): String {
+                    return labels[value.toInt() % labels.size]
+                }
+            }
+            chart.xAxis.valueFormatter = formatter
+            chart.invalidate()
         }
-        chart.xAxis.valueFormatter = formatter
-        chart.invalidate()
     }
 }
