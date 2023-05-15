@@ -58,14 +58,24 @@ class CountryRadarFragment : InjectableFragment(R.layout.country_radar_layout) {
         }
     }
 
+    private fun hideRadar() {
+        chart.visibility = View.GONE
+        chart.invalidate()
+    }
+
     private fun setRadarData() {
         countryModel.currentCountryCode.observe(viewLifecycleOwner) { country ->
+            if (country.isBlank()) {
+                hideRadar()
+                return@observe
+            }
             val labels = mutableListOf<String>()
             val items = mutableListOf<RadarEntry>()
             model.getCountryScores(country).forEach { (name, score) ->
                 labels += requireContext().getString(name).first().toString()
                 items += RadarEntry(score.toFloat())
             }
+            chart.visibility = View.VISIBLE
 
             val dataSet = RadarDataSet(items, "").run {
                 setDrawFilled(true)
