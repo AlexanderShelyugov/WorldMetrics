@@ -3,7 +3,7 @@ package ru.socialeducationapps.worldmetrics
 import android.app.Application
 import android.content.Context
 import dagger.hilt.android.HiltAndroidApp
-import ru.socialeducationapps.worldmetrics.global.ContextAccess.Companion.contextSupplier
+import ru.socialeducationapps.worldmetrics.feature.helper.utils.ContextAccess.Companion.contextSupplier
 import java.lang.ref.WeakReference
 
 @HiltAndroidApp

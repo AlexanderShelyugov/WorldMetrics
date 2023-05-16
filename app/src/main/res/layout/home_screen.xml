@@ -22,17 +22,17 @@
             android:paddingBottom="200dp">
 
             <fragment
-                class="ru.socialeducationapps.worldmetrics.fragment.home_screen.YourCountryFragment"
+                class="ru.socialeducationapps.worldmetrics.feature.home.fragment.YourCountryFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
             <fragment
-                class="ru.socialeducationapps.worldmetrics.fragment.home_screen.CountryRadarFragment"
+                class="ru.socialeducationapps.worldmetrics.feature.country.score.fragment.CountryRadarFragment"
                 android:layout_width="200dp"
                 android:layout_height="200dp" />
 
             <fragment
-                class="ru.socialeducationapps.worldmetrics.fragment.home_screen.IndexesForCountryFragment"
+                class="ru.socialeducationapps.worldmetrics.feature.home.fragment.IndexesForCountryFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </LinearLayout>

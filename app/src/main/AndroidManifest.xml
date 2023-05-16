@@ -30,7 +30,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.AboutMeActivity"
+            android:name=".feature.about_me.activity.AboutMeActivity"
             android:configChanges="orientation"
             android:exported="false"
             android:screenOrientation="portrait"

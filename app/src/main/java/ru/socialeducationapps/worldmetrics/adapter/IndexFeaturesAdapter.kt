@@ -6,9 +6,9 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import ru.socialeducationapps.worldmetrics.R
 import ru.socialeducationapps.worldmetrics.adapter.IndexFeaturesRVAdapter.LVCViewHolder
-import ru.socialeducationapps.worldmetrics.global.ColorAccess.Companion.DEFAULT_COLOR_CALCULATOR
-import ru.socialeducationapps.worldmetrics.modules.indexes.model.CommonIndexLayout
-import ru.socialeducationapps.worldmetrics.modules.indexes.model.FeatureRange
+import ru.socialeducationapps.worldmetrics.feature.helper.utils.ColorAccess.Companion.DEFAULT_COLOR_CALCULATOR
+import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.CommonIndexLayout
+import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.FeatureRange
 import ru.socialeducationapps.worldmetrics.view.LabelValueChartView
 
 private typealias VH<T> = LVCViewHolder<T>

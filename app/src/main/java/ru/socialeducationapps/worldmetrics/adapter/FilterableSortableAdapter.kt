@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import ru.socialeducationapps.worldmetrics.modules.coroutines.api.DispatcherProvider
+import ru.socialeducationapps.worldmetrics.feature.coroutines.api.DispatcherProvider
 
 abstract class FilterableSortableAdapter<DataItem> : Adapter<ViewHolder>() {
 

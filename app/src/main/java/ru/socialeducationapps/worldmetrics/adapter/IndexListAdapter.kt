@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ru.socialeducationapps.worldmetrics.R
-import ru.socialeducationapps.worldmetrics.global.ColorAccess
+import ru.socialeducationapps.worldmetrics.feature.helper.utils.ColorAccess
 
 
 class IndexListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
