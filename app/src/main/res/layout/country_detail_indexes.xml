@@ -35,6 +35,6 @@
             android:id="@+id/rv_indexes"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layoutManager="ru.socialeducationapps.worldmetrics.adapter.WrapContentLinearLayoutManager" />
+            app:layoutManager="ru.socialeducationapps.worldmetrics.feature.helper.view.layout.WrapContentLinearLayoutManager" />
     </LinearLayout>
 </FrameLayout>

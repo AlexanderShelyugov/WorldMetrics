@@ -1,11 +1,11 @@
-package ru.socialeducationapps.worldmetrics.adapter
+package ru.socialeducationapps.worldmetrics.feature.indexes.common.rv_adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import ru.socialeducationapps.worldmetrics.R
-import ru.socialeducationapps.worldmetrics.adapter.IndexFeaturesRVAdapter.LVCViewHolder
+import ru.socialeducationapps.worldmetrics.feature.indexes.common.rv_adapter.IndexFeaturesRVAdapter.LVCViewHolder
 import ru.socialeducationapps.worldmetrics.feature.helper.utils.ColorAccess.Companion.DEFAULT_COLOR_CALCULATOR
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.CommonIndexLayout
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.FeatureRange

@@ -140,6 +140,6 @@
             android:fadingEdgeLength="@dimen/spacing_large"
             android:requiresFadingEdge="none"
             android:scrollbars="none"
-            app:layoutManager="ru.socialeducationapps.worldmetrics.adapter.WrapContentLinearLayoutManager" />
+            app:layoutManager="ru.socialeducationapps.worldmetrics.feature.helper.view.layout.WrapContentLinearLayoutManager" />
     </LinearLayout>
 </FrameLayout>

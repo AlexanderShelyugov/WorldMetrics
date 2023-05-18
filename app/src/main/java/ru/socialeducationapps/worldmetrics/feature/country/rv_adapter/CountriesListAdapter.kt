@@ -1,4 +1,4 @@
-package ru.socialeducationapps.worldmetrics.adapter
+package ru.socialeducationapps.worldmetrics.feature.country.rv_adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil.ItemCallback
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import ru.socialeducationapps.worldmetrics.R
+import ru.socialeducationapps.worldmetrics.feature.helper.rv_adapter.FilterableSortableAdapter
 
 private typealias DataItem = CountryListAdapterItem
 

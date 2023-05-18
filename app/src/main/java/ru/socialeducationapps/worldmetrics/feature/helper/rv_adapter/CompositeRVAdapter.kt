@@ -1,10 +1,9 @@
-package ru.socialeducationapps.worldmetrics.adapter
+package ru.socialeducationapps.worldmetrics.feature.helper.rv_adapter
 
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView.Adapter
-import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import androidx.recyclerview.widget.RecyclerView
 
-private typealias AdapterAlias = Adapter<ViewHolder>
+private typealias AdapterAlias = RecyclerView.Adapter<RecyclerView.ViewHolder>
 
 /**
  * RecyclerView's adapter that contains other adapters.
@@ -14,10 +13,10 @@ private typealias AdapterAlias = Adapter<ViewHolder>
 class CompositeRVAdapter(
     private val adapters: List<AdapterAlias>
 ) : AdapterAlias() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         adapters[viewType].onCreateViewHolder(parent, 0)
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val viewType = getItemViewType(position)
         val itemsBefore = getItemsBefore(viewType)
         return adapters[viewType].onBindViewHolder(holder, position - itemsBefore)

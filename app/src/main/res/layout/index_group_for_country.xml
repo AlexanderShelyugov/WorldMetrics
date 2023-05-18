@@ -39,7 +39,7 @@
         android:orientation="horizontal"
         android:requiresFadingEdge="horizontal"
         android:scrollbars="none"
-        app:layoutManager="ru.socialeducationapps.worldmetrics.adapter.WrapContentLinearLayoutManager"
+        app:layoutManager="ru.socialeducationapps.worldmetrics.feature.helper.view.layout.WrapContentLinearLayoutManager"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_index_group_name" />
 </androidx.constraintlayout.widget.ConstraintLayout>

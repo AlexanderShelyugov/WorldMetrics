@@ -1,4 +1,4 @@
-package ru.socialeducationapps.worldmetrics.adapter
+package ru.socialeducationapps.worldmetrics.feature.helper.rv_adapter
 
 import androidx.recyclerview.widget.RecyclerView
 

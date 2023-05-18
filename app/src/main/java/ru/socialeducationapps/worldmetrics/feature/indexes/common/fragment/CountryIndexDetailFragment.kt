@@ -16,7 +16,7 @@ import com.google.android.material.transition.MaterialContainerTransform
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import ru.socialeducationapps.worldmetrics.R
-import ru.socialeducationapps.worldmetrics.adapter.IndexFeaturesRVAdapter
+import ru.socialeducationapps.worldmetrics.feature.indexes.common.rv_adapter.IndexFeaturesRVAdapter
 import ru.socialeducationapps.worldmetrics.feature.helper.fragment.InjectableFragment
 import ru.socialeducationapps.worldmetrics.feature.indexes.all.model.CountryResourceBindings.Companion.getNameIdByCode
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.FeatureRange

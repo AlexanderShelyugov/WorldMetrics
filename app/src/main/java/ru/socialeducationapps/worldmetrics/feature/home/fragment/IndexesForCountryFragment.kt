@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import ru.socialeducationapps.worldmetrics.NavGraphDirections.Companion.actionGlobalToBeImplementedFragment
 import ru.socialeducationapps.worldmetrics.R
-import ru.socialeducationapps.worldmetrics.adapter.IndexListAdapter
-import ru.socialeducationapps.worldmetrics.adapter.IndexListAdapter.IndexListItem
+import ru.socialeducationapps.worldmetrics.feature.indexes.all.rv_adapter.IndexListAdapter
+import ru.socialeducationapps.worldmetrics.feature.indexes.all.rv_adapter.IndexListAdapter.IndexListItem
 import ru.socialeducationapps.worldmetrics.feature.country.current.viewmodel.CurrentCountryViewModel
 import ru.socialeducationapps.worldmetrics.feature.helper.fragment.InjectableFragment
 import ru.socialeducationapps.worldmetrics.feature.home.fragment.HomeScreenFragmentDirections.Companion.actionHomeScreenToCorruptionPerceptionsCountryDetail

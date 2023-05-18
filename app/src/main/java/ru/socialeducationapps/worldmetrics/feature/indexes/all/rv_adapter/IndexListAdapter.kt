@@ -1,4 +1,4 @@
-package ru.socialeducationapps.worldmetrics.adapter
+package ru.socialeducationapps.worldmetrics.feature.indexes.all.rv_adapter
 
 import android.view.LayoutInflater
 import android.view.View

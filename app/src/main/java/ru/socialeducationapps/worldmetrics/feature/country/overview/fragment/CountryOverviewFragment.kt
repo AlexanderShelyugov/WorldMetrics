@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import ru.socialeducationapps.worldmetrics.R
-import ru.socialeducationapps.worldmetrics.adapter.CompositeRVAdapter
+import ru.socialeducationapps.worldmetrics.feature.helper.rv_adapter.CompositeRVAdapter
 import ru.socialeducationapps.worldmetrics.feature.country.overview.viewmodel.CountryOverviewViewModel
 import ru.socialeducationapps.worldmetrics.feature.helper.fragment.InjectableFragment
 import ru.socialeducationapps.worldmetrics.feature.index.politics.corruption_perceptions.rv_adapter.CorruptionPerceptionsAdapterFactory.Companion.getCorruptionPerceptionsFeaturesAdapter

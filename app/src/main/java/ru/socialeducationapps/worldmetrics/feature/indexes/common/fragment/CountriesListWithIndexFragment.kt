@@ -20,9 +20,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import ru.socialeducationapps.worldmetrics.R
-import ru.socialeducationapps.worldmetrics.adapter.CountriesListWithIndexAdapter
-import ru.socialeducationapps.worldmetrics.adapter.CountriesListWithIndexDataItem
-import ru.socialeducationapps.worldmetrics.adapter.ScrollToTopOnChangeObserver
+import ru.socialeducationapps.worldmetrics.feature.country.rv_adapter.CountriesListWithIndexAdapter
+import ru.socialeducationapps.worldmetrics.feature.country.rv_adapter.CountriesListWithIndexDataItem
+import ru.socialeducationapps.worldmetrics.feature.helper.rv_adapter.ScrollToTopOnChangeObserver
 import ru.socialeducationapps.worldmetrics.feature.coroutines.api.DispatcherProvider
 import ru.socialeducationapps.worldmetrics.feature.helper.fragment.InjectableFragment
 import ru.socialeducationapps.worldmetrics.feature.helper.utils.ColorAccess.Companion.VALUE_DEFAULT_COLOR_RANGE

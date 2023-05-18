@@ -1,6 +1,6 @@
 package ru.socialeducationapps.worldmetrics.feature.index.demographics.population.rv_adapter
 
-import ru.socialeducationapps.worldmetrics.adapter.IndexFeaturesRVAdapter
+import ru.socialeducationapps.worldmetrics.feature.indexes.common.rv_adapter.IndexFeaturesRVAdapter
 import ru.socialeducationapps.worldmetrics.feature.index.demographics.population.model.PopulationIndexData.Companion.POPULATION_INDEX_LAYOUT
 import ru.socialeducationapps.worldmetrics.feature.index.demographics.population.model.PopulationIndexValue
 

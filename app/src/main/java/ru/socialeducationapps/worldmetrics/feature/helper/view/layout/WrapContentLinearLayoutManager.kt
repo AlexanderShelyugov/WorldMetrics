@@ -1,4 +1,4 @@
-package ru.socialeducationapps.worldmetrics.adapter
+package ru.socialeducationapps.worldmetrics.feature.helper.view.layout
 
 import android.content.Context
 import android.util.AttributeSet

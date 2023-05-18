@@ -37,9 +37,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import ru.socialeducationapps.worldmetrics.R
-import ru.socialeducationapps.worldmetrics.adapter.CountriesListAdapter
-import ru.socialeducationapps.worldmetrics.adapter.CountryListAdapterItem
-import ru.socialeducationapps.worldmetrics.adapter.ScrollToTopOnChangeObserver
+import ru.socialeducationapps.worldmetrics.feature.country.rv_adapter.CountriesListAdapter
+import ru.socialeducationapps.worldmetrics.feature.country.rv_adapter.CountryListAdapterItem
+import ru.socialeducationapps.worldmetrics.feature.helper.rv_adapter.ScrollToTopOnChangeObserver
 import ru.socialeducationapps.worldmetrics.feature.coroutines.api.DispatcherProvider
 import ru.socialeducationapps.worldmetrics.feature.country.current.viewmodel.CurrentCountryViewModel
 import ru.socialeducationapps.worldmetrics.feature.country.detect.fragment.CountryDetectFragment.FragmentState.COUNTRIES_LIST
