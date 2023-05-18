@@ -14,7 +14,7 @@ import com.github.mikephil.charting.data.LineDataSet.Mode.HORIZONTAL_BEZIER
 import ru.socialeducationapps.worldmetrics.R
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.FeatureExtractor
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.FeatureRange
-import ru.socialeducationapps.worldmetrics.feature.indexes.common.view.ColorGradeCalculator
+import ru.socialeducationapps.worldmetrics.feature.indexes.common.view.color.ColorGradeCalculator
 import java.lang.Float.NaN
 
 class LabelValueChartView<T>(context: Context, attrs: AttributeSet) : FrameLayout(context, attrs) {

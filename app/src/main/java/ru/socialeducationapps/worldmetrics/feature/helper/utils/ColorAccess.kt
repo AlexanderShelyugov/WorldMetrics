@@ -4,7 +4,7 @@ import android.graphics.drawable.Drawable
 import androidx.core.content.ContextCompat
 import ru.socialeducationapps.worldmetrics.R
 import ru.socialeducationapps.worldmetrics.feature.helper.utils.ContextAccess.Companion.context
-import ru.socialeducationapps.worldmetrics.feature.indexes.common.view.ColorGradeCalculator
+import ru.socialeducationapps.worldmetrics.feature.indexes.common.view.color.ColorGradeCalculator
 
 class ColorAccess private constructor() {
     companion object {

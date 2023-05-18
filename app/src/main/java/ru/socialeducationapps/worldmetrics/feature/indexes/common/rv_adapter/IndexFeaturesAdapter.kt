@@ -5,11 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import ru.socialeducationapps.worldmetrics.R
-import ru.socialeducationapps.worldmetrics.feature.indexes.common.rv_adapter.IndexFeaturesRVAdapter.LVCViewHolder
-import ru.socialeducationapps.worldmetrics.feature.helper.utils.ColorAccess.Companion.DEFAULT_COLOR_CALCULATOR
+import ru.socialeducationapps.worldmetrics.feature.helper.view.LabelValueChartView
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.CommonIndexLayout
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.FeatureRange
-import ru.socialeducationapps.worldmetrics.feature.helper.view.LabelValueChartView
+import ru.socialeducationapps.worldmetrics.feature.indexes.common.rv_adapter.IndexFeaturesRVAdapter.LVCViewHolder
+import ru.socialeducationapps.worldmetrics.feature.indexes.common.view.color.ColorGradeCalculator
 
 private typealias VH<T> = LVCViewHolder<T>
 
@@ -19,10 +19,15 @@ class IndexFeaturesRVAdapter<T>(
 
     private var items: List<T> = emptyList()
     private var ranges: List<FeatureRange> = emptyList()
+    private lateinit var colorCalculator: ColorGradeCalculator
 
     fun setData(data: List<T>) {
         items = data
         notifyItemRangeChanged(0, itemCount)
+    }
+
+    fun setColorCalculator(colorGradeCalculator: ColorGradeCalculator) {
+        this.colorCalculator = colorGradeCalculator
     }
 
     fun setFeatureRanges(ranges: List<FeatureRange>) {
@@ -49,7 +54,7 @@ class IndexFeaturesRVAdapter<T>(
         holder.lcv.run {
             setLabelText(layout.featureName(position))
             if (ranges.isNotEmpty()) {
-                setRangeColors(DEFAULT_COLOR_CALCULATOR, ranges[position])
+                setRangeColors(colorCalculator, ranges[position])
             }
             setExtractors(layout.yearFunction, layout.features[position].second)
             refresh()

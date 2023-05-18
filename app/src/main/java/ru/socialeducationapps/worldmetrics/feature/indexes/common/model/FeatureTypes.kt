@@ -1,5 +1,7 @@
 package ru.socialeducationapps.worldmetrics.feature.indexes.common.model
 
-typealias FeatureRange = Pair<Float, Float>
+typealias FeatureValue = Float
 
-typealias FeatureExtractor<T> = (T) -> Float
+typealias FeatureRange = Pair<FeatureValue, FeatureValue>
+
+typealias FeatureExtractor<T> = (T) -> FeatureValue

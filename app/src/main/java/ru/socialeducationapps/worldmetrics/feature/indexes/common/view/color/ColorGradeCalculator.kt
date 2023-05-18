@@ -1,19 +1,16 @@
-package ru.socialeducationapps.worldmetrics.feature.indexes.common.view
+package ru.socialeducationapps.worldmetrics.feature.indexes.common.view.color
 
 import android.graphics.Color
-import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.FeatureRange
 import kotlin.math.min
 
-private typealias ColorType = Int
-private typealias ColorComponentType = Int
-
+@Deprecated("Use color of data calculator")
 class ColorGradeCalculator(
     colorRange: Pair<ColorType, ColorType>,
     private val median: Float = DEFAULT_MEDIAN,
     private val minColor: ColorType = colorRange.first,
     private val maxColor: ColorType = colorRange.second,
 ) {
-    fun evalColor(range: FeatureRange, current: Float): ColorType = evalColor(
+    fun evalColor(range: Pair<Float, Float>, current: Float): ColorType = evalColor(
         range.first, range.second, current
     )
 

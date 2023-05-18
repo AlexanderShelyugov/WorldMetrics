@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import ru.socialeducationapps.worldmetrics.R
 import ru.socialeducationapps.worldmetrics.feature.helper.rv_adapter.FilterableSortableAdapter
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.FeatureRange
-import ru.socialeducationapps.worldmetrics.feature.indexes.common.view.ColorGradeCalculator
+import ru.socialeducationapps.worldmetrics.feature.indexes.common.view.color.ColorGradeCalculator
 import kotlin.Float.Companion.NEGATIVE_INFINITY
 
 private typealias Item = CountriesListWithIndexDataItem
