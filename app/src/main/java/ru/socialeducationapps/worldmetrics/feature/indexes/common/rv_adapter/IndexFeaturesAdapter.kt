@@ -9,7 +9,7 @@ import ru.socialeducationapps.worldmetrics.feature.indexes.common.rv_adapter.Ind
 import ru.socialeducationapps.worldmetrics.feature.helper.utils.ColorAccess.Companion.DEFAULT_COLOR_CALCULATOR
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.CommonIndexLayout
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.FeatureRange
-import ru.socialeducationapps.worldmetrics.view.LabelValueChartView
+import ru.socialeducationapps.worldmetrics.feature.helper.view.LabelValueChartView
 
 private typealias VH<T> = LVCViewHolder<T>
 

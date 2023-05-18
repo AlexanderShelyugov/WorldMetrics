@@ -1,4 +1,4 @@
-package ru.socialeducationapps.worldmetrics.view
+package ru.socialeducationapps.worldmetrics.feature.helper.view
 
 import android.content.Context
 import android.graphics.Color.TRANSPARENT
