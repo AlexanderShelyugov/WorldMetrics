@@ -49,13 +49,14 @@ abstract class CountriesListWithIndexFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         spinner = view.findViewById(R.id.fl_loading)
+        val model = getOverviewViewModel()
         view.findViewById<RecyclerView>(R.id.rv_countries_list).apply {
             contentView = this
             adapter = countriesAdapter.also {
                 it.registerAdapterDataObserver(ScrollToTopOnChangeObserver(this))
                 it.processInBackground(lifecycleScope, dispatcherProvider)
                 it.setColorCalculator(
-                    getOverviewViewModel().getColorCalculator().also { colorCalculator ->
+                    model.getColorCalculator().also { colorCalculator ->
                         val colorRange = ColorAccess.getDefaultColorRange(requireContext())
                         colorCalculator.setColorRange(colorRange.first, colorRange.second)
                     }
@@ -63,7 +64,7 @@ abstract class CountriesListWithIndexFragment :
             }
         }
         lifecycleScope.launch {
-            getOverviewViewModel().getLastYearData().collect {
+            model.getLastYearData().collect {
                 val ctx = requireContext()
                 when (it.status) {
                     NOT_INITIALIZED, LOADING -> {
@@ -92,6 +93,7 @@ abstract class CountriesListWithIndexFragment :
                 setIsContentReady(true)
             }
         }
+        model.onOpen()
         postponeEnterTransition()
         view.doOnPreDraw { startPostponedEnterTransition() }
     }
