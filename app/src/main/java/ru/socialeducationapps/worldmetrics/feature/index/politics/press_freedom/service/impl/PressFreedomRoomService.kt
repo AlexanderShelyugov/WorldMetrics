@@ -27,6 +27,12 @@ class PressFreedomRoomService @Inject constructor(
         .map(this::rowToIndexValue)
 
     override fun getValueRange() = RANGE_VALUES
+    override suspend fun getMinMedianMaxForAllCountries() = Triple(
+        RANGE_VALUES.first,
+        (RANGE_VALUES.first + RANGE_VALUES.second) / 2f,
+        RANGE_VALUES.second,
+    )
+
     override fun getPCRange() = RANGE_POLITICAL_CONTEXT
     override fun getECRange() = RANGE_ECONOMIC_CONTEXT
     override fun getLCRange() = RANGE_LEGAL_CONTEXT

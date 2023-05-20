@@ -1,7 +1,7 @@
 package ru.socialeducationapps.worldmetrics.feature.indexes.common.api
 
-import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.FeatureValue
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.CountryFeatureValue
+import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.FeatureMedianRange
 
 interface IndexOverviewService {
     /**
@@ -12,5 +12,5 @@ interface IndexOverviewService {
     /**
      * Returns min, median and max values for all countries on a given index
      */
-    suspend fun getMinMedianMaxForAllCountries(): Triple<FeatureValue, FeatureValue, FeatureValue>
+    suspend fun getMinMedianMaxForAllCountries(): FeatureMedianRange
 }

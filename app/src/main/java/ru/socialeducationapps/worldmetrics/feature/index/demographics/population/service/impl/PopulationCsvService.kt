@@ -69,6 +69,11 @@ class PopulationCsvService @Inject constructor(
     override suspend fun getMalePopulationRange() = RANGE_MALE
     override suspend fun getFemalePopulationRange() = RANGE_FEMALE
     override suspend fun getPopulationDensityRange() = RANGE_DENSITY
+    override suspend fun getMinMedianMaxForAllCountries() = Triple(
+        RANGE_TOTAL.first,
+        (RANGE_TOTAL.first + RANGE_TOTAL.second) / 2f,
+        RANGE_TOTAL.second,
+    )
 
     private fun rowToIndexValue(row: CsvRow): PopulationIndexValue = PopulationIndexValue(
         row[COLUMN_ISO_3_CODE],

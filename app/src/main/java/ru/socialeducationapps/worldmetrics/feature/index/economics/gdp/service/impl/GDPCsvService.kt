@@ -66,6 +66,11 @@ class GDPCsvService @Inject constructor(
 
     override fun getValueMlnUsdRange() = VALUE_MLN_USD_RANGE
     override fun getValueUsdPerCapitaRange() = VALUE_USD_PER_CAPITA
+    override suspend fun getMinMedianMaxForAllCountries() = Triple(
+        VALUE_MLN_USD_RANGE.first,
+        (VALUE_MLN_USD_RANGE.first + VALUE_MLN_USD_RANGE.second) / 2,
+        VALUE_MLN_USD_RANGE.second,
+    )
 
     private fun rowToIndexValue(row: CsvRow): GDPValue = GDPValue(
         row[COLUMN_COUNTRY_CODE],

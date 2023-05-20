@@ -75,6 +75,11 @@ class CorruptionPerceptionsCsvService @Inject constructor(
     }
 
     override suspend fun getValueRange() = VALUES_RANGE
+    override suspend fun getMinMedianMaxForAllCountries() = Triple(
+        VALUES_RANGE.first,
+        (VALUES_RANGE.first + VALUES_RANGE.second) / 2,
+        VALUES_RANGE.second,
+    )
 
     private fun dataToIndexValue(row: Triple<String, Int, String>): CorruptionPerceptionsValue =
         CorruptionPerceptionsValue(row.first, row.second, row.third.toFloatOrNull() ?: NaN)

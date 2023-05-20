@@ -64,6 +64,12 @@ class DemocracyIndexServiceImpl @Inject constructor(
             .toList()
 
     override fun getValueRange() = RANGE_VALUES
+    override suspend fun getMinMedianMaxForAllCountries() = Triple(
+        RANGE_VALUES.first,
+        (RANGE_VALUES.first + RANGE_VALUES.second) / 2f,
+        RANGE_VALUES.second,
+    )
+
     override fun getEPAPRange() = RANGE_ELECTORAL_PROCESS_AND_PLURALISM
     override fun getFOGRange() = RANGE_FUNCTIONING_OF_GOVERNMENT
     override fun getPPRange() = RANGE_POLITICAL_PARTICIPATION
