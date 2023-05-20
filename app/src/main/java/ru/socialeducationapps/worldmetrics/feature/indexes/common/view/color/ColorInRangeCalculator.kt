@@ -3,9 +3,12 @@ package ru.socialeducationapps.worldmetrics.feature.indexes.common.view.color
 import android.graphics.Color
 import kotlin.math.min
 
-@Deprecated("Use color of data calculator")
-class ColorGradeCalculator(
-    colorRange: Pair<ColorType, ColorType>,
+internal typealias ColorRange = Pair<ColorType, ColorType>
+internal typealias ColorType = Int
+internal typealias ColorComponentType = Int
+
+open class ColorInRangeCalculator(
+    colorRange: ColorRange,
     private val median: Float = DEFAULT_MEDIAN,
     private val minColor: ColorType = colorRange.first,
     private val maxColor: ColorType = colorRange.second,

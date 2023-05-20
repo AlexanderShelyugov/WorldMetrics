@@ -9,7 +9,7 @@ import ru.socialeducationapps.worldmetrics.feature.helper.view.LabelValueChartVi
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.CommonIndexLayout
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.FeatureRange
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.rv_adapter.IndexFeaturesRVAdapter.LVCViewHolder
-import ru.socialeducationapps.worldmetrics.feature.indexes.common.view.color.ColorGradeCalculator
+import ru.socialeducationapps.worldmetrics.feature.indexes.common.view.color.ColorInRangeCalculator
 
 private typealias VH<T> = LVCViewHolder<T>
 
@@ -19,15 +19,15 @@ class IndexFeaturesRVAdapter<T>(
 
     private var items: List<T> = emptyList()
     private var ranges: List<FeatureRange> = emptyList()
-    private lateinit var colorCalculator: ColorGradeCalculator
+    private lateinit var colorCalculator: ColorInRangeCalculator
 
     fun setData(data: List<T>) {
         items = data
         notifyItemRangeChanged(0, itemCount)
     }
 
-    fun setColorCalculator(colorGradeCalculator: ColorGradeCalculator) {
-        this.colorCalculator = colorGradeCalculator
+    fun setColorCalculator(colorInRangeCalculator: ColorInRangeCalculator) {
+        this.colorCalculator = colorInRangeCalculator
     }
 
     fun setFeatureRanges(ranges: List<FeatureRange>) {

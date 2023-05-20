@@ -5,7 +5,7 @@ import ru.socialeducationapps.worldmetrics.feature.csv.service.api.CsvService
 import ru.socialeducationapps.worldmetrics.feature.index.economics.gdp.model.GDPValue
 import ru.socialeducationapps.worldmetrics.feature.index.economics.gdp.service.api.GDPService
 import ru.socialeducationapps.worldmetrics.feature.indexes.all.model.CountryResourceBindings.Companion.getNameIdByCode
-import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.SimpleCountryValue
+import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.CountryFeatureValue
 import javax.inject.Inject
 import kotlin.Float.Companion.NaN
 
@@ -14,8 +14,8 @@ class GDPCsvService @Inject constructor(
 ) : GDPService {
     lateinit var filePath: String
 
-    override suspend fun getLastYearData(): List<SimpleCountryValue> {
-        lateinit var result: List<SimpleCountryValue>
+    override suspend fun getLastYearData(): List<CountryFeatureValue> {
+        lateinit var result: List<CountryFeatureValue>
         csvService.process(filePath) { rows ->
             rows
                 .filter { getNameIdByCode(it[COLUMN_COUNTRY_CODE]) != null }
@@ -27,7 +27,7 @@ class GDPCsvService @Inject constructor(
                     }!!
                 }
                 .map {
-                    SimpleCountryValue(
+                    CountryFeatureValue(
                         it[COLUMN_COUNTRY_CODE].lowercase(),
                         it[COLUMN_VALUE_USD_CAP].toFloatOrNull() ?: NaN
                     )

@@ -8,8 +8,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PressFreedomOverviewViewModel @Inject constructor(
-    private val service: PressFreedomService,
+    service: PressFreedomService,
     dispatchers: DispatcherProvider,
-) : CommonOverviewViewModel(service, dispatchers) {
-    override fun getValueRange() = service.getValueRange()
-}
+) : CommonOverviewViewModel(service, dispatchers)

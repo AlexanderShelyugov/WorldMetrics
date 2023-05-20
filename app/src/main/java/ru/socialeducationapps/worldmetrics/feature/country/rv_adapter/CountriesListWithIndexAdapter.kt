@@ -8,19 +8,18 @@ import androidx.recyclerview.widget.DiffUtil.ItemCallback
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import ru.socialeducationapps.worldmetrics.R
 import ru.socialeducationapps.worldmetrics.feature.helper.rv_adapter.FilterableSortableAdapter
-import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.FeatureRange
-import ru.socialeducationapps.worldmetrics.feature.indexes.common.view.color.ColorGradeCalculator
+import ru.socialeducationapps.worldmetrics.feature.indexes.common.view.color.ColorOfDataCalculator
 import kotlin.Float.Companion.NEGATIVE_INFINITY
 
 private typealias Item = CountriesListWithIndexDataItem
 
 class CountriesListWithIndexAdapter(private val onClick: (View, String) -> Unit) :
-    FilterableSortableAdapter<Item>() {
+    FilterableSortableAdapter<CountriesListWithIndexDataItem>() {
 
     private companion object {
         val COMPARATOR_BY_NAME: Comparator<Item> = compareBy { it.name }
         val COMPARATOR_BY_VALUE: Comparator<Item> =
-            compareBy { it.rate.takeIf { x -> x.isFinite() } ?: NEGATIVE_INFINITY }
+            compareBy { it.value.takeIf { x -> x.isFinite() } ?: NEGATIVE_INFINITY }
         val ITEM_CALLBACK = object : ItemCallback<Item>() {
             override fun areItemsTheSame(i1: Item, i2: Item) = i1.iso3Code == i2.iso3Code
             override fun areContentsTheSame(i1: Item, i2: Item) = i1 == i2
@@ -29,15 +28,10 @@ class CountriesListWithIndexAdapter(private val onClick: (View, String) -> Unit)
 
     var sortByCountry = true
     var naturalOrder = true
-    private var colorCalculator: ColorGradeCalculator? = null
-    private var valuesRange: FeatureRange? = null
+    private var colorCalculator: ColorOfDataCalculator? = null
 
-    fun setValuesRange(valueRange: FeatureRange) {
-        valuesRange = valueRange
-    }
-
-    fun setColorsRange(colorRange: Pair<Int, Int>) {
-        colorCalculator = ColorGradeCalculator(colorRange)
+    fun setColorCalculator(colorCalculator: ColorOfDataCalculator) {
+        this.colorCalculator = colorCalculator
     }
 
     override fun calculateComparator(): Comparator<Item> {
@@ -88,7 +82,7 @@ class CountriesListWithIndexAdapter(private val onClick: (View, String) -> Unit)
                         onClick(itemView, row.iso3Code)
                     }
                 }
-                val indexValue = row.rate.takeIf { it.isFinite() }
+                val indexValue = row.value.takeIf { it.isFinite() }
                 val valueText: String
                 val valueColor: Int
                 val ctx = value.context
@@ -97,10 +91,7 @@ class CountriesListWithIndexAdapter(private val onClick: (View, String) -> Unit)
                     valueColor = ctx.getColor(R.color.colorOnPrimary)
                 } else {
                     valueText = indexValue.toBigDecimal().toPlainString()
-                    valueColor = valuesRange
-                        ?.let { range ->
-                            colorCalculator?.evalColor(range.first, range.second, row.rate)
-                        } ?: R.color.colorOnPrimary
+                    valueColor = colorCalculator?.getColorFor(indexValue) ?: R.color.colorOnPrimary
                 }
                 value.text = valueText
                 value.setTextColor(valueColor)
@@ -114,5 +105,5 @@ class CountriesListWithIndexAdapter(private val onClick: (View, String) -> Unit)
 data class CountriesListWithIndexDataItem(
     val iso3Code: String,
     val name: String,
-    val rate: Float,
+    val value: Float,
 )

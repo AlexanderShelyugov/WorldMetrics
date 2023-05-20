@@ -56,7 +56,7 @@ class AboutMeActivity : AppCompatActivity(R.layout.about_me_activity) {
                 val clip = ClipData.newPlainText(name, url)
                 clipboardManager.setPrimaryClip(clip)
                 val message = getString(R.string.copied_format, name)
-                ToastHelper.show(message)
+                ToastHelper.show(this, message)
             }
             container.setOnClickListener {
                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))

@@ -14,7 +14,7 @@ import com.github.mikephil.charting.data.LineDataSet.Mode.HORIZONTAL_BEZIER
 import ru.socialeducationapps.worldmetrics.R
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.FeatureExtractor
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.FeatureRange
-import ru.socialeducationapps.worldmetrics.feature.indexes.common.view.color.ColorGradeCalculator
+import ru.socialeducationapps.worldmetrics.feature.indexes.common.view.color.ColorInRangeCalculator
 import java.lang.Float.NaN
 
 class LabelValueChartView<T>(context: Context, attrs: AttributeSet) : FrameLayout(context, attrs) {
@@ -27,7 +27,7 @@ class LabelValueChartView<T>(context: Context, attrs: AttributeSet) : FrameLayou
     private var allData: List<T> = emptyList()
     private var keyExtractor: FeatureExtractor<T> = { NaN }
     private var valueExtractor: FeatureExtractor<T> = { NaN }
-    private var calculator: ColorGradeCalculator? = null
+    private var calculator: ColorInRangeCalculator? = null
     private lateinit var range: FeatureRange
 
     init {
@@ -65,7 +65,7 @@ class LabelValueChartView<T>(context: Context, attrs: AttributeSet) : FrameLayou
         allData = items
     }
 
-    fun setRangeColors(calculator: ColorGradeCalculator, range: FeatureRange) {
+    fun setRangeColors(calculator: ColorInRangeCalculator, range: FeatureRange) {
         this.calculator = calculator
         this.range = range
     }

@@ -4,7 +4,7 @@ import ru.socialeducationapps.worldmetrics.feature.csv.model.CsvRow
 import ru.socialeducationapps.worldmetrics.feature.csv.service.api.CsvService
 import ru.socialeducationapps.worldmetrics.feature.index.politics.democracy_index.model.DemocracyIndexValue
 import ru.socialeducationapps.worldmetrics.feature.index.politics.democracy_index.service.api.DemocracyIndexService
-import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.SimpleCountryValue
+import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.CountryFeatureValue
 import javax.inject.Inject
 import kotlin.Float.Companion.NaN
 
@@ -32,15 +32,15 @@ class DemocracyIndexServiceImpl @Inject constructor(
 
     lateinit var filePath: String
 
-    override suspend fun getLastYearData(): List<SimpleCountryValue> {
-        lateinit var result: List<SimpleCountryValue>
+    override suspend fun getLastYearData(): List<CountryFeatureValue> {
+        lateinit var result: List<CountryFeatureValue>
         csvService.process(filePath) { rows ->
             rows
                 .filter { MAX_YEAR == it[COLUMN_YEAR].toInt() }
                 .map { row: CsvRow ->
                     val country = row[COLUMN_COUNTRY_CODE]
                     val value = row[COLUMN_INDEX_VALUE].toFloatOrNull() ?: NaN
-                    SimpleCountryValue(country, value)
+                    CountryFeatureValue(country, value)
                 }
                 .toList()
                 .also { result = it }

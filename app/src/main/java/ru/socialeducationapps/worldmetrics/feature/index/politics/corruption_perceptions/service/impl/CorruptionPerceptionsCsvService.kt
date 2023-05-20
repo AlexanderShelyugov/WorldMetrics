@@ -3,7 +3,7 @@ package ru.socialeducationapps.worldmetrics.feature.index.politics.corruption_pe
 import ru.socialeducationapps.worldmetrics.feature.csv.service.api.CsvService
 import ru.socialeducationapps.worldmetrics.feature.index.politics.corruption_perceptions.model.CorruptionPerceptionsValue
 import ru.socialeducationapps.worldmetrics.feature.index.politics.corruption_perceptions.service.api.CorruptionPerceptionsService
-import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.SimpleCountryValue
+import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.CountryFeatureValue
 import javax.inject.Inject
 import kotlin.Float.Companion.NaN
 
@@ -20,12 +20,12 @@ class CorruptionPerceptionsCsvService @Inject constructor(
 
     lateinit var filePath: String
 
-    override suspend fun getLastYearData(): List<SimpleCountryValue> {
-        lateinit var result: List<SimpleCountryValue>
+    override suspend fun getLastYearData(): List<CountryFeatureValue> {
+        lateinit var result: List<CountryFeatureValue>
         csvService.process(filePath) { rows ->
             rows
                 .map {
-                    SimpleCountryValue(
+                    CountryFeatureValue(
                         it[COLUMN_COUNTRY_CODE].lowercase(),
                         it[COLUMN_MAX_YEAR.first].toFloatOrNull() ?: NaN
                     )

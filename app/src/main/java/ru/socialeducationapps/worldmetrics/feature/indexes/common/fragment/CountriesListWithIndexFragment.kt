@@ -2,7 +2,7 @@ package ru.socialeducationapps.worldmetrics.feature.indexes.common.fragment
 
 import android.os.Bundle
 import android.transition.Fade
-import android.transition.TransitionManager
+import android.transition.TransitionManager.beginDelayedTransition
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -16,20 +16,21 @@ import androidx.navigation.NavDirections
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import ru.socialeducationapps.worldmetrics.R
+import ru.socialeducationapps.worldmetrics.feature.coroutines.api.DispatcherProvider
 import ru.socialeducationapps.worldmetrics.feature.country.rv_adapter.CountriesListWithIndexAdapter
 import ru.socialeducationapps.worldmetrics.feature.country.rv_adapter.CountriesListWithIndexDataItem
-import ru.socialeducationapps.worldmetrics.feature.helper.rv_adapter.ScrollToTopOnChangeObserver
-import ru.socialeducationapps.worldmetrics.feature.coroutines.api.DispatcherProvider
 import ru.socialeducationapps.worldmetrics.feature.helper.fragment.InjectableFragment
-import ru.socialeducationapps.worldmetrics.feature.helper.utils.ColorAccess.Companion.VALUE_DEFAULT_COLOR_RANGE
+import ru.socialeducationapps.worldmetrics.feature.helper.rv_adapter.ScrollToTopOnChangeObserver
+import ru.socialeducationapps.worldmetrics.feature.helper.utils.ColorAccess
+import ru.socialeducationapps.worldmetrics.feature.helper.utils.ToastHelper
 import ru.socialeducationapps.worldmetrics.feature.helper.utils.hideKeyboard
 import ru.socialeducationapps.worldmetrics.feature.indexes.all.model.CountryResourceBindings.Companion.getNameIdByCode
-import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.SimpleCountryValue
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.viewmodel.CommonOverviewViewModel
+import ru.socialeducationapps.worldmetrics.feature.indexes.common.viewmodel.OverviewViewModel.Companion.DataStatus.LOADING
+import ru.socialeducationapps.worldmetrics.feature.indexes.common.viewmodel.OverviewViewModel.Companion.DataStatus.LOADING_ERROR
+import ru.socialeducationapps.worldmetrics.feature.indexes.common.viewmodel.OverviewViewModel.Companion.DataStatus.NOT_INITIALIZED
 import javax.inject.Inject
 
 abstract class CountriesListWithIndexFragment :
@@ -39,7 +40,6 @@ abstract class CountriesListWithIndexFragment :
     private val countriesAdapter = CountriesListWithIndexAdapter(this::onCountryClick).apply {
         sortByCountry = true
         naturalOrder = true
-        setColorsRange(VALUE_DEFAULT_COLOR_RANGE)
     }
     private lateinit var sortTypeItem: MenuItem
     private lateinit var sortOrderItem: MenuItem
@@ -52,24 +52,44 @@ abstract class CountriesListWithIndexFragment :
         view.findViewById<RecyclerView>(R.id.rv_countries_list).apply {
             contentView = this
             adapter = countriesAdapter.also {
-                it.setValuesRange(getValueRange())
                 it.registerAdapterDataObserver(ScrollToTopOnChangeObserver(this))
                 it.processInBackground(lifecycleScope, dispatcherProvider)
+                it.setColorCalculator(
+                    getOverviewViewModel().getColorCalculator().also { colorCalculator ->
+                        val colorRange = ColorAccess.getDefaultColorRange(requireContext())
+                        colorCalculator.setColorRange(colorRange.first, colorRange.second)
+                    }
+                )
             }
         }
         lifecycleScope.launch {
-            getData().collectLatest { countries ->
+            getOverviewViewModel().getLastYearData().collect {
                 val ctx = requireContext()
-                val data = countries?.asSequence()
-                    ?.map {
-                        val code = it.iso3CountryCode.lowercase()
-                        val name = getNameIdByCode(code)?.run(ctx::getString) ?: ""
-                        val value = it.value
-                        CountriesListWithIndexDataItem(code, name, value)
+                when (it.status) {
+                    NOT_INITIALIZED, LOADING -> {
+                        setIsContentReady(false)
+                        return@collect
                     }
-                    ?.toList()
-                countriesAdapter.setData(data ?: emptyList())
-                setState(countries != null)
+
+                    LOADING_ERROR -> {
+                        setIsContentReady(false)
+                        ToastHelper.show(ctx, it.error)
+                        return@collect
+                    }
+
+                    else -> {}
+                }
+
+                val data = it.data.asSequence()
+                    .map { dataForCountry ->
+                        val iso3Code = dataForCountry.iso3CountryCode.lowercase()
+                        val name = getNameIdByCode(iso3Code)?.run(ctx::getString) ?: ""
+                        val value = dataForCountry.value
+                        CountriesListWithIndexDataItem(iso3Code, name, value)
+                    }
+                    .toList()
+                countriesAdapter.setData(data)
+                setIsContentReady(true)
             }
         }
         postponeEnterTransition()
@@ -89,14 +109,16 @@ abstract class CountriesListWithIndexFragment :
             switchSortType()
             true
         }
+
         R.id.action_sort_order -> {
             switchSortOrder()
             true
         }
+
         else -> super.onOptionsItemSelected(item)
     }
 
-    private fun setState(contentReady: Boolean) {
+    private fun setIsContentReady(contentReady: Boolean) {
         val transitionOut = Fade()
         val transitionIn = Fade()
             .apply { startDelay = transitionOut.duration / 2 }
@@ -105,8 +127,8 @@ abstract class CountriesListWithIndexFragment :
         val incomingView =
             if (contentReady) contentView else spinner
 
-        TransitionManager.beginDelayedTransition(outgoingView, transitionOut)
-        TransitionManager.beginDelayedTransition(incomingView, transitionIn)
+        beginDelayedTransition(outgoingView, transitionOut)
+        beginDelayedTransition(incomingView, transitionIn)
         outgoingView.isVisible = false
         incomingView.isVisible = true
         setHasOptionsMenu(contentReady)
@@ -138,11 +160,6 @@ abstract class CountriesListWithIndexFragment :
     }
 
     protected abstract fun getOverviewViewModel(): CommonOverviewViewModel
-    private val model: CommonOverviewViewModel
-        get() = getOverviewViewModel()
-
-    private fun getData(): Flow<List<SimpleCountryValue>?> = model.lastYearData
-    protected fun getValueRange() = model.getValueRange()
 
     protected open fun onCountryClick(v: View, countryCode: String) {
         val extras = FragmentNavigatorExtras(

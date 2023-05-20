@@ -7,7 +7,7 @@ import ru.socialeducationapps.worldmetrics.feature.csv.service.api.CsvService
 import ru.socialeducationapps.worldmetrics.feature.index.demographics.population.model.PopulationIndexValue
 import ru.socialeducationapps.worldmetrics.feature.index.demographics.population.service.api.PopulationService
 import ru.socialeducationapps.worldmetrics.feature.indexes.all.model.CountryResourceBindings
-import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.SimpleCountryValue
+import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.CountryFeatureValue
 import javax.inject.Inject
 
 class PopulationCsvService @Inject constructor(
@@ -15,8 +15,8 @@ class PopulationCsvService @Inject constructor(
 ) : PopulationService {
     lateinit var filePath: String
 
-    override suspend fun getLastYearData(): List<SimpleCountryValue> {
-        lateinit var result: List<SimpleCountryValue>
+    override suspend fun getLastYearData(): List<CountryFeatureValue> {
+        lateinit var result: List<CountryFeatureValue>
         csvService.process(filePath) { rows ->
             rows
                 .filter { CountryResourceBindings.getNameIdByCode(it[COLUMN_ISO_3_CODE]) != null }
@@ -28,7 +28,7 @@ class PopulationCsvService @Inject constructor(
                     }!!
                 }
                 .map {
-                    SimpleCountryValue(
+                    CountryFeatureValue(
                         it[COLUMN_ISO_3_CODE].lowercase(),
                         it.getFloat(COLUMN_POPULATION_TOTAL)
                     )
