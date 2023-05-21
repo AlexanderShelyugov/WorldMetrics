@@ -1,4 +1,4 @@
-package ru.socialeducationapps.worldmetrics.activity
+package ru.socialeducationapps.worldmetrics.feature.main.activity
 
 import android.os.Bundle
 import android.view.MenuItem

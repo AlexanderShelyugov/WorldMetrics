@@ -19,7 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WorldMetrics">
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".feature.main.activity.MainActivity"
             android:configChanges="orientation"
             android:exported="true"
             android:screenOrientation="portrait"
