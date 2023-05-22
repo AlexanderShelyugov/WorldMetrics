@@ -7,6 +7,7 @@ import ru.socialeducationapps.worldmetrics.feature.index.politics.press_freedom.
 import ru.socialeducationapps.worldmetrics.feature.index.politics.press_freedom.model.PressFreedomValue
 import ru.socialeducationapps.worldmetrics.feature.index.politics.press_freedom.service.api.PressFreedomService
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.api.IndexFeatureService
+import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.FeatureMedianRange
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.FeatureRange
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.viewmodel.CommonCountryDetailViewModel
 import javax.inject.Inject
@@ -18,11 +19,11 @@ class PressFreedomCountryDetailViewModel @Inject constructor(
 ) : CommonCountryDetailViewModel<PressFreedomValue>(
     service, dispatchers, PRESS_FREEDOM_INDEX_LAYOUT
 ) {
-    override fun getFeatureExtractors(): Map<Int, (IndexFeatureService<PressFreedomValue>) -> FeatureRange> =
-        FEATURE_RANGE_EXTRACTORS as Map<Int, (IndexFeatureService<PressFreedomValue>) -> FeatureRange>
+    override fun getFeatureRangeExtractors(): Map<Int, (IndexFeatureService<PressFreedomValue>) -> FeatureMedianRange> =
+        FEATURE_RANGE_EXTRACTORS as Map<Int, (IndexFeatureService<PressFreedomValue>) -> FeatureMedianRange>
 
     private companion object {
-        val FEATURE_RANGE_EXTRACTORS = mapOf<Int, (PressFreedomService) -> FeatureRange>(
+        val FEATURE_RANGE_EXTRACTORS = mapOf<Int, (PressFreedomService) -> FeatureMedianRange>(
             R.string.index_name_press_freedom to { it.getValueRange() },
             R.string.press_freedom_political_context to { it.getPCRange() },
             R.string.press_freedom_economic_context to { it.getECRange() },

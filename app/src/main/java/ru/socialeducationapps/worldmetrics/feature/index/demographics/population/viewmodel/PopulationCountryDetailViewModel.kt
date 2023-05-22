@@ -8,6 +8,7 @@ import ru.socialeducationapps.worldmetrics.feature.index.demographics.population
 import ru.socialeducationapps.worldmetrics.feature.index.demographics.population.model.PopulationIndexValue
 import ru.socialeducationapps.worldmetrics.feature.index.demographics.population.service.api.PopulationService
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.api.IndexFeatureService
+import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.FeatureMedianRange
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.FeatureRange
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.viewmodel.CommonCountryDetailViewModel
 import javax.inject.Inject
@@ -19,11 +20,11 @@ class PopulationCountryDetailViewModel @Inject constructor(
 ) : CommonCountryDetailViewModel<PopulationIndexValue>(
     service, dispatchers, POPULATION_INDEX_LAYOUT
 ) {
-    override fun getFeatureExtractors(): Map<Int, (IndexFeatureService<PopulationIndexValue>) -> FeatureRange> =
-        FEATURE_RANGE_EXTRACTORS as Map<Int, (IndexFeatureService<PopulationIndexValue>) -> FeatureRange>
+    override fun getFeatureRangeExtractors(): Map<Int, (IndexFeatureService<PopulationIndexValue>) -> FeatureMedianRange> =
+        FEATURE_RANGE_EXTRACTORS as Map<Int, (IndexFeatureService<PopulationIndexValue>) -> FeatureMedianRange>
 
     private companion object {
-        val FEATURE_RANGE_EXTRACTORS = mapOf<Int, (PopulationService) -> FeatureRange>(
+        val FEATURE_RANGE_EXTRACTORS = mapOf<Int, (PopulationService) -> FeatureMedianRange>(
             R.string.population_population_total to { runBlocking { it.getTotalPopulationRange() } },
             R.string.population_population_female to { runBlocking { it.getFemalePopulationRange() } },
             R.string.population_population_male to { runBlocking { it.getMalePopulationRange() } },

@@ -8,6 +8,7 @@ import ru.socialeducationapps.worldmetrics.feature.index.politics.corruption_per
 import ru.socialeducationapps.worldmetrics.feature.index.politics.corruption_perceptions.model.CorruptionPerceptionsValue
 import ru.socialeducationapps.worldmetrics.feature.index.politics.corruption_perceptions.service.api.CorruptionPerceptionsService
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.api.IndexFeatureService
+import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.FeatureMedianRange
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.FeatureRange
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.viewmodel.CommonCountryDetailViewModel
 import javax.inject.Inject
@@ -19,11 +20,11 @@ class CorruptionPerceptionsCountryDetailViewModel @Inject constructor(
 ) : CommonCountryDetailViewModel<CorruptionPerceptionsValue>(
     service, dispatchers, CORRUPTION_PERCEPTIONS_LAYOUT
 ) {
-    override fun getFeatureExtractors(): Map<Int, (IndexFeatureService<CorruptionPerceptionsValue>) -> FeatureRange> =
-        FEATURE_RANGE_EXTRACTORS as Map<Int, (IndexFeatureService<CorruptionPerceptionsValue>) -> FeatureRange>
+    override fun getFeatureRangeExtractors(): Map<Int, (IndexFeatureService<CorruptionPerceptionsValue>) -> FeatureMedianRange> =
+        FEATURE_RANGE_EXTRACTORS as Map<Int, (IndexFeatureService<CorruptionPerceptionsValue>) -> FeatureMedianRange>
 
     private companion object {
-        val FEATURE_RANGE_EXTRACTORS = mapOf<Int, (CorruptionPerceptionsService) -> FeatureRange>(
+        val FEATURE_RANGE_EXTRACTORS = mapOf<Int, (CorruptionPerceptionsService) -> FeatureMedianRange>(
             R.string.index_name_corruption_perceptions to { runBlocking { it.getValueRange() } }
         )
     }

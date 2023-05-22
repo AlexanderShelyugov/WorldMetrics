@@ -7,6 +7,7 @@ import ru.socialeducationapps.worldmetrics.feature.index.politics.democracy_inde
 import ru.socialeducationapps.worldmetrics.feature.index.politics.democracy_index.model.DemocracyIndexValue
 import ru.socialeducationapps.worldmetrics.feature.index.politics.democracy_index.service.api.DemocracyIndexService
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.api.IndexFeatureService
+import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.FeatureMedianRange
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.FeatureRange
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.viewmodel.CommonCountryDetailViewModel
 import javax.inject.Inject
@@ -18,11 +19,11 @@ class DemocracyIndexCountryDetailViewModel @Inject constructor(
 ) : CommonCountryDetailViewModel<DemocracyIndexValue>(
     service, dispatchers, DEMOCRACY_INDEX_LAYOUT
 ) {
-    override fun getFeatureExtractors(): Map<Int, (IndexFeatureService<DemocracyIndexValue>) -> FeatureRange> =
-        FEATURE_RANGE_EXTRACTORS as Map<Int, (IndexFeatureService<DemocracyIndexValue>) -> FeatureRange>
+    override fun getFeatureRangeExtractors(): Map<Int, (IndexFeatureService<DemocracyIndexValue>) -> FeatureMedianRange> =
+        FEATURE_RANGE_EXTRACTORS as Map<Int, (IndexFeatureService<DemocracyIndexValue>) -> FeatureMedianRange>
 
     private companion object {
-        val FEATURE_RANGE_EXTRACTORS = mapOf<Int, (DemocracyIndexService) -> FeatureRange>(
+        val FEATURE_RANGE_EXTRACTORS = mapOf<Int, (DemocracyIndexService) -> FeatureMedianRange>(
             R.string.index_name_democracy to { it.getValueRange() },
             R.string.electoral_process_and_pluralism to { it.getEPAPRange() },
             R.string.functioning_of_government to { it.getFOGRange() },

@@ -2,6 +2,7 @@ package ru.socialeducationapps.worldmetrics.feature.index.politics.press_freedom
 
 import ru.socialeducationapps.worldmetrics.feature.index.politics.press_freedom.model.PressFreedomValue
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.api.IndexFeatureService
+import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.FeatureMedianRange
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.FeatureRange
 
 interface PressFreedomService : IndexFeatureService<PressFreedomValue> {
@@ -10,40 +11,40 @@ interface PressFreedomService : IndexFeatureService<PressFreedomValue> {
      *
      * @return pair of values, where first is minimum value and second is maximum value
      */
-    fun getValueRange(): FeatureRange
+    fun getValueRange(): FeatureMedianRange
 
     /**
      * Returns political context range
      *
      * @return pair of values, where first is minimum value and second is maximum value
      */
-    fun getPCRange(): FeatureRange
+    fun getPCRange(): FeatureMedianRange
 
     /**
      * Returns economic context range
      *
      * @return pair of values, where first is minimum value and second is maximum value
      */
-    fun getECRange(): FeatureRange
+    fun getECRange(): FeatureMedianRange
 
     /**
      * Returns legal context range
      *
      * @return pair of values, where first is minimum value and second is maximum value
      */
-    fun getLCRange(): FeatureRange
+    fun getLCRange(): FeatureMedianRange
 
     /**
      * Returns social context range
      *
      * @return pair of values, where first is minimum value and second is maximum value
      */
-    fun getSCRange(): FeatureRange
+    fun getSCRange(): FeatureMedianRange
 
     /**
      * Returns safety range
      *
      * @return pair of values, where first is minimum value and second is maximum value
      */
-    fun getSRange(): FeatureRange
+    fun getSRange(): FeatureMedianRange
 }

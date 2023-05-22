@@ -2,7 +2,7 @@ package ru.socialeducationapps.worldmetrics.feature.index.politics.corruption_pe
 
 import ru.socialeducationapps.worldmetrics.feature.index.politics.corruption_perceptions.model.CorruptionPerceptionsValue
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.api.IndexFeatureService
-import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.FeatureRange
+import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.FeatureMedianRange
 
 interface CorruptionPerceptionsService : IndexFeatureService<CorruptionPerceptionsValue> {
     /**
@@ -10,5 +10,5 @@ interface CorruptionPerceptionsService : IndexFeatureService<CorruptionPerceptio
      *
      * @return pair of values, where first is minimum value and second is maximum value
      */
-    suspend fun getValueRange(): FeatureRange
+    suspend fun getValueRange(): FeatureMedianRange
 }
