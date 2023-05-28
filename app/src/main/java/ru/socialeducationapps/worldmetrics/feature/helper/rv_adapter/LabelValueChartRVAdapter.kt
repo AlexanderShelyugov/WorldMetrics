@@ -5,10 +5,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import ru.socialeducationapps.worldmetrics.R
+import ru.socialeducationapps.worldmetrics.feature.helper.rv_adapter.LabelValueChartRVAdapter.LVCViewHolder
 import ru.socialeducationapps.worldmetrics.feature.helper.view.LabelValueChartView
 import ru.socialeducationapps.worldmetrics.feature.helper.view.LabelValueChartView.Companion.LVCVState
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.FeatureExtractor
-import ru.socialeducationapps.worldmetrics.feature.helper.rv_adapter.LabelValueChartRVAdapter.LVCViewHolder
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.view.color.ColorOfDataCalculator
 
 private typealias VH = LVCViewHolder

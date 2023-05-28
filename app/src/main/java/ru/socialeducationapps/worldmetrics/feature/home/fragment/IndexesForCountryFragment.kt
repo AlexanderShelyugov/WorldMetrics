@@ -12,8 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import ru.socialeducationapps.worldmetrics.NavGraphDirections.Companion.actionGlobalToBeImplementedFragment
 import ru.socialeducationapps.worldmetrics.R
-import ru.socialeducationapps.worldmetrics.feature.indexes.all.rv_adapter.IndexListAdapter
-import ru.socialeducationapps.worldmetrics.feature.indexes.all.rv_adapter.IndexListAdapter.IndexListItem
 import ru.socialeducationapps.worldmetrics.feature.country.current.viewmodel.CurrentCountryViewModel
 import ru.socialeducationapps.worldmetrics.feature.helper.fragment.InjectableFragment
 import ru.socialeducationapps.worldmetrics.feature.home.fragment.HomeScreenFragmentDirections.Companion.actionHomeScreenToCorruptionPerceptionsCountryDetail
@@ -23,6 +21,8 @@ import ru.socialeducationapps.worldmetrics.feature.home.fragment.HomeScreenFragm
 import ru.socialeducationapps.worldmetrics.feature.home.fragment.HomeScreenFragmentDirections.Companion.actionHomeScreenToPressFreedomCountryDetail
 import ru.socialeducationapps.worldmetrics.feature.indexes.all.model.AllIndexes.Companion.ALL_INDEXES
 import ru.socialeducationapps.worldmetrics.feature.indexes.all.model.DataBindingForIndexGroup
+import ru.socialeducationapps.worldmetrics.feature.indexes.all.rv_adapter.IndexListAdapter
+import ru.socialeducationapps.worldmetrics.feature.indexes.all.rv_adapter.IndexListAdapter.IndexListItem
 
 @AndroidEntryPoint
 class IndexesForCountryFragment : InjectableFragment(R.layout.indexes_for_country) {

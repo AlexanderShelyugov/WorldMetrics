@@ -16,10 +16,10 @@ import com.google.android.material.transition.MaterialContainerTransform
 import kotlinx.coroutines.launch
 import ru.socialeducationapps.worldmetrics.R
 import ru.socialeducationapps.worldmetrics.feature.helper.fragment.InjectableFragment
-import ru.socialeducationapps.worldmetrics.feature.indexes.all.model.CountryResourceBindings.Companion.getNameIdByCode
 import ru.socialeducationapps.worldmetrics.feature.helper.rv_adapter.LabelValueChartRVAdapter
 import ru.socialeducationapps.worldmetrics.feature.helper.rv_adapter.LabelValueChartRVAdapter.Companion.AdapterState
 import ru.socialeducationapps.worldmetrics.feature.helper.rv_adapter.LabelValueChartRVAdapter.Companion.IndexFeatureAdapterItem
+import ru.socialeducationapps.worldmetrics.feature.indexes.all.model.CountryResourceBindings.Companion.getNameIdByCode
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.viewmodel.CommonCountryIndexDetailViewModel
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.viewmodel.CountryIndexDetailViewModel.Companion.ViewState.Success
 

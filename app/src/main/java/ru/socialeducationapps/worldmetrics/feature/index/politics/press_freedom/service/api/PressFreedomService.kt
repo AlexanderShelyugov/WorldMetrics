@@ -3,7 +3,6 @@ package ru.socialeducationapps.worldmetrics.feature.index.politics.press_freedom
 import ru.socialeducationapps.worldmetrics.feature.index.politics.press_freedom.model.PressFreedomValue
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.api.IndexFeatureService
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.FeatureMedianRange
-import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.FeatureRange
 
 interface PressFreedomService : IndexFeatureService<PressFreedomValue> {
     /**
