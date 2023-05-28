@@ -9,9 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import ru.socialeducationapps.worldmetrics.R
-import ru.socialeducationapps.worldmetrics.feature.helper.rv_adapter.CompositeRVAdapter
 import ru.socialeducationapps.worldmetrics.feature.country.overview.viewmodel.CountryOverviewViewModel
 import ru.socialeducationapps.worldmetrics.feature.helper.fragment.InjectableFragment
+import ru.socialeducationapps.worldmetrics.feature.helper.rv_adapter.CompositeRVAdapter
 import ru.socialeducationapps.worldmetrics.feature.index.politics.corruption_perceptions.rv_adapter.CorruptionPerceptionsAdapterFactory.Companion.getCorruptionPerceptionsFeaturesAdapter
 import ru.socialeducationapps.worldmetrics.feature.index.politics.democracy_index.rv_adapter.DemocracyIndexAdapterFactory.Companion.getDemocracyIndexFeaturesAdapter
 import ru.socialeducationapps.worldmetrics.feature.index.politics.press_freedom.rv_adapter.PressFreedomAdapterFactory.Companion.getPressFreedomFeaturesAdapter
@@ -34,10 +34,11 @@ class CountryOverviewFragment : InjectableFragment(R.layout.country_overview) {
 
     private fun createAdapter(countryCode: String): Adapter<out ViewHolder> {
         val data = model.getDataForCountry(countryCode)
+        // TODO connect data to adapters
         val atomicAdapters = listOf(
-            getCorruptionPerceptionsFeaturesAdapter().also { it.setState()setData(data.corruptionPerceptions) } as Adapter<ViewHolder>,
-            getDemocracyIndexFeaturesAdapter().also { it.setData(data.democracyIndex) } as Adapter<ViewHolder>,
-            getPressFreedomFeaturesAdapter().also { it.setData(data.pressFreedom) } as Adapter<ViewHolder>,
+            getCorruptionPerceptionsFeaturesAdapter() as Adapter<ViewHolder>,
+            getDemocracyIndexFeaturesAdapter() as Adapter<ViewHolder>,
+            getPressFreedomFeaturesAdapter() as Adapter<ViewHolder>,
         )
         return CompositeRVAdapter(atomicAdapters)
     }

@@ -17,9 +17,9 @@ import kotlinx.coroutines.launch
 import ru.socialeducationapps.worldmetrics.R
 import ru.socialeducationapps.worldmetrics.feature.helper.fragment.InjectableFragment
 import ru.socialeducationapps.worldmetrics.feature.indexes.all.model.CountryResourceBindings.Companion.getNameIdByCode
-import ru.socialeducationapps.worldmetrics.feature.indexes.common.rv_adapter.IndexFeaturesRVAdapter
-import ru.socialeducationapps.worldmetrics.feature.indexes.common.rv_adapter.IndexFeaturesRVAdapter.Companion.AdapterState
-import ru.socialeducationapps.worldmetrics.feature.indexes.common.rv_adapter.IndexFeaturesRVAdapter.Companion.IndexFeatureAdapterItem
+import ru.socialeducationapps.worldmetrics.feature.helper.rv_adapter.LabelValueChartRVAdapter
+import ru.socialeducationapps.worldmetrics.feature.helper.rv_adapter.LabelValueChartRVAdapter.Companion.AdapterState
+import ru.socialeducationapps.worldmetrics.feature.helper.rv_adapter.LabelValueChartRVAdapter.Companion.IndexFeatureAdapterItem
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.viewmodel.CommonCountryIndexDetailViewModel
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.viewmodel.CountryIndexDetailViewModel.Companion.ViewState.Success
 
@@ -49,7 +49,7 @@ abstract class CountryIndexDetailFragment<IndexType> :
         super.onViewCreated(view, savedInstanceState)
         model.setCountry(getCountryCode())
         model.onOpen()
-        val adapter = createAdapter()
+        val adapter = LabelValueChartRVAdapter<IndexType>()
         requireView().run {
             spinner = findViewById(R.id.fl_loading)
             contentView = findViewById(R.id.ll_content)
@@ -68,9 +68,14 @@ abstract class CountryIndexDetailFragment<IndexType> :
                     return@collect
                 }
                 val successState: Success<IndexType> = viewState
-                val adapterState = model.indexLayout.features.map { it.second }
-                    .map { extractorOfFeature ->
-                        IndexFeatureAdapterItem(successState.allData, extractorOfFeature)
+                val adapterState = model.indexLayout.features
+                    .map { feature ->
+                        IndexFeatureAdapterItem(
+                            feature.first,
+                            successState.allData,
+                            feature.second,
+                            model.getColorCalculatorsForFeatures()[feature.first]
+                        )
                     }.toList()
                     .let { AdapterState(it) }
                 adapter.setState(adapterState)
@@ -99,7 +104,4 @@ abstract class CountryIndexDetailFragment<IndexType> :
         setHasOptionsMenu(contentReady)
         requireActivity().invalidateOptionsMenu()
     }
-
-    private fun createAdapter(): IndexFeaturesRVAdapter<IndexType> =
-        IndexFeaturesRVAdapter(model.indexLayout, model.getColorCalculatorsForFeatures())
 }
