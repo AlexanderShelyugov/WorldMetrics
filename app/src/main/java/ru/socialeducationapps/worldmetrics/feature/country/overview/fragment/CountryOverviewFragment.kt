@@ -35,7 +35,7 @@ class CountryOverviewFragment : InjectableFragment(R.layout.country_overview) {
     private fun createAdapter(countryCode: String): Adapter<out ViewHolder> {
         val data = model.getDataForCountry(countryCode)
         val atomicAdapters = listOf(
-            getCorruptionPerceptionsFeaturesAdapter().also { it.setData(data.corruptionPerceptions) } as Adapter<ViewHolder>,
+            getCorruptionPerceptionsFeaturesAdapter().also { it.setState()setData(data.corruptionPerceptions) } as Adapter<ViewHolder>,
             getDemocracyIndexFeaturesAdapter().also { it.setData(data.democracyIndex) } as Adapter<ViewHolder>,
             getPressFreedomFeaturesAdapter().also { it.setData(data.pressFreedom) } as Adapter<ViewHolder>,
         )

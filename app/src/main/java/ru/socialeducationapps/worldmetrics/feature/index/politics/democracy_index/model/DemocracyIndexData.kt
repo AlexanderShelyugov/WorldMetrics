@@ -1,11 +1,11 @@
 package ru.socialeducationapps.worldmetrics.feature.index.politics.democracy_index.model
 
 import ru.socialeducationapps.worldmetrics.R
-import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.CommonIndexLayout
+import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.IndexFeaturesLayout
 
 class DemocracyIndexData private constructor() {
     companion object {
-        val DEMOCRACY_INDEX_LAYOUT = CommonIndexLayout<DemocracyIndexValue>(
+        val DEMOCRACY_INDEX_LAYOUT = IndexFeaturesLayout<DemocracyIndexValue>(
             { it.year.toFloat() },
             listOf(
                 R.string.index_name_democracy to { it.democracyIndex },

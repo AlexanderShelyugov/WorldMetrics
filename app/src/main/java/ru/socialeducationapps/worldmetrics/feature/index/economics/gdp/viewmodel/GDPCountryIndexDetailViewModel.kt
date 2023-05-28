@@ -8,14 +8,14 @@ import ru.socialeducationapps.worldmetrics.feature.index.economics.gdp.model.GDP
 import ru.socialeducationapps.worldmetrics.feature.index.economics.gdp.service.api.GDPService
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.api.IndexFeatureService
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.FeatureMedianRange
-import ru.socialeducationapps.worldmetrics.feature.indexes.common.viewmodel.CommonCountryDetailViewModel
+import ru.socialeducationapps.worldmetrics.feature.indexes.common.viewmodel.CommonCountryIndexDetailViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class GDPCountryDetailViewModel @Inject constructor(
+class GDPCountryIndexDetailViewModel @Inject constructor(
     service: GDPService,
     dispatchers: DispatcherProvider,
-) : CommonCountryDetailViewModel<GDPValue>(service, dispatchers, GDP_INDEX_LAYOUT) {
+) : CommonCountryIndexDetailViewModel<GDPValue>(service, dispatchers, GDP_INDEX_LAYOUT) {
     override fun getFeatureRangeExtractors(): Map<Int, (IndexFeatureService<GDPValue>) -> FeatureMedianRange> =
         FEATURE_RANGE_EXTRACTORS as Map<Int, (IndexFeatureService<GDPValue>) -> FeatureMedianRange>
 

@@ -1,14 +1,14 @@
 package ru.socialeducationapps.worldmetrics.feature.index.politics.corruption_perceptions.model
 
 import ru.socialeducationapps.worldmetrics.R
-import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.CommonIndexLayout
+import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.IndexFeaturesLayout
 
 private typealias Index = CorruptionPerceptionsValue
 private typealias ValueFunction = (Index) -> Float
 
 class CorruptionPerceptionsData private constructor() {
     companion object {
-        val CORRUPTION_PERCEPTIONS_LAYOUT = CommonIndexLayout<CorruptionPerceptionsValue>(
+        val CORRUPTION_PERCEPTIONS_LAYOUT = IndexFeaturesLayout<CorruptionPerceptionsValue>(
             { it.year.toFloat() },
             listOf(
                 R.string.index_name_corruption_perceptions to { it.value },

@@ -6,6 +6,7 @@ import ru.socialeducationapps.worldmetrics.feature.index.economics.gdp.model.GDP
 import ru.socialeducationapps.worldmetrics.feature.index.economics.gdp.service.api.GDPService
 import ru.socialeducationapps.worldmetrics.feature.indexes.all.model.CountryResourceBindings.Companion.getNameIdByCode
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.CountryFeatureValue
+import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.toFeatureMedianRange
 import javax.inject.Inject
 import kotlin.Float.Companion.NaN
 
@@ -80,8 +81,8 @@ class GDPCsvService @Inject constructor(
     )
 
     private companion object {
-        val VALUE_MLN_USD_RANGE = 21461.473f to 24274126f
-        val VALUE_USD_PER_CAPITA = 1560.0228f to 134340.38f
+        val VALUE_MLN_USD_RANGE = (21461.473f to 24274126f).toFeatureMedianRange()
+        val VALUE_USD_PER_CAPITA = (1560.0228f to 134340.38f).toFeatureMedianRange()
         const val COLUMN_COUNTRY_CODE = 0
         const val COLUMN_YEAR = 1
         const val COLUMN_VALUE_MLN_USD = 2

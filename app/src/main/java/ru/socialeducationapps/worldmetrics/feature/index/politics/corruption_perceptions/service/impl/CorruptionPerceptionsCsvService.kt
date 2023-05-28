@@ -4,6 +4,7 @@ import ru.socialeducationapps.worldmetrics.feature.csv.service.api.CsvService
 import ru.socialeducationapps.worldmetrics.feature.index.politics.corruption_perceptions.model.CorruptionPerceptionsValue
 import ru.socialeducationapps.worldmetrics.feature.index.politics.corruption_perceptions.service.api.CorruptionPerceptionsService
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.CountryFeatureValue
+import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.toFeatureMedianRange
 import javax.inject.Inject
 import kotlin.Float.Companion.NaN
 
@@ -15,7 +16,7 @@ class CorruptionPerceptionsCsvService @Inject constructor(
 
         val COLUMN_MIN_YEAR = 2 to 1998
         val COLUMN_MAX_YEAR = 19 to 2015
-        val VALUES_RANGE = 8f to 91f
+        val VALUES_RANGE = (8f to 91f).toFeatureMedianRange()
     }
 
     lateinit var filePath: String

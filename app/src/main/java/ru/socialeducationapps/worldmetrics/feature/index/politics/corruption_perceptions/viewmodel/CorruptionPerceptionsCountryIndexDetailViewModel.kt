@@ -9,15 +9,14 @@ import ru.socialeducationapps.worldmetrics.feature.index.politics.corruption_per
 import ru.socialeducationapps.worldmetrics.feature.index.politics.corruption_perceptions.service.api.CorruptionPerceptionsService
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.api.IndexFeatureService
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.FeatureMedianRange
-import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.FeatureRange
-import ru.socialeducationapps.worldmetrics.feature.indexes.common.viewmodel.CommonCountryDetailViewModel
+import ru.socialeducationapps.worldmetrics.feature.indexes.common.viewmodel.CommonCountryIndexDetailViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class CorruptionPerceptionsCountryDetailViewModel @Inject constructor(
+class CorruptionPerceptionsCountryIndexDetailViewModel @Inject constructor(
     service: CorruptionPerceptionsService,
     dispatchers: DispatcherProvider,
-) : CommonCountryDetailViewModel<CorruptionPerceptionsValue>(
+) : CommonCountryIndexDetailViewModel<CorruptionPerceptionsValue>(
     service, dispatchers, CORRUPTION_PERCEPTIONS_LAYOUT
 ) {
     override fun getFeatureRangeExtractors(): Map<Int, (IndexFeatureService<CorruptionPerceptionsValue>) -> FeatureMedianRange> =

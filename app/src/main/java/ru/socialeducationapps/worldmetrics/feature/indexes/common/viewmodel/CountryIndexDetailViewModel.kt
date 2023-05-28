@@ -3,9 +3,9 @@ package ru.socialeducationapps.worldmetrics.feature.indexes.common.viewmodel
 import kotlinx.coroutines.flow.Flow
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.view.color.ColorOfDataCalculator
 
-interface CountryDetailViewModel<T> {
+interface CountryIndexDetailViewModel<T> {
     fun getViewState(): Flow<ViewState<T>>
-    fun getColorCalculator(indexFeature: Int): ColorOfDataCalculator
+    fun getColorCalculatorsForFeatures(): Map<Int, ColorOfDataCalculator>
     fun setCountry(country: String)
     fun onOpen()
 

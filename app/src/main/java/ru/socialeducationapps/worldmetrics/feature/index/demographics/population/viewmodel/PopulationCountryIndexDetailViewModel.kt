@@ -9,15 +9,14 @@ import ru.socialeducationapps.worldmetrics.feature.index.demographics.population
 import ru.socialeducationapps.worldmetrics.feature.index.demographics.population.service.api.PopulationService
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.api.IndexFeatureService
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.FeatureMedianRange
-import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.FeatureRange
-import ru.socialeducationapps.worldmetrics.feature.indexes.common.viewmodel.CommonCountryDetailViewModel
+import ru.socialeducationapps.worldmetrics.feature.indexes.common.viewmodel.CommonCountryIndexDetailViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class PopulationCountryDetailViewModel @Inject constructor(
+class PopulationCountryIndexDetailViewModel @Inject constructor(
     service: PopulationService,
     dispatchers: DispatcherProvider,
-) : CommonCountryDetailViewModel<PopulationIndexValue>(
+) : CommonCountryIndexDetailViewModel<PopulationIndexValue>(
     service, dispatchers, POPULATION_INDEX_LAYOUT
 ) {
     override fun getFeatureRangeExtractors(): Map<Int, (IndexFeatureService<PopulationIndexValue>) -> FeatureMedianRange> =

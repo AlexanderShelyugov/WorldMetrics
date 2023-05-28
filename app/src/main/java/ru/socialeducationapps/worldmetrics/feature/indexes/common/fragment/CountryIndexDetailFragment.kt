@@ -13,18 +13,25 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.transition.MaterialArcMotion
 import com.google.android.material.transition.MaterialContainerTransform
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import ru.socialeducationapps.worldmetrics.R
-import ru.socialeducationapps.worldmetrics.feature.indexes.common.rv_adapter.IndexFeaturesRVAdapter
 import ru.socialeducationapps.worldmetrics.feature.helper.fragment.InjectableFragment
 import ru.socialeducationapps.worldmetrics.feature.indexes.all.model.CountryResourceBindings.Companion.getNameIdByCode
-import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.FeatureRange
-import ru.socialeducationapps.worldmetrics.feature.indexes.common.viewmodel.CommonCountryDetailViewModel
+import ru.socialeducationapps.worldmetrics.feature.indexes.common.rv_adapter.IndexFeaturesRVAdapter
+import ru.socialeducationapps.worldmetrics.feature.indexes.common.rv_adapter.IndexFeaturesRVAdapter.Companion.AdapterState
+import ru.socialeducationapps.worldmetrics.feature.indexes.common.rv_adapter.IndexFeaturesRVAdapter.Companion.IndexFeatureAdapterItem
+import ru.socialeducationapps.worldmetrics.feature.indexes.common.viewmodel.CommonCountryIndexDetailViewModel
+import ru.socialeducationapps.worldmetrics.feature.indexes.common.viewmodel.CountryIndexDetailViewModel.Companion.ViewState.Success
 
-abstract class CountryIndexDetailFragment<T> : InjectableFragment(R.layout.country_detail_indexes) {
+abstract class CountryIndexDetailFragment<IndexType> :
+    InjectableFragment(R.layout.country_detail_indexes) {
     private lateinit var spinner: ViewGroup
     private lateinit var contentView: ViewGroup
+    private val model: CommonCountryIndexDetailViewModel<IndexType>
+        get() = getCountryDetailViewModel()
+
+    protected abstract fun getCountryCode(): String
+    protected abstract fun getCountryDetailViewModel(): CommonCountryIndexDetailViewModel<IndexType>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,9 +47,9 @@ abstract class CountryIndexDetailFragment<T> : InjectableFragment(R.layout.count
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val adapter = getAdapter().apply {
-            setFeatureRanges(getFeatureRanges())
-        }
+        model.setCountry(getCountryCode())
+        model.onOpen()
+        val adapter = createAdapter()
         requireView().run {
             spinner = findViewById(R.id.fl_loading)
             contentView = findViewById(R.id.ll_content)
@@ -54,9 +61,20 @@ abstract class CountryIndexDetailFragment<T> : InjectableFragment(R.layout.count
             findViewById<RecyclerView>(R.id.rv_indexes).adapter = adapter
         }
         lifecycleScope.launch {
-            getData().collectLatest { items ->
-                setState(items != null)
-                adapter.setData(items ?: emptyList())
+            model.getViewState().collect { viewState ->
+                if (viewState !is Success) {
+                    adapter.setState(AdapterState(emptyList()))
+                    setContentReady(false)
+                    return@collect
+                }
+                val successState: Success<IndexType> = viewState
+                val adapterState = model.indexLayout.features.map { it.second }
+                    .map { extractorOfFeature ->
+                        IndexFeatureAdapterItem(successState.allData, extractorOfFeature)
+                    }.toList()
+                    .let { AdapterState(it) }
+                adapter.setState(adapterState)
+                setContentReady(true)
             }
         }
         postponeEnterTransition()
@@ -65,7 +83,7 @@ abstract class CountryIndexDetailFragment<T> : InjectableFragment(R.layout.count
         }
     }
 
-    private fun setState(contentReady: Boolean) {
+    private fun setContentReady(contentReady: Boolean) {
         val transitionOut = Fade()
         val transitionIn = Fade()
             .apply { startDelay = transitionOut.duration / 2 }
@@ -82,18 +100,6 @@ abstract class CountryIndexDetailFragment<T> : InjectableFragment(R.layout.count
         requireActivity().invalidateOptionsMenu()
     }
 
-    private val model: CommonCountryDetailViewModel<T>
-        get() = getCountryDetailViewModel()
-
-    protected abstract fun getCountryCode(): String
-    protected abstract fun getCountryDetailViewModel(): CommonCountryDetailViewModel<T>
-    private fun getData() = model
-        .apply { setCountry(getCountryCode()) }
-        .run { allData }
-
-    private fun getFeatureRanges(): List<FeatureRange> =
-        model.getFeatureRanges()
-
-    private fun getAdapter(): IndexFeaturesRVAdapter<T> =
-        IndexFeaturesRVAdapter(model.indexLayout)
+    private fun createAdapter(): IndexFeaturesRVAdapter<IndexType> =
+        IndexFeaturesRVAdapter(model.indexLayout, model.getColorCalculatorsForFeatures())
 }

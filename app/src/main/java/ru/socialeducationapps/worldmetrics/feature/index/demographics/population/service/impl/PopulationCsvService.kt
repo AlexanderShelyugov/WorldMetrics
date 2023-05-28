@@ -8,6 +8,7 @@ import ru.socialeducationapps.worldmetrics.feature.index.demographics.population
 import ru.socialeducationapps.worldmetrics.feature.index.demographics.population.service.api.PopulationService
 import ru.socialeducationapps.worldmetrics.feature.indexes.all.model.CountryResourceBindings
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.CountryFeatureValue
+import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.toFeatureMedianRange
 import javax.inject.Inject
 
 class PopulationCsvService @Inject constructor(
@@ -92,9 +93,9 @@ class PopulationCsvService @Inject constructor(
         const val COLUMN_POPULATION_FEMALE = 3
         const val COLUMN_POPULATION_DENSITY = 5
 
-        val RANGE_TOTAL = 55.032f to 1448471.4f
-        val RANGE_FEMALE = 48.511f to 706016.75f
-        val RANGE_MALE = 49.333f to 742454.7f
-        val RANGE_DENSITY = 0.139f to 26696.645f
+        val RANGE_TOTAL = (55.032f to 1448471.4f).toFeatureMedianRange()
+        val RANGE_FEMALE = (48.511f to 706016.75f).toFeatureMedianRange()
+        val RANGE_MALE = (49.333f to 742454.7f).toFeatureMedianRange()
+        val RANGE_DENSITY = (0.139f to 26696.645f).toFeatureMedianRange()
     }
 }

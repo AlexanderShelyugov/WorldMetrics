@@ -8,26 +8,26 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import ru.socialeducationapps.worldmetrics.feature.coroutines.api.DispatcherProvider
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.api.IndexFeatureService
-import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.CommonIndexLayout
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.FeatureMedianRange
+import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.IndexFeaturesLayout
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.view.color.ColorOfDataCalculator
-import ru.socialeducationapps.worldmetrics.feature.indexes.common.viewmodel.CountryDetailViewModel.Companion.ViewState
+import ru.socialeducationapps.worldmetrics.feature.indexes.common.viewmodel.CountryIndexDetailViewModel.Companion.ViewState
 
-abstract class CommonCountryDetailViewModel<Index> constructor(
-    private val service: IndexFeatureService<Index>,
+abstract class CommonCountryIndexDetailViewModel<IndexType> constructor(
+    private val service: IndexFeatureService<IndexType>,
     private val dispatchers: DispatcherProvider,
-    val indexLayout: CommonIndexLayout<Index>,
-) : ViewModel(), CountryDetailViewModel<Index> {
-    override fun getViewState(): Flow<ViewState<Index>> = _viewState
-    override fun getColorCalculator(indexFeature: Int): ColorOfDataCalculator =
-        _colorCalculator[indexFeature]!!
+    val indexLayout: IndexFeaturesLayout<IndexType>,
+) : ViewModel(), CountryIndexDetailViewModel<IndexType> {
+    override fun getViewState(): Flow<ViewState<IndexType>> = _viewState
+    override fun getColorCalculatorsForFeatures(): Map<Int, ColorOfDataCalculator> =
+        _colorCalculator
 
     protected abstract fun getFeatureRangeExtractors():
-            Map<Int, (IndexFeatureService<Index>) -> FeatureMedianRange>
+            Map<Int, (IndexFeatureService<IndexType>) -> FeatureMedianRange>
 
 
     private var country: String = ""
-    private val _viewState = MutableStateFlow<ViewState<Index>>(ViewState.Initial())
+    private val _viewState = MutableStateFlow<ViewState<IndexType>>(ViewState.Initial())
     private var _colorCalculator: Map<Int, ColorOfDataCalculator>
 
     init {
@@ -64,7 +64,7 @@ abstract class CommonCountryDetailViewModel<Index> constructor(
             _viewState.value = ViewState.Loading()
             try {
                 val data = service.getAllData(country)
-                val lastYearData: Index = service.getLastYearData(country)
+                val lastYearData: IndexType = service.getLastYearData(country)
                 _viewState.value = ViewState.Success(lastYearData, data)
             } catch (e: Exception) {
                 _viewState.value = ViewState.Error(e)

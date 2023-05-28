@@ -11,7 +11,7 @@ import ru.socialeducationapps.worldmetrics.feature.index.politics.corruption_per
 import ru.socialeducationapps.worldmetrics.feature.index.politics.democracy_index.service.api.DemocracyIndexService
 import ru.socialeducationapps.worldmetrics.feature.index.politics.press_freedom.service.api.PressFreedomService
 import ru.socialeducationapps.worldmetrics.feature.indexes.all.model.AllIndexes
-import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.FeatureRange
+import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.FeatureMedianRange
 import javax.inject.Inject
 
 @HiltViewModel
@@ -74,10 +74,10 @@ class CountryScoreViewModel @Inject constructor(
     }
 
     private fun calculateScore(
-        indexExtractor: () -> Float, rangeExtractor: () -> FeatureRange
+        indexExtractor: () -> Float, rangeExtractor: () -> FeatureMedianRange
     ): Int {
         val range = rangeExtractor.invoke()
-        return scoreWithinRange(indexExtractor.invoke(), range.first, range.second)
+        return scoreWithinRange(indexExtractor.invoke(), range.first, range.third)
     }
 
     private fun scoreWithinRange(x: Float, min: Float, max: Float): Int {

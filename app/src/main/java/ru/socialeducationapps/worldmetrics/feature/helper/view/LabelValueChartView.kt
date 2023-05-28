@@ -12,27 +12,19 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.data.LineDataSet.Mode.HORIZONTAL_BEZIER
 import ru.socialeducationapps.worldmetrics.R
-import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.FeatureExtractor
-import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.FeatureRange
-import ru.socialeducationapps.worldmetrics.feature.indexes.common.view.color.ColorInRangeCalculator
-import java.lang.Float.NaN
+import ru.socialeducationapps.worldmetrics.feature.indexes.common.view.color.ColorOfDataCalculator
 
-class LabelValueChartView<T>(context: Context, attrs: AttributeSet) : FrameLayout(context, attrs) {
-    private val _label: TextView
-    val label: TextView
-        get() = _label
+class LabelValueChartView(context: Context, attrs: AttributeSet) : FrameLayout(context, attrs) {
+    private val label: TextView
     private val value: TextView
     private val chart: LineChart
 
-    private var allData: List<T> = emptyList()
-    private var keyExtractor: FeatureExtractor<T> = { NaN }
-    private var valueExtractor: FeatureExtractor<T> = { NaN }
-    private var calculator: ColorInRangeCalculator? = null
-    private lateinit var range: FeatureRange
+    private var state: LVCVState? = null
+    private var calculator: ColorOfDataCalculator? = null
 
     init {
         inflate(getContext(), R.layout.label_value_chart_view_content, this)
-        _label = findViewById(R.id.tv_label)
+        label = findViewById(R.id.tv_label)
         value = findViewById(R.id.tv_value)
         chart = findViewById(R.id.lc_chart)
         chart.run {
@@ -52,50 +44,39 @@ class LabelValueChartView<T>(context: Context, attrs: AttributeSet) : FrameLayou
         }
     }
 
-    fun setLabelText(strId: Int) {
-        _label.text = context.getString(strId)
+    fun setState(state: LVCVState) {
+        this.state = state
     }
 
-    fun setExtractors(k: FeatureExtractor<T>, v: FeatureExtractor<T>) {
-        keyExtractor = k
-        valueExtractor = v
-    }
-
-    fun setData(items: List<T>) {
-        allData = items
-    }
-
-    fun setRangeColors(calculator: ColorInRangeCalculator, range: FeatureRange) {
+    fun setColorCalculator(calculator: ColorOfDataCalculator?) {
         this.calculator = calculator
-        this.range = range
     }
 
     fun refresh() {
-        val feature = allData
-            .takeIf { it.isNotEmpty() }
-            ?.let { data -> data.sortedBy(keyExtractor).reversed()[0] }
-            ?.run { valueExtractor(this) }
-            ?.takeIf { featureValue -> featureValue.isFinite() }
+        label.text = state?.labelText ?: ""
+        val valueToShow = state?.data
+            ?.takeIf { it.isNotEmpty() }
+            ?.let { it[it.lastIndex].second }
+            ?.takeIf { lastValue -> lastValue.isFinite() }
         val valueText: String
         val valueColor: Int
 
-        if (feature == null) {
+        if (valueToShow == null) {
             valueText = context.getString(R.string.no_data)
             valueColor = context.getColor(R.color.colorOnPrimary)
         } else {
-            valueText = feature.toBigDecimal().toPlainString()
+            valueText = valueToShow.toBigDecimal().toPlainString()
             valueColor =
-                calculator?.evalColor(range, feature) ?: context.getColor(R.color.colorOnPrimary)
+                calculator?.getColorFor(valueToShow) ?: context.getColor(R.color.colorOnPrimary)
         }
         value.text = valueText
         value.setTextColor(valueColor)
 
-        val entries = allData.asSequence()
-            .map {
-                val x = keyExtractor(it)
-                val y = valueExtractor(it)
-                Entry(x, y)
-            }
+        val entries = state?.data!!.asSequence()
+            .filter { it.first.isFinite() }
+            .filter { it.second.isFinite() }
+            .sortedBy { it.first }
+            .map { (x, y) -> Entry(x, y) }
             .toList()
         chart.apply {
             data = LineData(LineDataSet(entries, "").also {
@@ -107,5 +88,21 @@ class LabelValueChartView<T>(context: Context, attrs: AttributeSet) : FrameLayou
             })
             isVisible = entries.isNotEmpty()
         }
+    }
+
+    companion object {
+        /**
+         * State of the LabelValueChartView
+         */
+        data class LVCVState(
+            /**
+             * Text to show in label
+             */
+            val labelText: String,
+            /**
+             * Ordered sequence of X,Y values to show
+             */
+            val data: List<Pair<Float, Float>>
+        )
     }
 }

@@ -5,6 +5,7 @@ import ru.socialeducationapps.worldmetrics.feature.csv.service.api.CsvService
 import ru.socialeducationapps.worldmetrics.feature.index.politics.democracy_index.model.DemocracyIndexValue
 import ru.socialeducationapps.worldmetrics.feature.index.politics.democracy_index.service.api.DemocracyIndexService
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.CountryFeatureValue
+import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.toFeatureMedianRange
 import javax.inject.Inject
 import kotlin.Float.Companion.NaN
 
@@ -22,12 +23,14 @@ class DemocracyIndexServiceImpl @Inject constructor(
         const val COLUMN_POLITICAL_CULTURE = 6
         const val COLUMN_CIVIL_LIBERTIES = 7
 
-        val RANGE_VALUES = 10.8f to 98.1f
-        val RANGE_ELECTORAL_PROCESS_AND_PLURALISM = 0.0f to 100.0f
-        val RANGE_FUNCTIONING_OF_GOVERNMENT = 0.0f to 96.4f
-        val RANGE_POLITICAL_PARTICIPATION = 5.6f to 100.0f
-        val RANGE_POLITICAL_CULTURE = 12.5f to 100.0f
-        val RANGE_CIVIL_LIBERTIES = 0.0f to 97.1f
+        val RANGE_VALUES = (10.8f to 98.1f).toFeatureMedianRange()
+        val RANGE_ELECTORAL_PROCESS_AND_PLURALISM = (0.0f to 100.0f)
+            .toFeatureMedianRange()
+        val RANGE_FUNCTIONING_OF_GOVERNMENT = (0.0f to 96.4f)
+            .toFeatureMedianRange()
+        val RANGE_POLITICAL_PARTICIPATION = (5.6f to 100.0f).toFeatureMedianRange()
+        val RANGE_POLITICAL_CULTURE = (12.5f to 100.0f).toFeatureMedianRange()
+        val RANGE_CIVIL_LIBERTIES = (0.0f to 97.1f).toFeatureMedianRange()
     }
 
     lateinit var filePath: String

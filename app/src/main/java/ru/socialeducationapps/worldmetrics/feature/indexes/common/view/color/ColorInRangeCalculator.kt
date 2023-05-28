@@ -7,6 +7,7 @@ internal typealias ColorRange = Pair<ColorType, ColorType>
 internal typealias ColorType = Int
 internal typealias ColorComponentType = Int
 
+@Deprecated(message = "User ColorOfDataCalculator instead")
 open class ColorInRangeCalculator(
     colorRange: ColorRange,
     private val median: Float = DEFAULT_MEDIAN,

@@ -3,11 +3,11 @@ package ru.socialeducationapps.worldmetrics.feature.index.demographics.populatio
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import ru.socialeducationapps.worldmetrics.feature.index.demographics.population.model.PopulationIndexValue
-import ru.socialeducationapps.worldmetrics.feature.index.demographics.population.viewmodel.PopulationCountryDetailViewModel
+import ru.socialeducationapps.worldmetrics.feature.index.demographics.population.viewmodel.PopulationCountryIndexDetailViewModel
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.fragment.CountryIndexDetailFragment
 
 class PopulationDetailFragment : CountryIndexDetailFragment<PopulationIndexValue>() {
-    private val model by viewModels<PopulationCountryDetailViewModel>()
+    private val model by viewModels<PopulationCountryIndexDetailViewModel>()
     override fun getCountryDetailViewModel() = model
     override fun getCountryCode(): String {
         val args by navArgs<PopulationDetailFragmentArgs>()

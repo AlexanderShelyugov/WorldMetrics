@@ -8,15 +8,14 @@ import ru.socialeducationapps.worldmetrics.feature.index.politics.press_freedom.
 import ru.socialeducationapps.worldmetrics.feature.index.politics.press_freedom.service.api.PressFreedomService
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.api.IndexFeatureService
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.FeatureMedianRange
-import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.FeatureRange
-import ru.socialeducationapps.worldmetrics.feature.indexes.common.viewmodel.CommonCountryDetailViewModel
+import ru.socialeducationapps.worldmetrics.feature.indexes.common.viewmodel.CommonCountryIndexDetailViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class PressFreedomCountryDetailViewModel @Inject constructor(
+class PressFreedomCountryIndexDetailViewModel @Inject constructor(
     service: PressFreedomService,
     dispatchers: DispatcherProvider,
-) : CommonCountryDetailViewModel<PressFreedomValue>(
+) : CommonCountryIndexDetailViewModel<PressFreedomValue>(
     service, dispatchers, PRESS_FREEDOM_INDEX_LAYOUT
 ) {
     override fun getFeatureRangeExtractors(): Map<Int, (IndexFeatureService<PressFreedomValue>) -> FeatureMedianRange> =

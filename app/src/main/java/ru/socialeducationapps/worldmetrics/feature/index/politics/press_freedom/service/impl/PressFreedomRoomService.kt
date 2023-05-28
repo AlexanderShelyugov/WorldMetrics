@@ -4,6 +4,7 @@ import ru.socialeducationapps.worldmetrics.feature.index.politics.press_freedom.
 import ru.socialeducationapps.worldmetrics.feature.index.politics.press_freedom.room.dao.PressFreedomDao
 import ru.socialeducationapps.worldmetrics.feature.index.politics.press_freedom.room.entity.PressFreedomIndexValue
 import ru.socialeducationapps.worldmetrics.feature.index.politics.press_freedom.service.api.PressFreedomService
+import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.toFeatureMedianRange
 import javax.inject.Inject
 
 class PressFreedomRoomService @Inject constructor(
@@ -26,18 +27,14 @@ class PressFreedomRoomService @Inject constructor(
     override suspend fun getAllData(countryCode: String) = dao.getAllData(countryCode)
         .map(this::rowToIndexValue)
 
-    override fun getValueRange() = RANGE_VALUES
-    override suspend fun getMinMedianMaxForAllCountries() = Triple(
-        RANGE_VALUES.first,
-        (RANGE_VALUES.first + RANGE_VALUES.second) / 2f,
-        RANGE_VALUES.second,
-    )
+    override fun getValueRange() = RANGE_VALUES.toFeatureMedianRange()
+    override suspend fun getMinMedianMaxForAllCountries() = getValueRange()
 
-    override fun getPCRange() = RANGE_POLITICAL_CONTEXT
-    override fun getECRange() = RANGE_ECONOMIC_CONTEXT
-    override fun getLCRange() = RANGE_LEGAL_CONTEXT
-    override fun getSCRange() = RANGE_SOCIAL_CONTEXT
-    override fun getSRange() = RANGE_SAFETY
+    override fun getPCRange() = RANGE_POLITICAL_CONTEXT.toFeatureMedianRange()
+    override fun getECRange() = RANGE_ECONOMIC_CONTEXT.toFeatureMedianRange()
+    override fun getLCRange() = RANGE_LEGAL_CONTEXT.toFeatureMedianRange()
+    override fun getSCRange() = RANGE_SOCIAL_CONTEXT.toFeatureMedianRange()
+    override fun getSRange() = RANGE_SAFETY.toFeatureMedianRange()
 
     private fun rowToIndexValue(row: PressFreedomIndexValue) = PressFreedomValue(
         row.iso3CountryCode,
