@@ -12,6 +12,7 @@ import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.FeatureM
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.IndexFeaturesLayout
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.view.color.ColorOfDataCalculator
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.viewmodel.CountryIndexDetailViewModel.Companion.ViewState
+import java.lang.Integer.min
 
 abstract class CommonCountryIndexDetailViewModel<IndexType> constructor(
     private val service: IndexFeatureService<IndexType>,
@@ -63,12 +64,21 @@ abstract class CommonCountryIndexDetailViewModel<IndexType> constructor(
         viewModelScope.launch(dispatchers.io) {
             _viewState.value = ViewState.Loading()
             try {
-                val data = service.getAllData(country)
+                val data = service.getAllData(country).let { allData ->
+                    val itemsCount = getDataItemsMaxCount()?.let { min(it, allData.size) }
+                        ?: allData.size
+                    allData.takeLast(itemsCount).reversed()
+                }
                 val lastYearData: IndexType = service.getLastYearData(country)
                 _viewState.value = ViewState.Success(lastYearData, data)
             } catch (e: Exception) {
                 _viewState.value = ViewState.Error(e)
             }
         }
+    }
+
+    private fun getDataItemsMaxCount(): Int {
+        // TODO move to some configuration property
+        return 20;
     }
 }

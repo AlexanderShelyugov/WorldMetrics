@@ -25,13 +25,14 @@ import ru.socialeducationapps.worldmetrics.feature.indexes.common.viewmodel.Coun
 
 abstract class CountryIndexDetailFragment<IndexType> :
     InjectableFragment(R.layout.country_detail_indexes) {
+
+    protected abstract fun getCountryCode(): String
+    protected abstract fun getCountryDetailViewModel(): CommonCountryIndexDetailViewModel<IndexType>
+
     private lateinit var spinner: ViewGroup
     private lateinit var contentView: ViewGroup
     private val model: CommonCountryIndexDetailViewModel<IndexType>
         get() = getCountryDetailViewModel()
-
-    protected abstract fun getCountryCode(): String
-    protected abstract fun getCountryDetailViewModel(): CommonCountryIndexDetailViewModel<IndexType>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
