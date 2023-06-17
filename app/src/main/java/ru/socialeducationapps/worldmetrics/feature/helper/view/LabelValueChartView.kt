@@ -67,7 +67,7 @@ class LabelValueChartView(context: Context, attrs: AttributeSet) : FrameLayout(c
         } else {
             valueText = valueToShow.toBigDecimal().toPlainString()
             valueColor =
-                calculator?.getColorFor(valueToShow) ?: context.getColor(R.color.colorOnPrimary)
+                calculator?.getColorFor(valueToShow) ?: context.getColor(R.color.holo_blue_bright)
         }
         value.text = valueText
         value.setTextColor(valueColor)

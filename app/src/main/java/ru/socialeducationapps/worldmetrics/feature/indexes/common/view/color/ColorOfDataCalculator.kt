@@ -1,7 +1,6 @@
 package ru.socialeducationapps.worldmetrics.feature.indexes.common.view.color
 
 import android.graphics.Color
-import java.lang.Float.max
 import kotlin.math.min
 
 class ColorOfDataCalculator(
@@ -27,7 +26,7 @@ class ColorOfDataCalculator(
             0f
         } else {
             // Clip to bounds. Current can be out of [min; max].
-            val v = min(max(value, minValue), maxValue)
+            val v = value.coerceIn(minValue, maxValue)
             rate(minValue, v, maxValue)
         }
         return Color.rgb(

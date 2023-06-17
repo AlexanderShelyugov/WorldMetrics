@@ -19,6 +19,7 @@ import ru.socialeducationapps.worldmetrics.feature.helper.fragment.InjectableFra
 import ru.socialeducationapps.worldmetrics.feature.helper.rv_adapter.LabelValueChartRVAdapter
 import ru.socialeducationapps.worldmetrics.feature.helper.rv_adapter.LabelValueChartRVAdapter.Companion.AdapterState
 import ru.socialeducationapps.worldmetrics.feature.helper.rv_adapter.LabelValueChartRVAdapter.Companion.IndexFeatureAdapterItem
+import ru.socialeducationapps.worldmetrics.feature.helper.utils.ColorAccess
 import ru.socialeducationapps.worldmetrics.feature.indexes.all.model.CountryResourceBindings.Companion.getNameIdByCode
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.viewmodel.CommonCountryIndexDetailViewModel
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.viewmodel.CountryIndexDetailViewModel.Companion.ViewState.Success
@@ -72,10 +73,13 @@ abstract class CountryIndexDetailFragment<IndexType> :
                 val adapterState = model.indexLayout.features
                     .map { feature ->
                         IndexFeatureAdapterItem(
-                            feature.first,
+                            feature.featureId,
                             successState.allData,
-                            feature.second,
-                            model.getColorCalculatorsForFeatures()[feature.first]
+                            feature.valueExtractor,
+                            model.getColorCalculatorsForFeatures()[feature.featureId]?.apply {
+                                val colorRange = ColorAccess.getDefaultColorRange(requireContext())
+                                setColorRange(colorRange.first, colorRange.second)
+                            }
                         )
                     }.toList()
                     .let { AdapterState(it) }

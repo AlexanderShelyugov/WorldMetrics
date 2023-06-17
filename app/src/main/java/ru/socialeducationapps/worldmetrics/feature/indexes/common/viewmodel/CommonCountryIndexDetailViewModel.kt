@@ -35,7 +35,7 @@ abstract class CommonCountryIndexDetailViewModel<IndexType> constructor(
         runBlocking {
             val featureRangeExtractors = getFeatureRangeExtractors()
             indexLayout.features.asSequence()
-                .map { feature -> feature.first }
+                .map { feature -> feature.featureId }
                 .map { featureName -> featureName to featureRangeExtractors[featureName] }
                 .map { (featureName, rangeExtractor) -> featureName to rangeExtractor!!(service) }
                 .map { (featureName, featureRange) ->
