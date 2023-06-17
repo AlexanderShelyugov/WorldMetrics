@@ -65,8 +65,7 @@ abstract class CommonCountryIndexDetailViewModel<IndexType> constructor(
             _viewState.value = ViewState.Loading()
             try {
                 val data = service.getAllData(country).let { allData ->
-                    val itemsCount = getDataItemsMaxCount()?.let { min(it, allData.size) }
-                        ?: allData.size
+                    val itemsCount = min(getDataItemsMaxCount(), allData.size)
                     allData.takeLast(itemsCount).reversed()
                 }
                 val lastYearData: IndexType = service.getLastYearData(country)
