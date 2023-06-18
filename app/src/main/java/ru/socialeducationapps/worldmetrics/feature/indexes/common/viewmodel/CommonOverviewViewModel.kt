@@ -33,8 +33,8 @@ abstract class CommonOverviewViewModel constructor(
             val indexMinMedianMax = service.getMinMedianMaxForAllCountries()
             _colorCalculator = ColorOfDataCalculator(
                 indexMinMedianMax.first,
+                indexMinMedianMax.second,
                 indexMinMedianMax.third,
-                indexMinMedianMax.second
             )
         }
     }

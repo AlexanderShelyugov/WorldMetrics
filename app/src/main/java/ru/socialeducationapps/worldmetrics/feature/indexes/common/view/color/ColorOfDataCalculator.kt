@@ -5,8 +5,8 @@ import kotlin.math.min
 
 class ColorOfDataCalculator(
     private val minValue: Float,
-    private val maxValue: Float,
     medianValue: Float,
+    private val maxValue: Float,
 ) {
     private var minColor: ColorType = 0
     private var maxColor: ColorType = 0

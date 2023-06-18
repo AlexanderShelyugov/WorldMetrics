@@ -20,8 +20,8 @@ abstract class CommonCountryIndexDetailViewModel<IndexType> constructor(
     val indexLayout: IndexFeaturesLayout<IndexType>,
 ) : ViewModel(), CountryIndexDetailViewModel<IndexType> {
     override fun getViewState(): Flow<ViewState<IndexType>> = _viewState
-    override fun getColorCalculatorsForFeatures(): Map<Int, ColorOfDataCalculator> =
-        _colorCalculator
+    override fun getColorCalculatorForFeature(featureId: Int): ColorOfDataCalculator? =
+        _colorCalculators[featureId]
 
     protected abstract fun getFeatureRangeExtractors():
             Map<Int, (IndexFeatureService<IndexType>) -> FeatureMedianRange>
@@ -29,22 +29,22 @@ abstract class CommonCountryIndexDetailViewModel<IndexType> constructor(
 
     private var country: String = ""
     private val _viewState = MutableStateFlow<ViewState<IndexType>>(ViewState.Initial())
-    private var _colorCalculator: Map<Int, ColorOfDataCalculator>
+    private var _colorCalculators: Map<Int, ColorOfDataCalculator>
 
     init {
         runBlocking {
             val featureRangeExtractors = getFeatureRangeExtractors()
             indexLayout.features.asSequence()
                 .map { feature -> feature.featureId }
-                .map { featureName -> featureName to featureRangeExtractors[featureName] }
-                .map { (featureName, rangeExtractor) -> featureName to rangeExtractor!!(service) }
-                .map { (featureName, featureRange) ->
-                    featureName to ColorOfDataCalculator(
+                .map { featureId -> featureId to featureRangeExtractors[featureId] }
+                .map { (featureId, rangeExtractor) -> featureId to rangeExtractor!!(service) }
+                .map { (featureId, featureRange) ->
+                    featureId to ColorOfDataCalculator(
                         featureRange.first, featureRange.second, featureRange.third
                     )
                 }
                 .toMap()
-                .also { _colorCalculator = it }
+                .also { _colorCalculators = it }
         }
     }
 

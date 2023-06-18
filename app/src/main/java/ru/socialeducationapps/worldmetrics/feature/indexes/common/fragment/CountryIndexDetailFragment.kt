@@ -76,7 +76,7 @@ abstract class CountryIndexDetailFragment<IndexType> :
                             feature.featureId,
                             successState.allData,
                             feature.valueExtractor,
-                            model.getColorCalculatorsForFeatures()[feature.featureId]?.apply {
+                            model.getColorCalculatorForFeature(feature.featureId)?.apply {
                                 val colorRange = ColorAccess.getDefaultColorRange(requireContext())
                                 setColorRange(colorRange.first, colorRange.second)
                             }

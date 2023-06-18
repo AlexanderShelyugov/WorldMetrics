@@ -5,7 +5,7 @@ import ru.socialeducationapps.worldmetrics.feature.indexes.common.view.color.Col
 
 interface CountryIndexDetailViewModel<T> {
     fun getViewState(): Flow<ViewState<T>>
-    fun getColorCalculatorsForFeatures(): Map<Int, ColorOfDataCalculator>
+    fun getColorCalculatorForFeature(featureId: Int): ColorOfDataCalculator?
     fun setCountry(country: String)
     fun onOpen()
 
