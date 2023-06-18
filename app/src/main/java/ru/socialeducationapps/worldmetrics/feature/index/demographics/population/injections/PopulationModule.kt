@@ -14,7 +14,7 @@ class PopulationModule {
     @Provides
     fun populationService(csvService: CsvService): PopulationService =
         PopulationCsvService(csvService)
-            .apply { filePath = FILE_PATH }
+            .apply { init(FILE_PATH) }
 
     companion object {
         private const val FILE_PATH = "indexes/Population.csv"
