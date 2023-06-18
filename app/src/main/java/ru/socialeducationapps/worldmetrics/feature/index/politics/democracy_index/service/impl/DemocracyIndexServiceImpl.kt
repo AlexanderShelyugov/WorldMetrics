@@ -5,7 +5,8 @@ import ru.socialeducationapps.worldmetrics.feature.csv.service.api.CsvService
 import ru.socialeducationapps.worldmetrics.feature.index.politics.democracy_index.model.DemocracyIndexValue
 import ru.socialeducationapps.worldmetrics.feature.index.politics.democracy_index.service.api.DemocracyIndexService
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.CountryFeatureValue
-import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.toFeatureMedianRange
+import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.FeatureMedianRange
+import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.math.statistics.RangeCalculator.Companion.calculateMinMedianMax
 import javax.inject.Inject
 import kotlin.Float.Companion.NaN
 
@@ -22,18 +23,21 @@ class DemocracyIndexServiceImpl @Inject constructor(
         const val COLUMN_POLITICAL_PARTICIPATION = 5
         const val COLUMN_POLITICAL_CULTURE = 6
         const val COLUMN_CIVIL_LIBERTIES = 7
-
-        val RANGE_VALUES = (10.8f to 98.1f).toFeatureMedianRange()
-        val RANGE_ELECTORAL_PROCESS_AND_PLURALISM = (0.0f to 100.0f)
-            .toFeatureMedianRange()
-        val RANGE_FUNCTIONING_OF_GOVERNMENT = (0.0f to 96.4f)
-            .toFeatureMedianRange()
-        val RANGE_POLITICAL_PARTICIPATION = (5.6f to 100.0f).toFeatureMedianRange()
-        val RANGE_POLITICAL_CULTURE = (12.5f to 100.0f).toFeatureMedianRange()
-        val RANGE_CIVIL_LIBERTIES = (0.0f to 97.1f).toFeatureMedianRange()
     }
 
     lateinit var filePath: String
+
+    fun init(filePath: String) {
+        this.filePath = filePath
+
+        val allData = getAllData()
+        valueRange = calculateMinMedianMax(allData.map { it.democracyIndex })
+        epapRange = calculateMinMedianMax(allData.map { it.electoralProcessAndPluralism })
+        fogRange = calculateMinMedianMax(allData.map { it.functioningOfGovernment })
+        ppRange = calculateMinMedianMax(allData.map { it.politicalParticipation })
+        pcRange = calculateMinMedianMax(allData.map { it.politicalCulture })
+        clRange = calculateMinMedianMax(allData.map { it.civilLiberties })
+    }
 
     override suspend fun getLastYearData(): List<CountryFeatureValue> {
         lateinit var result: List<CountryFeatureValue>
@@ -66,18 +70,20 @@ class DemocracyIndexServiceImpl @Inject constructor(
             .map { rowToIndexValue(it) }
             .toList()
 
-    override fun getValueRange() = RANGE_VALUES
-    override suspend fun getMinMedianMaxForAllCountries() = Triple(
-        RANGE_VALUES.first,
-        (RANGE_VALUES.first + RANGE_VALUES.second) / 2f,
-        RANGE_VALUES.second,
-    )
+    private lateinit var valueRange: FeatureMedianRange
+    private lateinit var epapRange: FeatureMedianRange
+    private lateinit var fogRange: FeatureMedianRange
+    private lateinit var ppRange: FeatureMedianRange
+    private lateinit var pcRange: FeatureMedianRange
+    private lateinit var clRange: FeatureMedianRange
 
-    override fun getEPAPRange() = RANGE_ELECTORAL_PROCESS_AND_PLURALISM
-    override fun getFOGRange() = RANGE_FUNCTIONING_OF_GOVERNMENT
-    override fun getPPRange() = RANGE_POLITICAL_PARTICIPATION
-    override fun getPCRange() = RANGE_POLITICAL_CULTURE
-    override fun getCLRange() = RANGE_CIVIL_LIBERTIES
+    override fun getValueRange() = valueRange
+    override suspend fun getMinMedianMaxForAllCountries() = getValueRange()
+    override fun getEPAPRange() = epapRange
+    override fun getFOGRange() = fogRange
+    override fun getPPRange() = ppRange
+    override fun getPCRange() = pcRange
+    override fun getCLRange() = clRange
 
     private fun rowToIndexValue(row: CsvRow): DemocracyIndexValue = DemocracyIndexValue(
         row[COLUMN_COUNTRY_CODE],
@@ -96,6 +102,17 @@ class DemocracyIndexServiceImpl @Inject constructor(
             rows
                 .filter { it[COLUMN_COUNTRY_CODE].equals(countryCode, ignoreCase = true) }
                 .toList()
+                .also { result = it }
+        }
+        return result
+    }
+
+    private fun getAllData(): List<DemocracyIndexValue> {
+        lateinit var result: List<DemocracyIndexValue>
+        csvService.process(filePath) { rows ->
+            rows
+                .toList()
+                .map { rowToIndexValue(it) }
                 .also { result = it }
         }
         return result

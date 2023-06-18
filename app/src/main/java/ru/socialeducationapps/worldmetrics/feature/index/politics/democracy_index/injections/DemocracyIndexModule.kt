@@ -14,7 +14,7 @@ class DemocracyIndexModule {
     @Provides
     fun democracyIndexService(csvService: CsvService): DemocracyIndexService =
         DemocracyIndexServiceImpl(csvService)
-            .apply { filePath = FILE_PATH }
+            .apply { init(FILE_PATH) }
 
     companion object {
         private const val FILE_PATH = "indexes/DemocracyIndex.csv"
