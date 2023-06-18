@@ -6,7 +6,8 @@ import ru.socialeducationapps.worldmetrics.feature.index.economics.gdp.model.GDP
 import ru.socialeducationapps.worldmetrics.feature.index.economics.gdp.service.api.GDPService
 import ru.socialeducationapps.worldmetrics.feature.indexes.all.model.CountryResourceBindings.Companion.getNameIdByCode
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.CountryFeatureValue
-import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.toFeatureMedianRange
+import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.FeatureMedianRange
+import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.math.statistics.MedianCalculator.Companion.calculateMedian
 import javax.inject.Inject
 import kotlin.Float.Companion.NaN
 
@@ -14,6 +15,9 @@ class GDPCsvService @Inject constructor(
     private val csvService: CsvService,
 ) : GDPService {
     lateinit var filePath: String
+
+    private var rangeMlnUsd: FeatureMedianRange? = null
+    private var rangeUsdPerCapita: FeatureMedianRange? = null
 
     override suspend fun getLastYearData(): List<CountryFeatureValue> {
         lateinit var result: List<CountryFeatureValue>
@@ -65,13 +69,54 @@ class GDPCsvService @Inject constructor(
         return item
     }
 
-    override fun getValueMlnUsdRange() = VALUE_MLN_USD_RANGE
-    override fun getValueUsdPerCapitaRange() = VALUE_USD_PER_CAPITA
-    override suspend fun getMinMedianMaxForAllCountries() = Triple(
-        VALUE_MLN_USD_RANGE.first,
-        (VALUE_MLN_USD_RANGE.first + VALUE_MLN_USD_RANGE.second) / 2,
-        VALUE_MLN_USD_RANGE.second,
-    )
+    private fun getAllData(): List<GDPValue> {
+        lateinit var item: List<GDPValue>
+        csvService.process(filePath) { rows ->
+            rows
+                .filter { getNameIdByCode(it[COLUMN_COUNTRY_CODE]) != null }
+                .map(this::rowToIndexValue)
+                .toList()
+                .also { item = it }
+        }
+        return item
+    }
+
+    override fun getValueMlnUsdRange(): FeatureMedianRange {
+        if (rangeMlnUsd == null) {
+            rangeMlnUsd = computeValueMlnUsdRange(getAllData())
+        }
+        return rangeMlnUsd!!
+    }
+
+    override fun getValueUsdPerCapitaRange(): FeatureMedianRange {
+        if (rangeUsdPerCapita == null) {
+            rangeUsdPerCapita = computeUsdPerCapitaRange(getAllData())
+        }
+        return rangeUsdPerCapita!!
+    }
+
+    private fun computeValueMlnUsdRange(allValues: List<GDPValue>): FeatureMedianRange {
+        val data = allValues.map { it.valueMlnUsd }
+            .filter { it.isFinite() }
+        return FeatureMedianRange(
+            data.min(),
+            calculateMedian(data),
+            data.max(),
+        )
+    }
+
+    private fun computeUsdPerCapitaRange(allValues: List<GDPValue>): FeatureMedianRange {
+        val data = allValues.map { it.valueUsdCap }
+            .filter { it.isFinite() }
+        return FeatureMedianRange(
+            data.min(),
+            calculateMedian(data),
+            data.max(),
+        )
+    }
+
+    override suspend fun getMinMedianMaxForAllCountries() =
+        getValueUsdPerCapitaRange()
 
     private fun rowToIndexValue(row: CsvRow): GDPValue = GDPValue(
         row[COLUMN_COUNTRY_CODE],
@@ -81,8 +126,6 @@ class GDPCsvService @Inject constructor(
     )
 
     private companion object {
-        val VALUE_MLN_USD_RANGE = (21461.473f to 24274126f).toFeatureMedianRange()
-        val VALUE_USD_PER_CAPITA = (1560.0228f to 134340.38f).toFeatureMedianRange()
         const val COLUMN_COUNTRY_CODE = 0
         const val COLUMN_YEAR = 1
         const val COLUMN_VALUE_MLN_USD = 2
