@@ -7,7 +7,7 @@ import ru.socialeducationapps.worldmetrics.feature.index.economics.gdp.service.a
 import ru.socialeducationapps.worldmetrics.feature.indexes.all.model.CountryResourceBindings.Companion.getNameIdByCode
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.CountryFeatureValue
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.FeatureMedianRange
-import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.math.statistics.MedianCalculator.Companion.calculateMedian
+import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.math.statistics.RangeCalculator.Companion.calculateMinMedianMax
 import javax.inject.Inject
 import kotlin.Float.Companion.NaN
 
@@ -83,36 +83,16 @@ class GDPCsvService @Inject constructor(
 
     override fun getValueMlnUsdRange(): FeatureMedianRange {
         if (rangeMlnUsd == null) {
-            rangeMlnUsd = computeValueMlnUsdRange(getAllData())
+            rangeMlnUsd = calculateMinMedianMax(getAllData().map { it.valueMlnUsd })
         }
         return rangeMlnUsd!!
     }
 
     override fun getValueUsdPerCapitaRange(): FeatureMedianRange {
         if (rangeUsdPerCapita == null) {
-            rangeUsdPerCapita = computeUsdPerCapitaRange(getAllData())
+            rangeUsdPerCapita = calculateMinMedianMax(getAllData().map { it.valueUsdCap })
         }
         return rangeUsdPerCapita!!
-    }
-
-    private fun computeValueMlnUsdRange(allValues: List<GDPValue>): FeatureMedianRange {
-        val data = allValues.map { it.valueMlnUsd }
-            .filter { it.isFinite() }
-        return FeatureMedianRange(
-            data.min(),
-            calculateMedian(data),
-            data.max(),
-        )
-    }
-
-    private fun computeUsdPerCapitaRange(allValues: List<GDPValue>): FeatureMedianRange {
-        val data = allValues.map { it.valueUsdCap }
-            .filter { it.isFinite() }
-        return FeatureMedianRange(
-            data.min(),
-            calculateMedian(data),
-            data.max(),
-        )
     }
 
     override suspend fun getMinMedianMaxForAllCountries() =

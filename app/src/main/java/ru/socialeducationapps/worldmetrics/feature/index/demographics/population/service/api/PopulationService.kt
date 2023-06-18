@@ -2,9 +2,11 @@ package ru.socialeducationapps.worldmetrics.feature.index.demographics.populatio
 
 import ru.socialeducationapps.worldmetrics.feature.index.demographics.population.model.PopulationIndexValue
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.api.IndexFeatureService
+import ru.socialeducationapps.worldmetrics.feature.indexes.common.api.IndexOverviewService
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.FeatureMedianRange
 
-interface PopulationService : IndexFeatureService<PopulationIndexValue> {
+interface PopulationService : IndexFeatureService<PopulationIndexValue>,
+    IndexOverviewService {
     /**
      * Returns total population range
      *

@@ -1,6 +1,6 @@
 package ru.socialeducationapps.worldmetrics.feature.indexes.common.api
 
-interface IndexFeatureService<T> : IndexOverviewService {
+interface IndexFeatureService<T> {
     /**
      * Returns data for a given country for last year
      */

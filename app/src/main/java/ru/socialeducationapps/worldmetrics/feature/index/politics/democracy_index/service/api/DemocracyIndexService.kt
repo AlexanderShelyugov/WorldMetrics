@@ -2,9 +2,11 @@ package ru.socialeducationapps.worldmetrics.feature.index.politics.democracy_ind
 
 import ru.socialeducationapps.worldmetrics.feature.index.politics.democracy_index.model.DemocracyIndexValue
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.api.IndexFeatureService
+import ru.socialeducationapps.worldmetrics.feature.indexes.common.api.IndexOverviewService
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.FeatureMedianRange
 
-interface DemocracyIndexService : IndexFeatureService<DemocracyIndexValue> {
+interface DemocracyIndexService : IndexFeatureService<DemocracyIndexValue>,
+    IndexOverviewService {
     /**
      * Returns value range
      *

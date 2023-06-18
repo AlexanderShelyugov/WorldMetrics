@@ -2,9 +2,11 @@ package ru.socialeducationapps.worldmetrics.feature.index.politics.corruption_pe
 
 import ru.socialeducationapps.worldmetrics.feature.index.politics.corruption_perceptions.model.CorruptionPerceptionsValue
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.api.IndexFeatureService
+import ru.socialeducationapps.worldmetrics.feature.indexes.common.api.IndexOverviewService
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.FeatureMedianRange
 
-interface CorruptionPerceptionsService : IndexFeatureService<CorruptionPerceptionsValue> {
+interface CorruptionPerceptionsService : IndexFeatureService<CorruptionPerceptionsValue>,
+    IndexOverviewService {
     /**
      * Returns value range
      *
