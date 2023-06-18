@@ -14,7 +14,7 @@ class GDPModule {
     @Provides
     fun gdpService(csvService: CsvService): GDPService =
         GDPCsvService(csvService)
-            .apply { filePath = FILE_PATH }
+            .apply { init(FILE_PATH) }
 
     companion object {
         private const val FILE_PATH = "indexes/GDP.csv"

@@ -14,10 +14,18 @@ import kotlin.Float.Companion.NaN
 class GDPCsvService @Inject constructor(
     private val csvService: CsvService,
 ) : GDPService {
-    lateinit var filePath: String
+    private lateinit var filePath: String
 
-    private var rangeMlnUsd: FeatureMedianRange? = null
-    private var rangeUsdPerCapita: FeatureMedianRange? = null
+    fun init(filePath: String) {
+        this.filePath = filePath
+
+        val allData = getAllData()
+        rangeMlnUsd = calculateMinMedianMax(allData.map { it.valueMlnUsd })
+        rangeUsdPerCapita = calculateMinMedianMax(allData.map { it.valueUsdCap })
+    }
+
+    private lateinit var rangeMlnUsd: FeatureMedianRange
+    private lateinit var rangeUsdPerCapita: FeatureMedianRange
 
     override suspend fun getLastYearData(): List<CountryFeatureValue> {
         lateinit var result: List<CountryFeatureValue>
@@ -81,20 +89,8 @@ class GDPCsvService @Inject constructor(
         return item
     }
 
-    override fun getValueMlnUsdRange(): FeatureMedianRange {
-        if (rangeMlnUsd == null) {
-            rangeMlnUsd = calculateMinMedianMax(getAllData().map { it.valueMlnUsd })
-        }
-        return rangeMlnUsd!!
-    }
-
-    override fun getValueUsdPerCapitaRange(): FeatureMedianRange {
-        if (rangeUsdPerCapita == null) {
-            rangeUsdPerCapita = calculateMinMedianMax(getAllData().map { it.valueUsdCap })
-        }
-        return rangeUsdPerCapita!!
-    }
-
+    override fun getValueMlnUsdRange() = rangeMlnUsd
+    override fun getValueUsdPerCapitaRange() = rangeUsdPerCapita
     override suspend fun getMinMedianMaxForAllCountries() =
         getValueUsdPerCapitaRange()
 
