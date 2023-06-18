@@ -13,7 +13,7 @@ class CorruptionPerceptionsModule {
     @Provides
     fun corruptionPerceptionsService(impl: CorruptionPerceptionsCsvService): CorruptionPerceptionsService =
         impl
-            .also { it.filePath = FILE_PATH }
+            .apply { init(FILE_PATH) }
 
     companion object {
         private const val FILE_PATH = "indexes/CorruptionPerceptionsIndex.csv"

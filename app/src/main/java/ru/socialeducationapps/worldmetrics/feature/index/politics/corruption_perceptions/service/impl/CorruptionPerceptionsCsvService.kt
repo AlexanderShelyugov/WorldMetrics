@@ -4,7 +4,8 @@ import ru.socialeducationapps.worldmetrics.feature.csv.service.api.CsvService
 import ru.socialeducationapps.worldmetrics.feature.index.politics.corruption_perceptions.model.CorruptionPerceptionsValue
 import ru.socialeducationapps.worldmetrics.feature.index.politics.corruption_perceptions.service.api.CorruptionPerceptionsService
 import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.CountryFeatureValue
-import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.toFeatureMedianRange
+import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.FeatureMedianRange
+import ru.socialeducationapps.worldmetrics.feature.indexes.common.model.math.statistics.RangeCalculator.Companion.calculateMinMedianMax
 import javax.inject.Inject
 import kotlin.Float.Companion.NaN
 
@@ -16,10 +17,16 @@ class CorruptionPerceptionsCsvService @Inject constructor(
 
         val COLUMN_MIN_YEAR = 2 to 1998
         val COLUMN_MAX_YEAR = 19 to 2015
-        val VALUES_RANGE = (8f to 91f).toFeatureMedianRange()
     }
 
-    lateinit var filePath: String
+    private lateinit var filePath: String
+
+    fun init(filePath: String) {
+        this.filePath = filePath
+
+        val allData = getAllData()
+        valueRange = calculateMinMedianMax(allData.map { it.value })
+    }
 
     override suspend fun getLastYearData(): List<CountryFeatureValue> {
         lateinit var result: List<CountryFeatureValue>
@@ -75,12 +82,27 @@ class CorruptionPerceptionsCsvService @Inject constructor(
         return result
     }
 
-    override suspend fun getValueRange() = VALUES_RANGE
-    override suspend fun getMinMedianMaxForAllCountries() = Triple(
-        VALUES_RANGE.first,
-        (VALUES_RANGE.first + VALUES_RANGE.second) / 2,
-        VALUES_RANGE.second,
-    )
+    private fun getAllData(): List<CorruptionPerceptionsValue> {
+        lateinit var result: List<CorruptionPerceptionsValue>
+        csvService.process(filePath) { rows ->
+            rows
+                .flatMap {
+                    (COLUMN_MIN_YEAR.first until it.size).map { i ->
+                        val year = COLUMN_MIN_YEAR.second + (i - 1)
+                        val value = it[i]
+                        Triple(it[COLUMN_COUNTRY_CODE], year, value)
+                    }.asSequence()
+                }
+                .map(this::dataToIndexValue)
+                .toList()
+                .also { result = it }
+        }
+        return result
+    }
+
+    private lateinit var valueRange: FeatureMedianRange
+    override suspend fun getValueRange() = valueRange
+    override suspend fun getMinMedianMaxForAllCountries() = getValueRange()
 
     private fun dataToIndexValue(row: Triple<String, Int, String>): CorruptionPerceptionsValue =
         CorruptionPerceptionsValue(row.first, row.second, row.third.toFloatOrNull() ?: NaN)
