@@ -22,7 +22,6 @@
         <item name="iconTint">?colorOnPrimary</item>
         <item name="android:iconTint" tools:ignore="NewApi">?colorOnPrimary</item>
 
-        <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowActionBarOverlay">true</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:navigationBarColor">@color/purple_middle</item>

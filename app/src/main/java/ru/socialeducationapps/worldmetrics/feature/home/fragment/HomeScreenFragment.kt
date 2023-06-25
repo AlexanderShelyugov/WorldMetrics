@@ -35,13 +35,13 @@ class HomeScreenFragment : Fragment(R.layout.home_screen) {
             requireActivity().findViewById<MaterialToolbar>(R.id.topToolbar)
                 .setNavigationOnClickListener {
                     if (drawerLayout.isOpen) {
-                        drawerLayout.open()
-                    } else {
                         drawerLayout.close()
+                    } else {
+                        drawerLayout.open()
                     }
                 }
 
-            findViewById<NavigationView>(R.id.navigationView)
+            findViewById<NavigationView>(R.id.navigationDrawerMenu)
                 .setNavigationItemSelectedListener { menuItem ->
                     when (menuItem.itemId) {
                         R.id.menu_item_global_overview -> findNavController().navigate(

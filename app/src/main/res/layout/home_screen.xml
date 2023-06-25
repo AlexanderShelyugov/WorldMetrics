@@ -18,23 +18,41 @@
             android:background="@android:color/transparent"
             app:statusBarForeground="@android:color/transparent">
 
-            <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/topToolbar"
+            <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@android:color/transparent"
-                app:navigationIcon="@drawable/chevron_right" />
+                android:layout_height="wrap_content"
+                android:background="?attr/colorPrimary"
+                app:contentScrim="?attr/colorPrimary"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
+                <androidx.fragment.app.FragmentContainerView
+                    android:id="@+id/fcv_your_country"
+                    android:name="ru.socialeducationapps.worldmetrics.feature.home.fragment.YourCountryFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/topToolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:elevation="@dimen/spacing_small"
+                    app:layout_collapseMode="pin"
+                    app:navigationIcon="@drawable/ic_round_menu_24"
+                    android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fadingEdgeLength="@dimen/list_item_height_simple"
-            android:orientation="vertical"
+            android:fillViewport="true"
             android:overScrollMode="never"
             android:requiresFadingEdge="none"
-            android:scrollbars="none">
+            android:scrollbars="none"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <LinearLayout
                 android:id="@+id/ll_content"
@@ -43,11 +61,6 @@
                 android:gravity="end"
                 android:orientation="vertical"
                 android:paddingBottom="200dp">
-
-                <fragment
-                    class="ru.socialeducationapps.worldmetrics.feature.home.fragment.YourCountryFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
 
                 <fragment
                     class="ru.socialeducationapps.worldmetrics.feature.country.score.fragment.CountryRadarFragment"
@@ -65,7 +78,7 @@
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <com.google.android.material.navigation.NavigationView
-        android:id="@+id/navigationView"
+        android:id="@+id/navigationDrawerMenu"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
