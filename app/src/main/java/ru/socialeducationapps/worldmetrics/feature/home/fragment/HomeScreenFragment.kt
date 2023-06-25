@@ -1,39 +1,85 @@
 package ru.socialeducationapps.worldmetrics.feature.home.fragment
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
+import androidx.activity.OnBackPressedCallback
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.drawerlayout.widget.DrawerLayout.DrawerListener
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.navigation.NavigationView
 import ru.socialeducationapps.worldmetrics.R
+import ru.socialeducationapps.worldmetrics.feature.home.fragment.HomeScreenFragmentDirections.Companion.actionGlobalToBeImplementedFragment
 import ru.socialeducationapps.worldmetrics.feature.home.fragment.HomeScreenFragmentDirections.Companion.actionHomeScreenToAboutMeActivity
 import ru.socialeducationapps.worldmetrics.feature.home.fragment.HomeScreenFragmentDirections.Companion.actionHomeScreenToGlobalOverview
 
 class HomeScreenFragment : Fragment(R.layout.home_screen) {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        requireView().findViewById<View>(R.id.mb_global_overview)
-            .setOnClickListener {
-                findNavController().navigate(actionHomeScreenToGlobalOverview())
+
+        requireView().apply {
+            val drawerLayout = findViewById<DrawerLayout>(R.id.drawerLayout)
+            val backPressedCallback = object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    if (drawerLayout.isOpen) {
+                        drawerLayout.close()
+                    }
+                }
             }
-    }
+            drawerLayout.addDrawerListener(HomeScreenDrawerListener(backPressedCallback))
+            requireActivity().onBackPressedDispatcher.addCallback(
+                viewLifecycleOwner, backPressedCallback
+            )
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.home_screen, menu)
-    }
+            requireActivity().findViewById<MaterialToolbar>(R.id.topToolbar)
+                .setNavigationOnClickListener {
+                    if (drawerLayout.isOpen) {
+                        drawerLayout.open()
+                    } else {
+                        drawerLayout.close()
+                    }
+                }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
-        R.id.about_me -> {
-            findNavController().navigate(actionHomeScreenToAboutMeActivity())
-            true
+            findViewById<NavigationView>(R.id.navigationView)
+                .setNavigationItemSelectedListener { menuItem ->
+                    when (menuItem.itemId) {
+                        R.id.menu_item_global_overview -> findNavController().navigate(
+                            actionHomeScreenToGlobalOverview()
+                        )
+
+                        R.id.menu_item_compare -> findNavController().navigate(
+                            actionGlobalToBeImplementedFragment()
+                        )
+
+                        R.id.menu_item_credits -> findNavController().navigate(
+                            actionHomeScreenToAboutMeActivity()
+                        )
+                    }
+
+                    menuItem.isChecked = true
+                    drawerLayout.close()
+                    true
+                }
         }
-        else -> super.onOptionsItemSelected(item)
+    }
+
+    private class HomeScreenDrawerListener(private val callback: OnBackPressedCallback) :
+        DrawerListener {
+        override fun onDrawerOpened(drawerView: View) {
+            callback.isEnabled = true
+        }
+
+        override fun onDrawerClosed(drawerView: View) {
+            callback.isEnabled = false
+        }
+
+        override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
+            // do nothing
+        }
+
+        override fun onDrawerStateChanged(newState: Int) {
+            // do nothing
+        }
     }
 }

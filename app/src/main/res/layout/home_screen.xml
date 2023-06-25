@@ -1,61 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:openDrawer="start">
 
-    <ScrollView
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fadingEdgeLength="@dimen/list_item_height_simple"
-        android:orientation="vertical"
-        android:overScrollMode="never"
-        android:requiresFadingEdge="none"
-        android:scrollbars="none">
+        android:fitsSystemWindows="true">
 
-        <LinearLayout
-            android:id="@+id/ll_content"
+        <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            app:statusBarForeground="@android:color/transparent">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/topToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@android:color/transparent"
+                app:navigationIcon="@drawable/chevron_right" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fadingEdgeLength="@dimen/list_item_height_simple"
             android:orientation="vertical"
-            android:gravity="right"
-            android:paddingBottom="200dp">
+            android:overScrollMode="never"
+            android:requiresFadingEdge="none"
+            android:scrollbars="none">
 
-            <fragment
-                class="ru.socialeducationapps.worldmetrics.feature.home.fragment.YourCountryFragment"
+            <LinearLayout
+                android:id="@+id/ll_content"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:orientation="vertical"
+                android:paddingBottom="200dp">
 
-            <fragment
-                class="ru.socialeducationapps.worldmetrics.feature.country.score.fragment.CountryRadarFragment"
-                android:layout_width="200dp"
-                android:layout_height="200dp" />
+                <fragment
+                    class="ru.socialeducationapps.worldmetrics.feature.home.fragment.YourCountryFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-            <fragment
-                class="ru.socialeducationapps.worldmetrics.feature.home.fragment.IndexesForCountryFragment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
+                <fragment
+                    class="ru.socialeducationapps.worldmetrics.feature.country.score.fragment.CountryRadarFragment"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp" />
 
-    </ScrollView>
+                <fragment
+                    class="ru.socialeducationapps.worldmetrics.feature.home.fragment.IndexesForCountryFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/mb_global_overview"
-        android:layout_width="@dimen/button_size_large"
-        android:layout_height="@dimen/button_size_large"
-        android:layout_gravity="bottom|end"
-        android:layout_marginEnd="@dimen/spacing_extra_large"
-        android:layout_marginBottom="@dimen/spacing_extra_large"
-        android:backgroundTint="@color/colorSecondary"
-        android:contentDescription="@string/global_lookup"
-        android:insetLeft="0dp"
-        android:insetTop="0dp"
-        android:insetRight="0dp"
-        android:insetBottom="0dp"
-        android:padding="0dp"
-        app:cornerRadius="@dimen/button_circle_radius_large"
-        app:icon="@drawable/ic_global"
-        app:iconGravity="textStart"
-        app:iconPadding="0dp"
-        app:iconSize="@dimen/button_circle_radius_large" />
-</FrameLayout>
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navigationView"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:menu="@menu/home_screen_menu" />
+</androidx.drawerlayout.widget.DrawerLayout>

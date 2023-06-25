@@ -6,7 +6,7 @@
 
     <activity
         android:id="@+id/activityAboutMe"
-        android:name="ru.socialeducationapps.worldmetrics.feature.about_me.activity.AboutMeActivity"
+        android:name="ru.socialeducationapps.worldmetrics.feature.about_me.activity.CreditsActivity"
         android:label="AboutMeActivity" />
     <fragment
         android:id="@+id/homeScreenFragment"

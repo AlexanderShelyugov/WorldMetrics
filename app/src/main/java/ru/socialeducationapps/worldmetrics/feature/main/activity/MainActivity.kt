@@ -3,6 +3,7 @@ package ru.socialeducationapps.worldmetrics.feature.main.activity
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -17,7 +18,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fcv_nav_host_container) as NavHostFragment
         navigationController = navHostFragment.navController
-        supportActionBar?.setDisplayShowTitleEnabled(false)
     }
 
     override fun onResume() {

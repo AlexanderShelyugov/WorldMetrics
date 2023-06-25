@@ -17,6 +17,13 @@
     <string name="to_be_implemented">To be implemented</string>
     <string name="global_lookup">Global lookup</string>
 
+    <string name="main">Main</string>
+    <string name="all_data">All data</string>
+    <string name="compare">Compare</string>
+
+    <string name="about">About us</string>
+    <string name="credits">Credits</string>
+
     <string name="yes">Yes</string>
     <string name="no">No</string>
 

@@ -14,7 +14,7 @@ import com.bumptech.glide.Glide
 import ru.socialeducationapps.worldmetrics.R
 import ru.socialeducationapps.worldmetrics.feature.helper.utils.ToastHelper
 
-class AboutMeActivity : AppCompatActivity(R.layout.about_me_activity) {
+class CreditsActivity : AppCompatActivity(R.layout.credits_screen) {
     private companion object {
         val CONTACTS = mapOf(
             R.id.cl_my_website to ContactItem(
