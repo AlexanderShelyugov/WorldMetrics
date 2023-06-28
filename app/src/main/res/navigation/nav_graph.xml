@@ -75,6 +75,9 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_through"
             app:popExitAnim="@anim/fade_out" />
+        <action
+            android:id="@+id/action_homeScreenFragment_to_countriesComparisonFragment"
+            app:destination="@id/countriesComparisonFragment" />
     </fragment>
     <fragment
         android:id="@+id/populationCountryListFragment"
@@ -233,6 +236,19 @@
         android:label="GDPCountryDetailFragment">
         <argument
             android:name="countryCode"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/countriesComparisonFragment"
+        android:name="ru.socialeducationapps.worldmetrics.feature.countries_comparison.fragment.CountriesComparisonFragment"
+        android:label="CountriesComparisonFragment">
+        <argument
+            android:name="countryACode"
+            android:defaultValue=""
+            app:argType="string" />
+        <argument
+            android:name="countryBCode"
+            android:defaultValue=""
             app:argType="string" />
     </fragment>
 </navigation>

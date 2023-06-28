@@ -10,7 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.navigation.NavigationView
 import ru.socialeducationapps.worldmetrics.R
-import ru.socialeducationapps.worldmetrics.feature.home.fragment.HomeScreenFragmentDirections.Companion.actionGlobalToBeImplementedFragment
+import ru.socialeducationapps.worldmetrics.feature.home.fragment.HomeScreenFragmentDirections.Companion.actionHomeScreenFragmentToCountriesComparisonFragment
 import ru.socialeducationapps.worldmetrics.feature.home.fragment.HomeScreenFragmentDirections.Companion.actionHomeScreenToAboutMeActivity
 import ru.socialeducationapps.worldmetrics.feature.home.fragment.HomeScreenFragmentDirections.Companion.actionHomeScreenToGlobalOverview
 
@@ -49,7 +49,7 @@ class HomeScreenFragment : Fragment(R.layout.home_screen) {
                         )
 
                         R.id.menu_item_compare -> findNavController().navigate(
-                            actionGlobalToBeImplementedFragment()
+                            actionHomeScreenFragmentToCountriesComparisonFragment()
                         )
 
                         R.id.menu_item_credits -> findNavController().navigate(
