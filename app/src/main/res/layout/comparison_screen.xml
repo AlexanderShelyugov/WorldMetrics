@@ -33,6 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="CountryA"
+                android:textAlignment="viewStart"
                 app:layout_constraintStart_toEndOf="@id/ivSearchA"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -49,6 +50,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="CountryB"
+                android:textAlignment="viewEnd"
                 app:layout_constraintEnd_toStartOf="@id/ivSearchB"
                 app:layout_constraintTop_toTopOf="parent" />
 

@@ -49,7 +49,10 @@ class HomeScreenFragment : Fragment(R.layout.home_screen) {
                         )
 
                         R.id.menu_item_compare -> findNavController().navigate(
-                            actionHomeScreenFragmentToCountriesComparisonFragment()
+                            actionHomeScreenFragmentToCountriesComparisonFragment(
+                                countryACode = "usa",
+                                countryBCode = "che"
+                            )
                         )
 
                         R.id.menu_item_credits -> findNavController().navigate(
