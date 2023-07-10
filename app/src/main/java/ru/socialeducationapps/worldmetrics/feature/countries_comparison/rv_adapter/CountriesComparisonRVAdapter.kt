@@ -4,7 +4,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
 class CountriesComparisonRVAdapter(
-    private var
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         TODO("Not yet implemented")

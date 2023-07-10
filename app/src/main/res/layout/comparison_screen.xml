@@ -4,18 +4,70 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tvCompare"
+    <LinearLayout
+        android:id="@+id/llCountrySelectionArea"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/compare"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="@dimen/button_size_large"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clCountrySelectA"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/ivSearchA"
+                android:layout_width="@dimen/button_size_large"
+                android:layout_height="@dimen/button_size_large"
+                android:src="@drawable/search_icon"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvLabelA"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="CountryA"
+                app:layout_constraintStart_toEndOf="@id/ivSearchA"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clCountrySelectB"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tvLabelB"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="CountryB"
+                app:layout_constraintEnd_toStartOf="@id/ivSearchB"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/ivSearchB"
+                android:layout_width="@dimen/button_size_large"
+                android:layout_height="@dimen/button_size_large"
+                android:src="@drawable/search_icon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvCountriesComparison"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tvCompare" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/llCountrySelectionArea" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
