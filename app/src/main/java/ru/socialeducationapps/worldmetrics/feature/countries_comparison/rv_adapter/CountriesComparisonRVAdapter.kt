@@ -43,7 +43,7 @@ class CountriesComparisonRVAdapter(
         }
 
         fun CountriesComparisonRVAdapterState.getItemViewType(position: Int): Int {
-
+            return 0
         }
 
         data class ComparisonOnIndex(
