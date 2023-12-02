@@ -2,6 +2,7 @@ package ru.socialeducationapps.worldmetrics.feature.country.detect.fragment
 
 import android.Manifest.permission.ACCESS_COARSE_LOCATION
 import android.Manifest.permission.ACCESS_FINE_LOCATION
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Context.LOCATION_SERVICE
 import android.content.pm.PackageManager.PERMISSION_GRANTED
@@ -11,6 +12,7 @@ import android.location.Location
 import android.location.LocationManager
 import android.location.LocationManager.GPS_PROVIDER
 import android.location.LocationManager.NETWORK_PROVIDER
+import android.os.Build
 import android.os.Bundle
 import android.transition.Fade
 import android.transition.Slide
@@ -26,6 +28,7 @@ import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts.RequestPermission
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.core.transition.addListener
 import androidx.core.view.isVisible
@@ -108,14 +111,10 @@ class CountryDetectFragment : Fragment(R.layout.country_detect_fragment) {
             viewCountrySearch = findViewById<ViewGroup>(R.id.ll_country_search)
                 .also { viewCountriesList = it.findViewById(R.id.rv_countries_list) }
             findViewById<View>(R.id.fl_detect_by_gps).setOnClickListener {
-                tryDetectByGPS {
-                    retrieveCountryByLocationFrom(GPS_PROVIDER)
-                }
+                tryDetectLocation(true)
             }
             findViewById<View>(R.id.fl_detect_by_network).setOnClickListener {
-                tryDetectByNetwork {
-                    retrieveCountryByLocationFrom(NETWORK_PROVIDER)
-                }
+                tryDetectLocation(false)
             }
             findViewById<View>(R.id.fl_detect_manual).setOnClickListener {
                 switchFragmentState(COUNTRIES_LIST)
@@ -129,6 +128,7 @@ class CountryDetectFragment : Fragment(R.layout.country_detect_fragment) {
                     when (fragmentState) {
                         DETECTION_TYPES ->
                             findNavController().navigateUp()
+
                         else ->
                             switchFragmentState(DETECTION_TYPES)
                     }
@@ -148,33 +148,32 @@ class CountryDetectFragment : Fragment(R.layout.country_detect_fragment) {
         }
     }
 
-    private fun tryDetectByGPS(onPermissionGranted: () -> Unit) =
-        tryRequestPermission(
-            ACCESS_FINE_LOCATION,
-            R.string.question_allow_gps_access,
-            onPermissionGranted
-        )
+    private fun tryDetectLocation(accurate: Boolean) {
+        val permission = if (accurate) ACCESS_FINE_LOCATION else ACCESS_COARSE_LOCATION
+        val locationProvider = if (accurate) GPS_PROVIDER else NETWORK_PROVIDER
 
-    private fun tryDetectByNetwork(onPermissionGranted: () -> Unit) =
-        tryRequestPermission(
-            ACCESS_COARSE_LOCATION,
-            R.string.question_allow_network_access,
-            onPermissionGranted
-        )
+        tryRequestPermission(permission, R.string.question_allow_network_access) {
+            if (Build.VERSION.SDK_INT >= 30) {
+                retrieveCountryByLocationFrom(locationProvider)
+            } else {
+                legacyRetrieveLocationFrom(locationProvider)
+            }
+        }
+    }
 
-    private fun tryRequestPermission(
+    private inline fun tryRequestPermission(
         permission: String,
         dialogRequestMessage: Int,
-        onPermissionGranted: () -> Unit,
+        crossinline actionItself: () -> Unit,
     ) {
         val ctx = requireContext()
-        lastAction = onPermissionGranted
         try {
             when {
                 checkSelfPermission(ctx, permission) == PERMISSION_GRANTED -> {
                     // You can use the API that requires the permission.
-                    lastAction()
+                    actionItself()
                 }
+
                 shouldShowRequestPermissionRationale(permission) -> {
                     // In an educational UI, explain to the user why your app requires this
                     // permission for a specific feature to behave as expected. In this UI,
@@ -185,16 +184,13 @@ class CountryDetectFragment : Fragment(R.layout.country_detect_fragment) {
                         .setMessage(R.string.country_detection_permission_explanation)
                         .setCancelable(true)
                         .setPositiveButton(R.string.yes) { _, _ ->
-                            tryRequestPermission(
-                                permission,
-                                dialogRequestMessage,
-                                onPermissionGranted
-                            )
+                            actionItself()
                         }
                         .setNegativeButton(R.string.no, null)
                         .setIcon(R.drawable.geolocation_unknown_marker)
                         .show()
                 }
+
                 else -> {
                     // You can directly ask for the permission.
                     requestPermissionLauncher.launch(permission)
@@ -205,6 +201,12 @@ class CountryDetectFragment : Fragment(R.layout.country_detect_fragment) {
         }
     }
 
+    private fun legacyRetrieveLocationFrom(locationProvider: String) {
+        // TODO how to get location on older APIs?
+    }
+
+    @RequiresApi(Build.VERSION_CODES.R)
+    @SuppressLint("MissingPermission")
     private fun retrieveCountryByLocationFrom(provider: String) {
         val lm = getLocationManager()
         if (lm == null) {
