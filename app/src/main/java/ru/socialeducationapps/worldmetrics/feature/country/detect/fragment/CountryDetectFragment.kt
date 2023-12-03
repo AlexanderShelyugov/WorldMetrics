@@ -29,7 +29,9 @@ import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts.RequestPermission
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.checkSelfPermission
+import androidx.core.location.LocationManagerCompat
 import androidx.core.transition.addListener
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -201,20 +203,32 @@ class CountryDetectFragment : Fragment(R.layout.country_detect_fragment) {
         }
     }
 
-    private fun legacyRetrieveLocationFrom(locationProvider: String) {
-        // TODO how to get location on older APIs?
-    }
-
-    @RequiresApi(Build.VERSION_CODES.R)
     @SuppressLint("MissingPermission")
-    private fun retrieveCountryByLocationFrom(provider: String) {
+    private fun legacyRetrieveLocationFrom(locationProvider: String) {
         val lm = getLocationManager()
         if (lm == null) {
             setCountryCode("")
             return
         }
-        getLocationManager()?.getCurrentLocation(
-            provider, null,
+        LocationManagerCompat.getCurrentLocation(
+            lm, locationProvider, null,
+            ContextCompat.getMainExecutor(requireContext())
+        ) {
+            val countryCode = it?.run(this::getCountryCodeFrom) ?: ""
+            setCountryCode(countryCode)
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.R)
+    @SuppressLint("MissingPermission")
+    private fun retrieveCountryByLocationFrom(locationProvider: String) {
+        val lm = getLocationManager()
+        if (lm == null) {
+            setCountryCode("")
+            return
+        }
+        lm.getCurrentLocation(
+            locationProvider, null,
             requireContext().mainExecutor
         ) {
             val countryCode = it?.run(this::getCountryCodeFrom) ?: ""
